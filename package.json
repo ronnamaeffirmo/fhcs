@@ -26,9 +26,9 @@
     "yarn": ">= 0.18.0"
   },
   "scripts": {
-    "test": "yarn run eslint && yarn run mocha",
+    "test": "standard eslint && yarn run mocha",
     "eslint": "eslint src/. test/. --config .eslintrc.json",
-    "start": "node src/",
+    "start": "nodemon src/",
     "mocha": "mocha test/ --recursive --exit"
   },
   "dependencies": {
@@ -39,7 +39,10 @@
     "@feathersjs/socketio": "^3.2.2",
     "compression": "^1.7.2",
     "cors": "^2.8.4",
+    "feathers-mongoose": "^6.1.2",
     "helmet": "^3.12.1",
+    "mongoose": "^5.2.3",
+    "nodemon": "^1.18.1",
     "request": "^2.87.0",
     "request-promise": "^4.2.2",
     "serve-favicon": "^2.5.0",
@@ -49,7 +52,8 @@
     "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.0.1",
     "husky": "^1.0.0-rc.12",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "standard": "*"
   },
   "config": {
     "commitizen": {
