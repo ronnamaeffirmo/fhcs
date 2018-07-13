@@ -1,10 +1,11 @@
+const local = require('@feathersjs/authentication-local')
 
 module.exports = {
   before: {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [local.hooks.hashPassword({ passwordField: 'password' })],
     update: [],
     patch: [],
     remove: []
