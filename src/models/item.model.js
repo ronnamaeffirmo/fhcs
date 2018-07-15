@@ -1,10 +1,10 @@
 // item-model.js - A mongoose model
-// 
+//
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 module.exports = function (app) {
-  const mongooseClient = app.get('mongooseClient');
-  const { Schema } = mongooseClient;
+  const mongooseClient = app.get('mongooseClient')
+  const { Schema } = mongooseClient
   const item = new Schema({
     name: String,
     description: String,
@@ -14,7 +14,7 @@ module.exports = function (app) {
   }, {
     timestamps: true,
     versionKey: false
-  });
+  })
 
-  return mongooseClient.model('item', item);
-};
+  return mongooseClient.model('item', item)
+}
