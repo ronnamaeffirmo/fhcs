@@ -10,7 +10,7 @@ module.exports = function (app) {
     description: String,
     price: Number,
     quantity: Number,
-    unit: { type: String, enum: ['kg', 'cubic', 'pcs'] } // FIXME: separate file?
+    unit: { type: String, enum: ['kg', 'cubic', 'pcs'] }
   }, {
     timestamps: true,
     versionKey: false
