@@ -3,8 +3,6 @@ const jwt = require('@feathersjs/authentication-jwt')
 const local = require('@feathersjs/authentication-local')
 
 module.exports = function (app) {
-  const config = app.get('authentication')
-
   const authConfig = {
     'secret': '4984d53b9b0289e4d6ef9b262c4f9c41b4ee863582f415c41d59a4fd7ff6bed943b741df210d3989438aa76d!',
     'path': '/authentication',
