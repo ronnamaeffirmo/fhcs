@@ -1,36 +1,18 @@
 import React from 'react'
 import { Field } from 'redux-form'
-import { Button, Form, Dropdown, Input } from 'semantic-ui-react'
+import { Button, Form } from 'semantic-ui-react'
+import InputField from './InputField'
+import DropdownField from './DropdownField'
 
 // FIXME: move to constants
 const units = [
-  { key: 'kg', text: 'kg', value: 'kg' },
-  { key: 'cubic', text: 'cubic', value: 'cubic' },
-  { key: 'pcs', text: 'pcs', value: 'pcs' }
+  {key: 'kg', text: 'kg', value: 'kg'},
+  {key: 'cubic', text: 'cubic', value: 'cubic'},
+  {key: 'pcs', text: 'pcs', value: 'pcs'}
 ]
 
-// FIXME: should we move these methods to somewhere?
-const renderInput = ({ input, label, inputLabel, ...custom }) => (
-  <Form.Field>
-    <label>{label}</label>
-    <Input label={inputLabel} {...input} {...custom}/>
-  </Form.Field>
-)
-
-const renderDropdown = ({ label, input, ...custom }) => (
-  <Form.Field>
-    <label>{label}</label>
-    <Dropdown
-      selection
-      {...input}
-      value={input.value}
-      onChange={(param, data) => input.onChange(data.value)}
-      {...custom}
-    />
-  </Form.Field>
-)
-
 // TODO: refactor -- convert into an array of objects
+
 const AddItemForm = (props) => (
   <Form onSubmit={props.handleSubmit}>
     <Field
@@ -38,14 +20,14 @@ const AddItemForm = (props) => (
       name='name'
       label='Name'
       placeholder='Product name'
-      component={renderInput}
+      component={InputField}
     />
     <Field
       type='text'
       name='description'
       label='Description'
       placeholder='Product description'
-      component={renderInput}
+      component={InputField}
     />
     <Field
       type='number'
@@ -53,21 +35,21 @@ const AddItemForm = (props) => (
       label='Price'
       inputLabel='P'
       placeholder='Price of the product'
-      component={renderInput}
+      component={InputField}
     />
     <Field
       type='number'
       name='quantity'
       label='Quantity'
       placeholder='Quantity of the product'
-      component={renderInput}
+      component={InputField}
     />
     <Field
       type='selection'
       name='unit'
       label='Unit'
       placeholder='Unit of the quantity'
-      component={renderDropdown}
+      component={DropdownField}
       options={units}
     />
     <Button type='submit'>Submit</Button>
