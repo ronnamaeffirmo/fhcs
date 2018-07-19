@@ -15,7 +15,7 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
 const LoginForm = props => {
   const { error, handleSubmit, pristine, reset, submitting } = props
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className="left column">
       <Field
         name="username"
         type="text"
