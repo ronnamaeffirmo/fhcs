@@ -5,6 +5,7 @@ import { Container } from 'semantic-ui-react'
 
 // import AddItemForm from './containers/AddItemFormContainer'
 import LoginFormContainer from './containers/LoginFormContainer'
+import DeleteItemFormContainer from './containers/DeleteItemFormContainer'
 
 const App = ({ store }) => (
   <Provider store={store}>
@@ -12,6 +13,7 @@ const App = ({ store }) => (
       <Container>
         {/* <AddItemForm onSubmit={(values) => console.log('values', values)} /> */}
         <Route path="/login" component={LoginFormContainer} />
+        <Route path="/deleteItems" component={DeleteItemFormContainer} />
       </Container>
     </Router>
   </Provider>
