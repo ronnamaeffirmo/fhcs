@@ -4,17 +4,12 @@ import { Button, Form } from 'semantic-ui-react'
 import InputField from './InputField'
 import DropdownField from './DropdownField'
 
-// FIXME: move to constants
-const units = [
-  {key: 'kg', text: 'kg', value: 'kg'},
-  {key: 'cubic', text: 'cubic', value: 'cubic'},
-  {key: 'pcs', text: 'pcs', value: 'pcs'}
-]
+import units from '../common/constants/units'
 
 // TODO: refactor -- convert into an array of objects
 
-const AddItemForm = (props) => (
-  <Form onSubmit={props.handleSubmit}>
+const AddItemForm = ({ handleSubmit, pristine, submitting }) => (
+  <Form onSubmit={handleSubmit}>
     <Field
       type='text'
       name='name'
@@ -52,7 +47,9 @@ const AddItemForm = (props) => (
       component={DropdownField}
       options={units}
     />
-    <Button type='submit'>Submit</Button>
+    <Button type='submit' disabled={pristine || submitting}>
+      Submit
+    </Button>
   </Form>
 )
 
