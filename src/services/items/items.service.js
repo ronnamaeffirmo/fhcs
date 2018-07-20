@@ -1,7 +1,7 @@
-// Initializes the `item` service on path `/items`
+// Initializes the `items` service on path `/items`
 const createService = require('feathers-mongoose')
-const createModel = require('../../models/item.model')
-const hooks = require('./item.hooks')
+const createModel = require('../../models/items.model')
+const hooks = require('./items.hooks')
 
 module.exports = function (app) {
   const Model = createModel(app)

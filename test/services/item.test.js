@@ -3,7 +3,7 @@ const app = require('../../src/app')
 const describe = require('mocha').describe
 const it = require('mocha').it
 
-describe('\'item\' service', () => {
+describe('\'items\' service', () => {
   it('registered the service', () => {
     const service = app.service('items')
 
