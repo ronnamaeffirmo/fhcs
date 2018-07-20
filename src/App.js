@@ -1,11 +1,12 @@
 import React from 'react'
 import { Container } from 'semantic-ui-react'
 
-import AddItemForm from './containers/AddItemFormContainer'
+// containers
+import AddItemWrapper from './containers/AddItemWrapperContainer'
 
 const App = () => (
   <Container>
-    <AddItemForm onSubmit={(values) => console.log('values', values)} />
+    <AddItemWrapper />
   </Container>
 )
 
