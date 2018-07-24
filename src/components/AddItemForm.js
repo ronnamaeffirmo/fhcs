@@ -8,8 +8,8 @@ import units from '../common/constants/units'
 
 // TODO: refactor -- convert into an array of objects
 
-const AddItemForm = ({ handleSubmit, pristine, submitting }) => (
-  <Form onSubmit={handleSubmit}>
+const AddItemForm = ({ createItem, handleSubmit, pristine, submitting }) => (
+  <Form onSubmit={handleSubmit(createItem)}>
     <Field
       type='text'
       name='name'
