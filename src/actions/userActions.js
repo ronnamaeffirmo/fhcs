@@ -2,17 +2,17 @@ import client from '../common/client'
 
 export const UPDATE_PASSWORD = 'UPDATE_PASSWORD'
 
-export const updatePassword = ({ id, password }) => {
+export const updatePassword = ({ id, oldpassword, newpassword, confirmpassword }) => {
   return async (dispatch) => {
-    // TODO: old pass, new pass, confirm new pass
+    // TODO: old pass, confirm new pass
 
     const user = await client.service('users').patch(
       // id, { password }
-      '5b56313f73997f1c3be24c6d', { password }
+      '5b56313f73997f1c3be24c6d', { password: newpassword } // dummy for now
     )
 
-    console.log('user', user)
-    window.alert('update user password!')
+    console.log('[!] user', user)
+    window.alert('Updated user password!')
 
     dispatch({
       type: UPDATE_PASSWORD,
