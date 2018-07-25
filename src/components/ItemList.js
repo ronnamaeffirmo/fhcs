@@ -32,7 +32,7 @@ class ItemList extends Component {
 
         <Table.Body>
           { items.data.map((item) => (
-            <Table.Row key={item._id}>
+            <Table.Row key={item._id} disabled={(!item.quantity || item.quantity === 0) && true}>
               <Table.Cell>{item.code}</Table.Cell>
               <Table.Cell>{item.name}</Table.Cell>
               <Table.Cell>{item.description}</Table.Cell>
