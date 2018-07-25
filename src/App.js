@@ -3,10 +3,11 @@ import { Container } from 'semantic-ui-react'
 
 // containers
 import AddItemWrapper from './containers/AddItemWrapperContainer'
+import ItemList from './containers/ItemListContainer'
 
 const App = () => (
   <Container>
-    <AddItemWrapper />
+    <ItemList />
   </Container>
 )
 

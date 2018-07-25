@@ -1,4 +1,4 @@
-import { ADD_ITEM, GET_ITEM } from '../actions/itemActions'
+import { ADD_ITEM, GET_ITEM, GET_ITEMS } from '../actions/itemActions'
 
 const itemReducer = (state = {}, action) => {
   switch (action.type) {
@@ -12,6 +12,12 @@ const itemReducer = (state = {}, action) => {
       return {
         ...state,
         item: action.payload
+      }
+    }
+    case GET_ITEMS: {
+      return {
+        ...state,
+        items: action.payload
       }
     }
     default:
