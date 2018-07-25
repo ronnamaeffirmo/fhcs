@@ -1,12 +1,11 @@
 import React from 'react'
 import { Container } from 'semantic-ui-react'
 
-// containers
-import AddItemWrapper from './containers/AddItemWrapperContainer'
+import AddUserWrapper from './containers/AddUserWrapperContainer'
 
 const App = () => (
   <Container>
-    <AddItemWrapper />
+    <AddUserWrapper />
   </Container>
 )
 
