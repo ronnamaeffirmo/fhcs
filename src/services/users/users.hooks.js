@@ -7,7 +7,7 @@ module.exports = {
     get: [],
     create: [local.hooks.hashPassword({ passwordField: 'password' })],
     update: [],
-    patch: [],
+    patch: [local.hooks.hashPassword({ passwordField: 'password' })],
     remove: []
   },
 
