@@ -1,44 +1,50 @@
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
-import { Button, Form, Input, Container } from 'semantic-ui-react'
+import { Button, Form, Container } from 'semantic-ui-react'
 
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
-  <Form.Field>
-    <label>{label}</label>
-    <Form.Field>
-      <Input {...input} placeholder={label} type={type} />
-      {touched && error && <span>{error}</span>}
-    </Form.Field>
-  </Form.Field>
-)
+class LoginForm extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {username: '', password: ''}
+  }
 
-const LoginForm = props => {
-  const { error, handleSubmit, pristine, reset, submitting } = props
-  return (
-    <Form onSubmit={handleSubmit} className='left column'>
-      <Field
-        name='username'
-        type='text'
-        component={renderField}
-        label='Username'
-      />
-      <Field
-        name='password'
-        type='password'
-        component={renderField}
-        label='Password'
-      />
-      {error && <strong>{error}</strong>}
-      <Container>
-        <Button type='submit' disabled={submitting}>Log In</Button>
-        <Button type='button' disabled={pristine || submitting} onClick={reset}>
-          Clear Values
-        </Button>
-      </Container>
-    </Form>
-  )
+  handleLogin () {
+    const { username, password } = this.state
+    this.props.handleLogin(username, password)
+  }
+
+  handleInput (e) {
+    this.setState({[ e.target.name ]: e.target.value})
+  }
+
+  handleLogout () {
+    this.props.handleLogout()
+  }
+
+  render () {
+    const { isAuthenticated } = this.props
+    return (
+      <Form className="left column">
+        <Form.Field>
+          <label>Username</label>
+          <Form.Input placeholder='username' name = 'username' type = 'username' onChange={(e) => this.handleInput(e)}/>
+        </Form.Field>
+        <Form.Field>
+          <label>Password</label>
+          <Form.Input placeholder='password' name = 'password' type = 'password' onChange={(e) => this.handleInput(e)}/>
+        </Form.Field>
+        <Container>
+          {
+            /**
+             * show that login and logout is working
+             * sa ibang page dapat ang logout. Like sa Header of something home page :)
+             */
+            isAuthenticated ? <Button color='teal' onClick={() => this.handleLogout()} content='Logout'/>
+              : <Button color='teal' onClick={() => this.handleLogin()} content='Login'/>
+          }
+        </Container>
+      </Form>
+    )
+  }
 }
 
-export default reduxForm({
-  form: 'submitValidation' // a unique identifier for this form
-})(LoginForm)
+export default LoginForm
