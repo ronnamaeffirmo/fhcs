@@ -1,19 +1,19 @@
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
-import { createItem } from '../actions/itemActions'
+import { updatePassword } from '../actions/userActions'
 
-import AddItemForm from '../components/AddItemForm'
+import ChangePasswordForm from '../components/ChangePasswordForm'
 
 const wrapped = reduxForm({
-  form: 'item'
-})(AddItemForm)
+  form: 'password'
+})(ChangePasswordForm)
 
 const mapStateToProps = (state) => ({
-  item: state.item.item
+  user: state.user.user
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  createItem: (values) => dispatch(createItem(values))
+  updatePassword: (id, password) => dispatch(updatePassword(id, password))
 })
 
 export default connect(
