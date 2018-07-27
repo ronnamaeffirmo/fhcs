@@ -15,23 +15,23 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
 const LoginForm = props => {
   const { error, handleSubmit, pristine, reset, submitting } = props
   return (
-    <Form onSubmit={handleSubmit} className="left column">
+    <Form onSubmit={handleSubmit} className='left column'>
       <Field
-        name="username"
-        type="text"
+        name='username'
+        type='text'
         component={renderField}
-        label="Username"
+        label='Username'
       />
       <Field
-        name="password"
-        type="password"
+        name='password'
+        type='password'
         component={renderField}
-        label="Password"
+        label='Password'
       />
       {error && <strong>{error}</strong>}
       <Container>
-        <Button type="submit" disabled={submitting}>Log In</Button>
-        <Button type="button" disabled={pristine || submitting} onClick={reset}>
+        <Button type='submit' disabled={submitting}>Log In</Button>
+        <Button type='button' disabled={pristine || submitting} onClick={reset}>
           Clear Values
         </Button>
       </Container>

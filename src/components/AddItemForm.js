@@ -13,7 +13,7 @@ const units = [
 const renderInput = ({ input, label, inputLabel, ...custom }) => (
   <Form.Field>
     <label>{label}</label>
-    <Input label={inputLabel} {...input} {...custom}/>
+    <Input label={inputLabel} {...input} {...custom} />
   </Form.Field>
 )
 

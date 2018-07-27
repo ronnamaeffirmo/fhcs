@@ -12,8 +12,9 @@ const App = ({ store }) => (
     <Router>
       <Container>
         {/* <AddItemForm onSubmit={(values) => console.log('values', values)} /> */}
-        <Route path="/login" component={LoginFormContainer} />
-        <Route path="/deleteItems" component={DeleteItemFormContainer} />
+        <Route path='/login' component={LoginFormContainer} />
+        <Route path='/deleteItems' component={DeleteItemFormContainer} />
+        <Route path='/item/:_id' component={DeleteItemFormContainer} />
       </Container>
     </Router>
   </Provider>

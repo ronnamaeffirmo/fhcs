@@ -7,7 +7,7 @@ import registerServiceWorker from './registerServiceWorker'
 // redux
 import store from './store'
 
-ReactDOM.render(<App store={store}/>,
+ReactDOM.render(<App store={store} />,
   document.getElementById('root')
 )
 registerServiceWorker()
