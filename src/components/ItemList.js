@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Table, Icon, Segment, Button } from 'semantic-ui-react'
+import { Table, Icon, Segment, Button, Menu } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 
 // code: String,
 // name: String,
@@ -47,13 +48,15 @@ class ItemList extends Component {
                 <Table.Cell>{item.unit}</Table.Cell>
                 <Table.Cell collapsing>
                   <Button.Group>
-                    <Button onClick={() => console.log('edit')}>
-                      <Segment inverted>
-                        <Icon inverted color='green' name='edit' />
-                      </Segment>
-                    </Button>
+                    <Menu.Item as={Link} to={`/item/${item._id}`}>
+                      <Button icon>
+                        <Segment inverted>
+                          <Icon inverted color='green' name='edit' />
+                        </Segment>
+                      </Button>
+                    </Menu.Item>
                     <Button.Or />
-                    <Button onClick={() => removeItem(item._id)}>
+                    <Button icon onClick={() => removeItem(item._id)}>
                       <Segment inverted>
                         <Icon inverted color='red' name='trash alternate' />
                       </Segment>
