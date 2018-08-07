@@ -13,6 +13,14 @@
     core-js "^2.5.7"
     regenerator-runtime "^0.12.0"
 
+"@feathersjs/authentication-client@^1.0.2":
+  version "1.0.2"
+  resolved "http://registry.npm.taobao.org/@feathersjs/authentication-client/download/@feathersjs/authentication-client-1.0.2.tgz#b7f458201c0308debd0676ac6e1e7ead707acfeb"
+  dependencies:
+    "@feathersjs/errors" "^3.0.0"
+    debug "^3.1.0"
+    jwt-decode "^2.1.0"
+
 "@feathersjs/commons@^1.4.0", "@feathersjs/commons@^1.4.1":
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@feathersjs/commons/-/commons-1.4.1.tgz#81f19ffb83eac6afd33c629d4d0cad57441fbede"
@@ -4942,6 +4950,10 @@ jsx-ast-utils@^2.0.0, jsx-ast-utils@^2.0.1:
   resolved "https://registry.yarnpkg.com/jsx-ast-utils/-/jsx-ast-utils-2.0.1.tgz#e801b1b39985e20fffc87b40e3748080e2dcac7f"
   dependencies:
     array-includes "^3.0.3"
+
+jwt-decode@^2.1.0:
+  version "2.2.0"
+  resolved "http://registry.npm.taobao.org/jwt-decode/download/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
 
 keyboard-key@^1.0.1:
   version "1.0.1"

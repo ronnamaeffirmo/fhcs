@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table, Icon } from 'semantic-ui-react'
+import { Table, Icon, Segment, Button } from 'semantic-ui-react'
 
 // code: String,
 // name: String,
@@ -14,9 +14,8 @@ class ItemList extends Component {
   }
 
   render () {
-    let { items } = this.props
-    items = items || { data: [] }
-
+    let { items, removeItem } = this.props
+    items = items || []
     return (
       <Table celled selectable>
         <Table.Header>
@@ -33,7 +32,7 @@ class ItemList extends Component {
         </Table.Header>
 
         <Table.Body>
-          { items.data.map((item) => {
+          { items.map((item) => {
             const error = (!item.quantity || item.quantity === 0) && true
             const warning = item.quantity < 20 && true
             const status = error ? 'Unavailable' : (warning && 'Low quantity')
@@ -46,6 +45,21 @@ class ItemList extends Component {
                 <Table.Cell>{item.price}</Table.Cell>
                 <Table.Cell>{item.quantity}</Table.Cell>
                 <Table.Cell>{item.unit}</Table.Cell>
+                <Table.Cell collapsing>
+                  <Button.Group>
+                    <Button onClick={() => console.log('edit')}>
+                      <Segment inverted>
+                        <Icon inverted color='green' name='edit' />
+                      </Segment>
+                    </Button>
+                    <Button.Or />
+                    <Button onClick={() => removeItem(item._id)}>
+                      <Segment inverted>
+                        <Icon inverted color='red' name='trash alternate' />
+                      </Segment>
+                    </Button>
+                  </Button.Group>
+                </Table.Cell>
               </Table.Row>
             )
           })}

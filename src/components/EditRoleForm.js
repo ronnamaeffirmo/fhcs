@@ -22,10 +22,10 @@ const form = ({handleSubmit}) => (
       options={roles}
     />
     <Field
-      type="checkbox"
-      name="add-items-to-inventory"
+      type='checkbox'
+      name='add-items-to-inventory'
       label='Add items to inventory'
-      id="add-items-to-inventory"
+      id='add-items-to-inventory'
       component={Checkbox}
     />
     <Button type='submit'>Submit</Button>

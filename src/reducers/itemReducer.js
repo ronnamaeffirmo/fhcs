@@ -1,4 +1,4 @@
-import { ADD_ITEM, GET_ITEM, GET_ITEMS } from '../actions/itemActions'
+import { ADD_ITEM, GET_ITEM, GET_ITEMS, REMOVE_ITEM, REMOVE_ITEM_ERROR } from '../actions/itemActions'
 
 const itemReducer = (state = {}, action) => {
   switch (action.type) {
@@ -18,6 +18,18 @@ const itemReducer = (state = {}, action) => {
       return {
         ...state,
         items: action.payload
+      }
+    }
+    case REMOVE_ITEM: {
+      return {
+        ...state,
+        items: state.items.filter(item => item._id !== action.payload)
+      }
+    }
+    case REMOVE_ITEM_ERROR: {
+      return {
+        ...state,
+        error: action.payload
       }
     }
     default:
