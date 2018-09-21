@@ -32,7 +32,7 @@ const itemReducer = (state = {}, action) => {
       }
     }
     case GET_ITEM: {
-      console.log('reducer', state)
+      // console.log('reducer', state)
       const index = state.items.findIndex(item => item._id === action.payload._id)
       if (index > -1) {
         return { ...state,
@@ -58,7 +58,7 @@ const itemReducer = (state = {}, action) => {
       }
     }
     default:
-      return state
+    return state
   }
 }
 
