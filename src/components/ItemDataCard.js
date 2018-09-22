@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Card, Icon, Menu } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import DeleteConfirmationModal from './DeleteConfirmationModal'
 
 const itemDataCard = ({item, actions}) => {
   const {quantity, code, name, price, description } = item
@@ -27,8 +28,7 @@ const itemDataCard = ({item, actions}) => {
               <Button color='green' style={styles.actionButton}><Icon
                 name='edit'/>Edit</Button>
             </Menu.Item>
-            <Button color='red' style={styles.actionButton} onClick={() => removeItem(item._id)}><Icon
-              name='delete'/>Delete</Button>
+            <DeleteConfirmationModal removeItem={removeItem} item={item}/>
           </div>
         </div>
       </Card.Content>
