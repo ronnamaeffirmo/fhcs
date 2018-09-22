@@ -2,11 +2,11 @@ import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
 import { createItem } from '../actions/itemActions'
 
-import AddItemForm from '../components/AddItemForm'
+import AddItemModalForm from '../components/AddItemModalForm'
 
 const wrapped = reduxForm({
   form: 'item'
-})(AddItemForm)
+})(AddItemModalForm)
 
 const mapStateToProps = (state) => ({
   item: state.item.item

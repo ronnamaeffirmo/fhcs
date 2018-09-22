@@ -6,7 +6,7 @@ const itemDataCard = ({item, actions}) => {
   const {quantity, code, name, price, description } = item
   const {removeItem} = actions
   return (
-    <Card style={{width: '350px'}}>
+    <Card style={styles.itemCard} centered>
       <Card.Content>
         <div style={{float: 'right'}}>
           <span style={styles.quantityHeading}>{quantity} pcs</span>
@@ -55,6 +55,9 @@ const styles = {
     display: 'inline-block',
     verticalAlign: 'top',
     lineHeight: 'normal'
+  },
+  itemCard: {
+    width: '350px'
   }
 }
 export default itemDataCard

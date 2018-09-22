@@ -1,11 +1,12 @@
 import { ADD_ITEM, PATCH_ITEM, GET_ITEM, GET_ITEMS, REMOVE_ITEM, REMOVE_ITEM_ERROR } from '../actions/itemActions'
 
-const itemReducer = (state = {}, action) => {
+const itemReducer = (state = {items: []}, action) => {
   switch (action.type) {
     case ADD_ITEM: {
       return {
         ...state,
-        item: action.payload
+        item: action.payload,
+        items: [...state.items, action.payload] // when adding a new item, it should also save in the state -M
       }
     }
     case GET_ITEMS: {

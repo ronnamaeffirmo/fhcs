@@ -1,17 +1,11 @@
 import React, { Component } from 'react'
 import {
-  Button,
   Card,
   Container,
-  Icon,
-  Input,
-  Menu,
-  Segment,
-  Table
+  Input
 } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
 import ItemDataCard from './ItemDataCard'
-// code: String,
+import NewItemModal from './../containers/AddItemFormContainer'
 // name: String,
 // description: String,
 // price: Number,
@@ -30,9 +24,9 @@ class ItemList extends Component {
       <Container style={styles.mainContainer}>
         <Input placeholder='Search items here...'
                style={styles.itemSearchField}/>
-        <Button primary style={styles.searchButton}>Add Item</Button>
+        <NewItemModal />
         <Container style={styles.itemContainer}>
-          <Card.Group centered>
+          <Card.Group>
             {items.map((item) => {
               return (
                 <ItemDataCard item={item} key={item._id} actions={{removeItem}}/>
@@ -42,7 +36,6 @@ class ItemList extends Component {
           </Card.Group>
         </Container>
       </Container>
-
     )
   }
 }
@@ -55,10 +48,6 @@ const styles = {
   },
   itemSearchField: {
     width: '77%'
-  },
-  searchButton: {
-    width: '21%',
-    float: 'right'
   },
   itemContainer: {
     marginTop: '30px',
