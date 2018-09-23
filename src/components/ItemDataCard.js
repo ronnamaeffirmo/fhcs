@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom'
 import DeleteConfirmationModal from './DeleteConfirmationModal'
 
 const itemDataCard = ({item, actions}) => {
-  const {quantity, code, name, price, description } = item
-  const {removeItem} = actions
+  const { quantity, code, name, price, description } = item
+  const { removeItem } = actions
+
   return (
-    <Card style={styles.itemCard} centered>
+    <Card as={Link} to={`/item/${item._id}/reports`} style={styles.itemCard} centered>
       <Card.Content>
         <div style={{float: 'right'}}>
           <span style={styles.quantityHeading}>{quantity} pcs</span>
