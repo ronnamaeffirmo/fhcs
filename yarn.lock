@@ -5405,7 +5405,7 @@ mkdirp@0.5.1, mkdirp@0.5.x, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkdirp@
   dependencies:
     minimist "0.0.8"
 
-moment@2.x.x:
+moment@2.x.x, moment@^2.22.2:
   version "2.22.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
 
@@ -7231,6 +7231,14 @@ selfsigned@^1.9.1:
   resolved "https://registry.yarnpkg.com/selfsigned/-/selfsigned-1.10.3.tgz#d628ecf9e3735f84e8bafba936b3cf85bea43823"
   dependencies:
     node-forge "0.7.5"
+
+semantic-ui-calendar-react@^0.9.0:
+  version "0.9.0"
+  resolved "http://registry.npm.taobao.org/semantic-ui-calendar-react/download/semantic-ui-calendar-react-0.9.0.tgz#c7e9cd8cf3f77e0a6c9d0938faf3a2f3eb30bd00"
+  dependencies:
+    lodash "^4.17.10"
+    moment "^2.22.2"
+    prop-types "^15.6.2"
 
 semantic-ui-react@^0.82.0:
   version "0.82.0"
