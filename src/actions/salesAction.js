@@ -20,6 +20,8 @@ export const BUTTON_ADD_ITEM = 'BUTTON_ADD_ITEM'
 export const CREATE_SALES_RECORD = 'CREATE_SALES_RECORD'
 export const CANCEL_BUTTON = 'CANCEL_BUTTON'
 export const REMOVE_FROM_LIST = 'REMOVE_FROM_LIST'
+export const GET_SALES = 'GET_SALES'
+export const REMOVE_SALE = 'REMOVE_SALE'
 
 export const onCustomerDropdownChange = (customer) => {
   // console.log(customer)
@@ -31,8 +33,18 @@ export const onCustomerDropdownChange = (customer) => {
   }
 }
 
+export const removeSale = (id) => {
+  return async (dispatch) => {
+    await client.service('sales').remove(id)
+    dispatch({
+      type: REMOVE_SALE,
+      payload: id
+    })
+  }
+}
+
 export const cancelButton = () => {
-  return (dispatch => {
+  return (dispatch) => {
     dispatch({
       type: CANCEL_BUTTON,
       payload: {
@@ -48,7 +60,17 @@ export const cancelButton = () => {
         price: undefined
       }
     })
-  })
+  }
+}
+
+export const getSales = () => {
+  return async (dispatch) => {
+    const sales = await client.service('sales').find({})
+    dispatch({
+      type: GET_SALES,
+      payload: sales.data
+    })
+  }
 }
 
 export const buttoAddItem = (item, price, quantity, discount) => {
@@ -110,8 +132,8 @@ export const createSalesRecord = (data) => {
   console.log(data)
   return async(dispatch) => {
     const sales = await client.service('sales').create(data)
-    // console.log('[!] item', sales)
-    // window.alert('Added new item!')
+    console.log('[!] item', sales)
+    window.alert('Added new sale!')
     dispatch({
       type: CREATE_SALES_RECORD,
       payload: sales
@@ -120,10 +142,6 @@ export const createSalesRecord = (data) => {
 }
 
 export const removeFromList = (list, item) => {
-  // console.log(list)
-  console.log(item)
-  // const newList = list.filter((val) => { return val !== item })
-  // console.log('NEWLIST:', newList)
   return (dispatch) => {
     dispatch({
       type: REMOVE_FROM_LIST,

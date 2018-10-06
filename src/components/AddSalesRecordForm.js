@@ -44,7 +44,7 @@ class AddSalesRecordForm extends React.Component {
 
   closeModal() {
     this.setState({ open: false })
-    this.props.cancelButton()
+    this.props.clearData()
   }
 
   async componentDidMount () {
@@ -54,7 +54,7 @@ class AddSalesRecordForm extends React.Component {
 
   handleSubmit() {
     let errors = {}
-    const {customer, invoiceNumber, dateFrom, discount, terms, grandTotal, remarks, quantity, itemLists} = this.props
+    const {customer, invoiceNumber, dateFrom, terms, remarks, quantity, itemLists} = this.props
     if (customer === '' || customer === undefined) errors.customer = `Customer is required`
     if (invoiceNumber === '' || invoiceNumber === undefined) errors.invoiceNumber = `Invoice Number is required`
     if (dateFrom === '' || dateFrom === undefined) errors.dateFrom = `Date From is required`
@@ -66,14 +66,19 @@ class AddSalesRecordForm extends React.Component {
     // console.log(this.state.errors)
     const isValid = Object.keys(errors).length === 0
     if (isValid) {
-      const data = {customer, invoiceNumber, dateFrom, grandTotal, terms, remarks, quantity, itemLists, discount}
+    const {customer, invoiceNumber, dateFrom, discount, terms, dateTo, grandTotal, remarks, quantity, itemLists} = this.props
+    const data = {customer, invoiceNumber, dateFrom, dateTo, grandTotal, terms, remarks, quantity, itemLists, discount}
       // console.log(data)
       this.props.createSalesRecord(data)
+      this.props.clearData()
+      this.setState({
+        open: false
+      })
     }
   }
 
   render () {
-    var searchOptions = {
+    const searchOptions = {
       shouldSort: true,
       threshold: 0.6,
       location: 0,
@@ -88,41 +93,25 @@ class AddSalesRecordForm extends React.Component {
     }
 
     let {
-      customers,
-      items,
-      onCustomerDropdownChange,
-      customer,
-      invoiceNumber,
-      onInvoiceNumberChange,
-      dateFrom,
+      customers, items, onCustomerDropdownChange,
+      customer, invoiceNumber,
+      onInvoiceNumberChange, dateFrom,
       onCalendarDateChange,
-      terms,
-      onNetTermsChange,
-      dateTo,
-      onRemarksChange,
-      pristine, 
-      submitting,
-      remarks,
-      onItemSearch,
-      searchValue,
-      itemSearchResult,
-      onSelectSearchResult,
-      selectedResult,
-      price,
-      onPriceChange,
-      onDiscountChange,
-      discount,
-      onQuantityChange,
-      quantity,
-      buttoAddItem,
-      itemLists,
-      grandTotal,
-      removeFromList,
+      terms, onNetTermsChange,
+      dateTo, onRemarksChange,
+      pristine, submitting,
+      remarks, onItemSearch,
+      searchValue, itemSearchResult,
+      onSelectSearchResult, selectedResult,
+      price, onPriceChange,
+      onDiscountChange, discount,
+      onQuantityChange, quantity,
+      buttoAddItem, itemLists,
+      grandTotal, removeFromList,
     } = this.props
-    // console.log(this.state.errors)
-    // console.log(itemLists)
+
     return (
-      <Modal 
+      <Modal
         open = {this.state.open}
         onClose={() => this.closeModal()}
         closeOnDimmerClick = {false}
@@ -284,7 +273,6 @@ class AddSalesRecordForm extends React.Component {
                 this.state.errors.terms,
                 this.state.errors.quantity,
                 this.state.errors.itemLists,
-
               ]}
           /></span>
         </Form.Field>

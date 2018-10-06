@@ -8,6 +8,8 @@ import ChangePasswordForm from './containers/ChangePasswordFormContainer'
 import ItemList from './containers/ItemListContainer'
 import EditFormContainer from './containers/EditFormContainer'
 import AddSalesRecordContainer from './containers/AddSalesRecordContainer'
+import AddCustomerContainer from './containers/AddCustomerContainer'
+import SalesList from './containers/SalesListContainer'
 
 const App = ({ store }) => (
   <Provider store={store}>
@@ -19,6 +21,8 @@ const App = ({ store }) => (
         <Route path='/items' component={ItemList} />
         <Route path='/item/:_id' component={EditFormContainer} />
         <Route path='/addSales' component={AddSalesRecordContainer} />
+        <Route path='/addCustomer' component={AddCustomerContainer} />
+        <Route path='/sales' component={SalesList} />
       </Container>
     </Router>
   </Provider>

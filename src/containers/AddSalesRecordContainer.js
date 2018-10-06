@@ -64,7 +64,7 @@ const mapDispatchToProps = (dispatch) => ({
   onDiscountChange: (discount) => dispatch(onDiscountChange(discount)),
   onQuantityChange: (quantity) => dispatch(onQuantityChange(quantity)),
   buttoAddItem: (item, price, quantity, discount) => dispatch(buttoAddItem(item, price, quantity, discount)),
-  cancelButton: () => dispatch(cancelButton()),
+  clearData: () => dispatch(cancelButton()),
   removeFromList: (list, item) => dispatch(removeFromList(list, item)),
   createSalesRecord: (data) => dispatch(createSalesRecord(data))
 })

@@ -1,5 +1,4 @@
 import {
-  // ADD_SALES_RECORD,
   GET_CUSTOMERS,
   ON_CUSTOMER_DROPDOWN_CHANGE,
   ON_INVOICE_NUMBER_CHANGE,
@@ -17,7 +16,9 @@ import {
   BUTTON_ADD_ITEM,
   CANCEL_BUTTON,
   REMOVE_FROM_LIST,
-  CREATE_SALES_RECORD
+  CREATE_SALES_RECORD,
+  GET_SALES,
+  REMOVE_SALE
 } from '../actions/salesAction'
 
 const initialState = { 
@@ -34,16 +35,22 @@ const initialState = {
 
 const salesReducer = (state = initialState, action) => {
   switch (action.type) {
-    // case ADD_SALES_RECORD: {
-    //   return {
-    //     ...state,
-    //     salesRecord: action.payload
-    //   }
-    // }
     case GET_CUSTOMERS: {
       return {
         ...state,
         customers: action.payload
+      }
+    }
+    case REMOVE_SALE: {
+      return {
+        ...state,
+        sales: state.sales.filter(item => item._id !== action.payload)
+      }
+    }
+    case GET_SALES: {
+      return {
+        ...state,
+        sales: action.payload
       }
     }
     case CREATE_SALES_RECORD: {
@@ -74,7 +81,6 @@ const salesReducer = (state = initialState, action) => {
       }
     }
     case REMOVE_FROM_LIST: {
-      console.log(action.payload)
       return {
         ...state,
         itemLists: state.itemLists.filter(item => item._id !== action.payload)

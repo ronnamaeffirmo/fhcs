@@ -10,7 +10,6 @@ const DeleteConfirmationModal = ({item, removeItem}) => (
       </p>
     </Modal.Content>
     <Modal.Actions>
-
       <Button color='red' inverted  onClick={() => removeItem(item._id)}>
         <Icon name='checkmark' /> Yes
       </Button>
