@@ -8,6 +8,7 @@ module.exports = function (app) {
   const sales = new Schema({
     customer: String,
     dateFrom: String,
+    dateTo: String,
     discount: Number,
     grandTotal: Number,
     invoiceNumber: String,
