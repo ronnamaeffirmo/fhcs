@@ -8,7 +8,7 @@ const AddInventoryModalForm = ({item, options}) => (
       <Container>
         <Form>
           <Form.Group widths='equal'>
-            <Form.Field control={Input} label='Item Name'/>
+            <Form.Field control={Input} label='Item Name' value={item.name}/>
             <Form.Field control={Input} label='Quantity' placeholder='Quantity'/>
             <Form.Field control={Select} label='Source' options={options.sources} placeholder='Source'/>
           </Form.Group>
