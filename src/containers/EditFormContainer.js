@@ -6,9 +6,9 @@ const mapStateToProps = (state, props) => {
   const paramsId = props.match.params._id
   if (paramsId) {
     const item = state.item.items.find(item => item._id === paramsId)
-    return { item }
+    return {item}
   } else {
-    return { item: null }
+    return {item: null}
   }
 }
 

@@ -1,9 +1,5 @@
 import React, { Component } from 'react'
-import {
-  Card,
-  Container,
-  Input
-} from 'semantic-ui-react'
+import { Card, Container, Input } from 'semantic-ui-react'
 import ItemDataCard from './ItemDataCard'
 import NewItemModal from './../containers/AddItemFormContainer'
 // name: String,
@@ -24,7 +20,7 @@ class ItemList extends Component {
       <Container style={styles.mainContainer}>
         <Input placeholder='Search items here...'
                style={styles.itemSearchField}/>
-        <NewItemModal />
+        <NewItemModal/>
         <Container style={styles.itemContainer}>
           <Card.Group>
             {items.map((item) => {
