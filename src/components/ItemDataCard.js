@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card, Icon, Menu } from 'semantic-ui-react'
+import { Button, Card, Icon, Menu, Popup } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import DeleteConfirmationModal from './DeleteConfirmationModal'
 import AddNewInventory from '../containers/AddInventoryContainer'
@@ -8,18 +8,24 @@ const itemDataCard = ({item, actions}) => {
   const { quantity, code, name, price, description } = item
   const { removeItem } = actions
   return (
-    <Card as={Link} to={`/item/${item._id}/reports`} style={styles.itemCard} centered>
-      <Card.Content>
-        <div style={{float: 'right'}}>
-          <span style={styles.quantityHeading}>{quantity} pcs</span>
-        </div>
-        <Card.Header>{name}<span style={styles.code}>{code}</span></Card.Header>
+    <Card style={styles.itemCard} centered>
+      <Popup
+        trigger={
+          <Card.Content as={Link} to={`/item/${item._id}/reports`}>
+            <div style={{float: 'right'}}>
+              <span style={styles.quantityHeading}>{quantity} pcs</span>
+            </div>
+            <Card.Header>{name}<span style={styles.code}>{code}</span></Card.Header>
 
-        <Card.Meta>₱{price} per unit</Card.Meta>
-        <Card.Description>
-          {description}
-        </Card.Description>
-      </Card.Content>
+            <Card.Meta>₱{price} per unit</Card.Meta>
+            <Card.Description>
+              {description}
+            </Card.Description>
+          </Card.Content>
+        }
+        content='Click to see reports'
+        position='top right'
+      />
       <Card.Content extra>
         <div>
           <AddNewInventory item={item}/>
