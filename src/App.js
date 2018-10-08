@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { Container } from 'semantic-ui-react'
 
@@ -10,7 +10,7 @@ import EditFormContainer from './containers/EditFormContainer'
 import AddSalesRecordContainer from './containers/AddSalesRecordContainer'
 import ItemReportsContainer from './containers/ItemReportsContainer'
 
-const App = ({ store }) => (
+const App = ({store}) => (
   <Provider store={store}>
     <Router>
       <Container>

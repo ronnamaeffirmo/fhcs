@@ -1,4 +1,4 @@
-import { UPDATE_PASSWORD, USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGOUT } from '../actions/userActions'
+import { UPDATE_PASSWORD, USER_LOGIN_FAIL, USER_LOGIN_SUCCESS, USER_LOGOUT } from '../actions/userActions'
 
 const userReducer = (state = {
   currentuser: undefined,

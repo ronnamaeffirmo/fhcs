@@ -3,7 +3,7 @@ import { Field } from 'redux-form'
 import { Button, Form } from 'semantic-ui-react'
 import InputField from './InputField'
 
-const ChangePasswordForm = ({ updatePassword, handleSubmit, pristine, submitting }) => (
+const ChangePasswordForm = ({updatePassword, handleSubmit, pristine, submitting}) => (
   <Form onSubmit={handleSubmit(updatePassword)}>
     <Field
       type='password'
