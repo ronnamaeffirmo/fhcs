@@ -17,11 +17,11 @@ const App = ({store}) => (
         {/* <AddItemForm onSubmit={(values) => console.log('values', values)} /> */}
         <Switch>
           <Route path='/login' component={LoginFormContainer} />
-          <Route path='/changePassword' component={ChangePasswordForm} />
+          <Route path='/change-password' component={ChangePasswordForm} />
           <Route path='/items' component={ItemList} />
           <Route path='/item/:_id' exact component={EditFormContainer} />
           <Route path='/item/:_id/reports' component={ItemReportsContainer} />
-          <Route path='/addSales' component={AddSalesRecordContainer} />
+          <Route path='/add-sales' component={AddSalesRecordContainer} />
         </Switch>
       </Container>
     </Router>
