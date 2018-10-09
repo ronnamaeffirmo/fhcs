@@ -16,9 +16,9 @@ const styles = {
 const Header = () => (
   <Menu secondary fixed='top' style={styles.header}>
     <Menu.Item name='home' as={Link} to={'/'}/>
-    <Menu.Item name='items' />
-    <Menu.Item name='inventory' as={Link} to={'inventories'}/>
-    <Menu.Item name='sales' as={Link} to={'sales'}/>
+    <Menu.Item name='items' as={Link} to={'/items'}/>
+    <Menu.Item name='inventory' as={Link} to={'/inventories'}/>
+    <Menu.Item name='sales' as={Link} to={'/sales'}/>
   </Menu>
 
 )
