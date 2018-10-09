@@ -33,7 +33,7 @@ export const getItem = (id) => {
         payload: item
       })
     } catch (error) {
-      dispatch({ type: GET_ITEM_ERROR, payload: error })
+      dispatch({type: GET_ITEM_ERROR, payload: error})
     }
   }
 }
@@ -56,18 +56,18 @@ export const removeItem = (id) => async (dispatch) => {
       payload: id
     })
   } catch (error) {
-    dispatch({ type: REMOVE_ITEM_ERROR, payload: error })
+    dispatch({type: REMOVE_ITEM_ERROR, payload: error})
   }
 }
 
 export const patchItem = (id, data) => async (dispatch) => {
   try {
-    const patchItem = await client.service('items').patch(id, { $set: data })
+    const patchItem = await client.service('items').patch(id, {$set: data})
     dispatch({
       type: PATCH_ITEM,
       payload: patchItem
     })
   } catch (error) {
-    dispatch({ type: PATCH_ITEM_ERROR, payload: error })
+    dispatch({type: PATCH_ITEM_ERROR, payload: error})
   }
 }

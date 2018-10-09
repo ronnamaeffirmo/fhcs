@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Dropdown } from 'semantic-ui-react'
+import { Dropdown, Form } from 'semantic-ui-react'
 
 const DropdownField = ({label, input, ...custom}) => (
   <Form.Field>

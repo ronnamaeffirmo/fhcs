@@ -9,7 +9,7 @@ const salesReducer = (state = {}, action) => {
       }
     }
     default:
-    return state
+      return state
   }
 }
 

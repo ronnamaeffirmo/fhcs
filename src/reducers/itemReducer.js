@@ -1,4 +1,4 @@
-import { ADD_ITEM, PATCH_ITEM, GET_ITEM, GET_ITEMS, REMOVE_ITEM, REMOVE_ITEM_ERROR } from '../actions/itemActions'
+import { ADD_ITEM, GET_ITEM, GET_ITEMS, PATCH_ITEM, REMOVE_ITEM, REMOVE_ITEM_ERROR } from '../actions/itemActions'
 
 const itemReducer = (state = {items: []}, action) => {
   switch (action.type) {
@@ -22,7 +22,8 @@ const itemReducer = (state = {items: []}, action) => {
       }
     }
     case PATCH_ITEM : {
-      return { ...state,
+      return {
+        ...state,
         items: state.items.map(item => {
           if (item._id === action.payload._id) {
             return action.payload
@@ -36,7 +37,8 @@ const itemReducer = (state = {items: []}, action) => {
       // console.log('reducer', state)
       const index = state.items.findIndex(item => item._id === action.payload._id)
       if (index > -1) {
-        return { ...state,
+        return {
+          ...state,
           items: state.items.map(item => {
             if (item._id === action.payload._id) {
               return action.payload
@@ -48,7 +50,7 @@ const itemReducer = (state = {items: []}, action) => {
       } else {
         return {
           ...state,
-          items: [ action.payload ]
+          items: [action.payload]
         }
       }
     }
@@ -59,7 +61,7 @@ const itemReducer = (state = {items: []}, action) => {
       }
     }
     default:
-    return state
+      return state
   }
 }
 

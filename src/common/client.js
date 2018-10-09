@@ -10,7 +10,7 @@ const client = feathers()
 
 client
   .configure(socketio(socket))
-  .configure(auth({ storage: window.localStorage }))
+  .configure(auth({storage: window.localStorage}))
 
 window.client = client
 

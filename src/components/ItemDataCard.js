@@ -2,9 +2,10 @@ import React from 'react'
 import { Button, Card, Icon, Menu } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import DeleteConfirmationModal from './DeleteConfirmationModal'
+import AddNewInventory from '../containers/AddInventoryContainer'
 
 const itemDataCard = ({item, actions}) => {
-  const {quantity, code, name, price, description } = item
+  const {quantity, code, name, price, description} = item
   const {removeItem} = actions
   return (
     <Card style={styles.itemCard} centered>
@@ -21,8 +22,7 @@ const itemDataCard = ({item, actions}) => {
       </Card.Content>
       <Card.Content extra>
         <div>
-          <Button primary style={styles.actionButton}>Add Inventory</Button>
-
+          <AddNewInventory item={item}/>
           <div style={{float: 'right'}}>
             <Menu.Item as={Link} to={`/item/${item._id}`}>
               <Button color='green' style={styles.actionButton}><Icon

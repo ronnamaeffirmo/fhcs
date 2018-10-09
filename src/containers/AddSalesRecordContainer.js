@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { reduxForm, formValueSelector } from 'redux-form'
+import { formValueSelector, reduxForm } from 'redux-form'
 import { createSales } from '../actions/salesAction'
 
 import AddSalesRecordForm from '../components/AddSalesRecordForm'
@@ -7,11 +7,11 @@ import AddSalesRecordForm from '../components/AddSalesRecordForm'
 const selector = formValueSelector('sales')
 
 const wrapped = reduxForm({
-    form: 'sales',
+  form: 'sales',
 })(AddSalesRecordForm)
 
 const mapStateToProps = (state) => {
-  const { quantity, price } = selector(state, 'quantity', 'price')
+  const {quantity, price} = selector(state, 'quantity', 'price')
   return {
     total: (quantity * price).toFixed(2),
     sale: state.sales.salesRecord,
