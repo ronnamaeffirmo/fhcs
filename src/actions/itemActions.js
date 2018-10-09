@@ -8,6 +8,7 @@ export const REMOVE_ITEM_ERROR = 'REMOVE_ITEM_ERROR'
 export const GET_ITEM_ERROR = 'GET_ITEM_ERROR'
 export const PATCH_ITEM = 'PATCH_ITEM'
 export const PATCH_ITEM_ERROR = 'PATCH_ITEM_ERROR'
+export const SELECT_REPORT = 'SELECT_REPORT'
 
 export const createItem = (values) => {
   return async (dispatch) => {
@@ -69,5 +70,14 @@ export const patchItem = (id, data) => async (dispatch) => {
     })
   } catch (error) {
     dispatch({type: PATCH_ITEM_ERROR, payload: error})
+  }
+}
+
+export const selectReport = (report) => {
+  return async dispatch => {
+    dispatch({
+      type: SELECT_REPORT,
+      payload: report
+    })
   }
 }

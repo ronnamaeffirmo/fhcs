@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
-import { Container, Segment, Statistic, Menu, Table } from 'semantic-ui-react'
+import { Container, Segment, Statistic, Menu } from 'semantic-ui-react'
 import { Bar } from 'react-chartjs-2'
 import { Field } from 'redux-form'
+
 import DropdownField from './DropdownField'
+import InventoriesReport from './InventoriesReport'
+import SalesReport from './SalesReport'
 
 import periods from '../common/constants/periods'
 
-// dummy data
+// chart dummy data
 const data = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
@@ -21,24 +24,14 @@ const data = {
   ]
 }
 
-// TODO: separate
 class ItemReports extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      activeItem: 'sales'
-    }
-
-    this.handleItemClick = this.handleItemClick.bind(this)
-  }
-
-  handleItemClick (e, { name }) {
-    this.setState({ activeItem: name })
+  componentDidMount () {
+    this.props.getInventories()
   }
 
   render () {
-    const { activeItem } = this.state
+    const { report, inventories, selectReport } = this.props
+
     return (
       <Container style={styles.mainContainer}>
         <Field
@@ -52,8 +45,8 @@ class ItemReports extends Component {
         <Segment>
           <Bar
             data={data}
-            width='100%'
-            height='20vh'
+            width={100}
+            height={20}
           />
         </Segment>
 
@@ -77,54 +70,20 @@ class ItemReports extends Component {
         <Menu pointing secondary>
           <Menu.Item
             name='sales'
-            active={activeItem === 'sales'}
-            onClick={this.handleItemClick}
+            active={report === 'sales'}
+            onClick={() => selectReport('sales')}
           />
           <Menu.Item
             name='inventory'
-            active={activeItem === 'inventory'}
-            onClick={this.handleItemClick}
+            active={report === 'inventory'}
+            onClick={() => selectReport('inventory')}
           />
         </Menu>
 
         <Segment vertical>
-          { activeItem === 'sales'
-            ? <Table celled striped>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell>Invoice ID</Table.HeaderCell>
-                  <Table.HeaderCell>Sale Date</Table.HeaderCell>
-                  <Table.HeaderCell>Customer Name</Table.HeaderCell>
-                  <Table.HeaderCell>Quantity</Table.HeaderCell>
-                  <Table.HeaderCell>Total Amount</Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-
-              <Table.Body>
-                <Table.Row>
-                  <Table.Cell>John</Table.Cell>
-                  <Table.Cell>Approved</Table.Cell>
-                  <Table.Cell>None</Table.Cell>
-                  <Table.Cell>None</Table.Cell>
-                  <Table.Cell>None</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell>Jamie</Table.Cell>
-                  <Table.Cell>Approved</Table.Cell>
-                  <Table.Cell>Approved</Table.Cell>
-                  <Table.Cell>Approved</Table.Cell>
-                  <Table.Cell>Requires call</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell>Jill</Table.Cell>
-                  <Table.Cell>Denied</Table.Cell>
-                  <Table.Cell>Denied</Table.Cell>
-                  <Table.Cell>Denied</Table.Cell>
-                  <Table.Cell>None</Table.Cell>
-                </Table.Row>
-              </Table.Body>
-            </Table>
-            : 'Inventory'
+          { report === 'sales'
+            ? <SalesReport />
+            : <InventoriesReport inventories={inventories.data} />
           }
         </Segment>
       </Container>
