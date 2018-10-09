@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Segment, Statistic, Menu } from 'semantic-ui-react'
+import { Container, Segment, Statistic, Menu, Table } from 'semantic-ui-react'
 import { Bar } from 'react-chartjs-2'
 import { Field } from 'redux-form'
 import DropdownField from './DropdownField'
@@ -21,6 +21,7 @@ const data = {
   ]
 }
 
+// TODO: separate
 class ItemReports extends Component {
   constructor (props) {
     super(props)
@@ -86,9 +87,44 @@ class ItemReports extends Component {
           />
         </Menu>
 
-        <Segment>
+        <Segment vertical>
           { activeItem === 'sales'
-            ? 'Sales' : 'Inventory'
+            ? <Table celled striped>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Invoice ID</Table.HeaderCell>
+                  <Table.HeaderCell>Sale Date</Table.HeaderCell>
+                  <Table.HeaderCell>Customer Name</Table.HeaderCell>
+                  <Table.HeaderCell>Quantity</Table.HeaderCell>
+                  <Table.HeaderCell>Total Amount</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+
+              <Table.Body>
+                <Table.Row>
+                  <Table.Cell>John</Table.Cell>
+                  <Table.Cell>Approved</Table.Cell>
+                  <Table.Cell>None</Table.Cell>
+                  <Table.Cell>None</Table.Cell>
+                  <Table.Cell>None</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>Jamie</Table.Cell>
+                  <Table.Cell>Approved</Table.Cell>
+                  <Table.Cell>Approved</Table.Cell>
+                  <Table.Cell>Approved</Table.Cell>
+                  <Table.Cell>Requires call</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>Jill</Table.Cell>
+                  <Table.Cell>Denied</Table.Cell>
+                  <Table.Cell>Denied</Table.Cell>
+                  <Table.Cell>Denied</Table.Cell>
+                  <Table.Cell>None</Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
+            : 'Inventory'
           }
         </Segment>
       </Container>
