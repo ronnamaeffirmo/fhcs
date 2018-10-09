@@ -20,9 +20,6 @@ module.exports = {
       'error',
       2
     ],
-    'linebreak-style': [
-      'error',
-      'unix'
-    ]
+    'linebreak-style': 0,
   }
 }
