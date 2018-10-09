@@ -1,11 +1,9 @@
 const assert = require('assert')
 const app = require('../../src/app')
-const describe = require('mocha').describe
-const it = require('mocha').it
 
-describe('\'items\' service', () => {
+describe('\'permissions\' service', () => {
   it('registered the service', () => {
-    const service = app.service('items')
+    const service = app.service('permissions')
 
     assert.ok(service, 'Registered the service')
   })

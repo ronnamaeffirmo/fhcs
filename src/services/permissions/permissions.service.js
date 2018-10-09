@@ -1,7 +1,7 @@
-// Initializes the `item` service on path `/items`
+// Initializes the `permissions` service on path `/permissions`
 const createService = require('feathers-mongoose')
-const createModel = require('../../models/item.model')
-const hooks = require('./item.hooks')
+const createModel = require('../../models/permissions.model')
+const hooks = require('./permissions.hooks')
 
 module.exports = function (app) {
   const Model = createModel(app)
@@ -13,10 +13,10 @@ module.exports = function (app) {
   }
 
   // Initialize our service with any options it requires
-  app.use('/items', createService(options))
+  app.use('/permissions', createService(options))
 
   // Get our initialized service so that we can register hooks
-  const service = app.service('items')
+  const service = app.service('permissions')
 
   service.hooks(hooks)
 }

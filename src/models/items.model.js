@@ -1,11 +1,12 @@
-// item-model.js - A mongoose model
+// items-model.js - A mongoose model
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient')
   const { Schema } = mongooseClient
-  const item = new Schema({
+  const items = new Schema({
+    code: String,
     name: String,
     description: String,
     price: Number,
@@ -16,5 +17,5 @@ module.exports = function (app) {
     versionKey: false
   })
 
-  return mongooseClient.model('item', item)
+  return mongooseClient.model('items', items)
 }
