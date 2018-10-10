@@ -6,7 +6,10 @@ import { getInventories } from '../actions/inventoriesAction'
 import { selectReport } from '../actions/itemActions'
 
 const wrapped = reduxForm({
-  form: 'period'
+  form: 'period',
+  onChange: (values, dispatch, props, previousValues) => {
+    props.submit(values)
+  }
 })(ItemReports)
 
 const mapStateToProps = (state) => ({
@@ -15,7 +18,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getInventories: () => dispatch(getInventories()),
+  getInventories: (values) => dispatch(getInventories(values)),
   selectReport: (report) => dispatch(selectReport(report))
 })
 

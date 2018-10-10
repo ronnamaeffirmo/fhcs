@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Segment, Statistic, Menu } from 'semantic-ui-react'
 import { Bar } from 'react-chartjs-2'
-import { Field } from 'redux-form'
+import { Field, Form } from 'redux-form'
 
 import DropdownField from './DropdownField'
 import InventoriesReport from './InventoriesReport'
@@ -26,21 +26,23 @@ const data = {
 
 class ItemReports extends Component {
   componentDidMount () {
-    this.props.getInventories()
+    this.props.getInventories({ period: 'all-time' })
   }
 
   render () {
-    const { report, inventories, selectReport } = this.props
+    const { report, inventories, selectReport, getInventories, handleSubmit } = this.props
 
     return (
       <Container style={styles.mainContainer}>
-        <Field
-          type='selection'
-          name='period'
-          placeholder='Period of time'
-          component={DropdownField}
-          options={periods}
-        />
+        <Form onSubmit={handleSubmit(getInventories)}>
+          <Field
+            type='selection'
+            name='period'
+            placeholder='Period of time'
+            component={DropdownField}
+            options={periods}
+          />
+        </Form>
 
         <Segment>
           <Bar

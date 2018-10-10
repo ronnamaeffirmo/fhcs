@@ -9,8 +9,7 @@ import units from '../common/constants/units'
 // TODO: refactor -- convert into an array of objects
 
 const AddItemModalForm = ({createItem, handleSubmit, pristine, submitting}) => (
-  <Modal trigger={<Button style={styles.searchButton}>NEW ITEM</Button>}
-         centered={false}>
+  <Modal trigger={<Button style={styles.searchButton}>NEW ITEM</Button>} centered={false}>
     <Modal.Header>Add A New Item</Modal.Header>
     <Modal.Content>
       <Form onSubmit={handleSubmit(createItem)}>
