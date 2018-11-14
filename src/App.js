@@ -1,8 +1,8 @@
 import React from 'react'
-import { HashRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { Container } from 'semantic-ui-react'
-
+import AddUserWrapper from './containers/AddUserWrapperContainer'
 import LoginFormContainer from './containers/LoginFormContainer'
 import ChangePasswordForm from './containers/ChangePasswordFormContainer'
 import ItemList from './containers/ItemListContainer'
@@ -23,6 +23,7 @@ const App = ({ store }) => (
         <Route path='/addSales' component={AddSalesRecordContainer} />
         <Route path='/addCustomer' component={AddCustomerContainer} />
         <Route path='/sales' component={SalesList} />
+        <Route path='/addUser' component={AddUserWrapper} />
       </Container>
     </Router>
   </Provider>

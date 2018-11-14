@@ -1,4 +1,4 @@
-import client from "../common/client";
+import client from '../common/client'
 import moment from 'moment'
 import Fuse from 'fuse.js'
 
@@ -108,8 +108,7 @@ export const onPriceChange = (price) => {
   }
 }
 
-
-export const onDiscountChange =(discount) => {
+export const onDiscountChange = (discount) => {
   return (dispatch) => {
     dispatch({
       type: ON_DISCOUNT_CHANGE,
@@ -130,7 +129,7 @@ export const onSelectSearchResult = (result) => {
 
 export const createSalesRecord = (data) => {
   console.log(data)
-  return async(dispatch) => {
+  return async (dispatch) => {
     const sales = await client.service('sales').create(data)
     console.log('[!] item', sales)
     window.alert('Added new sale!')
@@ -180,7 +179,7 @@ export const onItemSearchResults = (searchValue, options, list) => {
   itemSearchResult = fuse.search(searchValue)
 
   // convert price, quantity to String, semantic-ui-react <Search/> requirement
-  itemSearchResult = itemSearchResult.map(res=>
+  itemSearchResult = itemSearchResult.map(res =>
     Object.assign({}, res, {
       title: res.name,
       price: res.price.toString(),
@@ -189,8 +188,8 @@ export const onItemSearchResults = (searchValue, options, list) => {
     })
   )
 
-// convert updatedAt and createdAt to lowerCaseString, semantic-ui-react <Search/> requirement
-itemSearchResult = itemSearchResult.map(res => {
+  // convert updatedAt and createdAt to lowerCaseString, semantic-ui-react <Search/> requirement
+  itemSearchResult = itemSearchResult.map(res => {
     return renameProp('updatedAt', 'updateat', res)
   })
 
@@ -211,8 +210,8 @@ export const getCustomers = () => {
   return async (dispatch) => {
     const customers = await client.service('customers').find()
     const result = customers.data.map(cus => Object.assign({}, cus,
-      { name: cus.firstname + ' ' + cus.lastname, 
-        value: cus.firstname + ' ' + cus.lastname, 
+      { name: cus.firstname + ' ' + cus.lastname,
+        value: cus.firstname + ' ' + cus.lastname,
         text: cus.firstname + ' ' + cus.lastname
       })
     )
@@ -270,7 +269,7 @@ export const onNetTermsChange = (dateFrom, netValue) => {
 }
 
 export const computeDateTo = (dateFrom, days) => {
-  const momentDate1 = moment(dateFrom, "MM/DD/YYYY")
+  const momentDate1 = moment(dateFrom, 'MM/DD/YYYY')
   const result = momentDate1.add(days, 'days').calendar()
   // console.log(result)
   return (dispatch) => {
@@ -281,7 +280,7 @@ export const computeDateTo = (dateFrom, days) => {
   }
 }
 
-//function in renaming objectKeys
+// function in renaming objectKeys
 const renameProp = (
   oldProp,
   newProp,

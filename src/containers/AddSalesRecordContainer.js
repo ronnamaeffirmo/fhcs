@@ -1,9 +1,10 @@
 import { connect } from 'react-redux'
-import { reduxForm } from 'redux-form'
+import { formValueSelector, reduxForm } from 'redux-form'
 
 import { getItems } from '../actions/itemActions'
-import { 
-  getCustomers, 
+import {
+  createSales,
+  getCustomers,
   onCustomerDropdownChange,
   onInvoiceNumberChange,
   onCalendarDateChange,
@@ -23,13 +24,12 @@ import {
 import AddSalesRecordForm from '../components/AddSalesRecordForm'
 
 const wrapped = reduxForm({
-    form: 'sales',
+  form: 'sales'
 })(AddSalesRecordForm)
 
 const mapStateToProps = (state) => {
-  // console.log(selector(state, 'remarks123'))
-  // console.log(state.sales.itemLists)
-  const gTotal = state.sales.itemLists.reduce((a, b) => a +b.total, 0)
+  const gTotal = state.sales.itemLists.reduce((a, b) => a + b.total, 0)
+  const { quantity, price } = selector(state, 'quantity', 'price')
   return {
     customers: state.sales.customers,
     items: state.item.items,
@@ -71,5 +71,5 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(wrapped)

@@ -1,4 +1,5 @@
-import { UPDATE_PASSWORD, USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGOUT } from '../actions/userActions'
+import { UPDATE_PASSWORD, USER_LOGIN_FAIL, USER_LOGIN_SUCCESS, USER_LOGOUT } from '../actions/userActions'
+import { ADD_USER } from '../actions/userActions'
 
 const userReducer = (state = {
   currentuser: undefined,
@@ -31,8 +32,12 @@ const userReducer = (state = {
         isAuthenticated: action.isAuthenticated,
         error: undefined
       }
-    default:
-      return state
+    case ADD_USER: {
+      return {
+        ...state,
+        user: action.payload
+      }
+    }
   }
 }
 

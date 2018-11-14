@@ -1,24 +1,16 @@
 import client from '../common/client'
 
-export const UPDATE_PASSWORD = 'UPDATE_PASSWORD'
-export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS'
-export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL'
-export const USER_LOGOUT = 'USER_LOGOUT'
+export const ADD_USER = 'ADD_USER'
 
-export const updatePassword = ({ id, oldpassword, newpassword, confirmpassword }) => {
+export const createUser = (values) => {
   return async (dispatch) => {
-    // TODO: old pass, confirm new pass
+    const user = await client.service('users').create(values)
 
-    const user = await client.service('users').patch(
-      // id, { password }
-      '5b56313f73997f1c3be24c6d', { password: newpassword } // dummy for now
-    )
-
-    console.log('[!] user', user)
-    window.alert('Updated user password!')
+    console.log('USER: ', user)
+    window.alert('user added successfully')
 
     dispatch({
-      type: UPDATE_PASSWORD,
+      type: ADD_USER,
       payload: user
     })
   }

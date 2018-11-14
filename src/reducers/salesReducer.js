@@ -166,7 +166,7 @@ const salesReducer = (state = initialState, action) => {
       }
     }
     default:
-    return state
+      return state
   }
 }
 

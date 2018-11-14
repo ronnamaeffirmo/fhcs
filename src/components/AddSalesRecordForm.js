@@ -13,24 +13,24 @@ import SalesTableCell from './SalesTableCell'
 
 const netOptions = [
   {
-    name: "Net30",
-    value: "30",
-    text: "Net 30"
+    name: 'Net30',
+    value: '30',
+    text: 'Net 30'
   },
   {
-    name: "Net60",
-    value: "60",
-    text: "Net 60"
+    name: 'Net60',
+    value: '60',
+    text: 'Net 60'
   },
   {
-    name: "Net90",
-    value: "90",
-    text: "Net 90"
-  },
+    name: 'Net90',
+    value: '90',
+    text: 'Net 90'
+  }
 ]
 
 class AddSalesRecordForm extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       open: false,
@@ -38,11 +38,11 @@ class AddSalesRecordForm extends React.Component {
     }
   }
 
-  openModal() {
+  openModal () {
     this.setState({ open: true })
   }
 
-  closeModal() {
+  closeModal () {
     this.setState({ open: false })
     this.props.clearData()
   }
@@ -52,7 +52,7 @@ class AddSalesRecordForm extends React.Component {
     await this.props.getItems()
   }
 
-  handleSubmit() {
+  handleSubmit () {
     let errors = {}
     const {customer, invoiceNumber, dateFrom, terms, remarks, quantity, itemLists} = this.props
     if (customer === '' || customer === undefined) errors.customer = `Customer is required`
@@ -66,8 +66,8 @@ class AddSalesRecordForm extends React.Component {
     // console.log(this.state.errors)
     const isValid = Object.keys(errors).length === 0
     if (isValid) {
-    const {customer, invoiceNumber, dateFrom, discount, terms, dateTo, grandTotal, remarks, quantity, itemLists} = this.props
-    const data = {customer, invoiceNumber, dateFrom, dateTo, grandTotal, terms, remarks, quantity, itemLists, discount}
+      const {customer, invoiceNumber, dateFrom, discount, terms, dateTo, grandTotal, remarks, quantity, itemLists} = this.props
+      const data = {customer, invoiceNumber, dateFrom, dateTo, grandTotal, terms, remarks, quantity, itemLists, discount}
       // console.log(data)
       this.props.createSalesRecord(data)
       this.props.clearData()
@@ -86,9 +86,9 @@ class AddSalesRecordForm extends React.Component {
       maxPatternLength: 32,
       minMatchCharLength: 1,
       keys: [
-        "name",
-        "description",
-        "price"
+        'name',
+        'description',
+        'price'
       ]
     }
 
@@ -107,7 +107,7 @@ class AddSalesRecordForm extends React.Component {
       onDiscountChange, discount,
       onQuantityChange, quantity,
       buttoAddItem, itemLists,
-      grandTotal, removeFromList,
+      grandTotal, removeFromList
     } = this.props
 
     return (
@@ -116,166 +116,166 @@ class AddSalesRecordForm extends React.Component {
         onClose={() => this.closeModal()}
         closeOnDimmerClick = {false}
         trigger={
-          <Button onClick={() => this.openModal()} 
+          <Button onClick={() => this.openModal()}
             style={styles.searchButton}>ADD SALES
-          </Button> } 
+          </Button> }
         centered={false}>
-      <Modal.Header>Add Sales</Modal.Header>
-       <Modal.Content>
-        <Form style={styles.wrapper}>
-          <Container style={styles.customer}>
-            <Field
-              name='customer'
-              label='Customer: '
-              placeholder='Select Customer'
-              onDropdownChange={onCustomerDropdownChange}
-              value={customer === undefined ? '' : customer}
-              options={customers === undefined ? [] : customers}
-              component={SalesSimpleDropDown}
-            />
-          </Container>
-          <Container style={styles.invoiceNum}>
-            <Field
-              type='number'
-              name='invoiceNumber'
-              label='Invoice Number: '
-              placeholder='Invoice Number'
-              onInputChange={onInvoiceNumberChange}
-              value = {invoiceNumber === undefined  ? '' : invoiceNumber}
-              disabled={false}
-              component={SalesInputField}
-            />
-          </Container>
-          <Container style={styles.startDate}>
-            <Field
-              inputLabel='Date From: '
-              name='dateFrom'
-              onCalendarDateChange={onCalendarDateChange}
-              date = {dateFrom === undefined ? '' : dateFrom}
-              terms={terms}
-              component={SalesCalendarField}
-            />
-          </Container>
-          <Container style={styles.endDate}>
-            <Field
-              inputLabel='Date To: '
-              name='dateTo'
-              // onChange={() => console.log('change!')}
-              otherValue={dateTo === undefined  ? '' : dateTo}
-              disabled={true}
-              component={SalesInputField}
-            />
-          </Container>
-          <Container style={styles.terms}>
-            <Field
-              name='term'
-              label='Terms: '
-              onDropdownChange={onNetTermsChange}
-              dateFrom={dateFrom}
-              value={terms}              
-              options={netOptions}
-              component={SalesDropDown}
-            />
-          </Container>
-          <Container style={styles.remarks}>
-            <Field
-              name='remarks'
-              label='Remarks: '
-              value={remarks}
-              onInputChange={onRemarksChange}
-              component={TextAreaField}
-            />
-          </Container>
-          <Container style={styles.list}>
-            <Field
-              name='itemLists'
-              value={itemLists}
-              grandTotal={grandTotal}
-              itemLists={itemLists}
-              component={SalesTableCell}
-              removeFromList={removeFromList}
-            />
-          </Container>
-          <Container style={styles.fuzzySearch}>
-            <Field
-              type='text'
-              name='search'
-              label='Search Item Code/Name '
-              placeholder='Search Item Code/Name'
-              list = {items}
-              onInputChange={onItemSearch}
-              searchOptions={searchOptions}
-              searchValue={searchValue}
-              itemSearchResult={itemSearchResult}
-              onSelectSearchResults={onSelectSearchResult}
-              component={SalesSearchField}
-            />
-          </Container>
-          <div style={styles.price}>
-            <Field
-              error
-              type='number'
-              name='price'
-              label='Price'
-              placeholder='Price'
-              disabled={false}
-              otherValue={price === undefined ? '' : price}
-              onInputChange={onPriceChange}
-              value={price === undefined ? '' : price}
-              component={SalesInputField}
-            />
-          </div>
-          <div style={styles.quantity}>
-            <Field
-              error
-              type='number'
-              name='quantity'
-              label='Quantity'
-              placeholder='Quantity'
-              onInputChange={onQuantityChange}
-              value = {quantity}
-              disabled={false}
-              component={SalesInputField}
-            />
-          </div>
-          <div style={styles.discount}>
-            <Field
-              type='number'
-              name='discount'
-              label='Discount'
-              placeholder='Discount'
-              onInputChange={onDiscountChange}
-              value = {discount}
-              disabled={false}
-              component={SalesInputField}
-            />
-          </div>
-          <Button
-            disabled={selectedResult === undefined || quantity === undefined}
-            onClick={
-              () => 
-                buttoAddItem(selectedResult, price, quantity, discount)
-            } 
-            style={styles.addItem}>
+        <Modal.Header>Add Sales</Modal.Header>
+        <Modal.Content>
+          <Form style={styles.wrapper}>
+            <Container style={styles.customer}>
+              <Field
+                name='customer'
+                label='Customer: '
+                placeholder='Select Customer'
+                onDropdownChange={onCustomerDropdownChange}
+                value={customer === undefined ? '' : customer}
+                options={customers === undefined ? [] : customers}
+                component={SalesSimpleDropDown}
+              />
+            </Container>
+            <Container style={styles.invoiceNum}>
+              <Field
+                type='number'
+                name='invoiceNumber'
+                label='Invoice Number: '
+                placeholder='Invoice Number'
+                onInputChange={onInvoiceNumberChange}
+                value = {invoiceNumber === undefined ? '' : invoiceNumber}
+                disabled={false}
+                component={SalesInputField}
+              />
+            </Container>
+            <Container style={styles.startDate}>
+              <Field
+                inputLabel='Date From: '
+                name='dateFrom'
+                onCalendarDateChange={onCalendarDateChange}
+                date = {dateFrom === undefined ? '' : dateFrom}
+                terms={terms}
+                component={SalesCalendarField}
+              />
+            </Container>
+            <Container style={styles.endDate}>
+              <Field
+                inputLabel='Date To: '
+                name='dateTo'
+                // onChange={() => console.log('change!')}
+                otherValue={dateTo === undefined ? '' : dateTo}
+                disabled={true}
+                component={SalesInputField}
+              />
+            </Container>
+            <Container style={styles.terms}>
+              <Field
+                name='term'
+                label='Terms: '
+                onDropdownChange={onNetTermsChange}
+                dateFrom={dateFrom}
+                value={terms}
+                options={netOptions}
+                component={SalesDropDown}
+              />
+            </Container>
+            <Container style={styles.remarks}>
+              <Field
+                name='remarks'
+                label='Remarks: '
+                value={remarks}
+                onInputChange={onRemarksChange}
+                component={TextAreaField}
+              />
+            </Container>
+            <Container style={styles.list}>
+              <Field
+                name='itemLists'
+                value={itemLists}
+                grandTotal={grandTotal}
+                itemLists={itemLists}
+                component={SalesTableCell}
+                removeFromList={removeFromList}
+              />
+            </Container>
+            <Container style={styles.fuzzySearch}>
+              <Field
+                type='text'
+                name='search'
+                label='Search Item Code/Name '
+                placeholder='Search Item Code/Name'
+                list = {items}
+                onInputChange={onItemSearch}
+                searchOptions={searchOptions}
+                searchValue={searchValue}
+                itemSearchResult={itemSearchResult}
+                onSelectSearchResults={onSelectSearchResult}
+                component={SalesSearchField}
+              />
+            </Container>
+            <div style={styles.price}>
+              <Field
+                error
+                type='number'
+                name='price'
+                label='Price'
+                placeholder='Price'
+                disabled={false}
+                otherValue={price === undefined ? '' : price}
+                onInputChange={onPriceChange}
+                value={price === undefined ? '' : price}
+                component={SalesInputField}
+              />
+            </div>
+            <div style={styles.quantity}>
+              <Field
+                error
+                type='number'
+                name='quantity'
+                label='Quantity'
+                placeholder='Quantity'
+                onInputChange={onQuantityChange}
+                value = {quantity}
+                disabled={false}
+                component={SalesInputField}
+              />
+            </div>
+            <div style={styles.discount}>
+              <Field
+                type='number'
+                name='discount'
+                label='Discount'
+                placeholder='Discount'
+                onInputChange={onDiscountChange}
+                value = {discount}
+                disabled={false}
+                component={SalesInputField}
+              />
+            </div>
+            <Button
+              disabled={selectedResult === undefined || quantity === undefined}
+              onClick={
+                () =>
+                  buttoAddItem(selectedResult, price, quantity, discount)
+              }
+              style={styles.addItem}>
             Button Add Item
-          </Button>
-        </Form>
-        <Form.Field>
-          <span>
-            <Message
-              error
-              eader='There was some errors with your submission'
-              list={[
-                this.state.errors.customer,
-                this.state.errors.invoiceNum,
-                this.state.errors.dateFrom,
-                this.state.errors.remarks,
-                this.state.errors.terms,
-                this.state.errors.quantity,
-                this.state.errors.itemLists,
-              ]}
-          /></span>
-        </Form.Field>
+            </Button>
+          </Form>
+          <Form.Field>
+            <span>
+              <Message
+                error
+                eader='There was some errors with your submission'
+                list={[
+                  this.state.errors.customer,
+                  this.state.errors.invoiceNum,
+                  this.state.errors.dateFrom,
+                  this.state.errors.remarks,
+                  this.state.errors.terms,
+                  this.state.errors.quantity,
+                  this.state.errors.itemLists
+                ]}
+              /></span>
+          </Form.Field>
         </Modal.Content>
         <Modal.Actions>
           <Button onClick={() => this.closeModal()} negative>
@@ -315,87 +315,87 @@ const styles = {
   },
   invoiceNum: {
     backgroundColor: '#444',
-		color: '#fff',
+    color: '#fff',
     padding: '10px',
     gridArea: '1 / 5 / span 1 / span 2'
   },
   startDate: {
     backgroundColor: '#444',
-		color: '#fff',
-		borderRadius: '5px',
+    color: '#fff',
+    borderRadius: '5px',
     padding: '10px',
-    gridArea: '2 / 1 / span 1 / span 4',
+    gridArea: '2 / 1 / span 1 / span 4'
   },
   endDate: {
     backgroundColor: '#444',
-		color: '#fff',
-		borderRadius: '5px',
+    color: '#fff',
+    borderRadius: '5px',
     padding: '10px',
-    gridArea: '3 / 1 / span 1 / span 4',
+    gridArea: '3 / 1 / span 1 / span 4'
   },
   terms: {
     backgroundColor: '#444',
-		color: '#fff',
-		borderRadius: '5px',
+    color: '#fff',
+    borderRadius: '5px',
     padding: '10px',
-    gridArea: '2 / 5 / span 1 / span 2',
+    gridArea: '2 / 5 / span 1 / span 2'
   },
   remarks: {
     backgroundColor: '#444',
-		color: '#fff',
-		borderRadius: '5px',
+    color: '#fff',
+    borderRadius: '5px',
     padding: '10px',
     gridArea: '4 / 1 / span 1 / span 6',
     minHeight: '100px'
   },
   list: {
     backgroundColor: '#444',
-		color: '#fff',
-		borderRadius: '5px',
+    color: '#fff',
+    borderRadius: '5px',
     padding: '10px',
     gridArea: '5 / 1 / span 1 / span 6',
     minHeight: '150px',
-    maxHeight: 'auto',
+    maxHeight: 'auto'
   },
   fuzzySearch: {
     backgroundColor: '#444',
-		color: '#fff',
-		borderRadius: '5px',
+    color: '#fff',
+    borderRadius: '5px',
     padding: '10px',
     gridArea: '6 / 1 / span 1 / span 3'
   },
   price: {
     backgroundColor: '#444',
-		color: '#fff',
-		borderRadius: '5px',
+    color: '#fff',
+    borderRadius: '5px',
     padding: '10px',
     gridArea: '6 / 4 / span 1 / span 1'
   },
   discount: {
     backgroundColor: '#444',
-		color: '#fff',
-		borderRadius: '5px',
+    color: '#fff',
+    borderRadius: '5px',
     padding: '10px',
     gridArea: '6 / 6 / span 1 / span 1'
   },
   quantity: {
     backgroundColor: '#444',
-		color: '#fff',
-		borderRadius: '5px',
+    color: '#fff',
+    borderRadius: '5px',
     padding: '10px',
     gridArea: '6 / 5 / span 1 / span 1'
   },
   addItem: {
     backgroundColor: '#444',
-		color: '#fff',
-		borderRadius: '5px',
+    color: '#fff',
+    borderRadius: '5px',
     padding: '10px',
     gridArea: '7 / 4 / span 1 / span 2'
   },
   submit: {
     backgroundColor: '#444',
-		color: '#fff',
-		borderRadius: '5px',
+    color: '#fff',
+    borderRadius: '5px',
     padding: '10px',
     gridArea: '7 / 3 / span 1 / span 2'
   }

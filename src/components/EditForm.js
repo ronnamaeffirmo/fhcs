@@ -1,7 +1,7 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
 import { Redirect } from 'react-router'
-import { Button, Dimmer, Segment, Loader, Message, Form, Container, Dropdown } from 'semantic-ui-react'
+import { Button, Container, Dimmer, Dropdown, Form, Loader, Message, Segment } from 'semantic-ui-react'
 // import DropdownField from './DropdownField'
 import units from '../common/constants/units'
 
@@ -17,7 +17,8 @@ class EditForm extends React.Component {
       unit: this.props.item ? this.props.item.unit : '',
       errors: {},
       loading: false,
-      done: false}
+      done: false
+    }
   }
 
   async componentDidMount () {
@@ -27,8 +28,8 @@ class EditForm extends React.Component {
     }
   }
 
-  handleChange (event, { name, value }) {
-    this.setState({ [name]: value })
+  handleChange (event, {name, value}) {
+    this.setState({[name]: value})
   }
 
   handleSubmit () {
@@ -37,12 +38,12 @@ class EditForm extends React.Component {
     if (this.state.description === '') errors.description = `Description can't be empty`
     if (this.state.price <= 0) errors.price = `Price must be greater than 0`
     if (this.state.quantity <= 0) errors.quantity = `Quantity must be greater than 0`
-    this.setState({ errors })
+    this.setState({errors})
     const isValid = Object.keys(errors).length === 0
     if (isValid) {
-      const { _id, name, description, price, quantity, unit } = this.state
-      const data = { name, description, price, quantity, unit }
-      this.setState({ loading: true })
+      const {_id, name, description, price, quantity, unit} = this.state
+      const data = {name, description, price, quantity, unit}
+      this.setState({loading: true})
       this.props.patchItem(_id, data).then(() => {
         return new Promise((resolve, reject) => {
           setTimeout(() => {
@@ -50,7 +51,7 @@ class EditForm extends React.Component {
           }, 1000)
         })
       }).then(() => {
-        this.setState({ done: true, loading: false })
+        this.setState({done: true, loading: false})
       })
     }
   }
@@ -59,15 +60,15 @@ class EditForm extends React.Component {
     return (
       <div>
         {
-          this.state.done ? <Redirect to="/items" />
-            : <Form error className= 'left column'>
+          this.state.done ? <Redirect to="/items"/>
+            : <Form error className='left column'>
               <Form.Field>
                 <label>Name</label>
                 <Form.Input
                   placeholder='Product name'
-                  value={this.state.name} name = 'name'
-                  type = 'text'
-                  onChange={(e, { name, value }) => this.handleChange(e, { name, value })}
+                  value={this.state.name} name='name'
+                  type='text'
+                  onChange={(e, {name, value}) => this.handleChange(e, {name, value})}
                 />
               </Form.Field>
               <Form.Field>
@@ -75,9 +76,9 @@ class EditForm extends React.Component {
                 <Form.Input
                   placeholder='Product description'
                   value={this.state.description}
-                  name = 'description'
-                  type = 'text'
-                  onChange={(e, { name, value }) => this.handleChange(e, { name, value })}
+                  name='description'
+                  type='text'
+                  onChange={(e, {name, value}) => this.handleChange(e, {name, value})}
                 />
               </Form.Field>
               <Form.Field>
@@ -85,9 +86,9 @@ class EditForm extends React.Component {
                 <Form.Input
                   placeholder='Price of the product'
                   value={this.state.price}
-                  name = 'price'
-                  type = 'number'
-                  onChange={(e, { name, value }) => this.handleChange(e, { name, value })}
+                  name='price'
+                  type='number'
+                  onChange={(e, {name, value}) => this.handleChange(e, {name, value})}
                 />
               </Form.Field>
               <Form.Field>
@@ -95,15 +96,15 @@ class EditForm extends React.Component {
                 <Form.Input
                   placeholder='Quantity of the product'
                   value={this.state.quantity}
-                  name = 'quantity'
-                  type = 'number'
-                  onChange={(e, { name, value }) => this.handleChange(e, { name, value })}
+                  name='quantity'
+                  type='number'
+                  onChange={(e, {name, value}) => this.handleChange(e, {name, value})}
                 />
               </Form.Field>
               <Form.Field>
                 <label>Unit</label>
                 <Dropdown
-                  onChange={(e, { name, value }) => this.handleChange(e, { name, value })}
+                  onChange={(e, {name, value}) => this.handleChange(e, {name, value})}
                   options={units}
                   name='unit'
                   placeholder='Choose an option'
@@ -124,10 +125,10 @@ class EditForm extends React.Component {
                     ]}
                   /></span>
                   : this.state.loading ? <Form.Field><Segment>
-                    <Dimmer style={{height: '50px'}} active>
-                      <Loader size='mini'>Loading</Loader>
-                    </Dimmer>
-                  </Segment></Form.Field>
+                      <Dimmer style={{height: '50px'}} active>
+                        <Loader size='mini'>Loading</Loader>
+                      </Dimmer>
+                    </Segment></Form.Field>
                     : ''}
               </Form.Field>
               <Container>
