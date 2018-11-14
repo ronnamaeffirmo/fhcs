@@ -17,7 +17,7 @@ const InventoriesReport = ({ inventories }) => (
       { inventories.length
         ? inventories.map(inventory => (
           <Table.Row key={inventory._id}>
-            <Table.Cell>{moment(inventory.createdAt).format('MMMM DD, YYYY // hh:mm:ssA')}</Table.Cell>
+            <Table.Cell>{moment(inventory.createdAt).format('MMMM DD, YYYY | hh:mm:ssA')}</Table.Cell>
             <Table.Cell>{inventory.quantity}</Table.Cell>
             <Table.Cell>{inventory.encoder}</Table.Cell>
             <Table.Cell>{inventory.source}</Table.Cell>
