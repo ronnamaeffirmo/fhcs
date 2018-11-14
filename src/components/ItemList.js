@@ -3,12 +3,6 @@ import { Card, Container, Input } from 'semantic-ui-react'
 import ItemDataCard from './ItemDataCard'
 import NewItemModal from './../containers/AddItemFormContainer'
 
-// name: String,
-// description: String,
-// price: Number,
-// quantity: Number,
-// unit: { type: String, enum: ['kg', 'cubic', 'pcs'] }
-
 class ItemList extends Component {
   componentDidMount () {
     this.props.getItems()

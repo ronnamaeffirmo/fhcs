@@ -2,7 +2,7 @@ import React from 'react'
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { Container } from 'semantic-ui-react'
-
+import AddUserWrapper from './containers/AddUserWrapperContainer'
 import LoginFormContainer from './containers/LoginFormContainer'
 import ChangePasswordForm from './containers/ChangePasswordFormContainer'
 import ItemList from './containers/ItemListContainer'
@@ -10,7 +10,7 @@ import EditFormContainer from './containers/EditFormContainer'
 import AddSalesRecordContainer from './containers/AddSalesRecordContainer'
 import ItemReportsContainer from './containers/ItemReportsContainer'
 
-const App = ({store}) => (
+const App = ({ store }) => (
   <Provider store={store}>
     <Router>
       <Container>
@@ -22,6 +22,7 @@ const App = ({store}) => (
           <Route path='/item/:_id' exact component={EditFormContainer} />
           <Route path='/item/:_id/reports' component={ItemReportsContainer} />
           <Route path='/add-sales' component={AddSalesRecordContainer} />
+          <Route path='/add-user' component={AddUserWrapper} />
         </Switch>
       </Container>
     </Router>

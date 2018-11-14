@@ -7,14 +7,14 @@ import AddSalesRecordForm from '../components/AddSalesRecordForm'
 const selector = formValueSelector('sales')
 
 const wrapped = reduxForm({
-  form: 'sales',
+  form: 'sales'
 })(AddSalesRecordForm)
 
 const mapStateToProps = (state) => {
   const {quantity, price} = selector(state, 'quantity', 'price')
   return {
     total: (quantity * price).toFixed(2),
-    sale: state.sales.salesRecord,
+    sale: state.sales.salesRecord
   }
 }
 
@@ -24,5 +24,5 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(wrapped)
