@@ -2,7 +2,6 @@ import React from 'react'
 import { reduxForm } from 'redux-form'
 import { Redirect } from 'react-router'
 import { Button, Container, Dimmer, Dropdown, Form, Loader, Message, Segment } from 'semantic-ui-react'
-// import DropdownField from './DropdownField'
 import units from '../common/constants/units'
 
 class EditForm extends React.Component {
@@ -125,10 +124,10 @@ class EditForm extends React.Component {
                     ]}
                   /></span>
                   : this.state.loading ? <Form.Field><Segment>
-                      <Dimmer style={{height: '50px'}} active>
-                        <Loader size='mini'>Loading</Loader>
-                      </Dimmer>
-                    </Segment></Form.Field>
+                    <Dimmer style={{height: '50px'}} active>
+                      <Loader size='mini'>Loading</Loader>
+                    </Dimmer>
+                  </Segment></Form.Field>
                     : ''}
               </Form.Field>
               <Container>

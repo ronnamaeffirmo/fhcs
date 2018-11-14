@@ -9,6 +9,8 @@ import ItemList from './containers/ItemListContainer'
 import EditFormContainer from './containers/EditFormContainer'
 import AddSalesRecordContainer from './containers/AddSalesRecordContainer'
 import ItemReportsContainer from './containers/ItemReportsContainer'
+import AddCustomerContainer from './containers/AddCustomerContainer'
+import SalesList from './containers/SalesListContainer'
 
 const App = ({ store }) => (
   <Provider store={store}>
@@ -22,6 +24,8 @@ const App = ({ store }) => (
           <Route path='/item/:_id' exact component={EditFormContainer} />
           <Route path='/item/:_id/reports' component={ItemReportsContainer} />
           <Route path='/add-sales' component={AddSalesRecordContainer} />
+          <Route path='/add-customer' component={AddCustomerContainer} />
+          <Route path='/sales' component={SalesList} />
           <Route path='/add-user' component={AddUserWrapper} />
         </Switch>
       </Container>
