@@ -8,7 +8,7 @@ const SalesSimpleDropDown = ({label, value, onDropdownChange, input, ...custom})
       selection
       {...input}
       value={value}
-      onChange={(param, data) =>  onDropdownChange(data.value)}
+      onChange={(param, data) => onDropdownChange(data.value)}
       {...custom}
     />
   </Form.Field>

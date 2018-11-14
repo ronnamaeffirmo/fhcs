@@ -7,12 +7,12 @@ import InputField from './InputField'
 const required = value => value ? undefined : 'Required'
 
 const AddCustomerForm = ({addCustomer, handleSubmit, pristine, submitting}) => (
-    <Modal trigger={<Button>NEW CUSTOMER</Button>}
-      centered={false}>
+  <Modal trigger={<Button>NEW CUSTOMER</Button>}
+    centered={false}>
     <Modal.Header>Add A New Customer</Modal.Header>
-      <Modal.Content>
+    <Modal.Content>
       <Form onSubmit={handleSubmit(addCustomer)}>
-        <Field 
+        <Field
           type='text'
           name='firstname'
           label='First Name'
@@ -28,18 +28,18 @@ const AddCustomerForm = ({addCustomer, handleSubmit, pristine, submitting}) => (
           component={InputField}
           validate={[required]}
         />
-        <Field 
+        <Field
           type='text'
           name='address'
           label='Address'
           placeholder='Address'
           component={InputField}
           validate={[required]}
-    />
-    <Button type='submit' disabled={pristine || submitting}>Submit</Button>
-  </Form>
-      </Modal.Content>
-    </Modal>
+        />
+        <Button type='submit' disabled={pristine || submitting}>Submit</Button>
+      </Form>
+    </Modal.Content>
+  </Modal>
 )
 
 export default AddCustomerForm

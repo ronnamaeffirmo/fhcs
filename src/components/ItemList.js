@@ -2,12 +2,6 @@ import React, { Component } from 'react'
 import { Card, Container, Input } from 'semantic-ui-react'
 import ItemDataCard from './ItemDataCard'
 import NewItemModal from './../containers/AddItemFormContainer'
-import Header from './Header'
-// name: String,
-// description: String,
-// price: Number,
-// quantity: Number,
-// unit: { type: String, enum: ['kg', 'cubic', 'pcs'] }
 
 class ItemList extends Component {
   componentDidMount () {
@@ -15,25 +9,20 @@ class ItemList extends Component {
   }
 
   render () {
-    let {items, removeItem} = this.props
+    let { items, removeItem } = this.props
     items = items || []
     return (
-      <Container>
-        <Header/>
-        <Container style={styles.mainContainer}>
-          <Input placeholder='Search items here...'
-                 style={styles.itemSearchField}/>
-          <NewItemModal/>
-          <Container style={styles.itemContainer}>
-            <Card.Group>
-              {items.map((item) => {
-                return (
-                  <ItemDataCard item={item} key={item._id} actions={{removeItem}}/>
-                )
-              })
-              }
-            </Card.Group>
-          </Container>
+      <Container style={styles.mainContainer}>
+        <Input placeholder='Search items here...' style={styles.itemSearchField} />
+        <NewItemModal/>
+        <Container style={styles.itemContainer}>
+          <Card.Group>
+            { items.map((item) => {
+              return (
+                <ItemDataCard item={item} key={item._id} actions={{removeItem}} />
+              )
+            })}
+          </Card.Group>
         </Container>
       </Container>
     )

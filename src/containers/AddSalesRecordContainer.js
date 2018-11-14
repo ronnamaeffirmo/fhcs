@@ -31,6 +31,8 @@ const mapStateToProps = (state) => {
   const gTotal = state.sales.itemLists.reduce((a, b) => a + b.total, 0)
   const { quantity, price } = selector(state, 'quantity', 'price')
   return {
+    total: (quantity * price).toFixed(2),
+    sale: state.sales.salesRecord,
     customers: state.sales.customers,
     items: state.item.items,
     customer: state.sales.customer,

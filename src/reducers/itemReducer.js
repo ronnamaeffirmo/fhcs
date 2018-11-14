@@ -1,6 +1,19 @@
-import { ADD_ITEM, GET_ITEM, GET_ITEMS, PATCH_ITEM, REMOVE_ITEM, REMOVE_ITEM_ERROR } from '../actions/itemActions'
+import {
+  ADD_ITEM,
+  GET_ITEM,
+  GET_ITEMS,
+  PATCH_ITEM,
+  REMOVE_ITEM,
+  REMOVE_ITEM_ERROR,
+  SELECT_REPORT
+} from '../actions/itemActions'
 
-const itemReducer = (state = {items: []}, action) => {
+const initialState = {
+  items: [],
+  report: 'sales'
+}
+
+const itemReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_ITEM: {
       return {
@@ -58,6 +71,12 @@ const itemReducer = (state = {items: []}, action) => {
       return {
         ...state,
         error: action.payload
+      }
+    }
+    case SELECT_REPORT: {
+      return {
+        ...state,
+        report: action.payload
       }
     }
     default:

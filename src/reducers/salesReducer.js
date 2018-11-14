@@ -21,7 +21,7 @@ import {
   REMOVE_SALE
 } from '../actions/salesAction'
 
-const initialState = { 
+const initialState = {
   customer: undefined,
   invoiceNumber: undefined,
   dateFrom: undefined,
@@ -60,8 +60,8 @@ const salesReducer = (state = initialState, action) => {
       }
     }
     case CANCEL_BUTTON: {
-       return {
-         ...state,
+      return {
+        ...state,
         customer: action.payload.customer,
         invoiceNumber: action.payload.invoiceNumber,
         dateFrom: action.payload.dateFrom,
@@ -72,7 +72,7 @@ const salesReducer = (state = initialState, action) => {
         itemLists: action.payload.itemLists,
         searchValue: action.payload.searchValue,
         price: action.payload.price
-       }
+      }
     }
     case BUTTON_ADD_ITEM: {
       return {
@@ -110,7 +110,7 @@ const salesReducer = (state = initialState, action) => {
         selectedResult: action.payload
       }
     }
-    case ON_POPULATE:{
+    case ON_POPULATE: {
       return {
         ...state,
         price: action.payload.price,

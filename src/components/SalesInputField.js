@@ -6,13 +6,13 @@ const SalesInputField = ({ input, otherValue, disabled, onInputChange, value, la
     <label>{label}</label>
     <Input
       disabled={disabled}
-      label={inputLabel} 
-      {...input } 
-      value={otherValue === undefined ? value : otherValue} 
+      label={inputLabel}
+      {...input }
+      value={otherValue === undefined ? value : otherValue}
       onChange={(params, data) => onInputChange(data.value)}
-      {...custom} 
+      {...custom}
     />
-  </Form.Field> 
+  </Form.Field>
 )
 
 export default SalesInputField

@@ -9,26 +9,25 @@ import AddSalesModal from './../containers/AddSalesRecordContainer'
 import SalesDataCard from './SalesDataCard'
 
 class SalesList extends React.Component {
-  
   componentDidMount () {
     this.props.getSales()
   }
 
-  render() {
+  render () {
     let { sales, removeSale } = this.props
     sales = sales || []
     return (
       <Container style={styles.mainContainer}>
-      <Input placeholder='Search items here...'
-               style={styles.itemSearchField}/>
+        <Input placeholder='Search items here...'
+          style={styles.itemSearchField}/>
         <AddSalesModal/>
         <Container style={styles.itemContainer}>
           <Card.Group>
-            {sales.map((sale => {
+            {sales.map(sale => {
               return (
                 <SalesDataCard sale={sale} actions={{removeSale}} key={sale._id}/>
               )
-            }))}
+            })}
           </Card.Group>
         </Container>
       </Container>
@@ -40,7 +39,7 @@ const styles = {
   mainContainer: {
     width: '768px !important',
     padding: '10px',
-    marginTop: '10px',
+    marginTop: '10px'
   },
   itemSearchField: {
     width: '77%'
@@ -52,7 +51,7 @@ const styles = {
     marginRight: '15px',
     paddingTop: '7px',
     itemHeadline: {
-    marginTop: '35px'
+      marginTop: '35px'
     }
   }
 }

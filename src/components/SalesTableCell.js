@@ -28,8 +28,8 @@ const SalesTableCell = ({ itemLists, removeFromList, grandTotal, input, meta: { 
           <Table.Cell>{item.discount}</Table.Cell>
           <Table.Cell>{item.total}</Table.Cell>
           <Table.Cell>
-            <Button 
-              onClick={(e) => removeFromList(itemLists, item)} 
+            <Button
+              onClick={(e) => removeFromList(itemLists, item)}
               negative>Remove
             </Button>
           </Table.Cell>
