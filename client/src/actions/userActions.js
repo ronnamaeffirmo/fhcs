@@ -4,6 +4,16 @@ export const ADD_USER = 'ADD_USER'
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS'
 export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL'
 export const USER_LOGOUT = 'USER_LOGOUT'
+export const UPDATE_PASSWORD = 'UPDATE_PASSWORD'
+
+export const updatePassword = (values) => {
+  return async (dispatch) => {
+    dispatch({
+      type: UPDATE_PASSWORD,
+      payload: values
+    })
+  }
+}
 
 export const createUser = (values) => {
   return async (dispatch) => {

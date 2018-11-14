@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { formValueSelector, reduxForm } from 'redux-form'
+import { formValueSelector as selector, reduxForm } from 'redux-form'
 
 import { getItems } from '../actions/itemActions'
 import {

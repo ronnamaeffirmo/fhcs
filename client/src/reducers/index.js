@@ -6,6 +6,9 @@ import userReducer from './userReducer'
 import salesReducer from './salesReducer'
 import inventoryReducer from './inventoryReducer'
 import customerReducer from './customerReducer'
+import { UPDATE_PASSWORD } from '../actions/userActions';
+
+console.log(userReducer)
 
 const reducer = combineReducers({
   form: formReducer,

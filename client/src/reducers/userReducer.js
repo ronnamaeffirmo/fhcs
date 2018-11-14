@@ -1,11 +1,13 @@
 import { UPDATE_PASSWORD, USER_LOGIN_FAIL, USER_LOGIN_SUCCESS, USER_LOGOUT } from '../actions/userActions'
 import { ADD_USER } from '../actions/userActions'
 
-const userReducer = (state = {
+const initialState = {
   currentuser: undefined,
   isAuthenticated: false,
   error: undefined
-}, action) => {
+}
+
+const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_PASSWORD: {
       return {
@@ -37,6 +39,9 @@ const userReducer = (state = {
         ...state,
         user: action.payload
       }
+    }
+    default: {
+      return state
     }
   }
 }
