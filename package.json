@@ -66,12 +66,6 @@
     "mocha": "^5.2.0",
     "standard": "*"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn test",
-      "pre-push": "yarn test"
-    }
-  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-jira-smart-commit"

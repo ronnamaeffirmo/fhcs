@@ -36,13 +36,6 @@ const AddItemModalForm = ({createItem, handleSubmit, pristine, submitting}) => (
           component={InputField}
         />
         <Field
-          type='number'
-          name='quantity'
-          label='Quantity'
-          placeholder='Quantity of the product'
-          component={InputField}
-        />
-        <Field
           type='selection'
           name='unit'
           label='Unit'

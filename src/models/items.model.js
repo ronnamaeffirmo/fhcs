@@ -10,7 +10,6 @@ module.exports = function (app) {
     name: String,
     description: String,
     price: Number,
-    quantity: Number,
     unit: { type: String, enum: ['kg', 'cubic', 'pcs'] }
   }, {
     timestamps: true,
