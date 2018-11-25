@@ -1,5 +1,5 @@
 import { getItem, patchItem } from '../actions/itemActions'
-import EditForm from '../components/EditForm'
+import EditForm from '../components/EditItemForm'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state, props) => {
