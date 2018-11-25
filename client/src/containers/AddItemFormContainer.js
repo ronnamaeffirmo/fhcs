@@ -1,22 +1,26 @@
+import React from 'react'
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
 import { createItem } from '../actions/itemActions'
 
 import AddItemModalForm from '../components/AddItemModalForm'
 
-const wrapped = reduxForm({
-  form: 'item'
-})(AddItemModalForm)
+const AddItemFormContainer = ({createItem}) => (
+  <AddItemModalForm onSubmit={values => createItem(values)} />
+)
 
 const mapStateToProps = (state) => ({
   item: state.item.item
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  createItem: (values) => dispatch(createItem(values))
+  createItem: (values) => {
+    console.log('CREATE ITEM', values)
+    dispatch(createItem(values))
+  }
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(wrapped)
+)(AddItemFormContainer)
