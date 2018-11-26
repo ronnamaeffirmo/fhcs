@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 const mapStateToProps = (state, props) => {
   const paramsId = props.match.params._id
   if (paramsId) {
-    const item = state.item.items.find(item => item._id === paramsId)
+    const item = state.item.list.find(item => item._id === paramsId)
     return {item}
   } else {
     return {item: null}
