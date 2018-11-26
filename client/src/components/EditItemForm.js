@@ -1,7 +1,7 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
 import { Redirect, Link } from 'react-router-dom'
-import { Button, Container, Dimmer, Dropdown, Form, Loader, Message, Segment, Divider } from 'semantic-ui-react'
+import { Button, Dimmer, Dropdown, Form, Loader, Message, Segment, Divider } from 'semantic-ui-react'
 import units from '../common/constants/units'
 
 const styles = {
@@ -64,8 +64,7 @@ class EditItemForm extends React.Component {
       <div>
         {
           this.state.done ? <Redirect to="/items"/>
-            :
-            <div style={styles.mainContainer}>
+            :            <div style={styles.mainContainer}>
               <Link to={'/items'}><Button color={'grey'} content={'Back to Items'} icon={'arrow left'} labelPosition={'left'}/></Link>
               <Button color={'green'} icon={'checkmark'} floated={'right'} labelPosition={'right'} onClick={() => this.handleSubmit()} content='Submit'/>
               <Divider/>
@@ -81,7 +80,7 @@ class EditItemForm extends React.Component {
                 </Form.Field>
                 <Form.Field>
                   <label>Description</label>
-                  <Form.Input
+                  <Form.TextArea
                     placeholder='Product description'
                     value={this.state.description}
                     name='description'
@@ -112,20 +111,20 @@ class EditItemForm extends React.Component {
                 </Form.Field>
                 <Form.Field>
                   {Object.keys(this.state.errors).length !== 0 ? <span>
-                  <Message
-                    error
-                    header='There was some errors with your submission'
-                    list={[
-                      this.state.errors.name,
-                      this.state.errors.description,
-                      this.state.errors.price
-                    ]}
-                  /></span>
+                    <Message
+                      error
+                      header='There was some errors with your submission'
+                      list={[
+                        this.state.errors.name,
+                        this.state.errors.description,
+                        this.state.errors.price
+                      ]}
+                    /></span>
                     : this.state.loading ? <Form.Field><Segment>
-                        <Dimmer style={{height: '50px'}} active>
-                          <Loader size='mini'>Loading</Loader>
-                        </Dimmer>
-                      </Segment></Form.Field>
+                      <Dimmer style={{height: '50px'}} active>
+                        <Loader size='mini'>Loading</Loader>
+                      </Dimmer>
+                    </Segment></Form.Field>
                       : ''}
                 </Form.Field>
               </Form>

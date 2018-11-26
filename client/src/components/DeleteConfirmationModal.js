@@ -3,11 +3,8 @@ import { Button, Header, Icon, Modal } from 'semantic-ui-react'
 
 const DeleteConfirmationModal = ({item, removeItem}) => (
   <Modal
-    trigger={
-      <Button icon='edit' labelPosition='left' content='Edit' size='tiny' color='red' style={styles.actionButton}>
-        <Icon name='delete'/>Delete
-      </Button>
-    } size='mini'>
+    trigger={<Button icon='edit' labelPosition='left' content='Delete' size='tiny' color='red' style={styles.actionButton} />}
+    size='mini'>
     <Header icon='delete' content='Delete Item'/>
     <Modal.Content>
       <p>
