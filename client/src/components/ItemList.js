@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Container, Input } from 'semantic-ui-react'
+import { Card, Container, Input, Segment } from 'semantic-ui-react'
 import ItemDataCard from './ItemDataCard'
 import NewItemModal from './../containers/AddItemFormContainer'
 
@@ -13,9 +13,11 @@ class ItemList extends Component {
     items = items || []
     return (
       <Container style={styles.mainContainer}>
-        <Input placeholder='Search items here...' style={styles.itemSearchField} />
-        <NewItemModal/>
-        <Container style={styles.itemContainer}>
+        <Segment style={styles.segment}>
+          <Input placeholder='Search items here...' style={styles.itemSearchField} />
+          <NewItemModal/>
+        </Segment>
+        <Segment style={styles.segment}>
           <Card.Group>
             { items.map((item) => {
               return (
@@ -23,7 +25,7 @@ class ItemList extends Component {
               )
             })}
           </Card.Group>
-        </Container>
+        </Segment>
       </Container>
     )
   }
@@ -38,23 +40,8 @@ const styles = {
   itemSearchField: {
     width: '77%'
   },
-  itemContainer: {
-    marginTop: '30px',
-    marginBottom: '30px',
-    marginLeft: '15px',
-    marginRight: '15px',
-    paddingTop: '7px',
-    itemHeadline: {
-      marginTop: '35px'
-    },
-    actionButton: {
-      color: '#fff',
-      borderRadius: '0.25em',
-      marginRight: '7px',
-      padding: '0.767em',
-      border: 'none',
-      textShadow: '0 1px 1px rgba(0,0,0,.1)'
-    }
+  segment: {
+    boxShadow: 'none'
   }
 }
 

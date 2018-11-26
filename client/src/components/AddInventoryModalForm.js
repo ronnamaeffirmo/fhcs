@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Container, Form, Input, Modal, Select, TextArea } from 'semantic-ui-react'
 
 const AddInventoryModalForm = ({item, options}) => (
-  <Modal trigger={<Button>Add Inventory</Button>} centered={false}>
+  <Modal trigger={<Button size='tiny'>Add Inventory</Button>} centered={false}>
     <Modal.Header>New Inventory Record</Modal.Header>
     <Modal.Content>
       <Container>

@@ -1,69 +1,102 @@
-import React from 'react'
-import { Button, Card, Icon, Menu, Popup } from 'semantic-ui-react'
+import React, { Component } from 'react'
+import { Button, Card, Popup, Label, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import numeral from 'numeral'
+
 import DeleteConfirmationModal from './DeleteConfirmationModal'
 import AddNewInventory from '../containers/AddInventoryContainer'
 
-const itemDataCard = ({item, actions}) => {
-  const { quantity, code, name, price, description } = item
-  const { removeItem } = actions
-  return (
-    <Card style={styles.itemCard} centered>
-      <Popup
-        trigger={
-          <Card.Content as={Link} to={`/item/${item._id}/reports`}>
-            <div style={{float: 'right'}}>
-              <span style={styles.quantityHeading}>{quantity} pcs</span>
-            </div>
-            <Card.Header>{name}<span style={styles.code}>{code}</span></Card.Header>
+class ItemDataCard extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      isOpen: false
+    }
+    this.toggleDesc = this.toggleDesc.bind(this)
+  }
 
-            <Card.Meta>₱{price} per unit</Card.Meta>
-            <Card.Description>
-              {description}
-            </Card.Description>
-          </Card.Content>
-        }
-        content='Click to see reports'
-        position='top right'
-      />
-      <Card.Content extra>
-        <div>
+  toggleDesc () {
+    const { isOpen } = this.state
+    if (isOpen) {
+      this.setState({ isOpen: false })
+    } else {
+      this.setState({ isOpen: true })
+    }
+  }
+
+  render () {
+    const { isOpen } = this.state
+    const { item, actions } = this.props
+    const { quantity, code, name, price, description, unit } = item
+    const { removeItem } = actions
+
+    return (
+      <Card fluid style={styles.itemCard}>
+        <Popup
+          content='Click to see reports'
+          position='top right'
+          trigger={
+            <Card.Content as={Link} to={`/item/${item._id}/reports`}>
+              <Card.Header>
+                <div style={styles.cardHeader}>
+                  <span>{name}</span>
+                  <span style={styles.quantityText}>&bull; {quantity} {unit}</span>
+                </div>
+                <Label as='a' tag attached='top right' style={styles.cardHeader.label}>
+                  &#8369; {numeral(price).format('0,0')} per unit
+                </Label>
+              </Card.Header>
+              {isOpen &&
+                <Card.Description>
+                  <table border={0}>
+                    <tr>
+                      <td><Icon name='barcode' /></td>
+                      <td style={{ paddingRight: '2em' }}>Item code</td>
+                      <td>{code || 'N/A'}</td>
+                    </tr>
+                    <tr>
+                      <td><Icon name='info circle' /></td>
+                      <td style={{ paddingRight: '2rem' }}>Description</td>
+                      <td>{description}</td>
+                    </tr>
+                  </table>
+                </Card.Description>
+              }
+            </Card.Content>
+          }
+        />
+        <Card.Content extra style={styles.cardExtra}>
+          <Button onClick={this.toggleDesc} size='tiny' circular icon={isOpen ? 'chevron up' : 'chevron down'} />
           <AddNewInventory item={item}/>
-          <div style={{float: 'right'}}>
-            <Menu.Item as={Link} to={`/item/${item._id}`}>
-              <Button color='green' style={styles.actionButton}><Icon
-                name='edit'/>Edit</Button>
-            </Menu.Item>
+          <div style={{ float: 'right' }}>
+            <Button as={Link} to={`/item/${item._id}`} icon='edit' labelPosition='left' content='Edit' size='tiny' color='green' />
             <DeleteConfirmationModal removeItem={removeItem} item={item}/>
           </div>
-        </div>
-      </Card.Content>
-    </Card>
-  )
+        </Card.Content>
+      </Card>
+    )
+  }
 }
 
 const styles = {
-  actionButton: {
-    color: '#fff',
-    borderRadius: '0.25em',
-    marginRight: '7px',
-    padding: '0.767em',
-    border: 'none',
-    textShadow: '0 1px 1px rgba(0,0,0,.1)'
+  cardHeader: {
+    marginRight: '4em',
+    label: {
+      backgroundColor: '#f8ed62'
+    }
   },
-  quantityHeading: {
-    fontWeight: 'bold',
-    fontSize: '13px'
-  },
-  code: {
-    fontSize: '10px',
-    paddingLeft: '3px',
-    display: 'inline-block',
-    verticalAlign: 'top',
-    lineHeight: 'normal'
+  quantityText: {
+    marginLeft: '0.5rem',
+    fontSize: '1rem',
+    fontWeight: 'normal',
+    color: 'grey'
   },
   itemCard: {
-    width: '350px'
+    marginBottom: '0'
+  },
+  cardExtra: {
+    padding: '6px 0px 6px 6px'
   }
 }
-export default itemDataCard
+
+export default ItemDataCard
