@@ -9,6 +9,16 @@ export const GET_ITEM_ERROR = 'GET_ITEM_ERROR'
 export const PATCH_ITEM = 'PATCH_ITEM'
 export const PATCH_ITEM_ERROR = 'PATCH_ITEM_ERROR'
 export const SELECT_REPORT = 'SELECT_REPORT'
+export const FILTER_ITEMS = 'FILTER_ITEMS'
+
+export const filterItems = (value) => {
+  return (dispatch) => {
+    dispatch({
+      type: FILTER_ITEMS,
+      payload: value
+    })
+  }
+}
 
 export const createItem = (values) => {
   return async (dispatch) => {
