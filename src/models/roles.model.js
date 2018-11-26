@@ -6,7 +6,12 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient')
   const { Schema } = mongooseClient
   const roles = new Schema({
-    text: { type: String, required: true }
+    title: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    permissions: [{type: Schema.Types.Object, ref: 'Permissions'}]
   }, {
     timestamps: true
   })

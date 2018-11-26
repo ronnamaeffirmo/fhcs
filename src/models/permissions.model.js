@@ -6,7 +6,11 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient')
   const { Schema } = mongooseClient
   const permissions = new Schema({
-    text: { type: String, required: true }
+    title: {
+      type: String,
+      required: true,
+      unique: true
+    }
   }, {
     timestamps: true
   })
