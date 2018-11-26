@@ -45,6 +45,7 @@
     "compression": "^1.7.2",
     "cors": "^2.8.4",
     "feathers-mongoose": "^6.1.2",
+    "fuse.js": "^3.3.0",
     "helmet": "^3.12.1",
     "mongoose": "^5.2.3",
     "nodemon": "^1.18.1",

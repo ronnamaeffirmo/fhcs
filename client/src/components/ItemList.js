@@ -9,11 +9,15 @@ class ItemList extends Component {
   }
 
   render () {
-    let { items, removeItem } = this.props
-    items = items || []
+    let { items, removeItem, filterItems, filteredItems } = this.props
+
+    items =  filteredItems || items || []
     return (
       <Container style={styles.mainContainer}>
-        <Input placeholder='Search items here...' style={styles.itemSearchField} />
+        <Input placeholder='Search items here...' style={styles.itemSearchField}
+               onChange={(e) => {
+                  filterItems(e.target.value)
+        }} />
         <NewItemModal/>
         <Container style={styles.itemContainer}>
           <Card.Group>
