@@ -12,7 +12,7 @@ module.exports = {
   },
 
   after: {
-    all: [],
+    all: [local.hooks.protect('password')],
     find: [],
     get: [],
     create: [],
