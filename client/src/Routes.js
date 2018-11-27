@@ -15,7 +15,7 @@ import Dashboard from './components/Dashboard'
 
 const Routes = () => (
   <PaddedContainer>
-    <Route path='/' component={Dashboard} />
+    <Route path='/' exact component={Dashboard} />
     <Route path='/login' component={LoginFormContainer} />
     <Route path='/change-password' component={ChangePasswordForm} />
     <Route path='/items' component={ItemList} />
