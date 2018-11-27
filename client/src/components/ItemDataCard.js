@@ -33,8 +33,9 @@ class ItemDataCard extends Component {
     return (
       <Card fluid style={styles.itemCard}>
         <Popup
+          inverted
           content='Click to see reports'
-          position='top right'
+          position='right center'
           trigger={
             <Card.Content as={Link} to={`/item/${item._id}/reports`}>
               <Card.Header>
@@ -42,7 +43,7 @@ class ItemDataCard extends Component {
                   <span>{name}</span>
                   <span style={styles.quantityText}>&bull; {quantity} {unit}</span>
                 </div>
-                <Label as='a' tag attached='top right' style={styles.cardHeader.label}>
+                <Label size='small' tag attached='top right' style={styles.cardHeader.label}>
                   &#8369; {numeral(price).format('0,0')} per unit
                 </Label>
               </Card.Header>
@@ -82,6 +83,7 @@ const styles = {
   cardHeader: {
     marginRight: '4em',
     label: {
+      margin: '0.5rem',
       backgroundColor: '#f8ed62'
     }
   },
@@ -92,7 +94,7 @@ const styles = {
     color: 'grey'
   },
   itemCard: {
-    marginBottom: '0'
+    marginBottom: '0.5rem'
   },
   cardExtra: {
     padding: '6px 0px 6px 6px'

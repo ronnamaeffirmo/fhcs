@@ -13,7 +13,7 @@ class ItemList extends Component {
     items = filteredItems || items || []
     return (
       <Container style={styles.mainContainer}>
-        <Segment style={styles.segment}>
+        <Segment style={styles.topSegment}>
           <Input
             placeholder='Search items here...'
             style={styles.itemSearchField}
@@ -21,7 +21,7 @@ class ItemList extends Component {
           />
           <NewItemModal/>
         </Segment>
-        <Segment style={styles.segment}>
+        <Segment style={styles.bottomSegment}>
           <Card.Group>
             { items.map((item) => {
               return (
@@ -44,8 +44,11 @@ const styles = {
   itemSearchField: {
     width: '77%'
   },
-  segment: {
+  topSegment: {
     boxShadow: 'none'
+  },
+  bottomSegment: {
+    paddingBottom: '3rem'
   }
 }
 

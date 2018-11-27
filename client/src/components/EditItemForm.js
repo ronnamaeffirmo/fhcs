@@ -1,7 +1,7 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
 import { Redirect, Link } from 'react-router-dom'
-import { Button, Container, Dimmer, Dropdown, Form, Loader, Message, Segment, Divider } from 'semantic-ui-react'
+import { Button, Dimmer, Dropdown, Form, Loader, Message, Segment, Divider } from 'semantic-ui-react'
 import units from '../common/constants/units'
 
 const styles = {
@@ -62,56 +62,55 @@ class EditItemForm extends React.Component {
   render () {
     return (
       <div>
-        {
-          this.state.done ? <Redirect to="/items"/>
-            :
-            <div style={styles.mainContainer}>
-              <Link to={'/items'}><Button color={'grey'} content={'Back to Items'} icon={'arrow left'} labelPosition={'left'}/></Link>
-              <Button color={'green'} icon={'checkmark'} floated={'right'} labelPosition={'right'} onClick={() => this.handleSubmit()} content='Submit'/>
-              <Divider/>
-              <Form error className='left column'>
-                <Form.Field>
-                  <label>Name</label>
-                  <Form.Input
-                    placeholder='Product name'
-                    value={this.state.name} name='name'
-                    type='text'
-                    onChange={(e, {name, value}) => this.handleChange(e, {name, value})}
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <label>Description</label>
-                  <Form.Input
-                    placeholder='Product description'
-                    value={this.state.description}
-                    name='description'
-                    type='text'
-                    onChange={(e, {name, value}) => this.handleChange(e, {name, value})}
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <label>Price</label>
-                  <Form.Input
-                    placeholder='Price of the product'
-                    value={this.state.price}
-                    name='price'
-                    type='number'
-                    onChange={(e, {name, value}) => this.handleChange(e, {name, value})}
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <label>Unit</label>
-                  <Dropdown
-                    onChange={(e, {name, value}) => this.handleChange(e, {name, value})}
-                    options={units}
-                    name='unit'
-                    placeholder='Choose an option'
-                    selection
-                    value={this.state.unit}
-                  />
-                </Form.Field>
-                <Form.Field>
-                  {Object.keys(this.state.errors).length !== 0 ? <span>
+        { this.state.done
+          ? <Redirect to="/items"/>
+          : <div style={styles.mainContainer}>
+            <Link to={'/items'}><Button color={'grey'} content={'Back to Items'} icon={'arrow left'} labelPosition={'left'}/></Link>
+            <Button color={'green'} icon={'checkmark'} floated={'right'} labelPosition={'right'} onClick={() => this.handleSubmit()} content='Submit'/>
+            <Divider/>
+            <Form error className='left column'>
+              <Form.Field>
+                <label>Name</label>
+                <Form.Input
+                  placeholder='Product name'
+                  value={this.state.name} name='name'
+                  type='text'
+                  onChange={(e, {name, value}) => this.handleChange(e, {name, value})}
+                />
+              </Form.Field>
+              <Form.Field>
+                <label>Description</label>
+                <Form.TextArea
+                  placeholder='Product description'
+                  value={this.state.description}
+                  name='description'
+                  type='text'
+                  onChange={(e, {name, value}) => this.handleChange(e, {name, value})}
+                />
+              </Form.Field>
+              <Form.Field>
+                <label>Price</label>
+                <Form.Input
+                  placeholder='Price of the product'
+                  value={this.state.price}
+                  name='price'
+                  type='number'
+                  onChange={(e, {name, value}) => this.handleChange(e, {name, value})}
+                />
+              </Form.Field>
+              <Form.Field>
+                <label>Unit</label>
+                <Dropdown
+                  onChange={(e, {name, value}) => this.handleChange(e, {name, value})}
+                  options={units}
+                  name='unit'
+                  placeholder='Choose an option'
+                  selection
+                  value={this.state.unit}
+                />
+              </Form.Field>
+              <Form.Field>
+                {Object.keys(this.state.errors).length !== 0 ? <span>
                   <Message
                     error
                     header='There was some errors with your submission'
@@ -121,15 +120,15 @@ class EditItemForm extends React.Component {
                       this.state.errors.price
                     ]}
                   /></span>
-                    : this.state.loading ? <Form.Field><Segment>
-                        <Dimmer style={{height: '50px'}} active>
-                          <Loader size='mini'>Loading</Loader>
-                        </Dimmer>
-                      </Segment></Form.Field>
-                      : ''}
-                </Form.Field>
-              </Form>
-            </div>
+                  : this.state.loading ? <Form.Field><Segment>
+                    <Dimmer style={{height: '50px'}} active>
+                      <Loader size='mini'>Loading</Loader>
+                    </Dimmer>
+                  </Segment></Form.Field>
+                    : ''}
+              </Form.Field>
+            </Form>
+          </div>
         }
       </div>
     )
