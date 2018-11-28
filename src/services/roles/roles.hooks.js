@@ -1,13 +1,30 @@
 const { authenticate } = require('@feathersjs/authentication').hooks
 
+const validatePermissionDataRequest = (context) => {
+  if (context.data.permissions) {
+    const {permissions} = context.data
+    const parsedPermissions = []
+    if (permissions) {
+      for (const permission of permissions) {
+        const {service, params} = permission
+        parsedPermissions.push(service + ':' + params)
+      }
+    }
+    context.data.permissions = parsedPermissions
+  } else {
+    throw new Error('A role must contain at least one permission!')
+  }
+
+}
+
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
+    all: [],
     find: [],
     get: [],
-    create: [],
-    update: [],
-    patch: [],
+    create: [validatePermissionDataRequest],
+    update: [validatePermissionDataRequest],
+    patch: [validatePermissionDataRequest],
     remove: []
   },
 

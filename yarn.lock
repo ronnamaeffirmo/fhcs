@@ -1733,6 +1733,13 @@ feathers-mongoose@^6.1.2:
     lodash.omit "^4.3.0"
     uberproto "^2.0.0"
 
+feathers-permissions@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/feathers-permissions/-/feathers-permissions-0.2.1.tgz#433ef73fbb7ddde6ac8991404d6f153749ed34f5"
+  integrity sha512-lZ3itZBv+ENDnJu69KXOdDVXslNoc1Dzg0L2o9TpN3Ji/4gi65mHM7fLVqbI2dVBQJWh9Z3B1b74aDabkUHr/Q==
+  dependencies:
+    "@feathersjs/errors" "^3.3.0"
+
 fecha@^2.3.3:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/fecha/-/fecha-2.3.3.tgz#948e74157df1a32fd1b12c3a3c3cdcb6ec9d96cd"
