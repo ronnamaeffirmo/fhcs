@@ -11,6 +11,7 @@ import AddSalesRecordContainer from './containers/AddSalesRecordContainer'
 import ItemReportsContainer from './containers/ItemReportsContainer'
 import AddCustomerContainer from './containers/AddCustomerContainer'
 import SalesList from './containers/SalesListContainer'
+import AddRoleContainer from './containers/AddRoleContainer'
 
 const Routes = () => (
   <PaddedContainer>
@@ -23,6 +24,7 @@ const Routes = () => (
     <Route path='/add-customer' component={AddCustomerContainer} />
     <Route path='/sales' component={SalesList} />
     <Route path='/add-user' component={AddUserWrapper} />
+    <Route path='/roles' component={AddRoleContainer} />
   </PaddedContainer>
 )
 

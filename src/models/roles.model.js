@@ -11,7 +11,7 @@ module.exports = function (app) {
       required: true,
       unique: true
     },
-    permissions: [{type: String, unique: true}]
+    permissions: [{type: String}]
   }, {
     timestamps: true
   })

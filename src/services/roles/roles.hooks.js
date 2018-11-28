@@ -6,12 +6,14 @@ const validatePermissionDataRequest = (context) => {
     const parsedPermissions = []
     if (permissions) {
       for (const permission of permissions) {
-        const {service, params} = permission
-        for (const param of params) {
-          parsedPermissions.push(service + ':' + param)
+        let {service, param} = permission
+        if (param === 'all') {
+          param = '*'
         }
+        parsedPermissions.push(service + ':' + param)
       }
     }
+    context.data.title = (context.data.title).toLowerCase()
     context.data.permissions = parsedPermissions
   } else {
     throw new Error('A role must contain at least one permission!')
