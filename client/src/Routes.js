@@ -12,6 +12,7 @@ import ItemReportsContainer from './containers/ItemReportsContainer'
 import AddCustomerContainer from './containers/AddCustomerContainer'
 import SalesList from './containers/SalesListContainer'
 import Dashboard from './components/Dashboard'
+import CustomerList from './containers/CustomerListContainer'
 
 const Routes = () => (
   <PaddedContainer>
@@ -23,6 +24,7 @@ const Routes = () => (
     <Route path='/item/:_id/reports' component={ItemReportsContainer} />
     <Route path='/add-sales' component={AddSalesRecordContainer} />
     <Route path='/add-customer' component={AddCustomerContainer} />
+    <Route path='/customers' component={CustomerList} />
     <Route path='/sales' component={SalesList} />
     <Route path='/add-user' component={AddUserWrapper} />
   </PaddedContainer>

@@ -71,7 +71,7 @@ class ItemDataCard extends Component {
           <AddNewInventory item={item}/>
           <div style={{ float: 'right' }}>
             <Button as={Link} to={`/item/${item._id}`} icon='edit' labelPosition='left' content='Edit' size='tiny' color='green' />
-            <DeleteConfirmationModal removeItem={removeItem} item={item}/>
+            <DeleteConfirmationModal removeElement={removeItem} element={item}/>
           </div>
         </Card.Content>
       </Card>

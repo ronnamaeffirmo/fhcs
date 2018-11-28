@@ -26,6 +26,7 @@ const Header = () => (
       <Menu.Item style={styles.menuItem} name='items' as={Link} to={'/items'}/>
       <Menu.Item style={styles.menuItem} name='inventory' as={Link} to={'/inventories'}/>
       <Menu.Item style={styles.menuItem} name='sales' as={Link} to={'/sales'}/>
+      <Menu.Item style={styles.menuItem} name='customers' as={Link} to={'/customers'}/>
     </PaddedContainer>
   </Menu>
 )
