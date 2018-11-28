@@ -8,7 +8,7 @@ const validatePermissionDataRequest = (context) => {
       for (const permission of permissions) {
         const {service, params} = permission
         for (const param of params) {
-          parsedPermissions.push(service + ':' + params)
+          parsedPermissions.push(service + ':' + param)
         }
       }
     }
