@@ -2,7 +2,7 @@ const local = require('@feathersjs/authentication-local')
 
 module.exports = {
   before: {
-    all: [],
+    all: [(context) => {console.log(context.params)}],
     find: [],
     get: [],
     create: [local.hooks.hashPassword({ passwordField: 'password' })],

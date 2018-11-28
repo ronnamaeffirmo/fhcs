@@ -11,7 +11,7 @@ module.exports = function (app) {
       required: true,
       unique: true
     },
-    permissions: [{type: Schema.Types.Object, ref: 'Permissions'}]
+    permissions: [{type: String, unique: true}]
   }, {
     timestamps: true
   })
