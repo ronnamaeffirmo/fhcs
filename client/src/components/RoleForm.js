@@ -1,7 +1,19 @@
 import React from 'react'
-import { Button, Divider, Form, Container, Input, Checkbox, Grid, Header, Tab, Segment, Label, Icon } from 'semantic-ui-react'
+import {
+  Button,
+  Divider,
+  Form,
+  Container,
+  Input,
+  Checkbox,
+  Grid,
+  Header,
+  Card,
+  Segment,
+} from 'semantic-ui-react'
 import { reduxForm, Field } from 'redux-form'
 import { Link } from 'react-router-dom'
+import PermissionInformation from './PermissionInformation'
 
 const styles = {
   mainContainer: {
@@ -16,42 +28,19 @@ const styles = {
     color: 'red',
     float: 'right'
   },
-  informationPanes: {
-    marginTop: 20,
-    marginBottom: 25
-  },
   gridCol: {
     marginTop: 8
+  },
+  searchButton: {
+    width: '21%',
+    float: 'right',
+    backgroundColor: 'green',
+    color: 'white'
   }
 }
 
-const informationPanes = [
-  {menuItem: 'ALL', render: () => <Tab.Pane>Checking this will override the other selections.</Tab.Pane>},
-  {
-    menuItem: 'GET',
-    render: () => <Tab.Pane>Allow users with this permission to view data from the service endpoint.</Tab.Pane>
-  },
-  {
-    menuItem: 'POST',
-    render: () => <Tab.Pane>Allow users with this permission to create new data in the service endpoint.</Tab.Pane>
-  },
-  {
-    menuItem: 'PUT',
-    render: () => <Tab.Pane>Allow users with this permission to completely replace existing data in the service
-      endpoint.</Tab.Pane>
-  },
-  {
-    menuItem: 'PATCH',
-    render: () => <Tab.Pane>Allow users with this permission to modify existing data in the service endpoint</Tab.Pane>
-  },
-  {
-    menuItem: 'DELETE',
-    render: () => <Tab.Pane>Allow users with this permission to delete existing data in the service endpoint.</Tab.Pane>
-  },
-]
-
 const GridColumn = (props) => {
-  const {service, param} = props
+  const {service, param, dataView} = props
   return (
     <Grid.Column key={service + ':' + param} style={styles.gridCol}>
       <Field
@@ -60,7 +49,8 @@ const GridColumn = (props) => {
           const {input: {value, onChange}} = props
           return (
             <div>
-              <Checkbox fitted={true} toggle checked={!!(value && value === true)} label={param.toUpperCase()}
+              <Checkbox fitted={true} disabled={dataView} toggle checked={!!(value && value === true)}
+                        label={param.toUpperCase()}
                         onChange={(e, {checked}) => {
                           onChange(checked)
                         }}/>
@@ -76,41 +66,46 @@ const CommonServiceParameters = (props) => {
   let {service} = props
   const params = ['all', 'get', 'post', 'put', 'patch', 'delete']
   return (
-    <Container style={styles.commonServiceParametersContainer}>
-      <Header size='medium'>{service}</Header>
-      <p>Check all permissions for {service} service.</p>
-      <Grid textAlign={'left'} columns={3} container={true}>
-        <Grid.Row>
-          {params.map(param => {
-            return <GridColumn key={service + ':' + param} param={param} service={service}/>
-          })}
-        </Grid.Row>
-      </Grid>
-    </Container>
+    <Card fluid style={{paddingRight: 13, paddingLeft: 13, paddingBottom: 4}}>
+      <Container style={styles.commonServiceParametersContainer}>
+        <Header size='medium'>{service}</Header>
+        <p>Check all permissions for {service} service.</p>
+        <Grid textAlign={'left'} columns={3} container={true}>
+          <Grid.Row>
+            {params.map(param => {
+              return <GridColumn key={service + ':' + param} {...props} param={param}/>
+            })}
+          </Grid.Row>
+        </Grid>
+      </Container>
+    </Card>
+
   )
 }
 
-const RoleForm = ({handleSubmit, pristine, submitting, submissionHandler}) => {
+const RoleForm = (props) => {
+  const {handleSubmit, pristine, submitting, submissionHandler, dataView} = props
   const endpoints = ['Items', 'Inventory', 'Sales', 'Users', 'Roles', 'Customers']
   return (
     <Container style={styles.mainContainer}>
-
-      <Form onSubmit={handleSubmit(submissionHandler)}>
+      <Form onSubmit={submissionHandler ? handleSubmit(submissionHandler) : undefined}>
         <Container>
-          <Link to={'/items'}><Button color={'grey'} content={'Back to Roles'} icon={'arrow left'}
+          <Link to={'/roles'}><Button color={'grey'} content={'Back to Roles'} icon={'arrow left'}
                                       labelPosition={'left'}/></Link>
+          {!dataView &&
           <Button color={'green'} icon={'checkmark'} floated={'right'} type={'submit'} labelPosition={'right'}
                   content='Submit'
-                  disabled={pristine || submitting}/>
+                  disabled={pristine || submitting}/>}
+          {dataView &&
+          <Link to={`/roles/update/${props.match.params.id}`}><Button color={'red'} icon={'edit'} floated={'right'}
+                                                                      labelPosition={'right'}
+                                                                      content='Edit Role'
+          /></Link>}
           <Divider/>
         </Container>
 
 
-        <Container>
-          <Header size={'medium'}>Permission Information</Header>
-          <p>Please take a look at the descriptions for each permission.</p>
-          <Tab menu={{secondary: true, pointing: true}} panes={informationPanes} style={styles.informationPanes}/>
-        </Container>
+        <PermissionInformation />
         <Segment>
           <Container>
             <Field
@@ -127,7 +122,7 @@ const RoleForm = ({handleSubmit, pristine, submitting, submissionHandler}) => {
                 )
               }}
             />
-            {endpoints.map(endpoint => <CommonServiceParameters service={endpoint} key={endpoint}/>)}
+            {endpoints.map(endpoint => <CommonServiceParameters {...props} service={endpoint} key={endpoint}/>)}
           </Container>
         </Segment>
       </Form>
