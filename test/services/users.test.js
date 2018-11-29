@@ -83,7 +83,7 @@ describe('\'users\' service', () => {
       updateStub.returns(
         Object.keys(dataUpdate).map((res) => dummyUser[res] = dataUpdate[res] )
       )
-      const result = await service.update()
+      await service.update(dataUpdate)
       dummyUser.username.should.be.equal('user123')
       dummyUser.password.should.be.equal('pass123')
       dummyUser.firstname.should.be.equal('joe')
