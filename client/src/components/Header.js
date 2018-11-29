@@ -62,15 +62,6 @@ const Header = () => (
             }
           />
         </Menu.Item>
-
-        {/* <Menu.Item>
-          <Icon name='user circle' size='large' />
-        </Menu.Item>
-        <Menu.Item
-          name='logout'
-          // active={activeItem === 'logout'}
-          onClick={this.handleItemClick}
-        /> */}
       </Menu.Menu>
     </PaddedContainer>
   </Menu>
