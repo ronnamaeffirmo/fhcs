@@ -44,6 +44,7 @@
     "@feathersjs/socketio": "^3.2.2",
     "compression": "^1.7.2",
     "cors": "^2.8.4",
+    "eslint-plugin-react": "^7.11.1",
     "feathers-mongoose": "^6.1.2",
     "feathers-permissions": "^0.2.1",
     "fuse.js": "^3.3.0",
