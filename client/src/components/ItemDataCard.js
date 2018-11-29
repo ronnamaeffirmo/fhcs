@@ -97,7 +97,7 @@ const styles = {
     marginBottom: '0.5rem'
   },
   cardExtra: {
-    padding: '6px 0px 6px 6px'
+    padding: '6px 4px 6px 6px'
   }
 }
 

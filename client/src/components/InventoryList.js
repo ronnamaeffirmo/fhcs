@@ -14,8 +14,8 @@ class ItemList extends Component {
       <Container style={styles.mainContainer}>
         <Segment style={styles.topSegment}>
           <Input
+            fluid
             placeholder='Search inventories here...'
-            style={styles.itemSearchField}
             onChange={(e) => { filterInventories(e.target.value) }}
           />
         </Segment>
@@ -23,7 +23,7 @@ class ItemList extends Component {
           { !inventories.length && <Message negative>No available items yet</Message>}
           <Card.Group>
             { inventories.map((item) => (
-              <div key={item._id}>{item.itemId}</div>
+              <div key={item._id}>{item._id}</div>
               // <ItemDataCard item={item} key={item._id} actions={{removeItem}} />
             ))}
           </Card.Group>
@@ -38,9 +38,6 @@ const styles = {
     width: '768px !important',
     padding: '10px',
     marginTop: '10px'
-  },
-  itemSearchField: {
-    width: '77%'
   },
   topSegment: {
     boxShadow: 'none'

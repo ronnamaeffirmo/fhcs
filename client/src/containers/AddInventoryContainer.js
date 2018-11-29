@@ -20,8 +20,8 @@ const mapStateToProps = (state, ownProps) => ({
       {key: 'hbm2', value: 'hbm2', text: 'Hollow Block Machine 2'}
     ],
     statuses: [
-      {key: 'received', value: 'hbm1', text: 'Received'},
-      {key: 'inTransit', value: 'inTransit', text: 'In Transit'},
+      {key: 'received', value: 'received', text: 'Received'},
+      {key: 'inTransit', value: 'in_transit', text: 'In Transit'},
       {key: 'returned', value: 'returned', text: 'Returned'}
     ]
   }
