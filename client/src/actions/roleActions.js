@@ -6,6 +6,7 @@ export const GET_ALL_ROLES = 'GET_ALL_ROLES'
 export const ADD_NEW_ROLE = 'ADD_NEW_ROLE'
 export const UPDATE_ROLE = 'UPDATE_ROLE'
 export const RECEIVE_ROLE = 'RECEIVE_ROLE'
+export const RECEIVE_ROLES = 'RECEIVE_ROLES'
 
 export const receiveRole = (values) => {
   return (dispatch) => {
@@ -70,8 +71,6 @@ export const updateRole = (values) => {
   }
 }
 
-
-
 export const fetchRole = async (id) => {
   const result = await client.service('roles').get(id)
   if (result.permissions.length > 0) {
@@ -86,14 +85,16 @@ export const fetchRole = async (id) => {
   return {title: result.title, permissions: result.permissions, id: result._id}
 }
 
-
-
-export const getAllRoles = () => {
-  return async (dispatch) => {
-    const roles = await client.service('roles').find({})
+export const receiveRoles = (data) => {
+  return (dispatch) => {
     dispatch({
-      type: GET_ALL_ROLES,
-      payload: roles.data
+      type: RECEIVE_ROLES,
+      payload: data
     })
   }
+}
+
+export const getAllRoles = async () => {
+  const roles = await client.service('roles').find({})
+  return roles.data
 }
