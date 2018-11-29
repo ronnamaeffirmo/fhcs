@@ -8,18 +8,20 @@ import { fetchRole, receiveRole } from '../actions/roleActions'
 // from Dan Abramov -- creator of Redux
 class EditRoleContainer extends React.Component {
   async componentDidMount () {
-    const role = await fetchRole(this.props.match.params.id)
+    const role = await fetchRole(this.props.roleId)
     this.props.receiveRole(role)
+    console.log('COMPONENT REMOUNTED')
   }
 
   render () {
-    return <EditRole {...this.props}/>
+    return <EditRole {...this.props} key={this.props.location.key}/>
   }
 }
 
-const mapStateToProps = (state) => ({
-  initialValues: parseRoleDataToForm(state.role.updateSelection),
-  updateSelection: state.role.updateSelection
+const mapStateToProps = (state, ownProps) => ({
+  initialValues: parseRoleDataToForm(state.role.selection),
+  roleId: ownProps.match.params.id,
+  selection: state.role.selection
 })
 
 const mapDispatchToProps = (dispatch) => ({
