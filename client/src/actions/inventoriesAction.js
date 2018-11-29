@@ -2,6 +2,7 @@ import client from '../common/client'
 import moment from 'moment'
 
 export const GET_INVENTORIES = 'GET_INVENTORIES'
+export const ADD_INVENTORY = 'ADD_INVENTORY'
 
 const getQueryDate = (amount, unit) => {
   return moment(new Date()).subtract(amount, unit).toDate()
@@ -44,6 +45,19 @@ export const getInventories = ({ period }) => {
     dispatch({
       type: GET_INVENTORIES,
       payload: inventories
+    })
+  }
+}
+
+export const createInventory = (values) => {
+  return async (dispatch) => {
+    console.log('values', values)
+    const item = await client.service('inventories').create(values)
+    console.log('[!] item', item)
+    window.alert('Added new item!')
+    dispatch({
+      type: ADD_INVENTORY,
+      payload: item
     })
   }
 }

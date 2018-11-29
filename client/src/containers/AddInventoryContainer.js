@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
+import { createInventory } from '../actions/inventoriesAction'
 
 import AddInventoryModalForm from '../components/AddInventoryModalForm'
 
@@ -26,4 +27,11 @@ const mapStateToProps = (state, ownProps) => ({
   }
 })
 
-export default connect(mapStateToProps)(wrapped)
+const mapDispatchToProps = (dispatch) => ({
+  createInventory: (values) => dispatch(createInventory(values))
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(wrapped)

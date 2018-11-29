@@ -1,4 +1,7 @@
-import { GET_INVENTORIES } from '../actions/inventoriesAction'
+import {
+  GET_INVENTORIES,
+  ADD_INVENTORY
+} from '../actions/inventoriesAction'
 
 const initialState = {
   inventories: []
@@ -10,6 +13,13 @@ const inventoryReducer = (state = initialState, action) => {
       return {
         ...state,
         inventories: action.payload
+      }
+    }
+    case ADD_INVENTORY: {
+      return {
+        ...state,
+        inventory: action.payload,
+        inventories: [...state.inventories, action.payload]
       }
     }
     default:

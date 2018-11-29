@@ -1,28 +1,32 @@
 import React from 'react'
-import { Button, Container, Form, Input, Modal, Select, TextArea } from 'semantic-ui-react'
+import { Field } from 'redux-form'
+import { Button, Container, Form, Modal } from 'semantic-ui-react'
+import InputField from './InputField'
+import TextAreaField from './TextAreaField'
+import DropdownField from './DropdownField'
 
-const AddInventoryModalForm = ({item, options}) => (
+const AddInventoryModalForm = ({ item, options, handleSubmit, createInventory, pristine, submitting }) => (
   <Modal trigger={<Button size='tiny'>Add Inventory</Button>} centered={false}>
     <Modal.Header>New Inventory Record</Modal.Header>
     <Modal.Content>
       <Container>
-        <Form>
+        <Form onSubmit={handleSubmit(createInventory)}>
           <Form.Group widths='equal'>
-            <Form.Field control={Input} label='Item Name' value={item.name}/>
-            <Form.Field control={Input} label='Quantity' placeholder='Quantity'/>
-            <Form.Field control={Select} label='Source' options={options.sources} placeholder='Source'/>
+            <Field type='text' name='itemName' label='Item Name' placeholder='Item Name' value={item.name} component={InputField} />
+            <Field type='number' name='quantity' label='Quantity' placeholder='Quantity' component={InputField} />
+            <Field type='selection' name='source' label='Source' placeholder='Source' options={options.sources} component={DropdownField} />
           </Form.Group>
           <Form.Group widths='equal'>
-            <Form.Field control={Select} label='Source' options={options.producers} placeholder='Producer'/>
+            <Field type='selection' name='producer' label='Producer' placeholder='Producer' options={options.producers} component={DropdownField} />
           </Form.Group>
           <Form.Group widths='equal'>
-            <Form.Field control={Input} label='PO Number' placeholder='PO Number'/>
-            <Form.Field control={Input} label='Company' placeholder='Company'/>
-            <Form.Field control={Input} label='Truck Plate Number' placeholder='Truck Plate Number'/>
-            <Form.Field control={Select} label='Source' options={options.statuses} placeholder='Status'/>
+            <Field type='text' name='poNumber' label='PO Number' placeholder='PO Number' component={InputField} />
+            <Field type='text' name='company' label='Company' placeholder='Company' component={InputField} />
+            <Field type='text' name='truckPlateNumber' label='Truck Plate Number' placeholder='Truck Plate Number' component={InputField} />
+            <Field type='selection' name='status' label='Status' placeholder='Status' options={options.statuses} component={DropdownField} />
           </Form.Group>
-          <Form.Field control={TextArea} label='Notes' placeholder='Information about this record...'/>
-          <Form.Field control={Button}>Submit</Form.Field>
+          <Field type='textarea' name='notes' label='Notes' placeholder='Information about this record...' component={TextAreaField} />
+          <Button disabled={pristine || submitting}>Submit</Button>
         </Form>
       </Container>
     </Modal.Content>
