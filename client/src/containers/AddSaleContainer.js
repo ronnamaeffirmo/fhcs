@@ -1,6 +1,6 @@
 import React from 'react'
 import SaleForm from '../components/SaleForm'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 import { formValueSelector } from 'redux-form'
 
@@ -20,7 +20,24 @@ const mapStateToProps = (state) => ({
     price: selector(state, 'tmpPrice'),
     quantity: selector(state, 'tmpQuantity'),
     discount: selector(state, 'tmpDiscount')
-  }
+  },
+  items: itemStateInitializer(selector(state, 'items'))
 })
+
+const itemStateInitializer = (items) => {
+  let initialItemsState = [{}]
+  if (items) {
+    initialItemsState = items.map(item => {
+      return {
+        ...item,
+        price: parseFloat(item.price).toFixed(2),
+        discount: parseFloat(item.discount).toFixed(2),
+        subtotal: (parseFloat(item.price) * parseFloat(item.quantity)).toFixed(2),
+        total: ((parseFloat(item.price) * parseFloat(item.quantity)) - parseFloat(item.discount)).toFixed(2)
+      }
+    })
+    return initialItemsState
+  }
+}
 
 export default connect(mapStateToProps, null)(AddSaleContainer)

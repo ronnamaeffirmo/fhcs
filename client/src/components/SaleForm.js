@@ -20,7 +20,6 @@ import terms from '../common/constants/terms'
 import moment from 'moment'
 import { DateInput } from 'semantic-ui-calendar-react'
 
-
 const styles = {
   mainContainer: {
     marginTop: 30
@@ -31,11 +30,16 @@ const styles = {
   fieldLabel: {
     fontSize: 16,
     lineHeight: 1.5
+  },
+  tmpFieldLabel: {
+    fontWeight: 700,
+    fontSize: 15,
+    lineHeight: 2.0
   }
 }
 
 const SaleForm = (props) => {
-  const {submissionHandler, handleSubmit, pristine, submitting, tmp} = props
+  const {submissionHandler, handleSubmit, pristine, submitting, tmp, items} = props
   return (
     <Container style={styles.mainContainer}>
       <Form>
@@ -140,7 +144,7 @@ const SaleForm = (props) => {
             <Divider/>
             <Grid.Row>
               <Grid.Column width={16}>
-                <FieldArray name='items' component={Items} props={tmp} rerenderOnEveryChange={true} />
+                <FieldArray name='items' component={Items} props={{tmp: tmp, items: items}} rerenderOnEveryChange={true}/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -151,68 +155,80 @@ const SaleForm = (props) => {
 }
 
 const Items = (props) => {
-  const {fields, meta: {error, submitFailed}, item, quantity, price, discount} = props
+  const {fields, meta: {error, submitFailed}, items, tmp: {item, quantity, price, discount}} = props
   console.log(props)
   return (
     <div>
+      {items &&
+      <div>
+        <Table celled selectable>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Item</Table.HeaderCell>
+              <Table.HeaderCell textAlign={'right'}>Price</Table.HeaderCell>
+              <Table.HeaderCell textAlign={'center'}>Quantity</Table.HeaderCell>
+              <Table.HeaderCell textAlign={'right'}>Subtotal</Table.HeaderCell>
+              <Table.HeaderCell textAlign={'right'}>Discount</Table.HeaderCell>
+              <Table.HeaderCell textAlign={'right'}>Total</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {items.map((item, index) => {
+              return (
+                <Table.Row key={item.item + '-' + 'item.total'}>
 
-      <Table celled>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Item</Table.HeaderCell>
-            <Table.HeaderCell>Price</Table.HeaderCell>
-            <Table.HeaderCell>Quantity</Table.HeaderCell>
-            <Table.HeaderCell>Subtotal</Table.HeaderCell>
-            <Table.HeaderCell>Discount</Table.HeaderCell>
-            <Table.HeaderCell>Total</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
+                  <Popup
+                    trigger={<Table.Cell>{item.item}</Table.Cell>}
+                    content={<Button color='red' content='Remove Item' onClick={() => fields.remove(index)}/>}
+                    on='hover'
+                    hoverable
+                    hideOnScroll
+                  />
 
-        <Table.Body>
-          {fields.map((item, index) => {
-            return (
-              <Table.Row key={item}>
-                <Table.Cell>
-                  <ItemField item={item} name={'item'}/>
-                </Table.Cell>
-                <Table.Cell>
-                  <ItemField item={item} name={'discount'}/>
-                </Table.Cell>
-                <Table.Cell>
-                  <ItemField item={item} name={'quantity'}/>
-                </Table.Cell>
-                <Table.Cell>2, 500, 000.00</Table.Cell>
-                <Table.Cell>
-                  <ItemField item={item} name={'discount'}/>
-                </Table.Cell>
-                <Table.Cell>2, 500, 000.00</Table.Cell>
-              </Table.Row>
-            )
-          })}
-        </Table.Body>
-      </Table>
-      <Divider/>
-      <Grid divided>
+
+
+                  <Table.Cell textAlign={'right'}>₱{item.price}</Table.Cell>
+                  <Table.Cell textAlign={'center'}>{item.quantity}</Table.Cell>
+                  <Table.Cell textAlign={'right'}>₱{item.subtotal}</Table.Cell>
+                  <Table.Cell textAlign={'right'}>₱{item.discount}</Table.Cell>
+                  <Table.Cell textAlign={'right'}>₱{item.total}</Table.Cell>
+                </Table.Row>
+              )
+            })}
+          </Table.Body>
+        </Table>
+        <Divider/>
+      </div>
+      }
+
+
+
+
+      <Grid>
         <Grid.Row>
           <Grid.Column width={6}>
+            <label style={styles.tmpFieldLabel}>Item</label>
             <Field
               name={'tmpItem'}
               component='input'
             />
           </Grid.Column>
           <Grid.Column width={4}>
+            <label style={styles.tmpFieldLabel}>Price</label>
             <Field
               name={'tmpPrice'}
               component='input'
             />
           </Grid.Column>
           <Grid.Column width={3}>
+            <label style={styles.tmpFieldLabel}>Quantity</label>
             <Field
               name={'tmpQuantity'}
               component='input'
             />
           </Grid.Column>
           <Grid.Column width={3}>
+            <label style={styles.tmpFieldLabel}>Discount</label>
             <Field
               name={'tmpDiscount'}
               component='input'
@@ -223,7 +239,6 @@ const Items = (props) => {
                     content={'ADD ITEM TO SALES RECORD'} icon={'plus'}/>
           </Grid.Column>
         </Grid.Row>
-
       </Grid>
     </div>
   )
