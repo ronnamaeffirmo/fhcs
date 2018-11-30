@@ -141,5 +141,6 @@ const validate = values => {
 
 export default reduxForm({
   form: 'roleForm',
-  validate
+  validate,
+  enableReinitialize: true
 })(RoleForm)
