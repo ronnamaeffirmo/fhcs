@@ -45,6 +45,7 @@ const styles = {
 
 const UserList = (props) => {
   const {users, deleteUser} = props
+  console.log('USERSLIST USERS', users)
   return (
     <Container style={styles.mainContainer}>
       <Segment style={styles.topSegment}>
@@ -79,7 +80,8 @@ const UserList = (props) => {
                   />
                 </Card.Header>
                 <Card.Meta>
-                  {`@${username.toLowerCase()} - ${toTitleCase(title)}`}</Card.Meta>
+                  {`@${username.toLowerCase()} - ${toTitleCase(title)}`}
+                </Card.Meta>
                 <Card.Description style={styles.userInformation}>
                   <Grid>
                     <Grid.Row columns={1}>

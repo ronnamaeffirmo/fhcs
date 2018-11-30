@@ -1,12 +1,11 @@
 import React from 'react'
 import connect from 'react-redux/es/connect/connect'
-import { getAllRoles, receiveRoles } from '../actions/roleActions'
+import { getRoles } from '../actions/roleActions'
 import RoleList from '../components/RoleList'
 
 class RoleListContainer extends React.Component {
-  async componentDidMount () {
-    const result = await getAllRoles()
-    this.props.receiveRoles(result)
+  componentDidMount () {
+    this.props.getRoles()
   }
 
   render () {
@@ -19,8 +18,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  receiveRoles: (values) => {
-    dispatch(receiveRoles(values))
+  getRoles: () => {
+    dispatch(getRoles())
   }
 })
 
