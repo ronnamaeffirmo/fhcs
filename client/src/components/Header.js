@@ -25,13 +25,13 @@ const userOptions = [
 ]
 
 const itemOptions = [
-  { as: () => (<Menu.Item icon={'tasks'} style={styles.menuItem} name='item list' as={Link} to={'/items'}/>) },
-  { as: () => (<Menu.Item icon={'clipboard'} style={styles.menuItem} name='inventory list' as={Link} to={'/inventories'}/>) }
+  { as: () => (<Menu.Item icon={'tasks'} style={styles.menuItem} content='Item List' as={Link} to={'/items'}/>) },
+  { as: () => (<Menu.Item icon={'clipboard'} style={styles.menuItem} content='Inventory List' as={Link} to={'/inventories'}/>) }
 ]
 
 const settingOptions = [
-  { as=() => (<Menu.Item icon={'move'} name='manage roles' as={Link} to={'/roles'}/>) },
-  { as=() => (<Menu.Item icon={'user'} name='manage users' as={Link} to={'/users'}/>) }
+  { as: () => (<Menu.Item icon={'move'} content='Manage Roles' as={Link} to={'/roles'}/>) },
+  { as: () => (<Menu.Item icon={'user'} content='Manage Users' as={Link} to={'/users'}/>) }
 ]
 
 const Header = () => (
@@ -44,56 +44,17 @@ const Header = () => (
         position='left center'
         trigger={<Menu.Item header name='home' as={Link} to={'/'}>FIELDSTONE</Menu.Item>}
       />
-      <Menu.Item>
-        <Dropdown
-          floating
-          icon={null}
-          pointing='top right'
-          options={itemOptions}
-          trigger={
-            <Menu.Item fitted style={styles.menuItem}>
-              <span>Items</span>
-            </Menu.Item>
-          }
-        />
-      </Menu.Item>
+      <Dropdown item text='Items' options={itemOptions}/>
       <Menu.Item style={styles.menuItem} name='sales' as={Link} to={'/sales'}/>
       <Menu.Item style={styles.menuItem} name='customers' as={Link} to={'/customers'}/>
-      <Menu.Item>
-        <Dropdown
-          floating
-          icon={null}
-          pointing='top right'
-          options={settingOptions}
-          trigger={
-            <Menu.Item fitted style={styles.menuItem}>
-              <span>Settings</span>
-            </Menu.Item>
-          }
-        />
-      </Menu.Item>
+      <Dropdown item text='Settings' options={settingOptions}/>
       <Menu.Menu position='right'>
-        <Menu.Item>
-          <Dropdown
-            floating
-            icon={null}
-            options={userOptions}
-            trigger={
-              <Popup 
-                inverted
-                size='tiny'
-                content='View user profile'
-                position='right center'
-                trigger={
-                  <Menu.Item fitted>
-                    <Icon name='user circle' size='large' />
-                    <span>User</span>
-                  </Menu.Item>
-                }
-              />
-            }
-          />
-        </Menu.Item>
+        <Dropdown
+          item
+          icon={null}
+          options={userOptions}
+          trigger={<span><Icon name='user circle' size='large' /> User</span>}
+        />
       </Menu.Menu>
     </PaddedContainer>
   </Menu>
