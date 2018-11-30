@@ -18,10 +18,10 @@ const fuseOptions = {
   maxPatternLength: 32,
   minMatchCharLength: 1,
   keys: [
-    "name",
-    "description",
-    "price",
-    "unit"
+    'name',
+    'description',
+    'price',
+    'unit'
   ]
 }
 
