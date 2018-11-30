@@ -23,7 +23,7 @@ const parseRolesToDropdownOptions = (roles) => {
 }
 
 const UserForm = (props) => {
-  const {submissionHandler, handleSubmit, pristine, submitting, roles} = props
+  const {submissionHandler, handleSubmit, pristine, submitting, roles, userId} = props
   return (
     <Container style={styles.mainContainer}>
       <Form onSubmit={submissionHandler ? handleSubmit(submissionHandler) : undefined}>
@@ -90,5 +90,6 @@ const ReduxFormField = (props) => {
 }
 
 export default reduxForm({
-  form: 'userForm'
+  form: 'userForm',
+  enableReinitialize: true
 })(UserForm)

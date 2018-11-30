@@ -5,9 +5,12 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
   RECEIVE_USERS,
-  DELETE_USER
+  DELETE_USER,
+  RECEIVE_USER,
+  SELECT_USER
 } from '../actions/userActions'
 import { removeItemFromArray } from '../common/helpers'
+import { selectUser } from '../actions/roleActions'
 
 const initialState = {
   currentuser: undefined,
@@ -19,6 +22,18 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     // ADMINISTRATION
+    case SELECT_USER: {
+      return {
+        ...state,
+        selection: action.payload
+      }
+    }
+    case RECEIVE_USER: {
+      return {
+        ...state,
+        selection: action.payload
+      }
+    }
     case RECEIVE_USERS:
       return {
         ...state,

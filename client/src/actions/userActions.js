@@ -14,6 +14,7 @@ export const RECEIVE_USER = 'RECEIVE_USER'
 export const RECEIVE_USERS = 'RECEIVE_USERS'
 export const UPDATE_USER = 'UPDATE_USER'
 export const DELETE_USER = 'DELETE_USER'
+export const SELECT_USER = 'SELECT_USER'
 
 export const getUsers = async () => {
   return await client.service('users').find({})
@@ -41,6 +42,32 @@ export const addUser = (user) => {
     } catch (e) {
       console.log('ADDING USER ERROR', e)
     }
+  }
+}
+
+export const editUser = (user) => {
+  return async (dispatch) => {
+    try {
+      const updatedUser = await client.service('users').patch(user._id, user)
+      updatedUser.role = updatedUser.role._id
+      dispatch({
+        type: RECEIVE_USER,
+        payload: updatedUser
+      })
+    } catch (e) {
+      console.log('EDIT USER ERROR - userActions.js', e)
+    }
+  }
+}
+
+export const getUser = (id) => {
+  return async (dispatch) => {
+    const user = await client.service('users').get(id)
+    user.role = user.role._id
+    dispatch({
+      type: RECEIVE_USER,
+      payload: user
+    })
   }
 }
 

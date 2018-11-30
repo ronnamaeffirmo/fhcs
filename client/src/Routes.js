@@ -18,6 +18,7 @@ import ViewRoleContainer from './containers/ViewRoleContainer'
 import RoleListContainer from './containers/RoleListContainer'
 import UserListContainer from './containers/UserListContainer'
 import AddUserContainer from './containers/AddUserContainer'
+import EditUserContainer from './containers/EditUserContainer'
 
 const Routes = () => (
   <PaddedContainer>
@@ -45,6 +46,7 @@ const Routes = () => (
 
     <Route path='/users' exact component={UserListContainer} />
     <Route path='/users/new' exact component={AddUserContainer} />
+    <Route path='/users/update/:id' exact component={EditUserContainer} />
   </PaddedContainer>
 )
 
