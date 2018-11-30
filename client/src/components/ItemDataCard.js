@@ -12,20 +12,9 @@ class ItemDataCard extends Component {
     this.state = {
       isOpen: false
     }
-    // TODO pro tip: in your method you can make
-    // toggleDesc = () => {this.setState({isOpen: !this.state.isOpen})} -- no need to bind :)
-    this.toggleDesc = this.toggleDesc.bind(this)
   }
 
-  // TODO shorten - can be this.setState({isOpen: !this.state.isOpen})
-  toggleDesc () {
-    const { isOpen } = this.state
-    if (isOpen) {
-      this.setState({ isOpen: false })
-    } else {
-      this.setState({ isOpen: true })
-    }
-  }
+  toggleDesc = () => this.setState({ isOpen: !this.state.isOpen })
 
   render () {
     const { isOpen } = this.state
