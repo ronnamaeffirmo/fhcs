@@ -18,22 +18,22 @@ import AddRoleContainer from './containers/AddRoleContainer'
 import EditRoleContainer from './containers/EditRoleContainer'
 import ViewRoleContainer from './containers/ViewRoleContainer'
 import RoleListContainer from './containers/RoleListContainer'
+import UserListContainer from './containers/UserListContainer'
 
 const Routes = () => (
   <PaddedContainer>
-    <Route path='/' exact component={Dashboard} />
-    <Route path='/login' component={LoginFormContainer} />
-    <Route path='/change-password' component={ChangePasswordForm} />
-    <Route path='/items' component={ItemList} />
-    <Route path='/item/:_id' exact component={EditFormContainer} />
-    <Route path='/item/:_id/reports' component={ItemReportsContainer} />
-    <Route path='/add-sales' component={AddSalesRecordContainer} />
-    <Route path='/add-customer' component={AddCustomerContainer} />
-    <Route path='/customers' component={CustomerList} />
-    <Route path='/sales' component={SalesList} />
-    <Route path='/add-user' component={AddUserWrapper} />
-    <Route path='/inventories' component={InventoryList} />
-
+    <Route path='/' exact component={Dashboard}/>
+    <Route path='/login' component={LoginFormContainer}/>
+    <Route path='/change-password' component={ChangePasswordForm}/>
+    <Route path='/items' component={ItemList}/>
+    <Route path='/item/:_id' exact component={EditFormContainer}/>
+    <Route path='/item/:_id/reports' component={ItemReportsContainer}/>
+    <Route path='/add-sales' component={AddSalesRecordContainer}/>
+    <Route path='/add-customer' component={AddCustomerContainer}/>
+    <Route path='/customers' component={CustomerList}/>
+    <Route path='/sales' component={SalesList}/>
+    <Route path='/add-user' component={AddUserWrapper}/>
+    <Route path='/inventories' component={InventoryList}/>
     {/*
       ROLES ROUTES
       create - `service`/new
@@ -44,6 +44,7 @@ const Routes = () => (
     <Route path='/roles/new' strict exact component={AddRoleContainer}/>
     <Route path='/roles/update/:id' exact component={EditRoleContainer}/>
     <Route path='/roles/view/:id' exact component={ViewRoleContainer}/>
+    <Route path='/users' exact component={UserListContainer} />
   </PaddedContainer>
 )
 

@@ -19,15 +19,18 @@ const styles = {
 }
 
 const options = [
-  { key: 'greeting',
+  {
+    key: 'greeting',
     text: <span>Hi, <b>User</b>!</span>,
     disabled: true
   },
-  { key: 'account',
+  {
+    key: 'account',
     text: 'My account',
     icon: 'user'
   },
-  { key: 'logout',
+  {
+    key: 'logout',
     text: 'Logout',
     icon: 'sign out'
   }
@@ -43,11 +46,46 @@ const Header = () => (
         position='left center'
         trigger={<Menu.Item header name='home' as={Link} to={'/'}>FIELDSTONE</Menu.Item>}
       />
-      <Menu.Item style={styles.menuItem} name='items' as={Link} to={'/items'}/>
-      <Menu.Item style={styles.menuItem} name='inventory' as={Link} to={'/inventories'}/>
+
+      <Menu.Item>
+        <Dropdown
+          floating
+          icon={null}
+          pointing='top right'
+          trigger={
+            <Menu.Item fitted style={styles.menuItem}>
+              <span>Items</span>
+            </Menu.Item>
+          }
+        >
+          <Dropdown.Menu>
+            <Dropdown.Item as={() => (
+              <Menu.Item icon={'tasks'} style={styles.menuItem} name='item list' as={Link} to={'/items'}/>)}/>
+            <Dropdown.Item
+              as={() => (<Menu.Item icon={'clipboard'} style={styles.menuItem} name='inventory list' as={Link}
+                                    to={'/inventories'}/>)}/>
+          </Dropdown.Menu>
+        </Dropdown>
+      </Menu.Item>
       <Menu.Item style={styles.menuItem} name='sales' as={Link} to={'/sales'}/>
       <Menu.Item style={styles.menuItem} name='customers' as={Link} to={'/customers'}/>
-      <Menu.Item style={styles.menuItem} name='Roles' as={Link} to={'/roles'}/>
+      <Menu.Item>
+        <Dropdown
+          floating
+          icon={null}
+          pointing='top right'
+          trigger={
+            <Menu.Item fitted style={styles.menuItem}>
+              <span>Settings</span>
+            </Menu.Item>
+          }
+        >
+          <Dropdown.Menu>
+            <Dropdown.Item as={() => (<Menu.Item icon={'move'} name='manage roles' as={Link} to={'/roles'}/>)}/>
+            <Dropdown.Item as={() => (<Menu.Item icon={'user'} name='manage users' as={Link} to={'/users'}/>)}/>
+          </Dropdown.Menu>
+        </Dropdown>
+      </Menu.Item>
       <Menu.Menu position='right'>
         <Menu.Item>
           <Dropdown

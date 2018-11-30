@@ -6,8 +6,9 @@ import PermissionInformation from './PermissionInformation'
 
 const styles = {
   mainContainer: {
-    maxWidth: 768,
-    marginTop: 30
+    width: '768px !important',
+    padding: '10px',
+    marginTop: '10px'
   },
   topSegment: {
     boxShadow: 'none'
