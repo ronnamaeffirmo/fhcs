@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Table, Label, Button, Popup } from 'semantic-ui-react'
+import { Table, Label, Button, Popup, Grid } from 'semantic-ui-react'
 import _ from 'lodash'
 
 class InventoryRow extends Component {
@@ -37,40 +37,30 @@ class InventoryRow extends Component {
 				<Table.Row>
 					{ expanded &&
 						<Table.Cell colSpan={5}>
-							<div style={style.flex}>
-								<div style={style.colflex}>
-									<div style={style.coltitle}>Workers</div>
-									<div>{dummyWorkers.map(worker => <Label key={worker} style={{ marginBottom: '3px' }}>{worker}</Label>)}</div>
-								</div>
-							</div>
-							<div style={style.flex}>
-								<div style={style.colflex}>
-									<div style={style.coltitle}>Source</div>
-									<div>{item.source || 'N/A'}</div>
-								</div>
-								<div style={style.colflex}>
-									<div style={style.coltitle}>Producer</div>
-									<div>{item.producer || 'N/A'}</div>
-								</div>
-								<div style={style.colflex}>
-									<div style={style.coltitle}>Company</div>
-									<div>{item.company || 'N/A'}</div>
-								</div>
-							</div>
-							<div style={style.flex}>
-								<div style={style.colflex}>
-									<div style={style.coltitle}>PO</div>
-									<div>{item.poNumber || 'N/A'}</div>
-								</div>
-								<div style={style.colflex}>
-									<div style={style.coltitle}>Truck Plate #</div>
-									<div>{item.truckPlateNumber || 'N/A'}</div>
-								</div>
-							</div>
-							<div style={style.flex}>
-								<div style={style.coltitle}>Notes</div>
-								<div>{item.notes || 'N/A'}</div>
-							</div>
+							<Grid style={{ padding: '1.5rem 0.75rem' }}>
+								<Grid.Row style={style.row} verticalAlign='middle'>
+									<Grid.Column style={style.rowlabel} width={2}>Workers</Grid.Column>
+									<Grid.Column width={8}>{dummyWorkers.map(worker => <Label key={worker} style={{ marginBottom: '3px' }}>{worker}</Label>)}</Grid.Column>
+								</Grid.Row>
+								<Grid.Row style={style.row} verticalAlign='middle'>
+									<Grid.Column style={style.rowlabel} width={2}>Source</Grid.Column>
+									<Grid.Column width={3}>{item.source || 'N/A'}</Grid.Column>
+									<Grid.Column style={style.rowlabel} width={2}>Producer</Grid.Column>
+									<Grid.Column width={3}>{item.producer || 'N/A'}</Grid.Column>
+									<Grid.Column style={style.rowlabel} width={2}>Truck #</Grid.Column>
+									<Grid.Column width={3}>{item.truckPlateNumber || 'N/A'}</Grid.Column>
+								</Grid.Row>
+								<Grid.Row style={style.row} verticalAlign='middle'>
+									<Grid.Column style={style.rowlabel} width={2}>Company</Grid.Column>
+									<Grid.Column width={3}>{item.company || 'N/A'}</Grid.Column>
+									<Grid.Column style={style.rowlabel} width={2}>PO</Grid.Column>
+									<Grid.Column width={3}>{item.poNumber || 'N/A'}</Grid.Column>
+								</Grid.Row>
+								<Grid.Row style={style.row} verticalAlign='middle'>
+									<Grid.Column style={style.rowlabel} width={2}>Notes</Grid.Column>
+									<Grid.Column width={14}>{item.notes || 'N/A'}</Grid.Column>
+								</Grid.Row>
+							</Grid>
 						</Table.Cell>
 					}
 				</Table.Row>
@@ -80,15 +70,13 @@ class InventoryRow extends Component {
 }
 
 const style = {
-	flex: {
-		display: 'flex', alignItems: 'center', marginBottom: '1rem'
+	row: {
+		paddingBottom: '0.75rem',
+		paddingTop: 0
 	},
-	colflex: {
-		display: 'flex', alignItems: 'center', marginRight: '3rem'
+	rowlabel: {
+		color: 'grey'
 	},
-	coltitle: {
-		marginRight: '1.5rem', color: 'grey'
-	}
 }
 
 export default InventoryRow
