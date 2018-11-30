@@ -42,16 +42,18 @@ class ItemDataCard extends Component {
               {isOpen &&
                 <Card.Description>
                   <table border={0}>
-                    <tr>
-                      <td><Icon name='barcode' /></td>
-                      <td style={{ paddingRight: '2em' }}>Item code</td>
-                      <td>{code || 'N/A'}</td>
-                    </tr>
-                    <tr>
-                      <td><Icon name='info circle' /></td>
-                      <td style={{ paddingRight: '2rem' }}>Description</td>
-                      <td>{description}</td>
-                    </tr>
+                    <tbody>
+                      <tr>
+                        <td><Icon name='barcode' /></td>
+                        <td style={{ paddingRight: '2em' }}>Item code</td>
+                        <td>{code || 'N/A'}</td>
+                      </tr>
+                      <tr>
+                        <td><Icon name='info circle' /></td>
+                        <td style={{ paddingRight: '2rem' }}>Description</td>
+                        <td>{description}</td>
+                      </tr>
+                    </tbody>
                   </table>
                 </Card.Description>
               }
