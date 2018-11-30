@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Container, Input, Message, Segment, Table } from 'semantic-ui-react';
+import React, { Component } from 'react'
+import { Container, Input, Message, Segment, Table } from 'semantic-ui-react'
 
 class ItemList extends Component {
   componentDidMount () {

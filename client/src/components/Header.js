@@ -39,6 +39,7 @@ const Header = () => (
       <Popup
         inverted
         size='tiny'
+        open={true}
         content='Go back to home'
         position='left center'
         trigger={<Menu.Item header name='home' as={Link} to={'/'}>FIELDSTONE</Menu.Item>}
@@ -47,6 +48,7 @@ const Header = () => (
       <Menu.Item style={styles.menuItem} name='inventory' as={Link} to={'/inventories'}/>
       <Menu.Item style={styles.menuItem} name='sales' as={Link} to={'/sales'}/>
       <Menu.Item style={styles.menuItem} name='customers' as={Link} to={'/customers'}/>
+      <Menu.Item style={styles.menuItem} name='Roles' as={Link} to={'/roles'}/>
       <Menu.Menu position='right'>
         <Menu.Item>
           <Dropdown
