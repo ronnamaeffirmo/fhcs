@@ -19,6 +19,7 @@ import { Link } from 'react-router-dom'
 import terms from '../common/constants/terms'
 import moment from 'moment'
 import { DateInput } from 'semantic-ui-calendar-react'
+import { clearFields } from 'redux-form'
 
 const styles = {
   mainContainer: {
@@ -144,7 +145,8 @@ const SaleForm = (props) => {
             <Divider/>
             <Grid.Row>
               <Grid.Column width={16}>
-                <FieldArray name='items' component={Items} props={{tmp: tmp, items: items}} rerenderOnEveryChange={true}/>
+                <FieldArray name='items' component={Items} props={{tmp: tmp, items: items}}
+                            rerenderOnEveryChange={true}/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -175,24 +177,23 @@ const Items = (props) => {
           <Table.Body>
             {items.map((item, index) => {
               return (
-                <Table.Row key={item.item + '-' + 'item.total'}>
 
-                  <Popup
-                    trigger={<Table.Cell>{item.item}</Table.Cell>}
-                    content={<Button color='red' content='Remove Item' onClick={() => fields.remove(index)}/>}
-                    on='hover'
-                    hoverable
-                    hideOnScroll
-                  />
+                <Popup
+                  trigger={
+                    <Table.Row key={item.item + '-' + 'item.total'}>
+                      <Table.Cell>{item.item}</Table.Cell>
+                      <Table.Cell textAlign={'right'}>₱{item.price}</Table.Cell>
+                      <Table.Cell textAlign={'center'}>{item.quantity}</Table.Cell>
+                      <Table.Cell textAlign={'right'}>₱{item.subtotal}</Table.Cell>
+                      <Table.Cell textAlign={'right'}>₱{item.discount}</Table.Cell>
+                      <Table.Cell textAlign={'right'}>₱{item.total}</Table.Cell>
+                    </Table.Row>}
+                  content={<Button color='red' content='Remove Item' onClick={() => fields.remove(index)}/>}
+                  on='hover'
+                  hoverable
+                  hideOnScroll
+                />
 
-
-
-                  <Table.Cell textAlign={'right'}>₱{item.price}</Table.Cell>
-                  <Table.Cell textAlign={'center'}>{item.quantity}</Table.Cell>
-                  <Table.Cell textAlign={'right'}>₱{item.subtotal}</Table.Cell>
-                  <Table.Cell textAlign={'right'}>₱{item.discount}</Table.Cell>
-                  <Table.Cell textAlign={'right'}>₱{item.total}</Table.Cell>
-                </Table.Row>
               )
             })}
           </Table.Body>
@@ -200,8 +201,6 @@ const Items = (props) => {
         <Divider/>
       </div>
       }
-
-
 
 
       <Grid>
@@ -235,7 +234,10 @@ const Items = (props) => {
             />
           </Grid.Column>
           <Grid.Column width={16} style={{marginTop: 8}}>
-            <Button fluid color={'green'} onClick={() => fields.push({item, quantity, price, discount})}
+            <Button fluid color={'green'} onClick={() => {
+              fields.push({item, quantity, price, discount})
+              clearFields('userForm', false, false, 'tmpPrice')
+            }}
                     content={'ADD ITEM TO SALES RECORD'} icon={'plus'}/>
           </Grid.Column>
         </Grid.Row>
