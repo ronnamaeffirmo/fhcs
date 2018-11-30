@@ -1,8 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import PaddedContainer from './custom-components/PaddedContainer'
-
-import AddUserWrapper from './containers/AddUserWrapperContainer'
 import LoginFormContainer from './containers/LoginFormContainer'
 import ChangePasswordForm from './containers/ChangePasswordFormContainer'
 import ItemList from './containers/ItemListContainer'
@@ -19,6 +17,7 @@ import EditRoleContainer from './containers/EditRoleContainer'
 import ViewRoleContainer from './containers/ViewRoleContainer'
 import RoleListContainer from './containers/RoleListContainer'
 import UserListContainer from './containers/UserListContainer'
+import AddUserContainer from './containers/AddUserContainer'
 
 const Routes = () => (
   <PaddedContainer>
@@ -32,7 +31,6 @@ const Routes = () => (
     <Route path='/add-customer' component={AddCustomerContainer}/>
     <Route path='/customers' component={CustomerList}/>
     <Route path='/sales' component={SalesList}/>
-    <Route path='/add-user' component={AddUserWrapper}/>
     <Route path='/inventories' component={InventoryList}/>
     {/*
       ROLES ROUTES
@@ -44,7 +42,9 @@ const Routes = () => (
     <Route path='/roles/new' strict exact component={AddRoleContainer}/>
     <Route path='/roles/update/:id' exact component={EditRoleContainer}/>
     <Route path='/roles/view/:id' exact component={ViewRoleContainer}/>
+
     <Route path='/users' exact component={UserListContainer} />
+    <Route path='/users/new' exact component={AddUserContainer} />
   </PaddedContainer>
 )
 

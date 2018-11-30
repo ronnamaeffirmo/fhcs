@@ -39,14 +39,15 @@ const options = [
 const Header = () => (
   <Menu secondary fixed='top' style={styles.header} inverted>
     <PaddedContainer>
-      <Popup
-        inverted
-        size='tiny'
-        open={true}
-        content='Go back to home'
-        position='left center'
-        trigger={<Menu.Item header name='home' as={Link} to={'/'}>FIELDSTONE</Menu.Item>}
-      />
+      <Menu.Item header name='home' as={Link} to={'/'}>FIELDSTONE</Menu.Item>
+      {/*<Popup*/}
+        {/*inverted*/}
+        {/*size='tiny'*/}
+        {/*open={true}*/}
+        {/*content='Go back to home'*/}
+        {/*position='left center'*/}
+        {/*trigger={}*/}
+      {/*/>*/}
 
       <Menu.Item>
         <Dropdown

@@ -87,6 +87,7 @@ export const fetchRole = async (id) => {
 
 export const receiveRoles = (data) => {
   return (dispatch) => {
+    console.log('RECEIVE ROLES CALLED')
     dispatch({
       type: RECEIVE_ROLES,
       payload: data

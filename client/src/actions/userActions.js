@@ -29,6 +29,21 @@ export const receiveUsers = (users) => {
   }
 }
 
+export const addUser = (user) => {
+  return async (dispatch) => {
+    console.log('ADDING USER', user)
+    try {
+      const newUser = await client.service('users').create(user)
+      dispatch({
+        type: ADD_USER,
+        payload: user
+      })
+    } catch (e) {
+      console.log('ADDING USER ERROR', e)
+    }
+  }
+}
+
 export const deleteUser = (userId) => {
   return async (dispatch) => {
     console.log('DELETING USER', userId)
