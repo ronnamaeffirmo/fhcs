@@ -25,13 +25,13 @@ const userOptions = [
 ]
 
 const itemOptions = [
-  { as: () => (<Menu.Item icon={'tasks'} style={styles.menuItem} content='Item List' as={Link} to={'/items'}/>) },
-  { as: () => (<Menu.Item icon={'clipboard'} style={styles.menuItem} content='Inventory List' as={Link} to={'/inventories'}/>) }
+  { key: 'items', as: () => (<Menu.Item icon={'tasks'} style={styles.menuItem} content='Item List' as={Link} to={'/items'}/>) },
+  { key: 'inventories', as: () => (<Menu.Item icon={'clipboard'} style={styles.menuItem} content='Inventory List' as={Link} to={'/inventories'}/>) }
 ]
 
 const settingOptions = [
-  { as: () => (<Menu.Item icon={'move'} content='Manage Roles' as={Link} to={'/roles'}/>) },
-  { as: () => (<Menu.Item icon={'user'} content='Manage Users' as={Link} to={'/users'}/>) }
+  { key: 'roles', as: () => (<Menu.Item icon={'move'} content='Manage Roles' as={Link} to={'/roles'}/>) },
+  { key: 'users', as: () => (<Menu.Item icon={'user'} content='Manage Users' as={Link} to={'/users'}/>) }
 ]
 
 const Header = () => (
