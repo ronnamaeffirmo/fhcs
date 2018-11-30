@@ -39,7 +39,6 @@ const Header = () => (
       <Popup
         inverted
         size='tiny'
-        open={true}
         content='Go back to home'
         position='left center'
         trigger={<Menu.Item header name='home' as={Link} to={'/'}>FIELDSTONE</Menu.Item>}
@@ -55,12 +54,19 @@ const Header = () => (
             floating
             options={options}
             icon={null}
-            pointing='top right'
             trigger={
-              <Menu.Item fitted>
-                <Icon name='user circle' size='large' />
-                <span>User</span>
-              </Menu.Item>
+              <Popup 
+                inverted
+                size='tiny'
+                content='View user profile'
+                position='right center'
+                trigger={
+                  <Menu.Item fitted>
+                    <Icon name='user circle' size='large' />
+                    <span>User</span>
+                  </Menu.Item>
+                }
+              />
             }
           />
         </Menu.Item>
