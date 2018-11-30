@@ -90,7 +90,6 @@ describe('\'users\' service', () => {
     })
   })
 
-  
   describe('create', () => {
     const dummyUser = {
       username: 'user111',
@@ -120,17 +119,6 @@ describe('\'users\' service', () => {
       result.lastname.should.have.string('last111')
       result.address.should.have.string('somewhere')
       result.password.should.have.string('secret')
-    })
-
-    it('shows bad-request error when validation failed', async () => {
-      const service = app.service('users')
-      return await service.create({
-        email: 'bla@gmail.com',
-        password: 'secret'
-      })
-      .catch((err) => {
-        assert.equal(err.className, 'bad-request')
-      })
     })
   })
 })
