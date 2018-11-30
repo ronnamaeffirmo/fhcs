@@ -59,7 +59,13 @@ class ItemDataCard extends Component {
           }
         />
         <Card.Content extra style={styles.cardExtra}>
-          <Button onClick={this.toggleDesc} size='tiny' circular icon={isOpen ? 'chevron up' : 'chevron down'} />
+          <Popup
+            inverted
+            size='tiny'
+            content='View more info'
+            position='left center'
+            trigger={<Button onClick={this.toggleDesc} size='tiny' circular icon={isOpen ? 'chevron up' : 'chevron down'} />}
+          />
           <AddNewInventory item={item}/>
           <div style={{ float: 'right' }}>
             <Button as={Link} to={`/item/${item._id}`} icon='edit' labelPosition='left' content='Edit' size='tiny' color='green' />
