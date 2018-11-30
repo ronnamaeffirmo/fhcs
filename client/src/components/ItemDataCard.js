@@ -12,9 +12,12 @@ class ItemDataCard extends Component {
     this.state = {
       isOpen: false
     }
+    // TODO pro tip: in your method you can make
+    // toggleDesc = () => {this.setState({isOpen: !this.state.isOpen})} -- no need to bind :)
     this.toggleDesc = this.toggleDesc.bind(this)
   }
 
+  // TODO shorten - can be this.setState({isOpen: !this.state.isOpen})
   toggleDesc () {
     const { isOpen } = this.state
     if (isOpen) {
@@ -70,7 +73,8 @@ class ItemDataCard extends Component {
           <Button onClick={this.toggleDesc} size='tiny' circular icon={isOpen ? 'chevron up' : 'chevron down'} />
           <AddNewInventory item={item}/>
           <div style={{ float: 'right' }}>
-            <Button as={Link} to={`/item/${item._id}`} icon='edit' labelPosition='left' content='Edit' size='tiny' color='green' />
+            <Button as={Link} to={`/item/${item._id}`} icon='edit' labelPosition='left' content='Edit' size='tiny'
+                    color='green'/>
             <DeleteConfirmationModal removeItem={removeItem} item={item}/>
           </div>
         </Card.Content>
