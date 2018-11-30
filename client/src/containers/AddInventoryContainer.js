@@ -1,15 +1,19 @@
+import React from 'react'
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
 import { createInventory, toggleModal } from '../actions/inventoriesAction'
 
 import AddInventoryModalForm from '../components/AddInventoryModalForm'
 
-const wrapped = reduxForm({
+const WrappedForm = reduxForm({
   form: 'newInventory'
 })(AddInventoryModalForm)
 
+const FormHandler = ({ createInventory, item, options }) => (
+  <WrappedForm item={item} options={options} onSubmit={(values) => createInventory(values)} />
+)
+
 const mapStateToProps = (state, ownProps) => ({
-  isModalOpen: state.inventory.isModalOpen,
   item: ownProps.item,
   options: {
     sources: [
@@ -29,11 +33,10 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  createInventory: (values) => dispatch(createInventory(values)),
-  toggleModal: () => dispatch(toggleModal())
+  createInventory: (values) => dispatch(createInventory(values))
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(wrapped)
+)(FormHandler)

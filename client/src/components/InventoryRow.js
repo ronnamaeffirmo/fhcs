@@ -19,7 +19,7 @@ class InventoryRow extends Component {
 		return (
 			<Fragment>
 				<Table.Row>
-					<Table.Cell>Hollow block</Table.Cell>
+					<Table.Cell>{item.name}</Table.Cell>
 					<Table.Cell>{item.quantity}</Table.Cell>
 					<Table.Cell>{_.startCase(item.status)}</Table.Cell>
 					<Table.Cell>{item.receivedBy}</Table.Cell>
