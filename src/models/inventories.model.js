@@ -30,7 +30,8 @@ module.exports = function (app) {
     // notes: { type: String, required: true },
     // receivedBy: [{ type: String, required: true }]
   }, {
-    timestamps: true
+    timestamps: true,
+    versionKey: false
   })
 
   return mongooseClient.model('inventories', inventories)
