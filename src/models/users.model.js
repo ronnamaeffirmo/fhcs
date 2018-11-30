@@ -12,7 +12,7 @@ module.exports = function (app) {
     lastname: { type: String, required: true },
     address: { type: String, required: true },
     picture: { type: String },
-    role: { type: Schema.Types.ObjectId, ref: 'Role', required: true }
+    role: { type: Schema.Types.ObjectId, ref: 'roles', required: true }
   }, {
     timestamps: true,
     versionKey: false
