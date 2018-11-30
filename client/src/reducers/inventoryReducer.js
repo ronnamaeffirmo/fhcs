@@ -2,7 +2,8 @@ import {
   GET_INVENTORIES,
   ADD_INVENTORY,
   REMOVE_INVENTORY,
-  FILTER_INVENTORIES
+  FILTER_INVENTORIES,
+  TOGGLE_INVENTORIES_MODAL
 } from '../actions/inventoriesAction'
 import { search } from '../common/helpers'
 
@@ -23,7 +24,8 @@ const fuseOptions = {
 
 const initialState = {
   inventories: [],
-  filteredInventories: []
+  filteredInventories: [],
+  isModalOpen: false
 }
 
 const inventoryReducer = (state = initialState, action) => {
@@ -51,6 +53,12 @@ const inventoryReducer = (state = initialState, action) => {
       return {
         ...state,
         filteredInventories: [...search(state.inventories, action.payload, fuseOptions)]
+      }
+    }
+    case TOGGLE_INVENTORIES_MODAL: {
+      return {
+        ...state,
+        isModalOpen: !state.isModalOpen
       }
     }
     default:

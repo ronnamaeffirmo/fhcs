@@ -7,6 +7,7 @@ export const ADD_INVENTORY = 'ADD_INVENTORY'
 export const REMOVE_INVENTORY = 'REMOVE_INVENTORY'
 export const REMOVE_ITEM_ERROR = 'REMOVE_ITEM_ERROR'
 export const FILTER_INVENTORIES = 'FILTER_INVENTORIES'
+export const TOGGLE_INVENTORIES_MODAL = 'TOGGLE_INVENTORIES_MODAL'
 
 const getQueryDate = (amount, unit) => {
   return moment(new Date()).subtract(amount, unit).toDate()
@@ -73,12 +74,13 @@ export const removeInventory = (id) => async (dispatch) => {
 
 export const createInventory = (values) => {
   return async (dispatch) => {
+    console.log('balues', values)
     const item = await client.service('inventories').create(values)
-    console.log('added new inventory', item)
     dispatch({
       type: ADD_INVENTORY,
       payload: item
     })
+    dispatch(toggleModal())
   }
 }
 
@@ -88,5 +90,11 @@ export const filterInventories = (value) => {
       type: FILTER_INVENTORIES,
       payload: value
     })
+  }
+}
+
+export const toggleModal = () => {
+  return (dispatch) => {
+    dispatch({ type: TOGGLE_INVENTORIES_MODAL })
   }
 }
