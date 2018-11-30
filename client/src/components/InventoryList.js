@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
-import { Card, Container, Input, Segment, Message } from 'semantic-ui-react'
-import ItemDataCard from './ItemDataCard'
+import React, { Component } from 'react';
+import { Container, Input, Message, Segment, Table } from 'semantic-ui-react';
 
 class ItemList extends Component {
   componentDidMount () {
@@ -21,12 +20,32 @@ class ItemList extends Component {
         </Segment>
         <Segment style={styles.bottomSegment}>
           { !inventories.length && <Message negative>No available items yet</Message>}
-          <Card.Group>
-            { inventories.map((item) => (
-              <div key={item._id}>{item._id}</div>
-              // <ItemDataCard item={item} key={item._id} actions={{removeItem}} />
-            ))}
-          </Card.Group>
+          <Table compact celled size='small' striped>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Item</Table.HeaderCell>
+                <Table.HeaderCell>QTY</Table.HeaderCell>
+                <Table.HeaderCell>Workers</Table.HeaderCell>
+                <Table.HeaderCell>SRC</Table.HeaderCell>
+                <Table.HeaderCell>Producer</Table.HeaderCell>
+                <Table.HeaderCell>Co.</Table.HeaderCell>
+                <Table.HeaderCell>PO</Table.HeaderCell>
+                <Table.HeaderCell>Truck Plate #</Table.HeaderCell>
+                <Table.HeaderCell>Status</Table.HeaderCell>
+                <Table.HeaderCell>Notes</Table.HeaderCell>
+                <Table.HeaderCell>Received by</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              { inventories.map((item) => (
+                <Table.Row key={item._id}>
+                  {console.log('item', item)}
+                  <Table.Cell>{item.itemName}</Table.Cell>
+                </Table.Row>
+                // <ItemDataCard item={item} key={item._id} actions={{removeItem}} />
+              ))}
+            </Table.Body>
+          </Table>
         </Segment>
       </Container>
     )
