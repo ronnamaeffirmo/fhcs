@@ -18,22 +18,20 @@ const styles = {
   }
 }
 
-const options = [
-  {
-    key: 'greeting',
-    text: <span>Hi, <b>User</b>!</span>,
-    disabled: true
-  },
-  {
-    key: 'account',
-    text: 'My account',
-    icon: 'user'
-  },
-  {
-    key: 'logout',
-    text: 'Logout',
-    icon: 'sign out'
-  }
+const userOptions = [
+  { key: 'greeting', text: <span>Hi, <b>User</b>!</span>, disabled: true },
+  { key: 'account', text: 'My account', icon: 'user' },
+  { key: 'logout', text: 'Logout', icon: 'sign out' }
+]
+
+const itemOptions = [
+  { as: () => (<Menu.Item icon={'tasks'} style={styles.menuItem} name='item list' as={Link} to={'/items'}/>) },
+  { as: () => (<Menu.Item icon={'clipboard'} style={styles.menuItem} name='inventory list' as={Link} to={'/inventories'}/>) }
+]
+
+const settingOptions = [
+  { as=() => (<Menu.Item icon={'move'} name='manage roles' as={Link} to={'/roles'}/>) },
+  { as=() => (<Menu.Item icon={'user'} name='manage users' as={Link} to={'/users'}/>) }
 ]
 
 const Header = () => (
@@ -46,26 +44,18 @@ const Header = () => (
         position='left center'
         trigger={<Menu.Item header name='home' as={Link} to={'/'}>FIELDSTONE</Menu.Item>}
       />
-
       <Menu.Item>
         <Dropdown
           floating
           icon={null}
           pointing='top right'
+          options={itemOptions}
           trigger={
             <Menu.Item fitted style={styles.menuItem}>
               <span>Items</span>
             </Menu.Item>
           }
-        >
-          <Dropdown.Menu>
-            <Dropdown.Item as={() => (
-              <Menu.Item icon={'tasks'} style={styles.menuItem} name='item list' as={Link} to={'/items'}/>)}/>
-            <Dropdown.Item
-              as={() => (<Menu.Item icon={'clipboard'} style={styles.menuItem} name='inventory list' as={Link}
-                                    to={'/inventories'}/>)}/>
-          </Dropdown.Menu>
-        </Dropdown>
+        />
       </Menu.Item>
       <Menu.Item style={styles.menuItem} name='sales' as={Link} to={'/sales'}/>
       <Menu.Item style={styles.menuItem} name='customers' as={Link} to={'/customers'}/>
@@ -74,24 +64,20 @@ const Header = () => (
           floating
           icon={null}
           pointing='top right'
+          options={settingOptions}
           trigger={
             <Menu.Item fitted style={styles.menuItem}>
               <span>Settings</span>
             </Menu.Item>
           }
-        >
-          <Dropdown.Menu>
-            <Dropdown.Item as={() => (<Menu.Item icon={'move'} name='manage roles' as={Link} to={'/roles'}/>)}/>
-            <Dropdown.Item as={() => (<Menu.Item icon={'user'} name='manage users' as={Link} to={'/users'}/>)}/>
-          </Dropdown.Menu>
-        </Dropdown>
+        />
       </Menu.Item>
       <Menu.Menu position='right'>
         <Menu.Item>
           <Dropdown
             floating
-            options={options}
             icon={null}
+            options={userOptions}
             trigger={
               <Popup 
                 inverted
