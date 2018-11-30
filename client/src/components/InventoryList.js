@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Input, Message, Segment, Table, Popup, Label } from 'semantic-ui-react'
+import _ from 'lodash'
 
 class ItemList extends Component {
   componentDidMount () {
@@ -31,19 +32,20 @@ class ItemList extends Component {
         />
         <Segment style={styles.bottomSegment}>
           { !inventories.length && <Message negative>No available items yet</Message>}
-          <Table compact celled size='small' striped>
+          // should display item, qty, status, then received by primarily
+          <Table celled>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Item</Table.HeaderCell>
                 <Table.HeaderCell>QTY</Table.HeaderCell>
-                <Table.HeaderCell>Workers</Table.HeaderCell>
-                <Table.HeaderCell>SRC</Table.HeaderCell>
-                <Table.HeaderCell>Producer</Table.HeaderCell>
-                <Table.HeaderCell>Co.</Table.HeaderCell>
-                <Table.HeaderCell>PO</Table.HeaderCell>
-                <Table.HeaderCell>Truck Plate #</Table.HeaderCell>
+                {/* <Table.HeaderCell>Workers</Table.HeaderCell> */}
+                {/* <Table.HeaderCell>SRC</Table.HeaderCell> */}
+                {/* <Table.HeaderCell>Producer</Table.HeaderCell> */}
+                {/* <Table.HeaderCell>Co.</Table.HeaderCell> */}
+                {/* <Table.HeaderCell>PO</Table.HeaderCell> */}
+                {/* <Table.HeaderCell>Truck Plate #</Table.HeaderCell> */}
                 <Table.HeaderCell>Status</Table.HeaderCell>
-                <Table.HeaderCell>Notes</Table.HeaderCell>
+                {/* <Table.HeaderCell>Notes</Table.HeaderCell> */}
                 <Table.HeaderCell>Received by</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
@@ -52,6 +54,9 @@ class ItemList extends Component {
                 <Table.Row key={item._id}>
                   {console.log('item', item)}
                   <Table.Cell>{item.itemName}</Table.Cell>
+                  <Table.Cell>{item.quantity}</Table.Cell>
+                  <Table.Cell>{_.startCase(item.status)}</Table.Cell>
+                  <Table.Cell>{item.receivedBy}</Table.Cell>
                 </Table.Row>
                 // <ItemDataCard item={item} key={item._id} actions={{removeItem}} />
               ))}
