@@ -1,31 +1,30 @@
 import React, { Component } from 'react'
 import { Card, Container, Input, Segment, Message } from 'semantic-ui-react'
 import ItemDataCard from './ItemDataCard'
-import NewItemModal from './../containers/AddItemFormContainer'
 
 class ItemList extends Component {
   componentDidMount () {
-    this.props.getItems()
+    this.props.getInventories()
   }
 
   render () {
-    let { items, removeItem, filterItems, filteredItems } = this.props
-    items = filteredItems || items || []
+    let { inventories, removeInventory, filterInventories, filteredInventories } = this.props
+    inventories = filteredInventories || inventories || []
     return (
       <Container style={styles.mainContainer}>
         <Segment style={styles.topSegment}>
           <Input
-            placeholder='Search items here...'
-            style={styles.itemSearchField}
-            onChange={(e) => { filterItems(e.target.value) }}
+            fluid
+            placeholder='Search inventories here...'
+            onChange={(e) => { filterInventories(e.target.value) }}
           />
-          <NewItemModal/>
         </Segment>
         <Segment style={styles.bottomSegment}>
-          { !items.length && <Message negative>No available items yet</Message>}
+          { !inventories.length && <Message negative>No available items yet</Message>}
           <Card.Group>
-            { items.map((item) => (
-              <ItemDataCard item={item} key={item._id} actions={{removeItem}} />
+            { inventories.map((item) => (
+              <div key={item._id}>{item._id}</div>
+              // <ItemDataCard item={item} key={item._id} actions={{removeItem}} />
             ))}
           </Card.Group>
         </Segment>
@@ -39,9 +38,6 @@ const styles = {
     width: '768px !important',
     padding: '10px',
     marginTop: '10px'
-  },
-  itemSearchField: {
-    width: '77%'
   },
   topSegment: {
     boxShadow: 'none'

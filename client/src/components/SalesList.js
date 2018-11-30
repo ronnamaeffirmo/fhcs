@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  Card,
-  Container,
-  Input
-} from 'semantic-ui-react'
+import { Card, Container, Input, Segment, Message } from 'semantic-ui-react'
 
 import AddSalesModal from './../containers/AddSalesRecordContainer'
 import SalesDataCard from './SalesDataCard'
@@ -18,18 +14,21 @@ class SalesList extends React.Component {
     sales = sales || []
     return (
       <Container style={styles.mainContainer}>
-        <Input placeholder='Search items here...'
-          style={styles.itemSearchField}/>
-        <AddSalesModal/>
-        <Container style={styles.itemContainer}>
+        <Segment style={styles.topSegment}>
+          <Input
+            placeholder='Search items here...'
+            style={styles.itemSearchField}
+          />
+          <AddSalesModal />
+        </Segment>
+        <Segment style={styles.bottomSegment}>
+          { !sales.length && <Message negative>No available sales yet</Message>}
           <Card.Group>
-            {sales.map(sale => {
-              return (
-                <SalesDataCard sale={sale} actions={{removeSale}} key={sale._id}/>
-              )
-            })}
+            { sales.map(sale => (
+              <SalesDataCard sale={sale} actions={{removeSale}} key={sale._id}/>
+            ))}
           </Card.Group>
-        </Container>
+        </Segment>
       </Container>
     )
   }
@@ -41,18 +40,14 @@ const styles = {
     padding: '10px',
     marginTop: '10px'
   },
+  topSegment: {
+    boxShadow: 'none'
+  },
   itemSearchField: {
     width: '77%'
   },
-  itemContainer: {
-    marginTop: '30px',
-    marginBottom: '30px',
-    marginLeft: '15px',
-    marginRight: '15px',
-    paddingTop: '7px',
-    itemHeadline: {
-      marginTop: '35px'
-    }
+  bottomSegment: {
+    paddingBottom: '3rem'
   }
 }
 

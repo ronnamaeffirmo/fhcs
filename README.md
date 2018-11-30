@@ -1,6 +1,6 @@
-# fhcs-api
+# fhcs api & client
 
-> API code for Fieldstone&#39;s system
+> API & client code for Fieldstone&#39;s system
 
 ## About
 
@@ -10,18 +10,32 @@ This project uses [Feathers](http://feathersjs.com). An open source web framewor
 
 Getting up and running is as easy as 1, 2, 3.
 
-1. Make sure you have [NodeJS](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
-2. Install your dependencies
+1. Make sure you have [node.js](https://nodejs.org/) and [yarn](https://yarnpkg.com/en/) installed.
+2. Install your dependencies on both api & client
 
-    ```
-    cd path/to/fhcs-api; npm install
+    ```shell
+    cd path/to/fhcs
+    yarn
+    
+    cd path/to/fhcs/client
+    yarn
     ```
 
-3. Start your app
+3. Start your app  
+    Start with concurrently
 
+    ```shell
+    cd path/to/fhcs
+    yarn dev
     ```
-    npm start
-    ```
+    Start manually
+    ```shell
+    cd path/to/fhcs
+    yarn start
+
+    cd path/to/fhcs/client
+    yarn start
+    ``` 
 
 ## Testing
 
@@ -49,6 +63,13 @@ For more information on all the things you can do with Feathers visit [docs.feat
 __0.1.0__
 
 - Initial release
+
+## Authors
+
+* **Marlon John Ynion**
+* **Ronna Mae Firmo**
+* **Angel Lou Baladhay**
+* **Gabriel Dennis Parangan**
 
 ## License
 

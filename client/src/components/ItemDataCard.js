@@ -73,9 +73,8 @@ class ItemDataCard extends Component {
           <Button onClick={this.toggleDesc} size='tiny' circular icon={isOpen ? 'chevron up' : 'chevron down'} />
           <AddNewInventory item={item}/>
           <div style={{ float: 'right' }}>
-            <Button as={Link} to={`/item/${item._id}`} icon='edit' labelPosition='left' content='Edit' size='tiny'
-                    color='green'/>
-            <DeleteConfirmationModal removeItem={removeItem} item={item}/>
+            <Button as={Link} to={`/item/${item._id}`} icon='edit' labelPosition='left' content='Edit' size='tiny' color='green' />
+            <DeleteConfirmationModal removeElement={removeItem} element={item}/>
           </div>
         </Card.Content>
       </Card>
@@ -101,7 +100,7 @@ const styles = {
     marginBottom: '0.5rem'
   },
   cardExtra: {
-    padding: '6px 0px 6px 6px'
+    padding: '6px 4px 6px 6px'
   }
 }
 
