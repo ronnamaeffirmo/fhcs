@@ -22,6 +22,7 @@ import {
 } from '../actions/salesAction'
 
 const initialState = {
+  list: [],
   customer: undefined,
   invoiceNumber: undefined,
   dateFrom: undefined,
@@ -33,7 +34,7 @@ const initialState = {
   sales: []
 }
 
-const salesReducer = (state = initialState, action) => {
+const saleReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_CUSTOMERS: {
       return {
@@ -170,4 +171,4 @@ const salesReducer = (state = initialState, action) => {
   }
 }
 
-export default salesReducer
+export default saleReducer
