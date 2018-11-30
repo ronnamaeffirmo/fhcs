@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Container, Input, Message, Segment, Table, Popup, Label } from 'semantic-ui-react'
-import _ from 'lodash'
+import InventoryRow from './InventoryRow'
 
 class ItemList extends Component {
   componentDidMount () {
@@ -32,8 +32,7 @@ class ItemList extends Component {
         />
         <Segment style={styles.bottomSegment}>
           { !inventories.length && <Message negative>No available items yet</Message>}
-          // should display item, qty, status, then received by primarily
-          <Table celled>
+          <Table celled striped selectable>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Item</Table.HeaderCell>
@@ -47,19 +46,11 @@ class ItemList extends Component {
                 <Table.HeaderCell>Status</Table.HeaderCell>
                 {/* <Table.HeaderCell>Notes</Table.HeaderCell> */}
                 <Table.HeaderCell>Received by</Table.HeaderCell>
+                <Table.HeaderCell width={1}>Action</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              { inventories.map((item) => (
-                <Table.Row key={item._id}>
-                  {console.log('item', item)}
-                  <Table.Cell>{item.itemName}</Table.Cell>
-                  <Table.Cell>{item.quantity}</Table.Cell>
-                  <Table.Cell>{_.startCase(item.status)}</Table.Cell>
-                  <Table.Cell>{item.receivedBy}</Table.Cell>
-                </Table.Row>
-                // <ItemDataCard item={item} key={item._id} actions={{removeItem}} />
-              ))}
+              { inventories.map((item) => <InventoryRow key={item._id} item={item} />)}
             </Table.Body>
           </Table>
         </Segment>
