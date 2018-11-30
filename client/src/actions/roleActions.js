@@ -8,11 +8,21 @@ export const UPDATE_ROLE = 'UPDATE_ROLE'
 export const RECEIVE_ROLE = 'RECEIVE_ROLE'
 export const RECEIVE_ROLES = 'RECEIVE_ROLES'
 
-export const receiveRole = (values) => {
-  return (dispatch) => {
+export const getRole = (id) => {
+  return async (dispatch) => {
+    const result = await client.service('roles').get(id)
+    if (result.permissions.length > 0) {
+      result.permissions = result.permissions.map(permission => {
+        if (permission.split(':')[1] === '*') {
+          return permission.split(':')[0] + ':all'
+        }
+        return permission
+      })
+    }
+    const payload = {title: result.title, permissions: result.permissions, id: result._id}
     dispatch({
       type: RECEIVE_ROLE,
-      payload: values
+      payload: payload
     })
   }
 }
@@ -71,31 +81,14 @@ export const updateRole = (values) => {
   }
 }
 
-export const fetchRole = async (id) => {
-  const result = await client.service('roles').get(id)
-  if (result.permissions.length > 0) {
-    result.permissions = result.permissions.map(permission => {
-      if (permission.split(':')[1] === '*') {
-        console.log('HIT')
-        return permission.split(':')[0] + ':all'
-      }
-      return permission
-    })
-  }
-  return {title: result.title, permissions: result.permissions, id: result._id}
-}
 
-export const receiveRoles = (data) => {
-  return (dispatch) => {
-    console.log('RECEIVE ROLES CALLED')
+export const getRoles = () => {
+  return async (dispatch) => {
+    const roles = await client.service('roles').find({})
+    const payload = roles.data
     dispatch({
       type: RECEIVE_ROLES,
-      payload: data
+      payload: payload
     })
   }
-}
-
-export const getAllRoles = async () => {
-  const roles = await client.service('roles').find({})
-  return roles.data
 }

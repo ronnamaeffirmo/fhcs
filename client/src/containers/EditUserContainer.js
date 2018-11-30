@@ -2,12 +2,11 @@ import React from 'react'
 import UserForm from '../components/UserForm'
 import { editUser, getUser } from '../actions/userActions'
 import { connect } from 'react-redux'
-import { getAllRoles, receiveRoles } from '../actions/roleActions'
+import { getRoles } from '../actions/roleActions'
 
 class EditUserContainer extends React.Component {
   async componentWillMount () {
-    const roles = await getAllRoles()
-    this.props.receiveRoles(roles)
+    this.props.getRoles()
     this.props.getUser(this.props.userId)
   }
 
@@ -34,8 +33,8 @@ const mapDispatchToProps = (dispatch) => ({
   getUser: (id) => {
     dispatch(getUser(id))
   },
-  receiveRoles: (roles) => {
-    dispatch(receiveRoles(roles))
+  getRoles: () => {
+    dispatch(getRoles())
   }
 })
 

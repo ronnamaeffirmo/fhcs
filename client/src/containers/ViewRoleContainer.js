@@ -1,15 +1,14 @@
 import React from 'react'
 import {  parseRoleDataToForm } from '../actions/roleActions'
 import connect from 'react-redux/es/connect/connect'
-import { fetchRole, receiveRole } from '../actions/roleActions'
+import { getRole } from '../actions/roleActions'
 import ViewRole from '../components/ViewRole'
 
 // why is this happening? https://egghead.io/lessons/javascript-redux-fetching-data-on-route-change
 // from Dan Abramov -- creator of Redux
 class ViewRoleContainer extends React.Component {
-  async componentDidMount () {
-      const role = await fetchRole(this.props.roleId)
-      this.props.receiveRole(role)
+  componentDidMount () {
+    this.props.getRole(this.props.roleId)
   }
 
   render () {
@@ -27,8 +26,8 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  receiveRole: (values) => {
-    dispatch(receiveRole(values))
+  getRole: (id) => {
+    dispatch(getRole(id))
   }
 })
 
