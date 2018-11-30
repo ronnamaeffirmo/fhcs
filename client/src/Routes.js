@@ -18,6 +18,7 @@ import RoleListContainer from './containers/RoleListContainer'
 import Dashboard from './components/Dashboard'
 import CustomerList from './containers/CustomerListContainer'
 import InventoryList from './containers/InventoryListContainer'
+import UserListContainer from './containers/UserListContainer'
 
 const Routes = () => (
   <PaddedContainer>
@@ -43,6 +44,8 @@ const Routes = () => (
     <Route path='/roles/new' strict exact component={AddRoleContainer}/>
     <Route path='/roles/update/:id' exact component={EditRoleContainer}/>
     <Route path='/roles/view/:id' exact component={ViewRoleContainer}/>
+
+    <Route path='/users' exact component={UserListContainer} />
   </PaddedContainer>
 )
 
