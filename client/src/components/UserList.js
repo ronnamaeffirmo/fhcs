@@ -44,7 +44,7 @@ const styles = {
 }
 
 const UserList = (props) => {
-  const {users} = props
+  const {users, deleteUser} = props
   return (
     <Container style={styles.mainContainer}>
       <Segment style={styles.topSegment}>
@@ -58,7 +58,7 @@ const UserList = (props) => {
         {users.map(user => {
           const {_id: id, firstname, lastname, username, address, role: {title}} = user
           return (
-            <Card fluid style={styles.userCard}>
+            <Card fluid style={styles.userCard} key={id}>
               <Card.Content>
                 <Card.Header style={styles.cardHeader}>
                   <Container>
@@ -70,7 +70,7 @@ const UserList = (props) => {
                     trigger={<Button color='red' icon='delete' circular/>}
                     content={
                       <div>
-                        <Button color='green' icon='delete' content='Confirm Delete'/>
+                        <Button color='green' icon='delete' content='Confirm Delete' onClick={() => {deleteUser(id)}}/>
                       </div>
                     }
                     on='click'

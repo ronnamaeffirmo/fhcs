@@ -1,5 +1,5 @@
 import React from 'react'
-import { getUsers, receiveUsers } from '../actions/userActions'
+import { deleteUser, getUsers, receiveUsers } from '../actions/userActions'
 import { connect } from 'react-redux'
 import UserList from '../components/UserList'
 
@@ -21,6 +21,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   receiveUsers: (users) => {
     dispatch(receiveUsers(users))
+  },
+  deleteUser: (userId) => {
+    dispatch(deleteUser(userId))
   }
 })
 

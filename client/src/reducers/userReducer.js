@@ -4,8 +4,10 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
-  RECEIVE_USERS
+  RECEIVE_USERS,
+  DELETE_USER
 } from '../actions/userActions'
+import { removeItemFromArray } from '../common/helpers'
 
 const initialState = {
   currentuser: undefined,
@@ -22,6 +24,12 @@ const userReducer = (state = initialState, action) => {
         ...state,
         list: action.payload
       }
+    case DELETE_USER: {
+      return {
+        ...state,
+        list: state.list.filter(user => user._id !== action.payload)
+      }
+    }
     case UPDATE_PASSWORD: {
       return {
         ...state,

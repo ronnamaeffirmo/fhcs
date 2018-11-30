@@ -29,6 +29,21 @@ export const receiveUsers = (users) => {
   }
 }
 
+export const deleteUser = (userId) => {
+  return async (dispatch) => {
+    console.log('DELETING USER', userId)
+    try {
+      const result = await client.service('users').remove(userId)
+      dispatch({
+        type: DELETE_USER,
+        payload: userId
+      })
+    } catch (e) {
+      console.log('ERROR DELETING USER', e)
+    }
+  }
+}
+
 export const updatePassword = (values) => {
   return async (dispatch) => {
     dispatch({
