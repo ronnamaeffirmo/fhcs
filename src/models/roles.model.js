@@ -13,7 +13,8 @@ module.exports = function (app) {
     },
     permissions: [{type: String}]
   }, {
-    timestamps: true
+    timestamps: true,
+    versionKey: false
   })
 
   return mongooseClient.model('roles', roles)

@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import { Container, Input, Message, Segment, Table } from 'semantic-ui-react'
+import React, { Component, Fragment } from 'react'
+import { Container, Input, Message, Segment, Table, Popup, Label } from 'semantic-ui-react'
+import InventoryRow from './InventoryRow'
 
 class ItemList extends Component {
   componentDidMount () {
@@ -11,39 +12,45 @@ class ItemList extends Component {
     inventories = filteredInventories || inventories || []
     return (
       <Container style={styles.mainContainer}>
-        <Segment style={styles.topSegment}>
-          <Input
-            fluid
-            placeholder='Search inventories here...'
-            onChange={(e) => { filterInventories(e.target.value) }}
-          />
-        </Segment>
+        <Popup
+          position='right center'
+          content={
+            <div>
+              To add a new inventory, head over to <b>items list</b> and 
+              click <Label size='tiny'>Add Inventory</Label>on an item card
+            </div>
+          }
+          trigger={
+            <Segment style={styles.topSegment}>
+              <Input
+                fluid
+                placeholder='Search inventories here...'
+                onChange={(e) => { filterInventories(e.target.value) }}
+              />
+            </Segment>
+          }
+        />
         <Segment style={styles.bottomSegment}>
           { !inventories.length && <Message negative>No available items yet</Message>}
-          <Table compact celled size='small' striped>
+          <Table celled striped selectable>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Item</Table.HeaderCell>
                 <Table.HeaderCell>QTY</Table.HeaderCell>
-                <Table.HeaderCell>Workers</Table.HeaderCell>
-                <Table.HeaderCell>SRC</Table.HeaderCell>
-                <Table.HeaderCell>Producer</Table.HeaderCell>
-                <Table.HeaderCell>Co.</Table.HeaderCell>
-                <Table.HeaderCell>PO</Table.HeaderCell>
-                <Table.HeaderCell>Truck Plate #</Table.HeaderCell>
+                {/* <Table.HeaderCell>Workers</Table.HeaderCell> */}
+                {/* <Table.HeaderCell>SRC</Table.HeaderCell> */}
+                {/* <Table.HeaderCell>Producer</Table.HeaderCell> */}
+                {/* <Table.HeaderCell>Co.</Table.HeaderCell> */}
+                {/* <Table.HeaderCell>PO</Table.HeaderCell> */}
+                {/* <Table.HeaderCell>Truck Plate #</Table.HeaderCell> */}
                 <Table.HeaderCell>Status</Table.HeaderCell>
-                <Table.HeaderCell>Notes</Table.HeaderCell>
+                {/* <Table.HeaderCell>Notes</Table.HeaderCell> */}
                 <Table.HeaderCell>Received by</Table.HeaderCell>
+                <Table.HeaderCell width={1}>Action</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              { inventories.map((item) => (
-                <Table.Row key={item._id}>
-                  {console.log('item', item)}
-                  <Table.Cell>{item.itemName}</Table.Cell>
-                </Table.Row>
-                // <ItemDataCard item={item} key={item._id} actions={{removeItem}} />
-              ))}
+              { inventories.map((item) => <InventoryRow key={item._id} item={item} />)}
             </Table.Body>
           </Table>
         </Segment>

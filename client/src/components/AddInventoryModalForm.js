@@ -11,13 +11,9 @@ class AddInventoryModalForm extends Component {
     this.state = {
       open: false
     }
-    this.toggleModal = this.toggleModal.bind(this)
   }
 
-  toggleModal () {
-    const { open } = this.state
-    this.setState({ open: !open })
-  }
+  toggleModal = () => this.setState({ open: !this.state.open })
 
   render () {
     const { open } = this.state
@@ -29,10 +25,10 @@ class AddInventoryModalForm extends Component {
           <Container>
             <Form onSubmit={() => {
               this.toggleModal()
-              handleSubmit(createInventory)
+              handleSubmit()
             }}>
               <Form.Group>
-                <Field width={10} type='text' name='itemName' label='Item Name' placeholder='Item Name' value={item.name} component={InputField} />
+                <Field width={10} type='text' name='itemName' label='Item Name' placeholder='Item Name' yudipota={item.name} component={InputField} />
                 <Field width={6} type='number' name='quantity' label='Quantity' placeholder='Quantity' component={InputField} />
               </Form.Group>
               <Form.Group widths='equal'>
