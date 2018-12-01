@@ -19,7 +19,7 @@ export const addSale = (sale) => {
         dispatch(reset('saleForm'))
       }
     } catch (e) {
-      console.log('ERROR - addSale() - salesAction.js', e)
+      console.log('ERROR - addSale() - salesActions.js', e)
     }
   }
 }

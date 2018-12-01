@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { clearFields, formValueSelector, blur } from 'redux-form'
 import { getItemSearchList } from '../actions/itemActions'
 import { getCustomers } from '../actions/customerActions'
-import { addSale } from '../actions/salesAction'
+import { addSale } from '../actions/salesActions'
 
 const selector = formValueSelector('saleForm')
 

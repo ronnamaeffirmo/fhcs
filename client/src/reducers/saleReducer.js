@@ -3,7 +3,7 @@ import {
   REMOVE_SALE,
   RECEIVE_SALES,
   RECEIVE_SALE
-} from '../actions/salesAction'
+} from '../actions/salesActions'
 
 const initialState = {
   list: [],
