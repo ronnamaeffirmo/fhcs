@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import SalesList from '../components/SalesList'
+import SaleList from '../components/SaleList'
 import { getSales, removeSale } from '../actions/salesAction'
 
 class SaleListContainer extends React.Component {
@@ -10,7 +10,7 @@ class SaleListContainer extends React.Component {
 
   render () {
     return (
-      <SalesList {...this.props} />
+      <SaleList {...this.props} />
     )
   }
 }

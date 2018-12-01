@@ -4,7 +4,7 @@ import { Card } from 'semantic-ui-react'
 import DeleteConfirmationModal from './DeleteConfirmationModal'
 import SalesItemTable from './SalesItemTable'
 
-const salesDataCard = ({sale, actions}) => {
+const saleDataCard = ({sale, actions}) => {
   const { removeSale } = actions
   return (
     <Card centered>
@@ -34,4 +34,4 @@ const salesDataCard = ({sale, actions}) => {
   )
 }
 
-export default salesDataCard
+export default saleDataCard
