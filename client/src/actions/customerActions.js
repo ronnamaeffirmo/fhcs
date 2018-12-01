@@ -47,6 +47,7 @@ export const getCustomer = (id) => {
 export const getCustomers = () => {
   return async (dispatch) => {
     const customers = await client.service('customers').find({})
+    console.log('FETCHING CUSTOMERS', customers)
     dispatch({
       type: GET_CUSTOMERS,
       payload: customers.data

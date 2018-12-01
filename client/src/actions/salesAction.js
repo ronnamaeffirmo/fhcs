@@ -1,6 +1,7 @@
 import client from '../common/client'
 import moment from 'moment'
 import Fuse from 'fuse.js'
+import { reset } from 'redux-form'
 
 export const GET_CUSTOMERS = 'GET_CUSTOMERS'
 export const ON_CUSTOMER_DROPDOWN_CHANGE = 'ON_CUSTOMER_DROPDOWN_CHANGE'
@@ -22,6 +23,21 @@ export const CANCEL_BUTTON = 'CANCEL_BUTTON'
 export const REMOVE_FROM_LIST = 'REMOVE_FROM_LIST'
 export const GET_SALES = 'GET_SALES'
 export const REMOVE_SALE = 'REMOVE_SALE'
+
+// BASIC CRUD
+export const addSale = (sale) => {
+  return async (dispatch) => {
+    try {
+      const newSale = await client.service('sales').create(sale)
+      if (newSale) {
+        dispatch(reset('saleForm'))
+      }
+    } catch (e) {
+      console.log('ERROR - addSale() - salesAction.js', e)
+    }
+  }
+}
+
 
 export const onCustomerDropdownChange = (customer) => {
   // console.log(customer)

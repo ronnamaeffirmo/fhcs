@@ -19,7 +19,6 @@ import { Link } from 'react-router-dom'
 import terms from '../common/constants/terms'
 import moment from 'moment'
 import { DateInput } from 'semantic-ui-calendar-react'
-import { clearFields } from 'redux-form'
 
 const styles = {
   mainContainer: {
@@ -30,20 +29,21 @@ const styles = {
   },
   fieldLabel: {
     fontSize: 16,
-    lineHeight: 1.5
+    lineHeight: 1.5,
+    fontWeight: 400
   },
   tmpFieldLabel: {
-    fontWeight: 700,
+    fontWeight: 400,
     fontSize: 15,
     lineHeight: 2.0
   }
 }
 
 const SaleForm = (props) => {
-  const {submissionHandler, handleSubmit, pristine, submitting, tmp, items} = props
+  const {submissionHandler, handleSubmit, date, term, customerSearchList, pristine, submitting, tmp, items, clearTmpFields, updateTmpFields, itemSearchList} = props
   return (
     <Container style={styles.mainContainer}>
-      <Form>
+      <Form onSubmit={submissionHandler ? handleSubmit(submissionHandler) : undefined}>
         <Container>
           <Link to={'/sales'}><Button color={'grey'} content={'Back to Sales'} icon={'arrow left'}
                                       labelPosition={'left'}/></Link>
@@ -70,9 +70,9 @@ const SaleForm = (props) => {
                     return (
                       <Form.Field>
                         <label style={styles.fieldLabel}>Role</label>
-                        <Dropdown placeholder='Select Role' fluid search selection
+                        <Dropdown placeholder='Select Customer' fluid search selection
                                   value={value}
-                                  options={[{key: '1', value: 'Kimwa', text: 'Kimwa'}]} onChange={(e, data) => {
+                                  options={customerSearchList ? customerSearchList : []} onChange={(e, data) => {
                           onChange(data.value)
                         }}
                         />
@@ -89,7 +89,7 @@ const SaleForm = (props) => {
             <Grid.Row>
               <Grid.Column width={6}>
                 <Field
-                  name={'customer'}
+                  name={'date'}
                   component={(props) => {
                     const {input: {value, onChange}, meta: {error}} = props
                     return (
@@ -117,7 +117,7 @@ const SaleForm = (props) => {
                     return (
                       <Form.Field>
                         <label style={styles.fieldLabel}>Term</label>
-                        <Dropdown placeholder='Select Customer' fluid search selection
+                        <Dropdown placeholder='Select Term' fluid search selection
                                   value={value}
                                   options={terms} onChange={(e, data) => {
                           onChange(data.value)
@@ -136,8 +136,7 @@ const SaleForm = (props) => {
                     placeholder={'Enter sale date'}
                     iconPosition="left"
                     dateFormat={'MM/DD/YYYY'}
-                    minDate={moment().format('MM/DD/YYYY')}
-                    // value={value}
+                    value={(date && term) ? moment(date).add(term, 'days').format('MM/DD/YYYY') : undefined}
                   />
                 </Form.Field>
               </Grid.Column>
@@ -145,7 +144,8 @@ const SaleForm = (props) => {
             <Divider/>
             <Grid.Row>
               <Grid.Column width={16}>
-                <FieldArray name='items' component={Items} props={{tmp: tmp, items: items}}
+                <FieldArray name='items' component={Items}
+                            props={{tmp: tmp, items: items, clearTmpFields, updateTmpFields, itemSearchList}}
                             rerenderOnEveryChange={true}/>
               </Grid.Column>
             </Grid.Row>
@@ -157,11 +157,11 @@ const SaleForm = (props) => {
 }
 
 const Items = (props) => {
-  const {fields, meta: {error, submitFailed}, items, tmp: {item, quantity, price, discount}} = props
+  const {fields, meta: {error, submitFailed}, items, tmp: {item, quantity, price, discount}, clearTmpFields, updateTmpFields, itemSearchList} = props
   console.log(props)
   return (
     <div>
-      {items &&
+
       <div>
         <Table celled selectable>
           <Table.Header>
@@ -174,8 +174,9 @@ const Items = (props) => {
               <Table.HeaderCell textAlign={'right'}>Total</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
+
           <Table.Body>
-            {items.map((item, index) => {
+            {items && items.map((item, index) => {
               return (
 
                 <Popup
@@ -196,20 +197,52 @@ const Items = (props) => {
 
               )
             })}
+            {!items &&
+            <Table.Row>
+              <Table.Cell>----</Table.Cell>
+              <Table.Cell textAlign={'right'}>₱0.00</Table.Cell>
+              <Table.Cell textAlign={'center'}>0</Table.Cell>
+              <Table.Cell textAlign={'right'}>₱0.00</Table.Cell>
+              <Table.Cell textAlign={'right'}>₱0.00</Table.Cell>
+              <Table.Cell textAlign={'right'}>₱0.00</Table.Cell>
+            </Table.Row>}
           </Table.Body>
         </Table>
         <Divider/>
+        <Header size={'medium'}>Add Item To Sale</Header>
+        <p>Find items in the database and add it to this sales record.</p>
+        <Container style={{marginTop: 10}}/>
       </div>
-      }
-
-
       <Grid>
+
         <Grid.Row>
+
           <Grid.Column width={6}>
             <label style={styles.tmpFieldLabel}>Item</label>
             <Field
               name={'tmpItem'}
-              component='input'
+              component={(props) => {
+                const {input: {value, onChange}, meta: {error}} = props
+                return (
+                  <Form.Field>
+                    <Dropdown placeholder='Find Item' search selection
+                              value={value}
+                              scrolling
+                              options={itemSearchList ? itemSearchList : []}
+                              onChange={(e, data) => {
+                                onChange(data.value)
+                                let match = false
+                                data.options.forEach(option => {
+                                  if (option.key === data.value) {
+                                    updateTmpFields(parseFloat(option.price).toFixed(2), 1, 0.0)
+                                    match = true
+                                  }
+                                })
+                              }}
+                    />
+                  </Form.Field>
+                )
+              }}
             />
           </Grid.Column>
           <Grid.Column width={4}>
@@ -233,33 +266,21 @@ const Items = (props) => {
               component='input'
             />
           </Grid.Column>
+
           <Grid.Column width={16} style={{marginTop: 8}}>
-            <Button fluid color={'green'} onClick={() => {
-              fields.push({item, quantity, price, discount})
-              clearFields('userForm', false, false, 'tmpPrice')
-            }}
-                    content={'ADD ITEM TO SALES RECORD'} icon={'plus'}/>
+            <Button fluid color={'green'}
+                    onClick={() => {
+                      fields.push({item, quantity, price, discount})
+                      clearTmpFields()
+                    }}
+                    content={'ADD ITEM TO SALES RECORD'}
+                    disabled={!item}
+                    icon={'plus'}/>
+            <Divider/>
           </Grid.Column>
         </Grid.Row>
       </Grid>
     </div>
-  )
-}
-
-const ItemField = (props) => {
-  const {item, name} = props
-  return (
-    <Field
-      name={`${item}.${name}`}
-      type="text"
-      label="First Name"
-      component={(props) => {
-        const {input: {value}, meta: {error}} = props
-        return (
-          <span>{value}</span>
-        )
-      }}
-    />
   )
 }
 
