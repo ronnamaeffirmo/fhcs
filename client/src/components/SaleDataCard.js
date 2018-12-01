@@ -7,14 +7,14 @@ import SalesItemTable from './SalesItemTable'
 const saleDataCard = ({sale, actions}) => {
   const { removeSale } = actions
   return (
-    <Card centered>
+    <Card centered fluid>
       <Card.Content>
         <div style={{float: 'right'}}>
           <span style={{fontWeight: 'bold', fontSize: '13px'}}>
             {sale.officialReceipt}
           </span>
         </div>
-        <Card.Header>{sale.customer}</Card.Header>
+        <Card.Header>{sale.customer.firstname + ' ' + sale.customer.lastname}</Card.Header>
         <div style={{float: 'right'}}>
           <span style={{fontWeight: 'bold', padding: '5px', fontSize: '15px'}}>
             Net Term: {sale.terms}

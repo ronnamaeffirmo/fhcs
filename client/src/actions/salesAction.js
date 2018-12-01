@@ -27,7 +27,9 @@ export const addSale = (sale) => {
 // READ SALE(S)
 export const getSales = () => {
   return async (dispatch) => {
-    const sales = await client.service('sales').find({})
+    const sales = await client.service('sales').find({
+      query: { $populate: ['customer', 'items.item'] }
+    })
     dispatch({
       type: RECEIVE_SALES,
       payload: sales.data
