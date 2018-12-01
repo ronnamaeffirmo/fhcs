@@ -1,7 +1,5 @@
 import React from 'react'
 import { Card, Container, Input, Segment, Message } from 'semantic-ui-react'
-
-import AddSalesModal from './../containers/AddSalesRecordContainer'
 import SalesDataCard from './SalesDataCard'
 
 class SalesList extends React.Component {
@@ -19,7 +17,6 @@ class SalesList extends React.Component {
             placeholder='Search items here...'
             style={styles.itemSearchField}
           />
-          <AddSalesModal />
         </Segment>
         <Segment style={styles.bottomSegment}>
           { !sales.length && <Message negative>No available sales yet</Message>}

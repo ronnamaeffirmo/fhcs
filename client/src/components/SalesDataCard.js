@@ -11,7 +11,7 @@ const salesDataCard = ({sale, actions}) => {
       <Card.Content>
         <div style={{float: 'right'}}>
           <span style={{fontWeight: 'bold', fontSize: '13px'}}>
-            {sale.invoiceNumber}
+            {sale.officialReceipt}
           </span>
         </div>
         <Card.Header>{sale.customer}</Card.Header>

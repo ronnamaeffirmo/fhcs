@@ -12,7 +12,7 @@ const reducer = combineReducers({
   form: formReducer,
   item: itemReducer,
   user: userReducer,
-  sales: saleReducer,
+  sale: saleReducer,
   inventory: inventoryReducer,
   customer: customerReducer,
   role: roleReducer

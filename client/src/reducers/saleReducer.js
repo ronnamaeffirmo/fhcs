@@ -11,22 +11,16 @@ const initialState = {
 
 const saleReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_CUSTOMERS: {
-      return {
-        ...state,
-        customers: action.payload
-      }
-    }
     case REMOVE_SALE: {
       return {
         ...state,
         sales: state.sales.filter(item => item._id !== action.payload)
       }
     }
-    case GET_SALES: {
+    case RECEIVE_SALES: {
       return {
         ...state,
-        sales: action.payload
+        list: action.payload
       }
     }
     default: {

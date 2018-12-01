@@ -5,10 +5,9 @@ import LoginFormContainer from './containers/LoginFormContainer'
 import ChangePasswordForm from './containers/ChangePasswordFormContainer'
 import ItemList from './containers/ItemListContainer'
 import EditFormContainer from './containers/EditItemFormContainer'
-import AddSalesRecordContainer from './containers/AddSalesRecordContainer'
 import ItemReportsContainer from './containers/ItemReportsContainer'
 import AddCustomerContainer from './containers/AddCustomerContainer'
-import SalesList from './containers/SalesListContainer'
+import SalesList from './containers/SaleListContainer'
 import Dashboard from './components/Dashboard'
 import CustomerList from './containers/CustomerListContainer'
 import InventoryList from './containers/InventoryListContainer'
@@ -29,7 +28,6 @@ const Routes = () => (
     <Route path='/items' component={ItemList}/>
     <Route path='/item/:_id' exact component={EditFormContainer}/>
     <Route path='/item/:_id/reports' component={ItemReportsContainer}/>
-    <Route path='/add-sales' component={AddSalesRecordContainer}/>
     <Route path='/add-customer' component={AddCustomerContainer}/>
     <Route path='/customers' component={CustomerList}/>
     <Route path='/sales' exact component={SalesList}/>
