@@ -4,18 +4,20 @@
 // for more of what you can do here.
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient')
-  const { Schema } = mongooseClient
+  const {Schema} = mongooseClient
   const sales = new Schema({
-    customer: String,
-    dateFrom: String,
-    dateTo: String,
-    discount: Number,
-    grandTotal: Number,
-    invoiceNumber: String,
-    itemLists: [],
-    quantity: String,
-    remarks: String,
-    terms: String
+    customer: {type: Schema.Types.ObjectId, ref: 'customers', required: true},
+    date: {type: Date, required: true},
+    term: {type: Number, required: true},
+    discount: {type: Number, default: 0.0},
+    officialReceipt: {type: String, required: true, unique: true},
+    remarks: {type: String},
+    items: [{
+      item: {type: Schema.Types.ObjectId, ref: 'items', required: true},
+      price: {type: Number, required: true},
+      quantity: {type: Number, required: true},
+      discount: {type: Number, default: 0.0}
+    }]
   }, {
     timestamps: true,
     versionKey: false

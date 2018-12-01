@@ -7,7 +7,7 @@ import InputField from './InputField'
 const required = value => value ? undefined : 'Required'
 
 const AddCustomerForm = ({addCustomer, handleSubmit, pristine, submitting}) => (
-  <Modal trigger={<Button>NEW CUSTOMER</Button>}
+  <Modal size="tiny" trigger={<Button style={styles.searchButton}>NEW CUSTOMER</Button>}
     centered={false}>
     <Modal.Header>Add A New Customer</Modal.Header>
     <Modal.Content>
@@ -41,5 +41,14 @@ const AddCustomerForm = ({addCustomer, handleSubmit, pristine, submitting}) => (
     </Modal.Content>
   </Modal>
 )
+
+const styles = {
+  searchButton: {
+    width: '24%',
+    float: 'right',
+    backgroundColor: 'green',
+    color: 'white'
+  }
+}
 
 export default AddCustomerForm

@@ -6,9 +6,15 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient')
   const { Schema } = mongooseClient
   const roles = new Schema({
-    text: { type: String, required: true }
+    title: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    permissions: [{type: String}]
   }, {
-    timestamps: true
+    timestamps: true,
+    versionKey: false
   })
 
   return mongooseClient.model('roles', roles)

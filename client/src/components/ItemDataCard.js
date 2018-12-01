@@ -12,17 +12,9 @@ class ItemDataCard extends Component {
     this.state = {
       isOpen: false
     }
-    this.toggleDesc = this.toggleDesc.bind(this)
   }
 
-  toggleDesc () {
-    const { isOpen } = this.state
-    if (isOpen) {
-      this.setState({ isOpen: false })
-    } else {
-      this.setState({ isOpen: true })
-    }
-  }
+  toggleDesc = () => this.setState({ isOpen: !this.state.isOpen })
 
   render () {
     const { isOpen } = this.state
@@ -50,16 +42,18 @@ class ItemDataCard extends Component {
               {isOpen &&
                 <Card.Description>
                   <table border={0}>
-                    <tr>
-                      <td><Icon name='barcode' /></td>
-                      <td style={{ paddingRight: '2em' }}>Item code</td>
-                      <td>{code || 'N/A'}</td>
-                    </tr>
-                    <tr>
-                      <td><Icon name='info circle' /></td>
-                      <td style={{ paddingRight: '2rem' }}>Description</td>
-                      <td>{description}</td>
-                    </tr>
+                    <tbody>
+                      <tr>
+                        <td><Icon name='barcode' /></td>
+                        <td style={{ paddingRight: '2em' }}>Item code</td>
+                        <td>{code || 'N/A'}</td>
+                      </tr>
+                      <tr>
+                        <td><Icon name='info circle' /></td>
+                        <td style={{ paddingRight: '2rem' }}>Description</td>
+                        <td>{description}</td>
+                      </tr>
+                    </tbody>
                   </table>
                 </Card.Description>
               }
@@ -67,11 +61,17 @@ class ItemDataCard extends Component {
           }
         />
         <Card.Content extra style={styles.cardExtra}>
-          <Button onClick={this.toggleDesc} size='tiny' circular icon={isOpen ? 'chevron up' : 'chevron down'} />
+          <Popup
+            inverted
+            size='tiny'
+            content='View more info'
+            position='left center'
+            trigger={<Button onClick={this.toggleDesc} size='tiny' circular icon={isOpen ? 'chevron up' : 'chevron down'} />}
+          />
           <AddNewInventory item={item}/>
           <div style={{ float: 'right' }}>
             <Button as={Link} to={`/item/${item._id}`} icon='edit' labelPosition='left' content='Edit' size='tiny' color='green' />
-            <DeleteConfirmationModal removeItem={removeItem} item={item}/>
+            <DeleteConfirmationModal removeElement={removeItem} element={item}/>
           </div>
         </Card.Content>
       </Card>
@@ -97,7 +97,7 @@ const styles = {
     marginBottom: '0.5rem'
   },
   cardExtra: {
-    padding: '6px 0px 6px 6px'
+    padding: '6px 4px 6px 6px'
   }
 }
 

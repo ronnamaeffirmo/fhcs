@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Container, Input, Segment } from 'semantic-ui-react'
+import { Card, Container, Input, Segment, Message } from 'semantic-ui-react'
 import ItemDataCard from './ItemDataCard'
 import NewItemModal from './../containers/AddItemFormContainer'
 
@@ -22,12 +22,11 @@ class ItemList extends Component {
           <NewItemModal/>
         </Segment>
         <Segment style={styles.bottomSegment}>
+          { !items.length && <Message negative>No available items yet</Message>}
           <Card.Group>
-            { items.map((item) => {
-              return (
-                <ItemDataCard item={item} key={item._id} actions={{removeItem}} />
-              )
-            })}
+            { items.map((item) => (
+              <ItemDataCard item={item} key={item._id} actions={{removeItem}} />
+            ))}
           </Card.Group>
         </Segment>
       </Container>

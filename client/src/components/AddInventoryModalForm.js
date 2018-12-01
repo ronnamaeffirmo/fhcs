@@ -1,32 +1,55 @@
-import React from 'react'
-import { Button, Container, Form, Input, Modal, Select, TextArea } from 'semantic-ui-react'
+import React, { Component } from 'react'
+import { Field } from 'redux-form'
+import { Button, Container, Form, Modal } from 'semantic-ui-react'
+import InputField from './InputField'
+import TextAreaField from './TextAreaField'
+import DropdownField from './DropdownField'
 
-const AddInventoryModalForm = ({item, options}) => (
-  <Modal trigger={<Button size='tiny'>Add Inventory</Button>} centered={false}>
-    <Modal.Header>New Inventory Record</Modal.Header>
-    <Modal.Content>
-      <Container>
-        <Form>
-          <Form.Group widths='equal'>
-            <Form.Field control={Input} label='Item Name' value={item.name}/>
-            <Form.Field control={Input} label='Quantity' placeholder='Quantity'/>
-            <Form.Field control={Select} label='Source' options={options.sources} placeholder='Source'/>
-          </Form.Group>
-          <Form.Group widths='equal'>
-            <Form.Field control={Select} label='Source' options={options.producers} placeholder='Producer'/>
-          </Form.Group>
-          <Form.Group widths='equal'>
-            <Form.Field control={Input} label='PO Number' placeholder='PO Number'/>
-            <Form.Field control={Input} label='Company' placeholder='Company'/>
-            <Form.Field control={Input} label='Truck Plate Number' placeholder='Truck Plate Number'/>
-            <Form.Field control={Select} label='Source' options={options.statuses} placeholder='Status'/>
-          </Form.Group>
-          <Form.Field control={TextArea} label='Notes' placeholder='Information about this record...'/>
-          <Form.Field control={Button}>Submit</Form.Field>
-        </Form>
-      </Container>
-    </Modal.Content>
-  </Modal>
-)
+class AddInventoryModalForm extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      open: false
+    }
+  }
+
+  toggleModal = () => this.setState({ open: !this.state.open })
+
+  render () {
+    const { open } = this.state
+    const { item, options, handleSubmit, createInventory, pristine, submitting } = this.props
+    return (
+      <Modal open={open} size='tiny' trigger={<Button onClick={this.toggleModal} size='tiny'>Add Inventory</Button>} centered={false}>
+        <Modal.Header>New Inventory Record</Modal.Header>
+        <Modal.Content>
+          <Container>
+            <Form onSubmit={() => {
+              this.toggleModal()
+              handleSubmit()
+            }}>
+              <Form.Group>
+                <Field width={10} type='text' name='itemName' label='Item Name' placeholder='Item Name' yudipota={item.name} component={InputField} />
+                <Field width={6} type='number' name='quantity' label='Quantity' placeholder='Quantity' component={InputField} />
+              </Form.Group>
+              <Form.Group widths='equal'>
+                <Field type='selection' name='source' label='Source' placeholder='Source' options={options.sources} component={DropdownField} />
+                <Field type='selection' name='producer' label='Producer' placeholder='Producer' options={options.producers} component={DropdownField} />
+              </Form.Group>
+              <Field type='text' name='company' label='Company' placeholder='Company' component={InputField} />
+              <Form.Group widths='equal'>
+                <Field type='text' name='poNumber' label='PO Number' placeholder='PO Number' component={InputField} />
+                <Field type='text' name='truckPlateNumber' label='Truck Plate Number' placeholder='Truck Plate Number' component={InputField} />
+              </Form.Group>
+              <Field type='selection' name='status' label='Status' placeholder='Status' options={options.statuses} component={DropdownField} />
+              <Field type='textarea' name='notes' label='Notes' placeholder='Information about this record...' component={TextAreaField} />
+              <Button basic onClick={this.toggleModal}>Cancel</Button>
+              <Button floated='right' disabled={pristine || submitting}>Submit</Button>
+            </Form>
+          </Container>
+        </Modal.Content>
+      </Modal>
+    )
+  }
+}
 
 export default AddInventoryModalForm
