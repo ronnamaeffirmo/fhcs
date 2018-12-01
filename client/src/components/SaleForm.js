@@ -41,6 +41,7 @@ const styles = {
 
 const SaleForm = (props) => {
   const {submissionHandler, handleSubmit, date, term, customerSearchList, pristine, submitting, tmp, items, clearTmpFields, updateTmpFields, itemSearchList} = props
+  console.log('TERM', term)
   return (
     <Container style={styles.mainContainer}>
       <Form onSubmit={submissionHandler ? handleSubmit(submissionHandler) : undefined}>
@@ -69,17 +70,30 @@ const SaleForm = (props) => {
                     const {input: {value, onChange}, meta: {error}} = props
                     return (
                       <Form.Field>
-                        <label style={styles.fieldLabel}>Role</label>
-                        <Dropdown placeholder='Select Customer' fluid search selection
-                                  value={value}
-                                  options={customerSearchList ? customerSearchList : []} onChange={(e, data) => {
-                          onChange(data.value)
-                        }}
-                        />
+                        <label style={styles.fieldLabel}>Customer</label>
+                        <div>
+                          <Button circular floated={'right'} icon='add user' onClick={(e) => {
+                            e.preventDefault()
+                            window.alert('CHECKING CUSTOMERS')
+                          }}/>
+                          <Button circular floated={'right'} icon='refresh' onClick={(e) => {
+                            e.preventDefault()
+                            window.alert('CHECKING CUSTOMERS')
+                          }}/>
+                          <Dropdown placeholder='Select Customer' search selection style={{width: '74%'}}
+                                    value={value}
+                                    loading={!customerSearchList || (customerSearchList && customerSearchList.length === 0)}
+                                    options={customerSearchList ? customerSearchList : []} onChange={(e, data) => {
+                            onChange(data.value)
+                          }}
+                          />
+
+                        </div>
                       </Form.Field>
                     )
                   }}
                 />
+
               </Grid.Column>
               <Grid.Column width={8}>
                 <ReduxFormField fieldName={'officialReceipt'} label={'Official Receipt'}
@@ -100,8 +114,7 @@ const SaleForm = (props) => {
                           placeholder={'Enter sale date'}
                           iconPosition="left"
                           dateFormat={'MM/DD/YYYY'}
-                          minDate={moment().format('MM/DD/YYYY')}
-                          value={value}
+                          value={(value) ? moment(value).format('MMMM DD, YYYY') : undefined}
                           onChange={(e, data) => onChange(data.value)}
                         />
                       </Form.Field>
@@ -131,13 +144,12 @@ const SaleForm = (props) => {
               <Grid.Column width={6}>
                 <Form.Field>
                   <label style={styles.fieldLabel}>Due Date</label>
-                  <DateInput
-                    style={{color: 'red'}}
-                    placeholder={'Enter sale date'}
-                    iconPosition="left"
-                    dateFormat={'MM/DD/YYYY'}
-                    value={(date && term) ? moment(date).add(term, 'days').format('MM/DD/YYYY') : undefined}
-                  />
+                  {(date && (term === 0 || term)) &&
+                  <Container>
+                    <Input icon='calendar outline' iconPosition='left' color={'red'} disabled
+                           value={term === 0 ? moment(date).format('MMM DD, YYYY') : moment(date).add(term, 'days').format('MMMM DD, YYYY')}/>
+                  </Container>
+                  }
                 </Form.Field>
               </Grid.Column>
             </Grid.Row>
@@ -178,21 +190,20 @@ const Items = (props) => {
           <Table.Body>
             {items && items.map((item, index) => {
               return (
-
-                <Popup
-                  trigger={
-                    <Table.Row key={item.item + '-' + 'item.total'}>
-                      <Table.Cell>{item.item}</Table.Cell>
-                      <Table.Cell textAlign={'right'}>₱{item.price}</Table.Cell>
-                      <Table.Cell textAlign={'center'}>{item.quantity}</Table.Cell>
-                      <Table.Cell textAlign={'right'}>₱{item.subtotal}</Table.Cell>
-                      <Table.Cell textAlign={'right'}>₱{item.discount}</Table.Cell>
-                      <Table.Cell textAlign={'right'}>₱{item.total}</Table.Cell>
-                    </Table.Row>}
-                  content={<Button color='red' content='Remove Item' onClick={() => fields.remove(index)}/>}
-                  on='hover'
-                  hoverable
-                  hideOnScroll
+                <Popup key={index}
+                       trigger={
+                         <Table.Row>
+                           <Table.Cell>{item.item}</Table.Cell>
+                           <Table.Cell textAlign={'right'}>₱{item.price}</Table.Cell>
+                           <Table.Cell textAlign={'center'}>{item.quantity}</Table.Cell>
+                           <Table.Cell textAlign={'right'}>₱{item.subtotal}</Table.Cell>
+                           <Table.Cell textAlign={'right'}>₱{item.discount}</Table.Cell>
+                           <Table.Cell textAlign={'right'}>₱{item.total}</Table.Cell>
+                         </Table.Row>}
+                       content={<Button color='red' content='Remove Item' onClick={() => fields.remove(index)}/>}
+                       on='hover'
+                       hoverable
+                       hideOnScroll
                 />
 
               )
@@ -217,17 +228,21 @@ const Items = (props) => {
 
         <Grid.Row>
 
-          <Grid.Column width={6}>
-            <label style={styles.tmpFieldLabel}>Item</label>
+          <Grid.Column width={8}>
+            {item && <label style={styles.tmpFieldLabel}>Item</label>}
             <Field
               name={'tmpItem'}
               component={(props) => {
                 const {input: {value, onChange}, meta: {error}} = props
                 return (
                   <Form.Field>
+                    <div>
                     <Dropdown placeholder='Find Item' search selection
                               value={value}
                               scrolling
+                              style={{width: '87%'}}
+                              fluid={!item}
+                              loading={!itemSearchList || (itemSearchList && itemSearchList.length === 0)}
                               options={itemSearchList ? itemSearchList : []}
                               onChange={(e, data) => {
                                 onChange(data.value)
@@ -240,25 +255,36 @@ const Items = (props) => {
                                 })
                               }}
                     />
+                      {item &&
+                      <Button circular floated={'right'} icon='delete' onClick={(e) => {
+                        e.preventDefault()
+                        clearTmpFields()
+                      }}/>}
+                    </div>
                   </Form.Field>
                 )
               }}
             />
           </Grid.Column>
-          <Grid.Column width={4}>
+          {item &&
+          <Grid.Column width={3}>
             <label style={styles.tmpFieldLabel}>Price</label>
             <Field
               name={'tmpPrice'}
               component='input'
             />
           </Grid.Column>
-          <Grid.Column width={3}>
+          }
+          {item &&
+          <Grid.Column width={2}>
             <label style={styles.tmpFieldLabel}>Quantity</label>
             <Field
               name={'tmpQuantity'}
               component='input'
             />
           </Grid.Column>
+          }
+          {item &&
           <Grid.Column width={3}>
             <label style={styles.tmpFieldLabel}>Discount</label>
             <Field
@@ -266,8 +292,10 @@ const Items = (props) => {
               component='input'
             />
           </Grid.Column>
+          }
 
           <Grid.Column width={16} style={{marginTop: 8}}>
+            {item &&
             <Button fluid color={'green'}
                     onClick={() => {
                       fields.push({item, quantity, price, discount})
@@ -275,7 +303,7 @@ const Items = (props) => {
                     }}
                     content={'ADD ITEM TO SALES RECORD'}
                     disabled={!item}
-                    icon={'plus'}/>
+                    icon={'plus'}/>}
             <Divider/>
           </Grid.Column>
         </Grid.Row>

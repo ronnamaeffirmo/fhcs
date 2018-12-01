@@ -11,6 +11,12 @@ const initialState = {
 
 const saleReducer = (state = initialState, action) => {
   switch (action.type) {
+    case RECEIVE_SALE: {
+      return {
+        ...state,
+        selection: action.payload
+      }
+    }
     case REMOVE_SALE: {
       return {
         ...state,

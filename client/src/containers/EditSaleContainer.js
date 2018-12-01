@@ -1,14 +1,15 @@
 import React from 'react'
 import SaleForm from '../components/SaleForm'
 import { connect } from 'react-redux'
-import { addSale } from '../actions/salesActions'
+import { updateSale, getSale } from '../actions/salesActions'
 import { getSaleContainerState } from '../common/initializers'
 import { getSaleContainerDispatchers } from '../common/dispatchers'
 
-class AddSaleContainer extends React.Component {
+class EditSaleContainer extends React.Component {
   componentDidMount () {
     this.props.getItemSearchList()
     this.props.getCustomerSearchList()
+    this.props.getSale(this.props.saleId)
   }
 
   render () {
@@ -18,8 +19,11 @@ class AddSaleContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  ...getSaleContainerState(state)
+const mapStateToProps = (state, ownProps) => ({
+  // initial values need to be called first so redux-form can handle the state changes
+  initialValues: state.sale.selection,
+  ...getSaleContainerState(state),
+  saleId: ownProps.match.params.id,
 })
 
 const mapDispatchToProps = (dispatch) => {
@@ -27,9 +31,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     ...commonDispatchers,
     submissionHandler: (values) => {
-      dispatch(addSale(values))
+      dispatch(updateSale(values))
+    },
+    getSale: (id) => {
+      dispatch(getSale(id))
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddSaleContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(EditSaleContainer)

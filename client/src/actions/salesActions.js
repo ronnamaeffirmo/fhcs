@@ -37,7 +37,39 @@ export const getSales = () => {
   }
 }
 
+export const getSale = (id) => {
+  return async (dispatch) => {
+    try {
+      console.log('SALE ID', id)
+      const sale = await client.service('sales').get(id)
+      console.log('RECEIVING SALE', sale)
+      dispatch({
+        type: RECEIVE_SALE,
+        payload: sale
+      })
+    } catch (e) {
+      console.log('ERROR on getSale() - saleActions.js', e)
+    }
+  }
+}
+
 // UPDATE SALE
+export const updateSale = (values) => {
+  return async (dispatch) => {
+    console.log('UPDATING SALE WITH VALUES', values)
+    const {_id: id} = values
+    try {
+      const updatedSale = await client.service('sales').patch(id, values)
+      if (updatedSale) {
+        window.alert('SALE UPDATED!')
+      }
+    } catch (e) {
+      console.log('ERROR - updateSale() - saleActions.js')
+    }
+  }
+}
+
+
 export const removeSale = (id) => {
   return async (dispatch) => {
     await client.service('sales').remove(id)
