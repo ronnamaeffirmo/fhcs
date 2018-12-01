@@ -2,7 +2,9 @@ import { UPDATE_PASSWORD, USER_LOGIN_FAIL, USER_LOGIN_SUCCESS, USER_LOGOUT } fro
 import reducer from '../reducers/userReducer'
 
 const initialState = {
-	"currentuser": undefined, "error": undefined, "isAuthenticated": false, "list": []
+  currentuser: undefined,
+  isAuthenticated: false,
+  error: undefined
 }
 
 describe('user reducer', () => {
@@ -17,8 +19,7 @@ describe('user reducer', () => {
 			"action": "password123", 
 			"currentuser": undefined, 
 			"error": undefined, 
-			"isAuthenticated": false,
-			"list": []
+			"isAuthenticated": false
 		}
 
 		expect(reducer(undefined, action)).toEqual(expectedState)
@@ -30,8 +31,7 @@ describe('user reducer', () => {
 		const expectedState = {
 			"currentuser": undefined, 
 			"error": data, 
-			"isAuthenticated": false,
-			"list": []
+			"isAuthenticated": false
 		}
 
 		expect(reducer(undefined, action)).toEqual(expectedState)
@@ -41,7 +41,7 @@ describe('user reducer', () => {
 		const data = { user: 'Mike Tyson', isAuthenticated: true}
 		const action = {type: USER_LOGIN_SUCCESS, payload: data.user, isAuthenticated: data.isAuthenticated }
 		const expectedState = {
-			"currentUser": "Mike Tyson", "err": undefined, "error": undefined, "isAuthenticated": true, "list": []
+			"currentuser": "Mike Tyson", "err": undefined, "error": undefined, "isAuthenticated": true
 		}
 
 		expect(reducer(undefined, action)).toEqual(expectedState)
@@ -51,7 +51,7 @@ describe('user reducer', () => {
 		const data = { isAuthenticated: false }
 		const action = {type: USER_LOGOUT, isAuthenticated: data.isAuthenticated}
 		const expectedState = {
-			"currentUser": undefined, "error": undefined, "isAuthenticated": false, "list": []
+			"currentUser": undefined, "currentuser": undefined, "error": undefined, "isAuthenticated": false
 		}
 
 		expect(reducer(undefined, action)).toEqual(expectedState)

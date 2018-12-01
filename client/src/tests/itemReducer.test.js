@@ -19,6 +19,15 @@ describe('item reducer', () => {
     }
     expect(reducer(undefined, {})).toEqual(initialState)
   })
+
+  it('should handle ADD_ITEM', () => {
+    const data = {name: 'shovel', unit: 'pcs', qty: '3'}
+    const action = {type: ADD_ITEM, payload: data}
+    const expectedState = {
+      "filteredList": [], "item": {"name": "shovel", "qty": "3", "unit": "pcs"}, "list": [{"name": "shovel", "qty": "3", "unit": "pcs"}], "report": "sales"
+    }
+    expect(reducer(undefined, action)).toEqual(expectedState)
+  })
   
   it ('should handle GET_ITEM', () => {
     const data = {name:'shovel', unit: 'pcs', qty: '5'}
