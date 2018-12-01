@@ -10,6 +10,7 @@ export const PATCH_ITEM = 'PATCH_ITEM'
 export const PATCH_ITEM_ERROR = 'PATCH_ITEM_ERROR'
 export const SELECT_REPORT = 'SELECT_REPORT'
 export const FILTER_ITEMS = 'FILTER_ITEMS'
+export const GET_SEARCH_ITEMS = 'GET_SEARCH_ITEMS'
 
 export const filterItems = (value) => {
   return (dispatch) => {
@@ -17,6 +18,23 @@ export const filterItems = (value) => {
       type: FILTER_ITEMS,
       payload: value
     })
+  }
+}
+
+export const getItemSearchList = () => {
+  return async (dispatch) => {
+    try {
+      const items = await client.service('items').find({
+        query: {$limit: 10000},
+        $select: ['name', '_id', 'price']
+      })
+      dispatch({
+        type: GET_SEARCH_ITEMS,
+        payload: items.data
+      })
+    } catch (e) {
+      console.log('ERROR - getItemSearchList() - itemActions.js', e)
+    }
   }
 }
 

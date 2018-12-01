@@ -6,7 +6,8 @@ import {
   PATCH_ITEM,
   REMOVE_ITEM,
   REMOVE_ITEM_ERROR,
-  SELECT_REPORT
+  SELECT_REPORT,
+  GET_SEARCH_ITEMS
 } from '../actions/itemActions'
 import { search } from '../common/helpers'
 
@@ -38,6 +39,12 @@ const itemReducer = (state = initialState, action) => {
         ...state,
         item: action.payload,
         list: [...state.list, action.payload] // when adding a new item, it should also save in the state -M
+      }
+    }
+    case GET_SEARCH_ITEMS: {
+      return {
+        ...state,
+        searchList: action.payload
       }
     }
     case GET_ITEMS: {

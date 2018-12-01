@@ -9,7 +9,7 @@ const DeleteConfirmationModal = ({ element, removeElement }) => (
     size='mini'>
     <Header icon='trash alternate outline' content='Delete Item'/>
     <Modal.Content>
-      <p>Are you sure you want to delete {element.name}?</p>
+      <p>Are you sure you want to delete?</p>
     </Modal.Content>
     <Modal.Actions>
       <Button color='red' inverted onClick={() => removeElement(element._id)}>
