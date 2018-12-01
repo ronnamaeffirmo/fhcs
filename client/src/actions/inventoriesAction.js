@@ -2,12 +2,17 @@ import client from '../common/client'
 import moment from 'moment'
 
 export const GET_INVENTORIES = 'GET_INVENTORIES'
+export const GET_INVENTORIES_BY_PERIOD = 'GET_INVENTORIES_BY_PERIOD'
+export const ADD_INVENTORY = 'ADD_INVENTORY'
+export const REMOVE_INVENTORY = 'REMOVE_INVENTORY'
+export const REMOVE_ITEM_ERROR = 'REMOVE_ITEM_ERROR'
+export const FILTER_INVENTORIES = 'FILTER_INVENTORIES'
 
 const getQueryDate = (amount, unit) => {
   return moment(new Date()).subtract(amount, unit).toDate()
 }
 
-export const getInventories = ({ period }) => {
+export const getInventoriesByPeriod = ({ period }) => {
   return async dispatch => {
     let query = {}
     switch (period) {
@@ -37,13 +42,51 @@ export const getInventories = ({ period }) => {
     }
 
     const inventories = await client.service('inventories').find({ query })
+    dispatch({
+      type: GET_INVENTORIES_BY_PERIOD,
+      payload: inventories
+    })
+  }
+}
 
-    console.log('[!] query', query)
-    console.log('[!] inventories', inventories)
-
+export const getInventories = () => {
+  return async (dispatch) => {
+    const items = await client.service('inventories').find({})
     dispatch({
       type: GET_INVENTORIES,
-      payload: inventories
+      payload: items.data
+    })
+  }
+}
+
+export const removeInventory = (id) => async (dispatch) => {
+  try {
+    await client.service('inventories').remove(id)
+    dispatch({
+      type: REMOVE_INVENTORY,
+      payload: id
+    })
+  } catch (error) {
+    dispatch({type: REMOVE_ITEM_ERROR, payload: error})
+  }
+}
+
+export const createInventory = (values) => {
+  return async (dispatch) => {
+    console.log('balues', values)
+    const item = await client.service('inventories').create(values)
+    dispatch({
+      type: ADD_INVENTORY,
+      payload: item
+    })
+  }
+}
+
+export const filterInventories = (value) => {
+  return (dispatch) => {
+    dispatch({
+      type: FILTER_INVENTORIES,
+      payload: value
     })
   }
 }

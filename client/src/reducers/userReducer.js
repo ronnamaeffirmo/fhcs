@@ -1,14 +1,50 @@
-import { UPDATE_PASSWORD, USER_LOGIN_FAIL, USER_LOGIN_SUCCESS, USER_LOGOUT } from '../actions/userActions'
-import { ADD_USER } from '../actions/userActions'
+import {
+  ADD_USER,
+  UPDATE_PASSWORD,
+  USER_LOGIN_FAIL,
+  USER_LOGIN_SUCCESS,
+  USER_LOGOUT,
+  RECEIVE_USERS,
+  DELETE_USER,
+  RECEIVE_USER,
+  SELECT_USER
+} from '../actions/userActions'
+import { removeItemFromArray } from '../common/helpers'
+import { selectUser } from '../actions/roleActions'
 
 const initialState = {
   currentuser: undefined,
   isAuthenticated: false,
-  error: undefined
+  error: undefined,
+  list: []
 }
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
+    // ADMINISTRATION
+    case SELECT_USER: {
+      return {
+        ...state,
+        selection: action.payload
+      }
+    }
+    case RECEIVE_USER: {
+      return {
+        ...state,
+        selection: action.payload
+      }
+    }
+    case RECEIVE_USERS:
+      return {
+        ...state,
+        list: action.payload
+      }
+    case DELETE_USER: {
+      return {
+        ...state,
+        list: state.list.filter(user => user._id !== action.payload)
+      }
+    }
     case UPDATE_PASSWORD: {
       return {
         ...state,

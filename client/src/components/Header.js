@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Popup, Icon, Dropdown } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import PaddedContainer from '../custom-components/PaddedContainer'
 
@@ -18,14 +18,44 @@ const styles = {
   }
 }
 
+const userOptions = [
+  { key: 'greeting', text: <span>Hi, <b>User</b>!</span>, disabled: true },
+  { key: 'account', text: 'My account', icon: 'user' },
+  { key: 'logout', text: 'Logout', icon: 'sign out' }
+]
+
+const itemOptions = [
+  { key: 'items', as: () => (<Menu.Item icon={'tasks'} style={styles.menuItem} content='Item List' as={Link} to={'/items'}/>) },
+  { key: 'inventories', as: () => (<Menu.Item icon={'clipboard'} style={styles.menuItem} content='Inventory List' as={Link} to={'/inventories'}/>) }
+]
+
+const settingOptions = [
+  { key: 'roles', as: () => (<Menu.Item icon={'move'} content='Manage Roles' as={Link} to={'/roles'}/>) },
+  { key: 'users', as: () => (<Menu.Item icon={'user'} content='Manage Users' as={Link} to={'/users'}/>) }
+]
+
 const Header = () => (
   <Menu secondary fixed='top' style={styles.header} inverted>
     <PaddedContainer>
-      <Menu.Item header>FIELDSTONE</Menu.Item>
-      <Menu.Item style={styles.menuItem} name='home' as={Link} to={'/'}/>
-      <Menu.Item style={styles.menuItem} name='items' as={Link} to={'/items'}/>
-      <Menu.Item style={styles.menuItem} name='inventory' as={Link} to={'/inventories'}/>
+      <Popup
+        inverted
+        size='tiny'
+        content='Go back to home'
+        position='left center'
+        trigger={<Menu.Item header name='home' as={Link} to={'/'}>FIELDSTONE</Menu.Item>}
+      />
+      <Dropdown item text='Items' options={itemOptions}/>
       <Menu.Item style={styles.menuItem} name='sales' as={Link} to={'/sales'}/>
+      <Menu.Item style={styles.menuItem} name='customers' as={Link} to={'/customers'}/>
+      <Dropdown item text='Settings' options={settingOptions}/>
+      <Menu.Menu position='right'>
+        <Dropdown
+          item
+          icon={null}
+          options={userOptions}
+          trigger={<span><Icon name='user circle' size='large' /> User</span>}
+        />
+      </Menu.Menu>
     </PaddedContainer>
   </Menu>
 )

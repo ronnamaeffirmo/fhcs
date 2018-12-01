@@ -22,7 +22,7 @@ class AddItemModalForm extends React.Component {
   }
 
   render () {
-    const {handleSubmit, pristine, submitting} = this.props
+    const { handleSubmit, pristine, submitting } = this.props
     return (
       <Modal
         size='tiny'

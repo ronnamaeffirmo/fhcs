@@ -4,14 +4,14 @@ import { Card } from 'semantic-ui-react'
 import DeleteConfirmationModal from './DeleteConfirmationModal'
 import SalesItemTable from './SalesItemTable'
 
-const salesDataCard = ({sale, actions}) => {
+const saleDataCard = ({sale, actions}) => {
   const { removeSale } = actions
   return (
     <Card centered>
       <Card.Content>
         <div style={{float: 'right'}}>
           <span style={{fontWeight: 'bold', fontSize: '13px'}}>
-            {sale.invoiceNumber}
+            {sale.officialReceipt}
           </span>
         </div>
         <Card.Header>{sale.customer}</Card.Header>
@@ -34,4 +34,4 @@ const salesDataCard = ({sale, actions}) => {
   )
 }
 
-export default salesDataCard
+export default saleDataCard

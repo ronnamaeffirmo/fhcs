@@ -1,10 +1,22 @@
+import React from 'react'
 import { connect } from 'react-redux'
-
-import SalesList from '../components/SalesList'
+import SaleList from '../components/SaleList'
 import { getSales, removeSale } from '../actions/salesAction'
 
+class SaleListContainer extends React.Component {
+  componentDidMount () {
+    this.props.getSales()
+  }
+
+  render () {
+    return (
+      <SaleList {...this.props} />
+    )
+  }
+}
+
 const mapStateToProps = (state) => ({
-  sales: state.sales.sales
+  sales: state.sale.list
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -15,4 +27,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SalesList)
+)(SaleListContainer)
