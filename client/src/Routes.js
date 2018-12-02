@@ -18,7 +18,8 @@ import RoleListContainer from './containers/RoleListContainer'
 import UserListContainer from './containers/UserListContainer'
 import AddUserContainer from './containers/AddUserContainer'
 import EditUserContainer from './containers/EditUserContainer'
-import AddSalesContainer from './containers/AddSaleContainer'
+import AddSaleContainer from './containers/AddSaleContainer'
+import EditSaleContainer from './containers/EditSaleContainer'
 
 const Routes = () => (
   <PaddedContainer>
@@ -47,7 +48,10 @@ const Routes = () => (
     <Route path='/users/new' exact component={AddUserContainer} />
     <Route path='/users/update/:id' exact component={EditUserContainer} />
 
-    <Route path='/sales/new' exact component={AddSalesContainer} />
+
+    <Route path='/sales/new' exact component={AddSaleContainer} />
+    <Route path='/sales/update/:id' exact component={EditSaleContainer} />
+
   </PaddedContainer>
 )
 

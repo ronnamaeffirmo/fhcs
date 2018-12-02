@@ -3,7 +3,8 @@ import {
   REMOVE_SALE,
   RECEIVE_SALES,
   RECEIVE_SALE
-} from '../actions/salesAction'
+} from '../actions/salesActions'
+import { removeItemFromArray } from '../common/helpers'
 
 const initialState = {
   list: [],
@@ -11,10 +12,16 @@ const initialState = {
 
 const saleReducer = (state = initialState, action) => {
   switch (action.type) {
+    case RECEIVE_SALE: {
+      return {
+        ...state,
+        selection: action.payload
+      }
+    }
     case REMOVE_SALE: {
       return {
         ...state,
-        sales: state.sales.filter(item => item._id !== action.payload)
+        list: state.list.filter((item) => item._id !== action.payload)
       }
     }
     case RECEIVE_SALES: {
