@@ -4,6 +4,7 @@ import {
   RECEIVE_SALES,
   RECEIVE_SALE
 } from '../actions/salesActions'
+import { removeItemFromArray } from '../common/helpers'
 
 const initialState = {
   list: [],
@@ -20,7 +21,7 @@ const saleReducer = (state = initialState, action) => {
     case REMOVE_SALE: {
       return {
         ...state,
-        sales: state.sales.filter(item => item._id !== action.payload)
+        list: state.list.filter((item) => item._id !== action.payload)
       }
     }
     case RECEIVE_SALES: {

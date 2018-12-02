@@ -147,7 +147,7 @@ const SaleForm = (props) => {
                   {(date && (term === 0 || term)) &&
                   <Container>
                     <Input icon='calendar outline' iconPosition='left' color={'red'} disabled
-                           value={term === 0 ? moment(date).format('MMM DD, YYYY') : moment(date).add(term, 'days').format('MMMM DD, YYYY')}/>
+                           value={term === 0 ? moment(date).format('MMMM DD, YYYY') : moment(date).add(term, 'days').format('MMMM DD, YYYY')}/>
                   </Container>
                   }
                 </Form.Field>

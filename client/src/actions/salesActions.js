@@ -72,10 +72,16 @@ export const updateSale = (values) => {
 
 export const removeSale = (id) => {
   return async (dispatch) => {
-    await client.service('sales').remove(id)
-    dispatch({
-      type: REMOVE_SALE,
-      payload: id
-    })
+    try {
+      const deletedSale = await client.service('sales').remove(id)
+      if (deletedSale) {
+        dispatch({
+          type: REMOVE_SALE,
+          payload: id
+        })
+      }
+    } catch (e) {
+      console.log('ERROR - removeSale() - saleActions.js', e)
+    }
   }
 }

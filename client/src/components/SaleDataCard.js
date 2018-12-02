@@ -27,8 +27,7 @@ const styles = {
   },
 }
 
-const saleDataCard = ({sale, actions}) => {
-  const {removeSale} = actions
+const saleDataCard = ({sale, actions: {removeSale}}) => {
   const {date, remarks, term, items, _id: id, officialReceipt} = sale
   const dueDate = moment(date).add(parseInt(term), 'days')
   let subtotalAmount = 0.0
@@ -55,7 +54,11 @@ const saleDataCard = ({sale, actions}) => {
             trigger={<Button color='red' icon='delete' circular/>}
             content={
               <div>
-                <Button color='green' icon='delete' content='Confirm Delete'/>
+                <Button color='green' icon='delete' content='Confirm Delete' onClick={(e) => {
+                  e.preventDefault()
+                  removeSale(id)
+                }
+                }/>
               </div>
             }
             on='click'
@@ -117,7 +120,9 @@ const saleDataCard = ({sale, actions}) => {
                 </Container>
               </Grid.Column>
               <Grid.Column width={5}>
-                <Dropdown text='Payment' icon='payment' style={{width: 150, float: 'right', textAlign: 'center', marginBottom: 5}} floating labeled button
+                <Dropdown text='Payment' icon='payment'
+                          style={{width: 150, float: 'right', textAlign: 'center', marginBottom: 5}} floating labeled
+                          button
                           className='icon'>
                   <Dropdown.Menu>
                     <Dropdown.Header icon='tags' content='Apply Payment Options'/>

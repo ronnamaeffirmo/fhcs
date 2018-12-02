@@ -29,7 +29,7 @@ export const getSaleContainerState = (state) => {
       discount: selector(state, 'tmpDiscount'),
     },
     date: selector(state, 'date'),
-    term: parseInt(selector(state, 'term')),
+    term: parseInt(selector(state, 'term')) ? parseInt(selector(state, 'term')) : 0,
     items: itemStateInitializer(state, selector(state, 'items')),
     customerSearchList: state.customer.customers && state.customer.customers.map(customer => ({
       key: customer._id,
