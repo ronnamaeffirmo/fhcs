@@ -17,18 +17,18 @@ class AddInventoryModalForm extends Component {
 
   render () {
     const { open } = this.state
-    const { item, options, handleSubmit, createInventory, pristine, submitting } = this.props
+    const { item, options, handleSubmit, pristine, submitting } = this.props
     return (
       <Modal open={open} size='tiny' trigger={<Button onClick={this.toggleModal} size='tiny'>Add Inventory</Button>} centered={false}>
         <Modal.Header>New Inventory Record</Modal.Header>
         <Modal.Content>
           <Container>
-            <Form onSubmit={() => {
+            <Form initialValues={{ itemName: item.name }} onSubmit={() => {
               this.toggleModal()
               handleSubmit()
             }}>
               <Form.Group>
-                <Field width={10} type='text' name='itemName' label='Item Name' placeholder='Item Name' yudipota={item.name} component={InputField} />
+                <Field width={10} type='text' name='itemName' label='Item Name' placeholder='Item Name' component={InputField} />
                 <Field width={6} type='number' name='quantity' label='Quantity' placeholder='Quantity' component={InputField} />
               </Form.Group>
               <Form.Group widths='equal'>

@@ -75,6 +75,7 @@ export const createInventory = (values) => {
   return async (dispatch) => {
     console.log('balues', values)
     const item = await client.service('inventories').create(values)
+    console.log('created item', item)
     dispatch({
       type: ADD_INVENTORY,
       payload: item
