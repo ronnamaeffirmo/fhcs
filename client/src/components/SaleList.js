@@ -15,14 +15,12 @@ const SaleList = (props) => {
         />
         <Button as={Link} to={'/sales/new'} style={styles.headerButton}>NEW SALE</Button>
       </Segment>
-      <Segment style={styles.bottomSegment}>
+      <div style={styles.bottomSegment}>
         {!sales.length && <Message negative>No available sales yet</Message>}
-        <Card.Group>
-          {sales.map(sale => (
-            <SalesDataCard sale={sale} actions={{removeSale}} key={sale._id}/>
-          ))}
-        </Card.Group>
-      </Segment>
+        {sales.map(sale => (
+          <SalesDataCard sale={sale} actions={{removeSale}} key={sale._id}/>
+        ))}
+      </div>
     </Container>
   )
 }
@@ -40,7 +38,8 @@ const styles = {
     width: '77%'
   },
   bottomSegment: {
-    paddingBottom: '3rem'
+    paddingBottom: '3rem',
+    width: '768px !important'
   },
   headerButton: {
     width: '22%',
