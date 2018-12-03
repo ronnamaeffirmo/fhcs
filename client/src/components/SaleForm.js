@@ -12,7 +12,7 @@ import {
   Table,
   Label,
   Icon,
-  Popup
+  Popup, TextArea
 } from 'semantic-ui-react'
 import { reduxForm, Field, FieldArray } from 'redux-form'
 import { Link } from 'react-router-dom'
@@ -22,7 +22,8 @@ import { DateInput } from 'semantic-ui-calendar-react'
 
 const styles = {
   mainContainer: {
-    marginTop: 30
+    marginTop: 30,
+    marginBottom: 40
   },
   saleForm: {
     marginTop: 3
@@ -153,6 +154,41 @@ const SaleForm = (props) => {
                 </Form.Field>
               </Grid.Column>
             </Grid.Row>
+            <Grid.Row>
+              <Grid.Column width={16}>
+
+
+                <Field
+                  name={'remarks'}
+                  component={(props) => {
+                    const {input: {value, onChange}, meta: {error}} = props
+                    return (
+                      <Form.Field>
+                        <label style={styles.fieldLabel}>Remarks</label>
+                        <div>
+                          <TextArea
+                            style={{
+                              minHeight: 70,
+                              maxHeight: 120,
+                              width: '100%',
+                              borderRadius: 3,
+                              backgroundColor: 'white'
+                            }}
+                            onChange={(e, data) => {
+                              onChange(data.value)
+                            }}
+                            value={value}
+                          />
+                        </div>
+                      </Form.Field>
+                    )
+                  }}
+                />
+
+
+              </Grid.Column>
+            </Grid.Row>
+
             <Divider/>
             <Grid.Row>
               <Grid.Column width={16}>
@@ -237,24 +273,24 @@ const Items = (props) => {
                 return (
                   <Form.Field>
                     <div>
-                    <Dropdown placeholder='Find Item' search selection
-                              value={value}
-                              scrolling
-                              style={{width: '87%'}}
-                              fluid={!item}
-                              loading={!itemSearchList || (itemSearchList && itemSearchList.length === 0)}
-                              options={itemSearchList ? itemSearchList : []}
-                              onChange={(e, data) => {
-                                onChange(data.value)
-                                let match = false
-                                data.options.forEach(option => {
-                                  if (option.key === data.value) {
-                                    updateTmpFields(parseFloat(option.price).toFixed(2), 1, 0.0)
-                                    match = true
-                                  }
-                                })
-                              }}
-                    />
+                      <Dropdown placeholder='Find Item' search selection
+                                value={value}
+                                scrolling
+                                style={{width: '87%'}}
+                                fluid={!item}
+                                loading={!itemSearchList || (itemSearchList && itemSearchList.length === 0)}
+                                options={itemSearchList ? itemSearchList : []}
+                                onChange={(e, data) => {
+                                  onChange(data.value)
+                                  let match = false
+                                  data.options.forEach(option => {
+                                    if (option.key === data.value) {
+                                      updateTmpFields(parseFloat(option.price).toFixed(2), 1, 0.0)
+                                      match = true
+                                    }
+                                  })
+                                }}
+                      />
                       {item &&
                       <Button circular floated={'right'} icon='delete' onClick={(e) => {
                         e.preventDefault()

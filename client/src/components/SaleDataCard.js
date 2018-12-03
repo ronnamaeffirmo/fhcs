@@ -137,25 +137,28 @@ const saleDataCard = ({sale, actions: {removeSale, applySalePayment}}) => {
                   <Dropdown.Menu>
                     <Dropdown.Header icon='tags' content='Apply Payment Options'/>
                     <Dropdown.Divider/>
-                    <Dropdown.Item label={{color: 'green', empty: true, circular: true}} text='Paid' value='paid' onClick={(e, data) => {
-                      applySalePayment({_id: id, payment: data.value, officialReceipt})
-                    }}/>
-                    <Dropdown.Item label={{color: 'red', empty: true, circular: true}} text='Unpaid' value='unpaid' onClick={(e, data) => {
-                      applySalePayment({_id: id, payment: data.value, officialReceipt})
-                    }}/>
-                    <Dropdown.Item label={{color: 'blue', empty: true, circular: true}} text='Promised' value='promised' onClick={(e, data) => {
-                      applySalePayment({_id: id, payment: data.value, officialReceipt})
-                    }}/>
+                    <Dropdown.Item label={{color: 'green', empty: true, circular: true}} text='Paid' value='paid'
+                                   onClick={(e, data) => {
+                                     applySalePayment({_id: id, payment: data.value, officialReceipt})
+                                   }}/>
+                    <Dropdown.Item label={{color: 'red', empty: true, circular: true}} text='Unpaid' value='unpaid'
+                                   onClick={(e, data) => {
+                                     applySalePayment({_id: id, payment: data.value, officialReceipt})
+                                   }}/>
+                    <Dropdown.Item label={{color: 'blue', empty: true, circular: true}} text='Promised' value='promised'
+                                   onClick={(e, data) => {
+                                     applySalePayment({_id: id, payment: data.value, officialReceipt})
+                                   }}/>
                   </Dropdown.Menu>
                 </Dropdown>
                 <SalesItemTable items={items || []}/>
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
+            {remarks && <Grid.Row>
               <Grid.Column width={16}>
                 <Form>
                   <Header size={'small'}>Remarks</Header>
-                  <TextArea disabled={true} style={{
+                  <TextArea disabled={true} value={remarks} style={{
                     minHeight: 70,
                     maxHeight: 120,
                     width: '100%',
@@ -164,7 +167,7 @@ const saleDataCard = ({sale, actions: {removeSale, applySalePayment}}) => {
                   }}/>
                 </Form>
               </Grid.Column>
-            </Grid.Row>
+            </Grid.Row>}
           </Grid>
         </Card.Description>
       </Card.Content>
