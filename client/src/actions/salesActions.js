@@ -9,7 +9,7 @@ export const RECEIVE_SALES = 'RECEIVE_SALES'
 export const RECEIVE_SALE = 'RECEIVE_SALE'
 export const REMOVE_SALE = 'REMOVE_SALE'
 export const APPLY_SALE_PAYMENT = 'APPLY_SALE_PAYMENT'
-
+export const RETURN_ITEM = 'RETURN_ITEM'
 // BASIC CRUD
 
 // CREATE SALE
@@ -22,6 +22,24 @@ export const addSale = (sale) => {
       }
     } catch (e) {
       console.log('ERROR - addSale() - salesActions.js', e)
+    }
+  }
+}
+
+export const returnItem = (saleId, itemId, returnQuantity, quantity) => {
+  return async (dispatch) => {
+    // console.log('ID:', id)
+    try {
+      //patch service
+    // const result = await client.service('sales').patch(id, payload)
+      const qty = quantity - returnQuantity < 0 ? 0 : quantity - returnQuantity
+      dispatch({
+        type: RETURN_ITEM,
+        payload: {saleId, returnQuantity: qty, itemId}
+      })
+
+    } catch(e) {
+      console.log('ERROR - returnItem() - salesActions.js', e)
     }
   }
 }

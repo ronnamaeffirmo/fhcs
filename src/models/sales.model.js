@@ -16,6 +16,7 @@ module.exports = function (app) {
       item: {type: Schema.Types.ObjectId, ref: 'items', required: true},
       price: {type: Number, required: true},
       quantity: {type: Number, required: true},
+      returnQuantity: {type: Number, default: 0.0},
       discount: {type: Number, default: 0.0}
     }]
   }, {
