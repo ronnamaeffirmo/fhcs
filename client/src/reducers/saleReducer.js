@@ -2,9 +2,10 @@ import {
   ADD_SALE,
   REMOVE_SALE,
   RECEIVE_SALES,
-  RECEIVE_SALE
+  RECEIVE_SALE, APPLY_SALE_PAYMENT
 } from '../actions/salesActions'
 import { removeItemFromArray } from '../common/helpers'
+import clone from 'shallow-clone'
 
 const initialState = {
   list: [],
@@ -18,10 +19,25 @@ const saleReducer = (state = initialState, action) => {
         selection: action.payload
       }
     }
+    case APPLY_SALE_PAYMENT: {
+      return {
+        ...state,
+        list: state.list.map(sale => {
+          if (sale._id === action.payload._id) {
+            return {
+              ...sale,
+              payment: action.payload.payment,
+              paymentDate: action.payload.paymentDate
+            }
+          }
+          return sale
+        })
+      }
+    }
     case REMOVE_SALE: {
       return {
         ...state,
-        list: state.list.filter((item) => item._id !== action.payload)
+        list: state.list.filter((sale) => sale._id !== action.payload)
       }
     }
     case RECEIVE_SALES: {

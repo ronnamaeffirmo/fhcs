@@ -27,8 +27,8 @@ const styles = {
   },
 }
 
-const saleDataCard = ({sale, actions: {removeSale}}) => {
-  const {date, remarks, term, items, _id: id, officialReceipt} = sale
+const saleDataCard = ({sale, actions: {removeSale, applySalePayment}}) => {
+  const {date, remarks, term, payment, paymentDate, items, _id: id, officialReceipt} = sale
   const dueDate = moment(date).add(parseInt(term), 'days')
   let subtotalAmount = 0.0
   let discount = 0.0
@@ -41,9 +41,18 @@ const saleDataCard = ({sale, actions: {removeSale}}) => {
   return (
     <Card fluid style={styles.userCard} key={id}>
       <Card.Content>
+        {payment === 'paid' &&
+        <Label as='a' color='green' ribbon>
+          Paid on {moment(paymentDate).format('MMMM D, YYYY')}
+        </Label>}
+        {payment === 'promised' &&
+        <Label as='a' color='blue' ribbon>
+          Promised - due {moment(date).add(term, 'days').fromNow()}
+        </Label>}
+        {payment === 'unpaid' &&
         <Label as='a' color='red' ribbon>
-          Overdue - due {moment(date).fromNow()}
-        </Label>
+          Unpaid - due {moment(date).add(term, 'days').fromNow()}
+        </Label>}
         <Card.Header style={styles.cardHeader}>
           <Container>
             {toTitleCase(sale.customer.firstname + ' ' + sale.customer.lastname)}
@@ -123,23 +132,33 @@ const saleDataCard = ({sale, actions: {removeSale}}) => {
                 <Dropdown text='Payment' icon='payment'
                           style={{width: 150, float: 'right', textAlign: 'center', marginBottom: 5}} floating labeled
                           button
+
                           className='icon'>
                   <Dropdown.Menu>
                     <Dropdown.Header icon='tags' content='Apply Payment Options'/>
                     <Dropdown.Divider/>
-                    <Dropdown.Item label={{color: 'green', empty: true, circular: true}} text='Paid'/>
-                    <Dropdown.Item label={{color: 'blue', empty: true, circular: true}} text='Promised'/>
-                    <Dropdown.Item label={{color: 'red', empty: true, circular: true}} text='Unpaid'/>
+                    <Dropdown.Item label={{color: 'green', empty: true, circular: true}} text='Paid' value='paid'
+                                   onClick={(e, data) => {
+                                     applySalePayment({_id: id, payment: data.value, officialReceipt})
+                                   }}/>
+                    <Dropdown.Item label={{color: 'red', empty: true, circular: true}} text='Unpaid' value='unpaid'
+                                   onClick={(e, data) => {
+                                     applySalePayment({_id: id, payment: data.value, officialReceipt})
+                                   }}/>
+                    <Dropdown.Item label={{color: 'blue', empty: true, circular: true}} text='Promised' value='promised'
+                                   onClick={(e, data) => {
+                                     applySalePayment({_id: id, payment: data.value, officialReceipt})
+                                   }}/>
                   </Dropdown.Menu>
                 </Dropdown>
                 <SalesItemTable items={items || []}/>
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
+            {remarks && <Grid.Row>
               <Grid.Column width={16}>
                 <Form>
                   <Header size={'small'}>Remarks</Header>
-                  <TextArea disabled={true} style={{
+                  <TextArea disabled={true} value={remarks} style={{
                     minHeight: 70,
                     maxHeight: 120,
                     width: '100%',
@@ -148,7 +167,7 @@ const saleDataCard = ({sale, actions: {removeSale}}) => {
                   }}/>
                 </Form>
               </Grid.Column>
-            </Grid.Row>
+            </Grid.Row>}
           </Grid>
         </Card.Description>
       </Card.Content>

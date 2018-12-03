@@ -1,5 +1,6 @@
 import client from '../common/client'
 import { reset } from 'redux-form'
+import { toastError, toastSuccess } from './toasterActions'
 
 export const GET_CUSTOMERS = 'GET_CUSTOMERS'
 
@@ -7,6 +8,7 @@ export const ADD_SALE = 'ADD_SALE'
 export const RECEIVE_SALES = 'RECEIVE_SALES'
 export const RECEIVE_SALE = 'RECEIVE_SALE'
 export const REMOVE_SALE = 'REMOVE_SALE'
+export const APPLY_SALE_PAYMENT = 'APPLY_SALE_PAYMENT'
 
 // BASIC CRUD
 
@@ -28,7 +30,7 @@ export const addSale = (sale) => {
 export const getSales = () => {
   return async (dispatch) => {
     const sales = await client.service('sales').find({
-      query: { $populate: ['customer', 'items.item'] }
+      query: {$populate: ['customer', 'items.item']}
     })
     dispatch({
       type: RECEIVE_SALES,
@@ -61,7 +63,7 @@ export const updateSale = (values) => {
     try {
       const updatedSale = await client.service('sales').patch(id, values)
       if (updatedSale) {
-        window.alert('SALE UPDATED!')
+        toastSuccess({message: 'Sales record successfully updated!'})
       }
     } catch (e) {
       console.log('ERROR - updateSale() - saleActions.js')
@@ -69,6 +71,34 @@ export const updateSale = (values) => {
   }
 }
 
+export const applySalePayment = (values) => {
+  return async (dispatch) => {
+    console.log('APPLYING PAYMENT')
+    const {_id: id, payment, officialReceipt} = values
+    try {
+      let payload = {
+        _id: id,
+        payment
+      }
+      if (payment === 'paid') {
+        payload = {
+          ...payload,
+          paymentDate: new Date()
+        }
+      }
+      const result = await client.service('sales').patch(id, payload)
+      if (result) {
+        dispatch({
+          type: APPLY_SALE_PAYMENT,
+          payload: payload
+        })
+        toastSuccess({message: `Payment applied for ${JSON.stringify(officialReceipt)}!`})
+      }
+    } catch (e) {
+      toastError({message: e.message})
+    }
+  }
+}
 
 export const removeSale = (id) => {
   return async (dispatch) => {

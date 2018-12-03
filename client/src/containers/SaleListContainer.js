@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import SaleList from '../components/SaleList'
-import { getSales, removeSale } from '../actions/salesActions'
+import { applySalePayment, getSales, removeSale } from '../actions/salesActions'
 
 class SaleListContainer extends React.Component {
   componentDidMount () {
@@ -21,7 +21,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getSales: () => dispatch(getSales()),
-  removeSale: (id) => dispatch(removeSale(id))
+  removeSale: (id) => dispatch(removeSale(id)),
+  applySalePayment: (values) => dispatch(applySalePayment(values))
 })
 
 export default connect(
