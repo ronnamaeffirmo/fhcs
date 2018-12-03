@@ -8,19 +8,11 @@ class CustomerDataCard extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      isOpen: false
+      open: false
     }
-    this.toggleDesc = this.toggleDesc.bind(this)
   }
 
-  toggleDesc () {
-    const { isOpen } = this.state
-    if (isOpen) {
-      this.setState({ isOpen: false })
-    } else {
-      this.setState({ isOpen: true })
-    }
-  }
+  toggleDesc = () => this.setState({ open: !this.state.open })
 
   render () {
     const { isOpen } = this.state
