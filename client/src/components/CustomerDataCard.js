@@ -37,14 +37,14 @@ class CustomerDataCard extends Component {
                   size='mini'
                   content='Click to expand/retract'
                   position='left center'
-                  trigger={<Button icon={open ? 'chevron up' : 'chevron down'} circular size='tiny' onClick={this.toggleDesc} />}
+                  trigger={<Button icon={open ? 'chevron up' : 'chevron down'} circular size='mini' onClick={this.toggleDesc} />}
                 />
                 <Popup
                   inverted
                   size='mini'
                   content='Edit this customer'
                   position='top center'
-                  trigger={<Button as={Link} to={`/customer/${_id}`} circular icon='edit' size='tiny' color='teal' />}
+                  trigger={<Button as={Link} to={`/customer/${_id}`} circular icon='edit' size='mini' color='teal' />}
                 />
                 <DeleteConfirmationModal removeElement={removeCustomer} element={{ name, _id }}/>
               </div>

@@ -11,7 +11,7 @@ const DeleteConfirmationModal = ({ element, removeElement }) => (
         size='mini'
         content={`Click to delete ${element.name}`}
         position='right center'
-        trigger={<Button icon='trash alternate outline' circular size='tiny' color='red' />}
+        trigger={<Button icon='trash alternate outline' circular size='mini' color='red' />}
       />
     }
     size='mini'>

@@ -19,7 +19,7 @@ class AddInventoryModalForm extends Component {
     const { open } = this.state
     const { item, options, handleSubmit, pristine, submitting } = this.props
     return (
-      <Modal open={open} size='tiny' trigger={<Button onClick={this.toggleModal} size='tiny'>Add Inventory</Button>} centered={false}>
+      <Modal open={open} size='tiny' trigger={<Button onClick={this.toggleModal} circular size='mini'>Add Inventory</Button>} centered={false}>
         <Modal.Header>New Inventory Record</Modal.Header>
         <Modal.Content>
           <Container>
