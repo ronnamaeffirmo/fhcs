@@ -26,8 +26,9 @@ class ItemDataCard extends Component {
       <Card fluid style={styles.itemCard}>
         <Popup
           inverted
+          size='tiny'
           content='Click to see reports'
-          position='right center'
+          position='left center'
           trigger={
             <Card.Content as={Link} to={`/item/${item._id}/reports`}>
               <Card.Header>
