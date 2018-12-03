@@ -1,11 +1,19 @@
 import React from 'react'
-import { Button, Header, Icon, Modal } from 'semantic-ui-react'
+import { Button, Header, Icon, Modal, Popup } from 'semantic-ui-react'
 
 // turned generic
 // we should set element: { name, and _id }, removeElement action in each call of the component
 const DeleteConfirmationModal = ({ element, removeElement }) => (
   <Modal
-    trigger={<Button icon='trash alternate outline' labelPosition='left' content='Delete' size='tiny' color='red' />}
+    trigger={
+      <Popup
+        inverted
+        size='mini'
+        content={`Click to delete ${element.name}`}
+        position='right center'
+        trigger={<Button icon='trash alternate outline' circular size='tiny' color='red' />}
+      />
+    }
     size='mini'>
     <Header icon='trash alternate outline' content='Delete Item'/>
     <Modal.Content>
