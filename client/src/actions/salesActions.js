@@ -1,5 +1,6 @@
 import client from '../common/client'
 import { reset } from 'redux-form'
+import { toastSuccess } from './toasterActions'
 
 export const GET_CUSTOMERS = 'GET_CUSTOMERS'
 
@@ -61,7 +62,7 @@ export const updateSale = (values) => {
     try {
       const updatedSale = await client.service('sales').patch(id, values)
       if (updatedSale) {
-        window.alert('SALE UPDATED!')
+        toastSuccess({message: 'Sales record successfully updated!'})
       }
     } catch (e) {
       console.log('ERROR - updateSale() - saleActions.js')
