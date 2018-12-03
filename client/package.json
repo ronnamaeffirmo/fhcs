@@ -30,6 +30,7 @@
     "semantic-ui-calendar-react": "^0.9.0",
     "semantic-ui-css": "^2.4.0",
     "semantic-ui-react": "^0.82.0",
+    "shallow-clone": "^3.0.0",
     "socket.io-client": "^2.1.1"
   },
   "scripts": {
