@@ -13,7 +13,7 @@ import { removeItemFromArray } from '../common/helpers'
 import { selectUser } from '../actions/roleActions'
 
 const initialState = {
-  currentuser: undefined,
+  currentUser: undefined,
   isAuthenticated: false,
   error: undefined,
   list: []
@@ -61,7 +61,7 @@ const userReducer = (state = initialState, action) => {
     case USER_LOGIN_FAIL:
       return {
         ...state,
-        error: action.err
+        error: action.payload
       }
     case USER_LOGOUT:
       return {
