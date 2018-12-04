@@ -1,17 +1,17 @@
 // const { authenticate } = require('@feathersjs/authentication').hooks
 
-const validateReturnQuantity = (hook) => {
+// const validateReturnQuantity = (hook) => {
   // const prop = hook.type === 'before' ? 'data' : 'result';
   // const dataHook = hook;
-  if (hook.type == 'before') {
-    const { data } = hook
-    console.log(data)
-    //do something
-  }
-  else {
-    Promise.reject(new Error('before hook only.'))
-  }
-}
+//   if (hook.type == 'before') {
+//     const { data } = hook
+//     console.log(data)
+//     //do something
+//   }
+//   else {
+//     Promise.reject(new Error('before hook only.'))
+//   }
+// }
 
 module.exports = {
   before: {
@@ -21,7 +21,7 @@ module.exports = {
     get: [],
     create: [],
     update: [],
-    patch: [validateReturnQuantity],
+    patch: [],
     remove: []
   },
 

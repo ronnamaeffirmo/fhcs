@@ -1,7 +1,6 @@
 import React from 'react'
-import { Table, Modal, Button, Popup, Form } from 'semantic-ui-react'
+import { Table, Modal, Button, Popup, Form, Icon, Input } from 'semantic-ui-react'
 import { reduxForm, Field, FieldArray } from 'redux-form'
-import { Input } from 'semantic-ui-react'
 
 const SalesItemTable = ({items, _id, actions: {returnItem}}) => (
   <Modal trigger={<Button size={'medium'} icon={'eye'} style={{width: 150, float: 'right', textAlign: 'center', marginBottom: 5}} labelPosition={'left'} color={'teal'} content={'View Items'}/>}>
@@ -21,12 +20,13 @@ const SalesItemTable = ({items, _id, actions: {returnItem}}) => (
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {console.log(items)}
+          {/* {console.log(items)} */}
           {items.map((item) => {
             const {quantity, returnQuantity, price, discount, item: {name}} = item
             const subtotal = parseFloat(item.price) * parseFloat(item.quantity)
             const total = subtotal - discount
             let rtnquantity = 0
+            // const data = { saleId: _id, itemId: item._id, returnQuantity: rtnquantity, items: items }
             return (
               <Table.Row key={item._id}>
                 <Table.Cell>{name}</Table.Cell>
@@ -43,7 +43,7 @@ const SalesItemTable = ({items, _id, actions: {returnItem}}) => (
                           size={'small'}
                           action={{ color: 'red',
                             icon: 'share square outline', 
-                            onClick:() => returnItem(_id, item._id, rtnquantity, quantity), 
+                            onClick:() => returnItem({ saleId: _id, itemId: item._id, returnQuantity: rtnquantity, items: items }), 
                             labelPosition: 'left', 
                             content: 'Return' 
                           }}
@@ -53,7 +53,6 @@ const SalesItemTable = ({items, _id, actions: {returnItem}}) => (
                             rtnquantity = data.value < 0 ? 0 : data.value.replace(/^0+/, '')
                           }
                         />
-                  
                 </Table.Cell>
               </Table.Row>
             )

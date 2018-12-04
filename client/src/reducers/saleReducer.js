@@ -36,22 +36,22 @@ const saleReducer = (state = initialState, action) => {
       }
     }
     case RETURN_ITEM: {
-      console.log('salesId:', action.payload.saleId)
-      console.log('itemId', action.payload.itemId)
-      console.log(action.payload.returnQuantity)
+      console.log('salesId:', action.payload)
       const stateClone = clone(state)
-      console.log(stateClone)
+      const { saleId, newQuantity, newReturnQuantity,  itemId, totalPrice } = action.payload
       return {
         ...state,
         list: stateClone.list.map(sale => {
-          if (sale._id === action.payload.saleId) {
+          if (sale._id === saleId) {
             return {
               ...sale,
               items: sale.items.map(item => {
-                if (item._id === action.payload.itemId) {
+                if (item._id === itemId) {
                   return {
                     ...item,
-                    returnQuantity: action.payload.returnQuantity
+                    returnQuantity: newReturnQuantity,
+                    quantity: newQuantity,
+                    total: totalPrice
                   }
                 }
                 else {

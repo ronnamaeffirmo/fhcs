@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
   getSales: () => dispatch(getSales()),
   removeSale: (id) => dispatch(removeSale(id)),
   applySalePayment: (values) => dispatch(applySalePayment(values)),
-  returnItem: (saleId, id, returnQuantity, quantity) => dispatch(returnItem(saleId, id, returnQuantity, quantity))
+  returnItem: (data) => dispatch(returnItem(data))
 })
 
 export default connect(
