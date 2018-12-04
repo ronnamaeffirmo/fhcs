@@ -27,7 +27,7 @@ const styles = {
   },
 }
 
-const saleDataCard = ({sale, actions: {removeSale, applySalePayment}}) => {
+const saleDataCard = ({sale, actions: {removeSale, applySalePayment, returnItem}}) => {
   const {date, remarks, term, payment, paymentDate, items, _id: id, officialReceipt} = sale
   const dueDate = moment(date).add(parseInt(term), 'days')
   let subtotalAmount = 0.0
@@ -151,7 +151,7 @@ const saleDataCard = ({sale, actions: {removeSale, applySalePayment}}) => {
                                    }}/>
                   </Dropdown.Menu>
                 </Dropdown>
-                <SalesItemTable items={items || []}/>
+                <SalesItemTable _id={id} items={items || []} actions={{returnItem}}/>
               </Grid.Column>
             </Grid.Row>
             {remarks && <Grid.Row>

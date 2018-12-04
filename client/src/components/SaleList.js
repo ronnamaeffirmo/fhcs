@@ -4,8 +4,9 @@ import SalesDataCard from './SaleDataCard'
 import { Link } from 'react-router-dom'
 
 const SaleList = (props) => {
-  let {sales, removeSale, applySalePayment} = props
+  let {sales, removeSale, applySalePayment, returnItem} = props
   sales = sales || []
+  console.log('SALES', sales)
   return (
     <Container style={styles.mainContainer}>
       <Segment style={styles.topSegment}>
@@ -18,7 +19,7 @@ const SaleList = (props) => {
       <div style={styles.bottomSegment}>
         {!sales.length && <Message negative>No available sales yet</Message>}
         {sales.map(sale => (
-          <SalesDataCard sale={sale} actions={{removeSale, applySalePayment}} key={sale._id}/>
+          <SalesDataCard sale={sale} actions={{removeSale, applySalePayment, returnItem}} key={sale._id}/>
         ))}
       </div>
     </Container>

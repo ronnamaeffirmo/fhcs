@@ -1,5 +1,18 @@
 // const { authenticate } = require('@feathersjs/authentication').hooks
 
+// const validateReturnQuantity = (hook) => {
+  // const prop = hook.type === 'before' ? 'data' : 'result';
+  // const dataHook = hook;
+//   if (hook.type == 'before') {
+//     const { data } = hook
+//     console.log(data)
+//     //do something
+//   }
+//   else {
+//     Promise.reject(new Error('before hook only.'))
+//   }
+// }
+
 module.exports = {
   before: {
     // all: [ authenticate('jwt') ], //
