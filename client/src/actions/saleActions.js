@@ -21,7 +21,7 @@ export const addSale = (sale) => {
         dispatch(reset('saleForm'))
       }
     } catch (e) {
-      console.log('ERROR - addSale() - salesActions.js', e)
+      console.log('ERROR - addSale() - saleActions.js', e)
     }
   }
 }
@@ -52,7 +52,7 @@ export const returnItem = (data) => {
       }
     } catch (e) {
       console.log('ERROR - returnItem() - saleActions.js', e)
-      toastError({message: 'ERROR - returnItem() - salesActions.js'})
+      toastError({message: 'ERROR - returnItem() - saleActions.js'})
     }
   }
 }

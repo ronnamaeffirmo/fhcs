@@ -1,7 +1,7 @@
 import React from 'react'
 import SaleForm from '../components/SaleForm'
 import { connect } from 'react-redux'
-import { updateSale, getSale } from '../actions/salesActions'
+import { updateSale, getSale } from '../actions/saleActions'
 import { getSaleContainerState } from '../common/initializers'
 import { getSaleContainerDispatchers } from '../common/dispatchers'
 

@@ -4,7 +4,7 @@ import {
   RECEIVE_SALES,
   RECEIVE_SALE, APPLY_SALE_PAYMENT,
   RETURN_ITEM
-} from '../actions/salesActions'
+} from '../actions/saleActions'
 import { removeItemFromArray } from '../common/helpers'
 import clone from 'shallow-clone'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import SaleList from '../components/SaleList'
-import { applySalePayment, returnItem, getSales, removeSale } from '../actions/salesActions'
+import { applySalePayment, returnItem, getSales, removeSale } from '../actions/saleActions'
 
 class SaleListContainer extends React.Component {
   componentDidMount () {
