@@ -32,9 +32,9 @@ const saleDataCard = ({sale, actions: {removeSale, applySalePayment, returnItem}
   const dueDate = moment(date).add(parseInt(term), 'days')
   let subtotalAmount = 0.0
   let discount = 0.0
-  items.forEach(({price, discount: itemDiscount, quantity}) => {
+  items.forEach(({price, discount: itemDiscount, quantity, returnQuantity}) => {
     discount += itemDiscount
-    subtotalAmount += price * quantity
+    subtotalAmount += price * (quantity - returnQuantity)
   })
   discount += sale.discount
   const grandTotal = (subtotalAmount - discount)
