@@ -28,42 +28,31 @@ export const addSale = (sale) => {
 
 export const returnItem = (data) => {
   return async (dispatch) => {
-    let newQuantity = 0
-    let totalPrice = 0
-    let newReturnQuantity = 0
-      const { saleId, itemId, items, returnQuantity} = data
+    try {
+      const {saleId, itemId, items, returnQuantity} = data
       const result = items.map((item) => {
         if (item._id === itemId) {
-          // const shit = 'k'
-          newQuantity = item.quantity - returnQuantity < 0 ? 0 : item.quantity - returnQuantity
-          totalPrice = item.price * newQuantity
-          newReturnQuantity =  returnQuantity > item.quantity ? item.quantity :returnQuantity
           return {
             ...item,
-            returnQuantity: newReturnQuantity,
-            quantity: newQuantity,
-            total: totalPrice,
+            returnQuantity
           }
         }
         else {
           return item
         }
       })
-    console.log(result)
-
-    try {
-      const patch = await client.service('sales').patch(saleId, {$set: {
-        items: result
-      }})
-      console.log(newQuantity)
-      console.log(totalPrice)
-      if(patch) {
-        console.log('successfully updated')
-        dispatch({type: RETURN_ITEM, payload: { saleId, newQuantity, newReturnQuantity, itemId, totalPrice }})
+      const patch = await client.service('sales').patch(saleId, {
+        $set: {
+          items: result
+        }
+      })
+      if (patch) {
+        toastSuccess({message: 'New return count has been recorded!'})
+        dispatch({type: RETURN_ITEM, payload: {saleId, returnQuantity, itemId}})
       }
-
-    } catch(e) {
-      console.log('ERROR - returnItem() - salesActions.js', e)
+    } catch (e) {
+      console.log('ERROR - returnItem() - saleActions.js', e)
+      toastError({message: 'ERROR - returnItem() - salesActions.js'})
     }
   }
 }

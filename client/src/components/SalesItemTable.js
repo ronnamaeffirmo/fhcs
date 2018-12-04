@@ -1,9 +1,10 @@
 import React from 'react'
-import { Table, Modal, Button, Popup, Form, Icon, Input } from 'semantic-ui-react'
-import { reduxForm, Field, FieldArray } from 'redux-form'
+import { Table, Modal, Button, Icon } from 'semantic-ui-react'
 
 const SalesItemTable = ({items, _id, actions: {returnItem}}) => (
-  <Modal trigger={<Button size={'medium'} icon={'eye'} style={{width: 150, float: 'right', textAlign: 'center', marginBottom: 5}} labelPosition={'left'} color={'teal'} content={'View Items'}/>}>
+  <Modal trigger={<Button size={'medium'} icon={'eye'}
+                          style={{width: 150, float: 'right', textAlign: 'center', marginBottom: 5}}
+                          labelPosition={'left'} color={'teal'} content={'View Items'}/>}>
     <Modal.Header> Items </Modal.Header>
     <Modal.Content>
       <Table celled>
@@ -12,48 +13,58 @@ const SalesItemTable = ({items, _id, actions: {returnItem}}) => (
             <Table.HeaderCell>Item Name</Table.HeaderCell>
             <Table.HeaderCell textAlign={'right'}>Item Price</Table.HeaderCell>
             <Table.HeaderCell textAlign={'center'}>Quantity</Table.HeaderCell>
-            <Table.HeaderCell textAlign={'right'}>Return Quantity</Table.HeaderCell>
+            <Table.HeaderCell textAlign={'center'}>Return Quantity</Table.HeaderCell>
             <Table.HeaderCell textAlign={'right'}>Sub Total</Table.HeaderCell>
             <Table.HeaderCell textAlign={'right'}>Discount</Table.HeaderCell>
             <Table.HeaderCell textAlign={'right'}>Total</Table.HeaderCell>
-            <Table.HeaderCell textAlign={'center'}>Actions</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {/* {console.log(items)} */}
           {items.map((item) => {
             const {quantity, returnQuantity, price, discount, item: {name}} = item
-            const subtotal = parseFloat(item.price) * parseFloat(item.quantity)
-            const total = subtotal - discount
-            let rtnquantity = 0
-            // const data = { saleId: _id, itemId: item._id, returnQuantity: rtnquantity, items: items }
+            const subtotal = (parseFloat(item.price) * parseFloat(item.quantity)).toFixed(2)
+            const returnSubtotal = (parseFloat(item.price) * parseFloat(item.returnQuantity)).toFixed(2)
+            const total = subtotal - discount -  returnSubtotal
             return (
               <Table.Row key={item._id}>
                 <Table.Cell>{name}</Table.Cell>
                 <Table.Cell textAlign={'right'}>₱{price}</Table.Cell>
                 <Table.Cell textAlign={'center'}>{quantity}</Table.Cell>
-                <Table.Cell textAlign={'right'}>{returnQuantity}</Table.Cell>
+                <Table.Cell textAlign={'center'}>
+                  {returnQuantity}
+                  <Button.Group size={'mini'} style={{marginLeft: 10}}>
+                    <Button icon
+                            disabled={returnSubtotal === subtotal}
+                            onClick={() => {
+                              returnItem({
+                                saleId: _id,
+                                itemId: item._id,
+                                returnQuantity: returnQuantity + 1,
+                                items: items
+                              })
+                            }}>
+                      <Icon name='chevron up' color={'red'}/>
+                    </Button>
+                    <Button icon
+                            disabled={returnQuantity === 0}
+                            onClick={() => {
+                              returnItem({
+                                saleId: _id,
+                                itemId: item._id,
+                                returnQuantity: returnQuantity - 1,
+                                items: items
+                              })
+                            }}>
+                      <Icon name='chevron down' color={'blue'}/>
+                    </Button>
+                  </Button.Group>
+
+
+                </Table.Cell>
                 <Table.Cell textAlign={'right'}>₱{subtotal}</Table.Cell>
                 <Table.Cell textAlign={'right'}>₱{discount}</Table.Cell>
                 <Table.Cell textAlign={'right'}>₱{total}</Table.Cell>
-                <Table.Cell textAlign={'right'}>
-                        <Input
-                          width={'20px'}
-                          type={'number'}
-                          size={'small'}
-                          action={{ color: 'red',
-                            icon: 'share square outline', 
-                            onClick:() => returnItem({ saleId: _id, itemId: item._id, returnQuantity: rtnquantity, items: items }), 
-                            labelPosition: 'left', 
-                            content: 'Return' 
-                          }}
-                          actionPosition='left'
-                          onChange={(e, data) => 
-                            // console.log(data.value)
-                            rtnquantity = data.value < 0 ? 0 : data.value.replace(/^0+/, '')
-                          }
-                        />
-                </Table.Cell>
               </Table.Row>
             )
           })}
@@ -63,9 +74,5 @@ const SalesItemTable = ({items, _id, actions: {returnItem}}) => (
   </Modal>
 )
 
-// export default SalesItemTable
-
-export default reduxForm({
-  form: 'returnSaleForm',
-})(SalesItemTable)
+export default SalesItemTable
 
