@@ -26,22 +26,21 @@ class ItemDataCard extends Component {
       <Card fluid style={styles.itemCard}>
         <Popup
           inverted
+          size='tiny'
           content='Click to see reports'
-          position='right center'
+          position='left center'
           trigger={
             <Card.Content as={Link} to={`/item/${item._id}/reports`}>
               <Card.Header>
-                <div style={styles.cardHeader}>
-                  <span>{name}</span>
-                  <span style={styles.quantityText}>&bull; {quantity} {unit}</span>
-                </div>
-                <Label size='small' tag attached='top right' style={styles.cardHeader.label}>
-                  &#8369; {numeral(price).format('0,0')} per unit
+                <span>{name}</span>
+                <span style={styles.quantityText}>&bull; {quantity} {unit}</span>
+                <Label ribbon='right' style={styles.ribbon}>
+                  &#8369; {numeral(price).format('0,0')} /unit
                 </Label>
               </Card.Header>
               {isOpen &&
                 <Card.Description>
-                  <table border={0}>
+                  <table border={0} cellSpacing='4px'>
                     <tbody>
                       <tr>
                         <td><Icon name='barcode' /></td>
@@ -63,14 +62,14 @@ class ItemDataCard extends Component {
         <Card.Content extra style={styles.cardExtra}>
           <Popup
             inverted
-            size='tiny'
+            size='mini'
             content='View more info'
             position='left center'
-            trigger={<Button onClick={this.toggleDesc} size='tiny' circular icon={isOpen ? 'chevron up' : 'chevron down'} />}
+            trigger={<Button onClick={this.toggleDesc} size='mini' circular icon={isOpen ? 'chevron up' : 'chevron down'} />}
           />
           <AddNewInventory item={item}/>
           <div style={{ float: 'right' }}>
-            <Button as={Link} to={`/item/${item._id}`} icon='edit' labelPosition='left' content='Edit' size='tiny' color='green' />
+            <Button as={Link} to={`/item/${item._id}`} icon='edit' circular size='mini' color='teal' />
             <DeleteConfirmationModal removeElement={removeItem} element={item}/>
           </div>
         </Card.Content>
@@ -80,12 +79,9 @@ class ItemDataCard extends Component {
 }
 
 const styles = {
-  cardHeader: {
-    marginRight: '4em',
-    label: {
-      margin: '0.5rem',
-      backgroundColor: '#f8ed62'
-    }
+  ribbon: {
+    position: 'absolute',
+    backgroundColor: '#f8ed62',
   },
   quantityText: {
     marginLeft: '0.5rem',

@@ -8,24 +8,16 @@ class CustomerDataCard extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      isOpen: false
+      open: false
     }
-    this.toggleDesc = this.toggleDesc.bind(this)
   }
 
-  toggleDesc () {
-    const { isOpen } = this.state
-    if (isOpen) {
-      this.setState({ isOpen: false })
-    } else {
-      this.setState({ isOpen: true })
-    }
-  }
+  toggleDesc = () => this.setState({ open: !this.state.open })
 
   render () {
-    const { isOpen } = this.state
+    const { open } = this.state
     const { customer, actions } = this.props
-    const { firstname, lastname, address, _id } = customer
+    const { name, address, company, phone, _id } = customer
     const { removeCustomer } = actions
 
     return (
@@ -34,33 +26,48 @@ class CustomerDataCard extends Component {
           <Card.Header>
             <div style={styles.cardHeader}>
               <div>
-                <span>
-                  <Icon name='user outline' style={{ marginRight: '0.5rem' }} />
-                  {lastname}, {firstname}
+                {name}
+                <span style={{ marginLeft: '1rem', color: 'darkgrey', fontSize: '14px', fontWeight: 'normal' }}>
+                  <Icon name='building outline' />{company}
                 </span>
-                <Popup
-                  inverted
-                  basic
-                  size='tiny'
-                  content='Click to expand'
-                  position='right center'
-                  trigger={<Icon style={styles.chevron} size='small' name={isOpen ? 'chevron up' : 'chevron down'} onClick={this.toggleDesc} />}
-                />
               </div>
               <div>
-                <Button as={Link} to={`/customer/${customer._id}`} icon='edit' labelPosition='left' content='Edit' size='tiny' color='green' />
-                <DeleteConfirmationModal removeElement={removeCustomer} element={{ name: firstname, _id }}/>
+                <Popup
+                  inverted
+                  size='mini'
+                  content='Click to expand/retract'
+                  position='left center'
+                  trigger={<Button icon={open ? 'chevron up' : 'chevron down'} circular size='mini' onClick={this.toggleDesc} />}
+                />
+                <Popup
+                  inverted
+                  size='mini'
+                  content='Edit this customer'
+                  position='top center'
+                  trigger={<Button as={Link} to={`/customer/${_id}`} circular icon='edit' size='mini' color='teal' />}
+                />
+                <DeleteConfirmationModal removeElement={removeCustomer} element={{ name, _id }}/>
               </div>
             </div>
           </Card.Header>
-          {isOpen &&
+          {open &&
             <Card.Description>
-              <table border={0}>
+              <table border={0} cellSpacing='8px'>
                 <tbody>
-                  <tr>
-                    <td><Icon name='map marker alternate' /></td>
+                  <tr style={{ paddingBottom: '1rem' }}>
+                    <td><Icon name='map marker alternate' inverted color='red' /></td>
                     <td style={{ paddingRight: '2em' }}>Address</td>
                     <td>{address || 'N/A'}</td>
+                  </tr>
+                  <tr>
+                    <td><Icon name='phone' inverted color='olive' /></td>
+                    <td style={{ paddingRight: '2em' }}>Phone</td>
+                    <td>{phone || 'N/A'}</td>
+                  </tr>
+                  <tr>
+                    <td><Icon name='building outline' inverted color='brown' /></td>
+                    <td style={{ paddingRight: '2em' }}>Company</td>
+                    <td>{company || 'N/A'}</td>
                   </tr>
                 </tbody>
               </table>
@@ -80,7 +87,7 @@ const styles = {
   },
   customerCard: {
     marginBottom: 0,
-    paddingBottom: 0
+    paddingBottom: 0,
   },
   chevron: {
     paddingLeft: '0.5rem'
