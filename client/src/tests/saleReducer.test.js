@@ -2,7 +2,7 @@ import {
   REMOVE_SALE,
   RECEIVE_SALES,
   RECEIVE_SALE
-  } from '../actions/salesAction'
+  } from '../actions/saleActions'
 import reducer from '../reducers/saleReducer'
 
 describe('sales reducer', () => {
@@ -17,10 +17,11 @@ describe('sales reducer', () => {
 	it('should handle REMOVE_SALE', () => {
 		const id = '1'
 		const action = {type: REMOVE_SALE, payload: id}
-		const expectedState = {"sales": [{"_id": "345", "name": "shovel", "qty": "5", "unit": "pcs"}]}
+		const expectedState = {"list": [{"_id": "345", "name": "shovel", "qty": "5", "unit": "pcs"}]}
 		
 		expect(reducer({
-			sales: [{_id: "1", "name": "shovel", "qty": "5", "unit": "pcs"}, {_id: "345", "name": "shovel", "qty": "5", "unit": "pcs"}], 
+			list: [{_id: "1", "name": "shovel", "qty": "5", "unit": "pcs"}, 
+			  {_id: "345", "name": "shovel", "qty": "5", "unit": "pcs"}], 
 		}, action)).toEqual(expectedState)
 	})
 
