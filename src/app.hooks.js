@@ -1,5 +1,6 @@
 // Application hooks that run for every service
 const log = require('./hooks/log')
+const checkPermissions = require('./hooks/check-permissions');
 
 module.exports = {
   before: {
@@ -14,11 +15,11 @@ module.exports = {
 
   after: {
     all: [ log() ],
-    find: [],
-    get: [],
-    create: [],
-    update: [],
-    patch: [],
+    find: [checkPermissions()],
+    get: [checkPermissions()],
+    create: [checkPermissions()],
+    update: [checkPermissions()],
+    patch: [checkPermissions()],
     remove: []
   },
 
