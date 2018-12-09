@@ -1,12 +1,22 @@
+import React from 'react'
 import { connect } from 'react-redux'
-import { reduxForm } from 'redux-form'
-import { login, logout } from '../actions/userActions'
+import { authorizeStorageToken, login, logout } from '../actions/userActions'
 
 import LoginForm from '../components/LoginForm'
 
-const wrapped = reduxForm({
-  form: 'submitValidation'
-})(LoginForm)
+class LoginFormContainer extends React.Component {
+  componentDidMount () {
+    console.log('this has been called')
+    console.log(this.props)
+    this.props.handleLogin()
+  }
+
+  render () {
+    return (
+      <LoginForm {...this.props} />
+    )
+  }
+}
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.user.isAuthenticated,
@@ -21,4 +31,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(wrapped)
+)(LoginFormContainer)

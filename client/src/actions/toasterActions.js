@@ -1,13 +1,13 @@
 import iziToast from 'izitoast'
 
-export const getOptions = ({
+export const getOptions = () => ({
   position: 'topLeft',
   timeout: 5000,
 })
 
 export const toastSuccess = (options) => {
   options = {
-    ...getOptions,
+    ...getOptions(),
     title: 'SUCCESS!',
     ...options
   }
@@ -16,7 +16,7 @@ export const toastSuccess = (options) => {
 
 export const toastError = (options) => {
   options = {
-    ...getOptions,
+    ...getOptions(),
     title: 'ERROR!',
     ...options
   }
