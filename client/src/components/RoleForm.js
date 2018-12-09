@@ -64,7 +64,7 @@ const GridColumn = (props) => {
 
 const CommonServiceParameters = (props) => {
   let {service} = props
-  const params = ['all', 'get', 'post', 'put', 'patch', 'delete']
+  const params = ['all', 'create', 'read', 'update', 'delete']
   return (
     <Card fluid style={{paddingRight: 13, paddingLeft: 13, paddingBottom: 4}}>
       <Container style={styles.commonServiceParametersContainer}>

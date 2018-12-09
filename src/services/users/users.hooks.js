@@ -1,9 +1,8 @@
 const local = require('@feathersjs/authentication-local')
-const { populate } = require('feathers-hooks-common')
 
 module.exports = {
   before: {
-    all: [(context) => {console.log(context.params)}],
+    all: [],
     find: [],
     get: [],
     create: [local.hooks.hashPassword({passwordField: 'password'})],
@@ -13,16 +12,7 @@ module.exports = {
   },
 
   after: {
-    all: [local.hooks.protect('password'), populate({
-      schema: {
-        include: {
-          service: 'roles',
-          nameAs: 'role',
-          parentField: 'role',
-          childField: '_id'
-        }
-      }
-    })],
+    all: [local.hooks.protect('password')],
     find: [],
     get: [],
     create: [],

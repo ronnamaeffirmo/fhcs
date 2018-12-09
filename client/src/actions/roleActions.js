@@ -70,8 +70,7 @@ export const addNewRole = (values) => {
 export const updateRole = (values) => {
   return async (dispatch) => {
     const payload = parseRoleFormData(values)
-    console.log(payload, values.id)
-    const result = await client.service('roles').patch(values.id, payload)
+    const result = await client.service('roles').update(values.id, payload)
     if (result) {
       dispatch({
         type: UPDATE_ROLE,

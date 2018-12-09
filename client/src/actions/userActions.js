@@ -113,7 +113,9 @@ export const login = (username, password) => async (dispatch) => {
       password
     })
     const payload = await client.passport.verifyJWT(token.accessToken)
-    const user = await client.service('users').get(payload.userId)
+    const user = await client.service('users').get(payload.userId, {
+      query: {$populate: ['role']}
+    })
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: user,
