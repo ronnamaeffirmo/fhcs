@@ -6,7 +6,7 @@ const AddCustomerModal = ({triggerComponent: TriggerComponent, submissionHandler
   TriggerComponent = TriggerComponent ? TriggerComponent : <Button style={styles.searchButton}>NEW CUSTOMER</Button>
   return (
     <Modal size="tiny" trigger={TriggerComponent} centered={false} onOpen={(e) => {e.preventDefault()}}>
-      <Modal.Header>Customer Entry</Modal.Header>
+      <Modal.Header>NEW CUSTOMER</Modal.Header>
       <Modal.Content>
         <CustomerForm submissionHandler={submissionHandler} />
       </Modal.Content>

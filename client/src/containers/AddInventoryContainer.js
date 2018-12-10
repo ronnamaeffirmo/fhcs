@@ -3,12 +3,12 @@ import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
 import { createInventory, toggleModal } from '../actions/inventoriesAction'
 
-import AddInventoryModalForm from '../components/AddInventoryModalForm'
+import AddInventoryModal from '../components/AddInventoryModal'
 
 const WrappedForm = reduxForm({
   form: 'newInventory',
   enableReinitialize: true
-})(AddInventoryModalForm)
+})(AddInventoryModal)
 
 const FormHandler = (props) => (
   <WrappedForm {...props} onSubmit={(values) => props.createInventory(values)}>

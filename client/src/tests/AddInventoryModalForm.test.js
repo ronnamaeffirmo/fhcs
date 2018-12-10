@@ -1,4 +1,4 @@
-import App from '../components/AddInventoryModalForm'
+import App from '../components/AddInventoryModal'
 
 import React from 'react'
 import { configure } from 'enzyme'
@@ -12,20 +12,20 @@ import { mount } from 'enzyme'
 
 configure({ adapter: new Adapter() });
 
-describe('AddInventoryModalForm', () => {
+describe('AddInventoryModal', () => {
   it('renders without crashing', () => {
     shallow(<App item={{name: 'shovel'}} options={{sources: 'test', producers:'test', statuses: 'test'}}/>)
   });
-  
+
   it('renders welcome message', () => {
     const { getByText } = render(<App item={{name: 'shovel'}} options={{sources: 'test', producers:'test', statuses: 'test'}}/>)
     expect(getByText('Add Inventory')).toBeInTheDocument()
   });
-  
+
   it('allows us to set props', () => {
     const wrapper = mount(<App bar="baz" item={{name: 'shovel'}} options={{sources: 'test', producers:'test', statuses: 'test'}}/>)
     expect(wrapper.props().bar).toEqual('baz')
-    wrapper.setProps({ bar: 'App' })
-    expect(wrapper.props().bar).toEqual('App')
+    wrapper.setProps({ bar: 'AddInventoryModal' })
+    expect(wrapper.props().bar).toEqual('AddInventoryModal')
   });
 })

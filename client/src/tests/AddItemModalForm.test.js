@@ -1,4 +1,4 @@
-import App from '../components/AddItemModalForm'
+import App from '../components/AddItemModal'
 
 import React from 'react'
 import { configure } from 'enzyme'
@@ -16,12 +16,12 @@ describe('AddItemModalForm', () => {
   it('renders without crashing', () => {
     shallow(<App/>)
   });
-  
+
 //   it('renders welcome message', () => {
 //     const { getByText } = shallow(<App />);
 //     expect(getByText('Add Inventory')).toBeInTheDocument()
 //   });
-  
+
   it('allows us to set props', () => {
     const wrapper = shallow(<App bar="baz"/>)
     expect(wrapper.props().bar).toEqual('baz')
