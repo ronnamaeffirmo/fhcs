@@ -1,22 +1,16 @@
-import AddCustomer from '../components/AddCustomer'
-
+import AddCustomerModal from '../components/AddCustomerModal'
 import { connect } from 'react-redux'
-import { reduxForm } from 'redux-form'
 import { addCustomer } from '../actions/customerActions'
-
-const wrapped = reduxForm({
-  form: 'customerForm'
-})(AddCustomer)
 
 const mapStateToProps = (state) => ({
   customers: state.customer.customers
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  addCustomer: (data) => dispatch(addCustomer(data))
+  submissionHandler: (data) => dispatch(addCustomer(data))
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(wrapped)
+)(AddCustomerModal)
