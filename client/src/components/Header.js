@@ -18,12 +18,6 @@ const styles = {
   }
 }
 
-const userOptions = [
-  { key: 'greeting', text: <span>Hi, <b>User</b>!</span>, disabled: true },
-  { key: 'account', text: 'My account', icon: 'user' },
-  { key: 'logout', text: 'Logout', icon: 'sign out' }
-]
-
 const itemOptions = [
   { key: 'items', as: () => (<Menu.Item icon={'tasks'} style={styles.menuItem} content='Item List' as={Link} to={'/items'}/>) },
   { key: 'inventories', as: () => (<Menu.Item icon={'clipboard'} style={styles.menuItem} content='Inventory List' as={Link} to={'/inventories'}/>) }
@@ -34,7 +28,7 @@ const settingOptions = [
   { key: 'users', as: () => (<Menu.Item icon={'user'} content='Manage Users' as={Link} to={'/users'}/>) }
 ]
 
-const Header = () => (
+const Header = ({ user, isAuthenticated, handleLogout }) => (
   <Menu secondary fixed='top' style={styles.header} inverted>
     <PaddedContainer>
       <Popup
@@ -49,12 +43,13 @@ const Header = () => (
       <Menu.Item style={styles.menuItem} name='customers' as={Link} to={'/customers'}/>
       <Dropdown item text='Settings' options={settingOptions}/>
       <Menu.Menu position='right'>
-        <Dropdown
-          item
-          icon={null}
-          options={userOptions}
-          trigger={<span><Icon name='user circle' size='large' /> User</span>}
-        />
+        <Dropdown item icon={null} trigger={<span><Icon name='user circle' size='large' /> User</span>}>
+          <Dropdown.Menu>
+            <Dropdown.Item key='greeting' text={<span>Hi, <b>{user && user.username}</b>!</span>} disabled />
+            <Dropdown.Item key='account' text='My account' icon='user' />
+            <Dropdown.Item key='logout' text='Logout' icon='sign out' onClick={handleLogout} />
+          </Dropdown.Menu>
+        </Dropdown>
       </Menu.Menu>
     </PaddedContainer>
   </Menu>
