@@ -6,7 +6,7 @@ import TextAreaField from './TextAreaField'
 import DropdownField from './DropdownField'
 import units from '../common/constants/units'
 
-class AddItemModalForm extends React.Component {
+class AddItemModal extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -85,4 +85,4 @@ const styles = {
   }
 }
 
-export default reduxForm({form: 'item'})(AddItemModalForm)
+export default reduxForm({form: 'item'})(AddItemModal)
