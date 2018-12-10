@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Container, Input, Segment, Message, Button } from 'semantic-ui-react'
+import { Container, Input, Segment, Message, Button } from 'semantic-ui-react'
 import SalesDataCard from './SaleDataCard'
 import { Link } from 'react-router-dom'
 

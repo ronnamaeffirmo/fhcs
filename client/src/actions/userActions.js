@@ -1,5 +1,5 @@
 import client from '../common/client'
-import { toastError } from './toasterActions'
+import { toastError, toastSuccess } from './toasterActions'
 
 // APPLICATION ACCESS
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS'
@@ -17,17 +17,23 @@ export const UPDATE_USER = 'UPDATE_USER'
 export const DELETE_USER = 'DELETE_USER'
 export const SELECT_USER = 'SELECT_USER'
 
-export const getUsers = async () => {
-  return await client.service('users').find({})
-}
-
-export const receiveUsers = (users) => {
-  return (dispatch) => {
-    console.log('USERS', users)
-    dispatch({
-      type: RECEIVE_USERS,
-      payload: users.data
-    })
+export const getUsers = () => {
+  return async (dispatch) => {
+    try {
+      const users = await client.service('users').find({
+        query: {
+          $populate: 'role'
+        }
+      })
+      if (users) {
+        dispatch({
+          type: RECEIVE_USERS,
+          payload: users.data
+        })
+      }
+    } catch (e) {
+      toastError({message: e.message})
+    }
   }
 }
 
@@ -36,12 +42,14 @@ export const addUser = (user) => {
     console.log('ADDING USER', user)
     try {
       const newUser = await client.service('users').create(user)
-      dispatch({
-        type: ADD_USER,
-        payload: user
-      })
+      if (newUser) {
+        dispatch({
+          type: ADD_USER,
+          payload: user
+        })
+      }
     } catch (e) {
-      console.log('ADDING USER ERROR', e)
+      toastError({message: e.message})
     }
   }
 }
@@ -63,7 +71,11 @@ export const editUser = (user) => {
 
 export const getUser = (id) => {
   return async (dispatch) => {
-    const user = await client.service('users').get(id)
+    const user = await client.service('users').get(id, {
+      query: {
+        $populate: 'role'
+      }
+    })
     user.role = user.role._id
     dispatch({
       type: RECEIVE_USER,
@@ -74,15 +86,17 @@ export const getUser = (id) => {
 
 export const deleteUser = (userId) => {
   return async (dispatch) => {
-    console.log('DELETING USER', userId)
     try {
       const result = await client.service('users').remove(userId)
-      dispatch({
-        type: DELETE_USER,
-        payload: userId
-      })
+      if (result) {
+        dispatch({
+          type: DELETE_USER,
+          payload: userId
+        })
+        toastSuccess({message: 'User has been deleted'})
+      }
     } catch (e) {
-      console.log('ERROR DELETING USER', e)
+      toastError({message: e.message})
     }
   }
 }
@@ -92,16 +106,6 @@ export const updatePassword = (values) => {
     dispatch({
       type: UPDATE_PASSWORD,
       payload: values
-    })
-  }
-}
-
-export const createUser = (values) => {
-  return async (dispatch) => {
-    const user = await client.service('users').create(values)
-    dispatch({
-      type: ADD_USER,
-      payload: user
     })
   }
 }

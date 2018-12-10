@@ -2,8 +2,6 @@ import { reset } from 'redux-form'
 import client from '../common/client'
 import { toTitleCase } from '../common/helpers'
 
-export const GET_ALL_ROLES = 'GET_ALL_ROLES'
-export const ADD_NEW_ROLE = 'ADD_NEW_ROLE'
 export const UPDATE_ROLE = 'UPDATE_ROLE'
 export const RECEIVE_ROLE = 'RECEIVE_ROLE'
 export const RECEIVE_ROLES = 'RECEIVE_ROLES'
@@ -31,7 +29,7 @@ const parseRoleFormData = (values) => {
   const {title} = values
   const permissions = []
   for (const param of Object.keys(values)) {
-    if (RegExp('(\w*)\:(\w*)').test(param)) {
+    if (RegExp('(w*):(w*)').test(param)) {
       const service = param.split(':')[0]
       const serviceParameter = param.split(':')[1]
       if (values[param] === true) {

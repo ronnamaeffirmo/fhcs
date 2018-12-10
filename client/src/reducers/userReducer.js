@@ -9,8 +9,6 @@ import {
   RECEIVE_USER,
   SELECT_USER
 } from '../actions/userActions'
-import { removeItemFromArray } from '../common/helpers'
-import { selectUser } from '../actions/roleActions'
 
 const initialState = {
   currentUser: undefined,

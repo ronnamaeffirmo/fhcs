@@ -1,11 +1,9 @@
 import {
-  ADD_SALE,
   REMOVE_SALE,
   RECEIVE_SALES,
   RECEIVE_SALE, APPLY_SALE_PAYMENT,
   RETURN_ITEM
 } from '../actions/saleActions'
-import { removeItemFromArray } from '../common/helpers'
 import clone from 'shallow-clone'
 
 const initialState = {

@@ -1,13 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { authorizeStorageToken, login, logout } from '../actions/userActions'
+import { login, logout } from '../actions/userActions'
 
 import LoginForm from '../components/LoginForm'
 
 class LoginFormContainer extends React.Component {
   componentDidMount () {
-    console.log('this has been called')
-    console.log(this.props)
     this.props.handleLogin()
   }
 
