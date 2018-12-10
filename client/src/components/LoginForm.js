@@ -17,10 +17,6 @@ class LoginForm extends React.Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
-  handleLogout () {
-    this.props.handleLogout()
-  }
-
   render () {
     const {isAuthenticated} = this.props
     return (
@@ -40,7 +36,7 @@ class LoginForm extends React.Component {
              * sa ibang page dapat ang logout. Like sa Header of something home page :)
              */
             isAuthenticated ? <Button color='teal' onClick={() => this.handleLogout()} content='Logout'/>
-              : <Button color='teal' onClick={() => this.handleLogin()} content='Login'/>
+              : <Button color='teal' onClick={this.props.handleLogout} content='Login'/>
           }
         </Container>
       </Form>
