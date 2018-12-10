@@ -1,4 +1,5 @@
 import client from '../common/client'
+import { toastError } from './toasterActions'
 
 // APPLICATION ACCESS
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS'
@@ -107,11 +108,25 @@ export const createUser = (values) => {
 
 export const login = (username, password) => async (dispatch) => {
   try {
-    const token = await client.authenticate({
-      strategy: 'local',
-      username,
-      password
-    })
+    let token
+    if (!username || !password) {
+      if (!localStorage.getItem('feathers-jwt')) {
+        return
+      }
+      token = await client.authenticate()
+      if (!token) {
+        new Error('Your session has expired! Please login again.')
+      }
+    } else {
+      token = await client.authenticate({
+        strategy: 'local',
+        username,
+        password
+      })
+      if (!token) {
+        new Error('Invalid login!')
+      }
+    }
     const payload = await client.passport.verifyJWT(token.accessToken)
     const user = await client.service('users').get(payload.userId, {
       query: {$populate: ['role']}
@@ -121,11 +136,8 @@ export const login = (username, password) => async (dispatch) => {
       payload: user,
       isAuthenticated: true
     })
-  } catch (err) {
-    return dispatch({
-      type: USER_LOGIN_FAIL,
-      payload: err
-    })
+  } catch (e) {
+    toastError({message: e.message})
   }
 }
 
