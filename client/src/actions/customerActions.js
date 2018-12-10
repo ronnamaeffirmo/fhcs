@@ -8,7 +8,7 @@ export const GET_CUSTOMER = 'GET_CUSTOMER'
 export const GET_CUSTOMERS = 'GET_CUSTOMERS'
 export const REMOVE_CUSTOMER = 'REMOVE_CUSTOMER'
 export const REMOVE_CUSTOMER_ERROR = 'REMOVE_CUSTOMER_ERROR'
-export const PATCH_CUSTOMER = 'PATCH_CUSTOMER'
+export const UPDATE_CUSTOMER = 'UPDATE_CUSTOMER'
 export const FILTER_CUSTOMERS = 'FILTER_CUSTOMERS'
 
 export const addCustomer = (data) => {
@@ -41,13 +41,15 @@ export const filterCustomers = (value) => {
 
 export const getCustomer = (id) => {
   return async (dispatch) => {
-    await dispatch(getCustomers())
-    const customer = await client.service('customers').get(id)
     try {
-      dispatch({
-        type: GET_CUSTOMER,
-        payload: customer
-      })
+      const customer = await client.service('customers').get(id)
+      if (customer) {
+        dispatch({
+          type: GET_CUSTOMER,
+          payload: customer
+        })
+        toastSuccess({message: 'Customer has been loaded!'})
+      }
     } catch (e) {
       toastError({message: e.message})
     }
@@ -82,14 +84,20 @@ export const removeCustomer = (id) => async (dispatch) => {
   }
 }
 
-export const patchCustomer = (id, data) => async (dispatch) => {
-  try {
-    const patchCustomer = await client.service('customers').patch(id, {$set: data})
-    dispatch({
-      type: PATCH_CUSTOMER,
-      payload: patchCustomer
-    })
-  } catch (e) {
-    toastError({message: e.message})
+export const updateCustomer = (customer) => {
+  return async (dispatch) => {
+    try {
+      const {_id: id} = customer
+      const result = await client.service('customers').patch(id, customer)
+      if (result) {
+        dispatch({
+          type: UPDATE_CUSTOMER,
+          payload: customer
+        })
+        toastSuccess({message: 'Customer has been updated!'})
+      }
+    } catch (e) {
+      toastError({message: e.message})
+    }
   }
 }

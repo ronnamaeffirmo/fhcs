@@ -1,7 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import PrivateRoute from './containers/PrivateRouteContainer'
-
 import PaddedContainer from './custom-components/PaddedContainer'
 import LoginFormContainer from './containers/LoginFormContainer'
 import ChangePasswordForm from './containers/ChangePasswordFormContainer'
@@ -31,13 +30,13 @@ const Routes = () => (
     <Route path='/change-password' component={ChangePasswordForm}/>
 
     {/* <Route path='/items' component={ItemList}/> */}
-    <PrivateRoute path='/items' component={ItemList}/>
+    <PrivateRoute path='/items' exact component={ItemList}/>
 
     <Route path='/item/:_id' exact component={EditFormContainer}/>
     <Route path='/item/:_id/reports' component={ItemReportsContainer}/>
-    <Route path='/add-customer' component={AddCustomerContainer}/>
-    <Route path='/customers' component={CustomerList}/>
-    <Route path='/customers/update/:id' component={EditCustomerContainer}/>
+
+    <Route path='/customers' exact  component={CustomerList}/>
+    <Route path='/customers/update/:id' exact component={EditCustomerContainer}/>
     <Route path='/sales' exact component={SalesList}/>
     <Route path='/inventories' component={InventoryList}/>
     {/*

@@ -44,7 +44,7 @@ class CustomerDataCard extends Component {
                   size='mini'
                   content='Edit this customer'
                   position='top center'
-                  trigger={<Button as={Link} to={`/customer/${_id}`} circular icon='edit' size='mini' color='teal' />}
+                  trigger={<Button as={Link} to={`/customers/update/${_id}`} circular icon='edit' size='mini' color='teal' />}
                 />
                 <DeleteConfirmationModal removeElement={removeCustomer} element={{ name, _id }}/>
               </div>

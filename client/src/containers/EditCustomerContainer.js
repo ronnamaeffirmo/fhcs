@@ -1,22 +1,30 @@
-import CustomerForm from '../components/CustomerForm'
+import React from 'react'
+import EditCustomerForm from '../components/EditCustomerForm'
+import {getCustomer, updateCustomer} from '../actions/customerActions'
+import {connect} from 'react-redux'
 
-import { connect } from 'react-redux'
-import { reduxForm } from 'redux-form'
-import { addCustomer } from '../actions/customerActions'
+class EditCustomerContainer extends React.Component {
+  componentDidMount () {
+    this.props.getCustomer(this.props.customerId)
+  }
 
-const wrapped = reduxForm({
-  form: 'customerForm'
-})(CustomerForm)
+  render () {
+    return <EditCustomerForm {...this.props}/>
+  }
+}
 
 const mapStateToProps = (state, ownProps) => ({
-  initialValues: state.customer.customers.filter(customer => customer._id === ownProps.match.params.id)
+  initialValues: state.customer.selection,
+  customerId: ownProps.match.params.id
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  submissionHandler: (data) => dispatch(addCustomer(data))
+  submissionHandler: (values) => {
+    dispatch(updateCustomer(values))
+  },
+  getCustomer: (id) => {
+    dispatch(getCustomer(id))
+  }
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(wrapped)
+export default connect(mapStateToProps, mapDispatchToProps)(EditCustomerContainer)

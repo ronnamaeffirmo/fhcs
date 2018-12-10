@@ -47,11 +47,12 @@ const CustomerForm = (props) => {
         component={InputField}
         validate={[required]}
       />
-      <Button type='submit' disabled={pristine || submitting}>Submit</Button>
+      <Button type='submit' fluid color={'green'} disabled={pristine || submitting}>SUBMIT</Button>
     </Form>
   )
 }
 
 export default reduxForm({
-  form: 'customerForm'
+  form: 'customerForm',
+  enableReinitialize: true
 })(CustomerForm)
