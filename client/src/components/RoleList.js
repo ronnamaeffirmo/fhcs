@@ -63,7 +63,7 @@ const PermissionTableRow = ({services, param, permissionData}) => {
 }
 
 const PermissionTable = ({data}) => {
-  const services = ['Items', 'Inventory', 'Sales', 'Users', 'Roles', 'Customers'].map(service => service.toLowerCase())
+  const services = ['Items', 'Inventories', 'Sales', 'Users', 'Roles', 'Customers'].map(service => service.toLowerCase())
 
   const params = [
     {slug: 'create', label: 'Create'},
