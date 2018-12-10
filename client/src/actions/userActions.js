@@ -23,7 +23,6 @@ export const getUsers = async () => {
 
 export const receiveUsers = (users) => {
   return (dispatch) => {
-    console.log('USERS', users)
     dispatch({
       type: RECEIVE_USERS,
       payload: users.data
@@ -33,15 +32,16 @@ export const receiveUsers = (users) => {
 
 export const addUser = (user) => {
   return async (dispatch) => {
-    console.log('ADDING USER', user)
     try {
-      const newUser = await client.service('users').create(user)
-      dispatch({
-        type: ADD_USER,
-        payload: user
-      })
+      const result = await client.service('users').create(user)
+      if (result) {
+        dispatch({
+          type: ADD_USER,
+          payload: user
+        })
+      }
     } catch (e) {
-      console.log('ADDING USER ERROR', e)
+      toastError({message: e.message})
     }
   }
 }
@@ -56,33 +56,38 @@ export const editUser = (user) => {
         payload: updatedUser
       })
     } catch (e) {
-      console.log('EDIT USER ERROR - userActions.js', e)
+      toastError({message: e.message})
     }
   }
 }
 
 export const getUser = (id) => {
   return async (dispatch) => {
-    const user = await client.service('users').get(id)
-    user.role = user.role._id
-    dispatch({
-      type: RECEIVE_USER,
-      payload: user
-    })
+    try {
+      const user = await client.service('users').get(id)
+      user.role = user.role._id
+      dispatch({
+        type: RECEIVE_USER,
+        payload: user
+      })
+    } catch (e) {
+      toastError({message: e.message})
+    }
   }
 }
 
 export const deleteUser = (userId) => {
   return async (dispatch) => {
-    console.log('DELETING USER', userId)
     try {
       const result = await client.service('users').remove(userId)
-      dispatch({
-        type: DELETE_USER,
-        payload: userId
-      })
+      if (result) {
+        dispatch({
+          type: DELETE_USER,
+          payload: userId
+        })
+      }
     } catch (e) {
-      console.log('ERROR DELETING USER', e)
+      toastError({message: e.message})
     }
   }
 }
@@ -98,11 +103,15 @@ export const updatePassword = (values) => {
 
 export const createUser = (values) => {
   return async (dispatch) => {
-    const user = await client.service('users').create(values)
-    dispatch({
-      type: ADD_USER,
-      payload: user
-    })
+    try {
+      const user = await client.service('users').create(values)
+      dispatch({
+        type: ADD_USER,
+        payload: user
+      })
+    } catch (e) {
+      toastError({message: e.message})
+    }
   }
 }
 
@@ -131,24 +140,28 @@ export const login = (username, password) => async (dispatch) => {
     const user = await client.service('users').get(payload.userId, {
       query: {$populate: ['role']}
     })
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: user,
-      isAuthenticated: true
-    })
+    if (user) {
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: user,
+        isAuthenticated: true
+      })
+    }
   } catch (e) {
     toastError({message: e.message})
   }
 }
 
-export const logout = () => async (dispatch) => {
-  try {
-    await client.logout()
-    return dispatch({
-      type: USER_LOGOUT,
-      isAuthenticated: false
-    })
-  } catch (e) {
-    console.log(e)
+export const logout = () => {
+  return async (dispatch) => {
+    try {
+      await client.logout()
+      dispatch({
+        type: USER_LOGOUT,
+        isAuthenticated: false
+      })
+    } catch (e) {
+      toastError({message: e.message})
+    }
   }
 }

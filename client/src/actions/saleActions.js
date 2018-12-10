@@ -2,17 +2,13 @@ import client from '../common/client'
 import { reset } from 'redux-form'
 import { toastError, toastSuccess } from './toasterActions'
 
-export const GET_CUSTOMERS = 'GET_CUSTOMERS'
-
 export const ADD_SALE = 'ADD_SALE'
 export const RECEIVE_SALES = 'RECEIVE_SALES'
 export const RECEIVE_SALE = 'RECEIVE_SALE'
 export const REMOVE_SALE = 'REMOVE_SALE'
 export const APPLY_SALE_PAYMENT = 'APPLY_SALE_PAYMENT'
 export const RETURN_ITEM = 'RETURN_ITEM'
-// BASIC CRUD
 
-// CREATE SALE
 export const addSale = (sale) => {
   return async (dispatch) => {
     try {
@@ -21,7 +17,7 @@ export const addSale = (sale) => {
         dispatch(reset('saleForm'))
       }
     } catch (e) {
-      console.log('ERROR - addSale() - saleActions.js', e)
+      toastError({message: e.message})
     }
   }
 }
@@ -51,8 +47,7 @@ export const returnItem = (data) => {
         dispatch({type: RETURN_ITEM, payload: {saleId, returnQuantity, itemId}})
       }
     } catch (e) {
-      console.log('ERROR - returnItem() - saleActions.js', e)
-      toastError({message: 'ERROR - returnItem() - saleActions.js'})
+      toastError({message: e.message})
     }
   }
 }
@@ -60,13 +55,17 @@ export const returnItem = (data) => {
 // READ SALE(S)
 export const getSales = () => {
   return async (dispatch) => {
-    const sales = await client.service('sales').find({
-      query: {$populate: ['customer', 'items.item']}
-    })
-    dispatch({
-      type: RECEIVE_SALES,
-      payload: sales.data
-    })
+    try {
+      const sales = await client.service('sales').find({
+        query: {$populate: ['customer', 'items.item']}
+      })
+      dispatch({
+        type: RECEIVE_SALES,
+        payload: sales.data
+      })
+    } catch (e) {
+      toastError({message: e.message})
+    }
   }
 }
 
@@ -81,12 +80,11 @@ export const getSale = (id) => {
         payload: sale
       })
     } catch (e) {
-      console.log('ERROR on getSale() - saleActions.js', e)
+      toastError({message: e.message})
     }
   }
 }
 
-// UPDATE SALE
 export const updateSale = (values) => {
   console.log('values', values)
   return async (dispatch) => {
@@ -98,7 +96,7 @@ export const updateSale = (values) => {
         toastSuccess({message: 'Sales record successfully updated!'})
       }
     } catch (e) {
-      console.log('ERROR - updateSale() - saleActions.js')
+      toastError({message: e.message})
     }
   }
 }
@@ -143,7 +141,7 @@ export const removeSale = (id) => {
         })
       }
     } catch (e) {
-      console.log('ERROR - removeSale() - saleActions.js', e)
+      toastError({message: e.message})
     }
   }
 }
