@@ -54,7 +54,8 @@ const saleDataCard = ({sale, actions: {removeSale, applySalePayment, returnItem}
         </Label>}
         <Card.Header style={styles.cardHeader}>
           <Container>
-            {toTitleCase(sale.customer.firstname + ' ' + sale.customer.lastname)}
+            {sale.customer.company && toTitleCase(sale.customer.company)}
+            {!sale.customer.company && toTitleCase(sale.customer.name)}
           </Container>
           <Button color='teal' icon='edit' circular as={Link} to={`/sales/update/${id}`}/>
           <Popup
@@ -74,9 +75,8 @@ const saleDataCard = ({sale, actions: {removeSale, applySalePayment, returnItem}
             position={'bottom right'}
           />
         </Card.Header>
-
         <Card.Meta>
-          OR Number: {officialReceipt}
+          OR# {officialReceipt}
         </Card.Meta>
         <Card.Description>
           <Grid style={{marginTop: 10}}>
