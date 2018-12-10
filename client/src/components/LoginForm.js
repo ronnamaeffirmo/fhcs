@@ -18,7 +18,7 @@ class LoginForm extends React.Component {
   }
 
   render () {
-    const {isAuthenticated} = this.props
+    const { isAuthenticated, handleLogout } = this.props
     return (
       <Form className="left column">
         <Form.Field>
@@ -35,8 +35,8 @@ class LoginForm extends React.Component {
              * show that login and logout is working
              * sa ibang page dapat ang logout. Like sa Header of something home page :)
              */
-            isAuthenticated ? <Button color='teal' onClick={() => this.handleLogout()} content='Logout'/>
-              : <Button color='teal' onClick={this.props.handleLogout} content='Login'/>
+            isAuthenticated ? <Button color='teal' onClick={handleLogout} content='Logout'/>
+              : <Button color='teal' onClick={() => this.handleLogin()} content='Login'/>
           }
         </Container>
       </Form>
