@@ -1,7 +1,7 @@
 import iziToast from 'izitoast'
 
 export const getOptions = () => ({
-  position: 'topLeft',
+  position: 'bottomRight',
   timeout: 5000,
 })
 
