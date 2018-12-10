@@ -1,5 +1,4 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
 import PrivateRoute from './containers/PrivateRouteContainer'
 import PaddedContainer from './custom-components/PaddedContainer'
 import LoginFormContainer from './containers/LoginFormContainer'
@@ -25,39 +24,30 @@ import EditCustomerContainer from './containers/EditCustomerContainer'
 
 const Routes = () => (
   <PaddedContainer>
-    <Route path='/' exact component={Dashboard}/>
-    <Route path='/login' component={LoginFormContainer}/>
-    <Route path='/change-password' component={ChangePasswordForm}/>
-
-    {/* <Route path='/items' component={ItemList}/> */}
+    <PrivateRoute path='/' exact component={Dashboard}/>
+    <PrivateRoute path='/change-password' component={ChangePasswordForm}/>
     <PrivateRoute path='/items' exact component={ItemList}/>
-
-    <Route path='/item/:_id' exact component={EditFormContainer}/>
-    <Route path='/item/:_id/reports' component={ItemReportsContainer}/>
-
-    <Route path='/customers' exact  component={CustomerList}/>
-    <Route path='/customers/update/:id' exact component={EditCustomerContainer}/>
-    <Route path='/sales' exact component={SalesList}/>
-    <Route path='/inventories' component={InventoryList}/>
+    <PrivateRoute path='/item/:_id' exact component={EditFormContainer}/>
+    <PrivateRoute path='/item/:_id/reports' component={ItemReportsContainer}/>
+    <PrivateRoute path='/customers' exact  component={CustomerList}/>
+    <PrivateRoute path='/customers/update/:id' exact component={EditCustomerContainer}/>
+    <PrivateRoute path='/sales' exact component={SalesList}/>
+    <PrivateRoute path='/inventories' component={InventoryList}/>
     {/*
       ROLES ROUTES
       create - `service`/new
       update - `service`/update/`:id`
       view - `service`/view/`:id`
     */}
-    <Route path='/roles' exact component={RoleListContainer}/>
-    <Route path='/roles/new' strict exact component={AddRoleContainer}/>
-    <Route path='/roles/update/:id' exact component={EditRoleContainer}/>
-    <Route path='/roles/view/:id' exact component={ViewRoleContainer}/>
-
-    <Route path='/users' exact component={UserListContainer} />
-    <Route path='/users/new' exact component={AddUserContainer} />
-    <Route path='/users/update/:id' exact component={EditUserContainer} />
-
-
-    <Route path='/sales/new' exact component={AddSaleContainer} />
-    <Route path='/sales/update/:id' exact component={EditSaleContainer} />
-
+    <PrivateRoute path='/roles' exact component={RoleListContainer}/>
+    <PrivateRoute path='/roles/new' strict exact component={AddRoleContainer}/>
+    <PrivateRoute path='/roles/update/:id' exact component={EditRoleContainer}/>
+    <PrivateRoute path='/roles/view/:id' exact component={ViewRoleContainer}/>
+    <PrivateRoute path='/users' exact component={UserListContainer} />
+    <PrivateRoute path='/users/new' exact component={AddUserContainer} />
+    <PrivateRoute path='/users/update/:id' exact component={EditUserContainer} />
+    <PrivateRoute path='/sales/new' exact component={AddSaleContainer} />
+    <PrivateRoute path='/sales/update/:id' exact component={EditSaleContainer} />
   </PaddedContainer>
 )
 
