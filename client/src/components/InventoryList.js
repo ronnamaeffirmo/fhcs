@@ -37,14 +37,7 @@ class ItemList extends Component {
               <Table.Row>
                 <Table.HeaderCell>Item</Table.HeaderCell>
                 <Table.HeaderCell>QTY</Table.HeaderCell>
-                {/* <Table.HeaderCell>Workers</Table.HeaderCell> */}
-                {/* <Table.HeaderCell>SRC</Table.HeaderCell> */}
-                {/* <Table.HeaderCell>Producer</Table.HeaderCell> */}
-                {/* <Table.HeaderCell>Co.</Table.HeaderCell> */}
-                {/* <Table.HeaderCell>PO</Table.HeaderCell> */}
-                {/* <Table.HeaderCell>Truck Plate #</Table.HeaderCell> */}
                 <Table.HeaderCell>Status</Table.HeaderCell>
-                {/* <Table.HeaderCell>Notes</Table.HeaderCell> */}
                 <Table.HeaderCell>Received by</Table.HeaderCell>
                 <Table.HeaderCell width={1}>Action</Table.HeaderCell>
               </Table.Row>

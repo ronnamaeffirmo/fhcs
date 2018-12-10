@@ -67,7 +67,7 @@ class ItemDataCard extends Component {
             position='left center'
             trigger={<Button onClick={this.toggleDesc} size='mini' circular icon={isOpen ? 'chevron up' : 'chevron down'} />}
           />
-          <AddNewInventory item={item}/>
+          <AddNewInventory item={item} />
           <div style={{ float: 'right' }}>
             <Button as={Link} to={`/item/${item._id}`} icon='edit' circular size='mini' color='teal' />
             <DeleteConfirmationModal removeElement={removeItem} element={item}/>
