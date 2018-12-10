@@ -34,7 +34,7 @@ export const getSaleContainerState = (state) => {
     customerSearchList: state.customer.customers && state.customer.customers.map(customer => ({
       key: customer._id,
       value: customer._id,
-      text: customer.firstname + ' ' + customer.lastname
+      text: customer.company ? customer.company : customer.name
     })),
     itemSearchList: state.item.searchList && state.item.searchList.map(item => {
       return {

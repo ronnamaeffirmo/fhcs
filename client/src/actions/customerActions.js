@@ -1,28 +1,32 @@
 import client from '../common/client'
-import { toastError } from './toasterActions'
+import { toastError, toastSuccess } from './toasterActions'
+import { toTitleCase } from '../common/helpers'
+import { reset } from 'redux-form'
 
 export const ADD_CUSTOMER = 'ADD_CUSTOMER'
 export const GET_CUSTOMER = 'GET_CUSTOMER'
 export const GET_CUSTOMERS = 'GET_CUSTOMERS'
 export const REMOVE_CUSTOMER = 'REMOVE_CUSTOMER'
 export const REMOVE_CUSTOMER_ERROR = 'REMOVE_CUSTOMER_ERROR'
-export const GET_CUSTOMER_ERROR = 'GET_CUSTOMER_ERROR'
 export const PATCH_CUSTOMER = 'PATCH_CUSTOMER'
-export const PATCH_CUSTOMER_ERROR = 'PATCH_CUSTOMER_ERROR'
 export const FILTER_CUSTOMERS = 'FILTER_CUSTOMERS'
 
 export const addCustomer = (data) => {
   return async (dispatch) => {
     try {
       const customer = await client.service('customers').create(data)
-      dispatch({
-        type: ADD_CUSTOMER,
-        payload: customer
-      })
+      if (customer) {
+        dispatch({
+          type: ADD_CUSTOMER,
+          payload: customer
+        })
+        dispatch(reset('customerForm'))
+        toastSuccess({message: `${toTitleCase(data.name)} has been created`})
+      }
+
     } catch (e) {
       toastError({message: e.message})
     }
-
   }
 }
 
@@ -54,10 +58,13 @@ export const getCustomers = () => {
   return async (dispatch) => {
     try {
       const customers = await client.service('customers').find({})
-      dispatch({
-        type: GET_CUSTOMERS,
-        payload: customers.data
-      })
+      if (customers) {
+        dispatch({
+          type: GET_CUSTOMERS,
+          payload: customers.data
+        })
+        toastSuccess({message: 'Customer list has been updated!'})
+      }
     } catch (e) {
       toastError({message: e.message})
     }

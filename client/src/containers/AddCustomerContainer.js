@@ -5,7 +5,7 @@ import { reduxForm } from 'redux-form'
 import { addCustomer } from '../actions/customerActions'
 
 const wrapped = reduxForm({
-  form: 'customer'
+  form: 'customerForm'
 })(AddCustomer)
 
 const mapStateToProps = (state) => ({

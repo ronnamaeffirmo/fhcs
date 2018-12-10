@@ -27,10 +27,13 @@ export const getItemSearchList = () => {
         query: {$limit: 10000},
         $select: ['name', '_id', 'price']
       })
-      dispatch({
-        type: GET_SEARCH_ITEMS,
-        payload: items.data
-      })
+      if (items) {
+        dispatch({
+          type: GET_SEARCH_ITEMS,
+          payload: items.data
+        })
+        toastSuccess({message: 'Item list has been updated!'})
+      }
     } catch (e) {
       toastError({message: e.message})
     }
