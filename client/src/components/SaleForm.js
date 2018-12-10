@@ -10,8 +10,6 @@ import {
   Grid,
   Header,
   Table,
-  Label,
-  Icon,
   Popup, TextArea
 } from 'semantic-ui-react'
 import { reduxForm, Field, FieldArray } from 'redux-form'
@@ -156,8 +154,6 @@ const SaleForm = (props) => {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column width={16}>
-
-
                 <Field
                   name={'remarks'}
                   component={(props) => {
@@ -184,8 +180,6 @@ const SaleForm = (props) => {
                     )
                   }}
                 />
-
-
               </Grid.Column>
             </Grid.Row>
 
@@ -209,7 +203,6 @@ const Items = (props) => {
   console.log(props)
   return (
     <div>
-
       <div>
         <Table celled selectable>
           <Table.Header>
@@ -240,9 +233,7 @@ const Items = (props) => {
                        on='hover'
                        hoverable
                        hideOnScroll
-                />
-
-              )
+                />)
             })}
             {!items &&
             <Table.Row>
@@ -261,9 +252,7 @@ const Items = (props) => {
         <Container style={{marginTop: 10}}/>
       </div>
       <Grid>
-
         <Grid.Row>
-
           <Grid.Column width={8}>
             {item && <label style={styles.tmpFieldLabel}>Item</label>}
             <Field

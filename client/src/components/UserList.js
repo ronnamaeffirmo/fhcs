@@ -1,7 +1,6 @@
 import React from 'react'
 import { Container, Segment, Card, Icon, Grid, Popup, Button, Input } from 'semantic-ui-react'
 import { toTitleCase } from '../common/helpers'
-import AddCustomerModal from '../containers/AddCustomerContainer'
 import { Link } from 'react-router-dom'
 
 const styles = {
@@ -45,7 +44,6 @@ const styles = {
 
 const UserList = (props) => {
   const {users, deleteUser} = props
-  console.log('USERSLIST USERS', users)
   return (
     <Container style={styles.mainContainer}>
       <Segment style={styles.topSegment}>

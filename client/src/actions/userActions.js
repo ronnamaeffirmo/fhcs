@@ -1,4 +1,5 @@
 import client from '../common/client'
+import { toastError, toastSuccess } from './toasterActions'
 
 // APPLICATION ACCESS
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS'
@@ -16,31 +17,38 @@ export const UPDATE_USER = 'UPDATE_USER'
 export const DELETE_USER = 'DELETE_USER'
 export const SELECT_USER = 'SELECT_USER'
 
-export const getUsers = async () => {
-  return await client.service('users').find({})
-}
-
-export const receiveUsers = (users) => {
-  return (dispatch) => {
-    console.log('USERS', users)
-    dispatch({
-      type: RECEIVE_USERS,
-      payload: users.data
-    })
+export const getUsers = () => {
+  return async (dispatch) => {
+    try {
+      const users = await client.service('users').find({
+        query: {
+          $populate: 'role'
+        }
+      })
+      if (users) {
+        dispatch({
+          type: RECEIVE_USERS,
+          payload: users.data
+        })
+      }
+    } catch (e) {
+      toastError({message: e.message})
+    }
   }
 }
 
 export const addUser = (user) => {
   return async (dispatch) => {
-    console.log('ADDING USER', user)
     try {
       const newUser = await client.service('users').create(user)
-      dispatch({
-        type: ADD_USER,
-        payload: user
-      })
+      if (newUser) {
+        dispatch({
+          type: ADD_USER,
+          payload: user
+        })
+      }
     } catch (e) {
-      console.log('ADDING USER ERROR', e)
+      toastError({message: e.message})
     }
   }
 }
@@ -55,33 +63,45 @@ export const editUser = (user) => {
         payload: updatedUser
       })
     } catch (e) {
-      console.log('EDIT USER ERROR - userActions.js', e)
+      toastError({message: e.message})
     }
   }
 }
 
 export const getUser = (id) => {
   return async (dispatch) => {
-    const user = await client.service('users').get(id)
-    user.role = user.role._id
-    dispatch({
-      type: RECEIVE_USER,
-      payload: user
-    })
+    try {
+      const user = await client.service('users').get(id, {
+        query: {
+          $populate: 'role'
+        }
+      })
+      user.role = user.role._id
+      if (user) {
+        dispatch({
+          type: RECEIVE_USER,
+          payload: user
+        })
+      }
+    } catch (e) {
+      toastError({message: e.message})
+    }
   }
 }
 
 export const deleteUser = (userId) => {
   return async (dispatch) => {
-    console.log('DELETING USER', userId)
     try {
       const result = await client.service('users').remove(userId)
-      dispatch({
-        type: DELETE_USER,
-        payload: userId
-      })
+      if (result) {
+        dispatch({
+          type: DELETE_USER,
+          payload: userId
+        })
+        toastSuccess({message: 'User has been deleted'})
+      }
     } catch (e) {
-      console.log('ERROR DELETING USER', e)
+      toastError({message: e.message})
     }
   }
 }
@@ -95,46 +115,53 @@ export const updatePassword = (values) => {
   }
 }
 
-export const createUser = (values) => {
-  return async (dispatch) => {
-    const user = await client.service('users').create(values)
-    dispatch({
-      type: ADD_USER,
-      payload: user
-    })
-  }
-}
-
 export const login = (username, password) => async (dispatch) => {
   try {
-    const token = await client.authenticate({
-      strategy: 'local',
-      username,
-      password
-    })
+    let token
+    if (!username || !password) {
+      if (!localStorage.getItem('feathers-jwt')) {
+        return
+      }
+      token = await client.authenticate()
+      if (!token) {
+        new Error('Your session has expired! Please login again.')
+      }
+    } else {
+      token = await client.authenticate({
+        strategy: 'local',
+        username,
+        password
+      })
+      if (!token) {
+        new Error('Invalid login!')
+      }
+    }
     const payload = await client.passport.verifyJWT(token.accessToken)
-    const user = await client.service('users').get(payload.userId)
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: user,
-      isAuthenticated: true
+    const user = await client.service('users').get(payload.userId, {
+      query: {$populate: ['role']}
     })
-  } catch (err) {
-    return dispatch({
-      type: USER_LOGIN_FAIL,
-      payload: err
-    })
+    if (user) {
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: user,
+        isAuthenticated: true
+      })
+    }
+  } catch (e) {
+    toastError({message: e.message})
   }
 }
 
-export const logout = () => async (dispatch) => {
-  try {
-    await client.logout()
-    return dispatch({
-      type: USER_LOGOUT,
-      isAuthenticated: false
-    })
-  } catch (e) {
-    console.log(e)
+export const logout = () => {
+  return async (dispatch) => {
+    try {
+      await client.logout()
+      dispatch({
+        type: USER_LOGOUT,
+        isAuthenticated: false
+      })
+    } catch (e) {
+      toastError({message: e.message})
+    }
   }
 }

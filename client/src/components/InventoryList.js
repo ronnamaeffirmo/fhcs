@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Container, Input, Message, Segment, Table, Popup, Label } from 'semantic-ui-react'
 import InventoryRow from './InventoryRow'
 
@@ -16,7 +16,7 @@ class ItemList extends Component {
           position='right center'
           content={
             <div>
-              To add a new inventory, head over to <b>items list</b> and 
+              To add a new inventory, head over to <b>items list</b> and
               click <Label size='tiny'>Add Inventory</Label>on an item card
             </div>
           }

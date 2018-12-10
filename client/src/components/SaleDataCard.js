@@ -10,8 +10,7 @@ import {
   Label,
   TextArea,
   Form,
-  Image,
-  Segment, Dropdown
+  Dropdown
 } from 'semantic-ui-react'
 import moment from 'moment'
 import SalesItemTable from './SalesItemTable'

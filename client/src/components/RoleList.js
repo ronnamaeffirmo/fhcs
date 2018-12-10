@@ -28,7 +28,7 @@ const styles = {
 
 const parsePermissions = (permissions) => {
   // TODO move to common/constants.js
-  const params = ['get', 'post', 'put', 'patch', 'delete']
+  const params = ['create', 'read', 'update', 'delete']
   const parsedPermissions = new Set()
   permissions.forEach(permission => {
     const service = permission.split(':')[0]
@@ -66,11 +66,10 @@ const PermissionTable = ({data}) => {
   const services = ['Items', 'Inventory', 'Sales', 'Users', 'Roles', 'Customers'].map(service => service.toLowerCase())
 
   const params = [
-    {slug: 'get', label: 'Read'},
-    {slug: 'post', label: 'Create'},
-    {slug: 'put', label: 'Replace'},
-    {slug: 'patch', label: 'Update'},
-    {slug: 'delete', label: 'Delete'},
+    {slug: 'create', label: 'Create'},
+    {slug: 'read', label: 'Read'},
+    {slug: 'update', label: 'Update'},
+    {slug: 'delete', label: 'Delete'}
   ]
   return (
     <Container>

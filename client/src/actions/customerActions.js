@@ -1,4 +1,5 @@
 import client from '../common/client'
+import { toastError } from './toasterActions'
 
 export const ADD_CUSTOMER = 'ADD_CUSTOMER'
 export const GET_CUSTOMER = 'GET_CUSTOMER'
@@ -12,11 +13,16 @@ export const FILTER_CUSTOMERS = 'FILTER_CUSTOMERS'
 
 export const addCustomer = (data) => {
   return async (dispatch) => {
-    const customer = await client.service('customers').create(data)
-    dispatch({
-      type: ADD_CUSTOMER,
-      payload: customer
-    })
+    try {
+      const customer = await client.service('customers').create(data)
+      dispatch({
+        type: ADD_CUSTOMER,
+        payload: customer
+      })
+    } catch (e) {
+      toastError({message: e.message})
+    }
+
   }
 }
 
@@ -38,23 +44,25 @@ export const getCustomer = (id) => {
         type: GET_CUSTOMER,
         payload: customer
       })
-    } catch (error) {
-      dispatch({type: GET_CUSTOMER_ERROR, payload: error})
+    } catch (e) {
+      toastError({message: e.message})
     }
   }
 }
 
 export const getCustomers = () => {
   return async (dispatch) => {
-    const customers = await client.service('customers').find({})
-    console.log('FETCHING CUSTOMERS', customers)
-    dispatch({
-      type: GET_CUSTOMERS,
-      payload: customers.data
-    })
+    try {
+      const customers = await client.service('customers').find({})
+      dispatch({
+        type: GET_CUSTOMERS,
+        payload: customers.data
+      })
+    } catch (e) {
+      toastError({message: e.message})
+    }
   }
 }
-
 export const removeCustomer = (id) => async (dispatch) => {
   try {
     await client.service('customers').remove(id)
@@ -62,8 +70,8 @@ export const removeCustomer = (id) => async (dispatch) => {
       type: REMOVE_CUSTOMER,
       payload: id
     })
-  } catch (error) {
-    dispatch({type: REMOVE_CUSTOMER_ERROR, payload: error})
+  } catch (e) {
+    toastError({message: e.message})
   }
 }
 
@@ -74,7 +82,7 @@ export const patchCustomer = (id, data) => async (dispatch) => {
       type: PATCH_CUSTOMER,
       payload: patchCustomer
     })
-  } catch (error) {
-    dispatch({type: PATCH_CUSTOMER_ERROR, payload: error})
+  } catch (e) {
+    toastError({message: e.message})
   }
 }

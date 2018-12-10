@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Container, Form } from 'semantic-ui-react'
+import { reduxForm } from 'redux-form'
 
 class LoginForm extends React.Component {
   constructor (props) {
@@ -47,4 +48,6 @@ class LoginForm extends React.Component {
   }
 }
 
-export default LoginForm
+export default reduxForm({
+  form: 'submitValidation'
+})(LoginForm)

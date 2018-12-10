@@ -1,12 +1,11 @@
 import React from 'react'
-import { deleteUser, getUsers, receiveUsers } from '../actions/userActions'
+import { deleteUser, getUsers} from '../actions/userActions'
 import { connect } from 'react-redux'
 import UserList from '../components/UserList'
 
 class UserListContainer extends React.Component {
   async componentDidMount () {
-    const users = await getUsers()
-    this.props.receiveUsers(users)
+    this.props.getUsers()
   }
 
   render () {
@@ -19,8 +18,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  receiveUsers: (users) => {
-    dispatch(receiveUsers(users))
+  getUsers: () => {
+    dispatch(getUsers())
   },
   deleteUser: (userId) => {
     dispatch(deleteUser(userId))
