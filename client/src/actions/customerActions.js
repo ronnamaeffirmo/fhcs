@@ -74,11 +74,14 @@ export const getCustomers = () => {
 }
 export const removeCustomer = (id) => async (dispatch) => {
   try {
-    await client.service('customers').remove(id)
-    dispatch({
-      type: REMOVE_CUSTOMER,
-      payload: id
-    })
+    const result = await client.service('customers').remove(id)
+    if (result) {
+      dispatch({
+        type: REMOVE_CUSTOMER,
+        payload: id
+      })
+      toastSuccess({message: 'Customer has been removed!'})
+    }
   } catch (e) {
     toastError({message: e.message})
   }
