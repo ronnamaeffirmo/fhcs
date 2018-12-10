@@ -5,18 +5,12 @@ const checkPermissions = require('./hooks/check-permissions');
 module.exports = {
   before: {
     all: [ log() ],
-    find: [],
-    get: [],
-    create: [],
-    update: [],
-    patch: [],
-    remove: []
-    // find: [checkPermissions()],
-    // get: [checkPermissions()],
-    // create: [checkPermissions()],
-    // update: [checkPermissions()],
-    // patch: [checkPermissions()],
-    // remove: [checkPermissions()]
+    find: [checkPermissions()],
+    get: [checkPermissions()],
+    create: [checkPermissions()],
+    update: [checkPermissions()],
+    patch: [checkPermissions()],
+    remove: [checkPermissions()]
   },
 
   after: {
