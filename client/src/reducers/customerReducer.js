@@ -86,12 +86,6 @@ const customerReducer = (state = initialState, action) => {
         }
       }
     }
-    case REMOVE_CUSTOMER_ERROR: {
-      return {
-        ...state,
-        error: action.payload
-      }
-    }
     default:
       return state
   }

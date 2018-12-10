@@ -39,7 +39,6 @@ export const getUsers = () => {
 
 export const addUser = (user) => {
   return async (dispatch) => {
-    console.log('ADDING USER', user)
     try {
       const newUser = await client.service('users').create(user)
       if (newUser) {
@@ -64,23 +63,29 @@ export const editUser = (user) => {
         payload: updatedUser
       })
     } catch (e) {
-      console.log('EDIT USER ERROR - userActions.js', e)
+      toastError({message: e.message})
     }
   }
 }
 
 export const getUser = (id) => {
   return async (dispatch) => {
-    const user = await client.service('users').get(id, {
-      query: {
-        $populate: 'role'
+    try {
+      const user = await client.service('users').get(id, {
+        query: {
+          $populate: 'role'
+        }
+      })
+      user.role = user.role._id
+      if (user) {
+        dispatch({
+          type: RECEIVE_USER,
+          payload: user
+        })
       }
-    })
-    user.role = user.role._id
-    dispatch({
-      type: RECEIVE_USER,
-      payload: user
-    })
+    } catch (e) {
+      toastError({message: e.message})
+    }
   }
 }
 
@@ -135,24 +140,28 @@ export const login = (username, password) => async (dispatch) => {
     const user = await client.service('users').get(payload.userId, {
       query: {$populate: ['role']}
     })
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: user,
-      isAuthenticated: true
-    })
+    if (user) {
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: user,
+        isAuthenticated: true
+      })
+    }
   } catch (e) {
     toastError({message: e.message})
   }
 }
 
-export const logout = () => async (dispatch) => {
-  try {
-    await client.logout()
-    return dispatch({
-      type: USER_LOGOUT,
-      isAuthenticated: false
-    })
-  } catch (e) {
-    console.log(e)
+export const logout = () => {
+  return async (dispatch) => {
+    try {
+      await client.logout()
+      dispatch({
+        type: USER_LOGOUT,
+        isAuthenticated: false
+      })
+    } catch (e) {
+      toastError({message: e.message})
+    }
   }
 }

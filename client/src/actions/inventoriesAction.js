@@ -1,5 +1,6 @@
 import client from '../common/client'
 import moment from 'moment'
+import { toastError } from './toasterActions'
 
 export const GET_INVENTORIES = 'GET_INVENTORIES'
 export const GET_INVENTORIES_BY_PERIOD = 'GET_INVENTORIES_BY_PERIOD'
@@ -12,50 +13,57 @@ const getQueryDate = (amount, unit) => {
   return moment(new Date()).subtract(amount, unit).toDate()
 }
 
-export const getInventoriesByPeriod = ({ period }) => {
+export const getInventoriesByPeriod = ({period}) => {
   return async dispatch => {
-    let query = {}
-    switch (period) {
-      case 'last-7-days':
-        query.createdAt = {
-          $gte: getQueryDate(7, 'days')
-        }
-        break
-      case 'last-2-weeks':
-        query.createdAt = {
-          $gte: getQueryDate(2, 'weeks')
-        }
-        break
-      case 'last-month':
-        query.createdAt = {
-          $gte: getQueryDate(2, 'months'),
-          $lte: getQueryDate(1, 'months')
-        }
-        break
-      case 'this-month':
-        query.createdAt = {
-          $gte: getQueryDate(1, 'months')
-        }
-        break
-      default:
-        query = {}
+    try {
+      let query = {}
+      switch (period) {
+        case 'last-7-days':
+          query.createdAt = {
+            $gte: getQueryDate(7, 'days')
+          }
+          break
+        case 'last-2-weeks':
+          query.createdAt = {
+            $gte: getQueryDate(2, 'weeks')
+          }
+          break
+        case 'last-month':
+          query.createdAt = {
+            $gte: getQueryDate(2, 'months'),
+            $lte: getQueryDate(1, 'months')
+          }
+          break
+        case 'this-month':
+          query.createdAt = {
+            $gte: getQueryDate(1, 'months')
+          }
+          break
+        default:
+          query = {}
+      }
+      const inventories = await client.service('inventories').find({query})
+      dispatch({
+        type: GET_INVENTORIES_BY_PERIOD,
+        payload: inventories
+      })
+    } catch (e) {
+      toastError({message: e.message})
     }
-
-    const inventories = await client.service('inventories').find({ query })
-    dispatch({
-      type: GET_INVENTORIES_BY_PERIOD,
-      payload: inventories
-    })
   }
 }
 
 export const getInventories = () => {
   return async (dispatch) => {
-    const items = await client.service('inventories').find({})
-    dispatch({
-      type: GET_INVENTORIES,
-      payload: items.data
-    })
+    try {
+      const items = await client.service('inventories').find({})
+      dispatch({
+        type: GET_INVENTORIES,
+        payload: items.data
+      })
+    } catch (e) {
+      toastError({message: e.message})
+    }
   }
 }
 
@@ -66,20 +74,22 @@ export const removeInventory = (id) => async (dispatch) => {
       type: REMOVE_INVENTORY,
       payload: id
     })
-  } catch (error) {
-    dispatch({type: REMOVE_ITEM_ERROR, payload: error})
+  } catch (e) {
+    toastError({message: e.message})
   }
 }
 
 export const createInventory = (values) => {
   return async (dispatch) => {
-    console.log('balues', values)
-    const item = await client.service('inventories').create(values)
-    console.log('created item', item)
-    dispatch({
-      type: ADD_INVENTORY,
-      payload: item
-    })
+    try {
+      const item = await client.service('inventories').create(values)
+      dispatch({
+        type: ADD_INVENTORY,
+        payload: item
+      })
+    } catch (e) {
+      toastError({message: e.message})
+    }
   }
 }
 
