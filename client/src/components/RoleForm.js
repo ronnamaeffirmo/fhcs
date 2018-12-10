@@ -85,7 +85,7 @@ const CommonServiceParameters = (props) => {
 
 const RoleForm = (props) => {
   const {handleSubmit, pristine, submitting, submissionHandler, dataView} = props
-  const endpoints = ['Items', 'Inventory', 'Sales', 'Users', 'Roles', 'Customers']
+  const endpoints = ['Items', 'Inventories', 'Sales', 'Users', 'Roles', 'Customers']
   return (
     <Container style={styles.mainContainer}>
       <Form onSubmit={submissionHandler ? handleSubmit(submissionHandler) : undefined}>

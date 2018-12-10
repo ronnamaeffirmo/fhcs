@@ -6,6 +6,7 @@ module.exports = function (options = {}) {
   return async context => {
     const {path, method} = context
     const {user} = context.params
+
     if (!context.params.provider || path === 'authentication') {
       // internal calls (calls made by the server -- context.app.service() ...)
       return context
@@ -17,21 +18,29 @@ module.exports = function (options = {}) {
     } else if (!user && context.params.provider) {
       throw new Error('You are not logged in!')
     } else {
-      const {role} = await context.app.service('users').get(context.params.user._id)
-      const {permissions} = await context.app.service('roles').get(role)
+      const {role: {permissions}} = await context.app.service('users').get(
+        context.params.user._id,
+        {
+          query: {
+            $populate: 'role'
+          }
+        })
       let authorized = false
+      console.log(`METHOD -> ${method} PATH --> ${path}`)
       for (const permission of permissions) {
         const userService = permission.split(':')[0]
         const userServicePermission = permission.split(':')[1]
         if (userService.toLowerCase() === path.toLowerCase()) {
+          // console.log(`  TRYING ${userService} === ${path} :: ${userServicePermission} === ${method}`)
           if (userServicePermission.toLowerCase() === method ||
             userServicePermission.toLowerCase() === 'all') {
+            // console.log(`    PERMISSION GRANTED ON ${method} -> ${path}`)
             authorized = true
           }
         }
       }
       if (!authorized) {
-        throw new Error(`You can't do this. Please contact your administrator to elevate your permissions!`)
+        throw new Error(`Your account has insufficient permissions!`)
       }
     }
     return context
