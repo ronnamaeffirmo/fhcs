@@ -28,7 +28,7 @@ class AddInventoryModalForm extends Component {
               handleSubmit()
             }}>
               <Form.Group>
-                <Field width={10} type='text' name='itemName' label='Item Name' placeholder='Item Name' component={InputField} />
+                <Field width={10} type='text' name='itemName' label='Item Name' placeholder='Item Name' disabled={true} component={InputField} />
                 <Field width={6} type='number' name='quantity' label='Quantity' placeholder='Quantity' component={InputField} />
               </Form.Group>
               <Form.Group widths='equal'>

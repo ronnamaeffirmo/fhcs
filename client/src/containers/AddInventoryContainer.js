@@ -6,14 +6,18 @@ import { createInventory, toggleModal } from '../actions/inventoriesAction'
 import AddInventoryModalForm from '../components/AddInventoryModalForm'
 
 const WrappedForm = reduxForm({
-  form: 'newInventory'
+  form: 'newInventory',
+  enableReinitialize: true
 })(AddInventoryModalForm)
 
-const FormHandler = ({ createInventory, item, options }) => (
-  <WrappedForm item={item} options={options} onSubmit={(values) => createInventory(values)} />
+const FormHandler = (props) => (
+  <WrappedForm {...props} onSubmit={(values) => props.createInventory(values)}>
+    {console.log('props', props)}
+  </WrappedForm>
 )
 
 const mapStateToProps = (state, ownProps) => ({
+  initialValues: { itemName: ownProps.item.name },
   item: ownProps.item,
   options: {
     sources: [
