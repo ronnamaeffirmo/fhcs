@@ -5,16 +5,24 @@ import { reduxForm } from 'redux-form'
 class LoginForm extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {username: '', password: ''}
+    this.state = {
+      username: '', password: ''
+    }
   }
 
-  handleLogin () {
-    const {username, password} = this.state
-    this.props.handleLogin(username, password)
+  async handleLogin (e) {
+    e.preventDefault()
+
+    const { username, password } = this.state
+    const { handleLogin, history } = this.props
+    const { pathname } = history.location.state.from
+
+    await handleLogin(username, password)
+    history.push(pathname)
   }
 
   handleInput (e) {
-    this.setState({[e.target.name]: e.target.value})
+    this.setState({ [e.target.name]: e.target.value })
   }
 
   render () {
@@ -36,7 +44,7 @@ class LoginForm extends React.Component {
              * sa ibang page dapat ang logout. Like sa Header of something home page :)
              */
             isAuthenticated ? <Button color='teal' onClick={handleLogout} content='Logout'/>
-              : <Button color='teal' onClick={() => this.handleLogin()} content='Login'/>
+              : <Button color='teal' onClick={(e) => this.handleLogin(e)} content='Login'/>
           }
         </Container>
       </Form>

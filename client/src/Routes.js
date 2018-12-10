@@ -1,5 +1,4 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
 import PrivateRoute from './containers/PrivateRouteContainer'
 
 import PaddedContainer from './custom-components/PaddedContainer'
@@ -25,8 +24,6 @@ import EditSaleContainer from './containers/EditSaleContainer'
 
 const Routes = () => (
   <PaddedContainer>
-    <Route path='/login' component={LoginFormContainer}/>
-
     <PrivateRoute path='/' exact component={Dashboard}/>
     <PrivateRoute path='/change-password' component={ChangePasswordForm}/>
     <PrivateRoute path='/items' component={ItemList}/>
