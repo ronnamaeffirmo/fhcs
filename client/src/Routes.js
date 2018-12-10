@@ -25,9 +25,9 @@ import EditSaleContainer from './containers/EditSaleContainer'
 
 const Routes = () => (
   <PaddedContainer>
-    <Route path='/' exact component={Dashboard}/>
     <Route path='/login' component={LoginFormContainer}/>
 
+    <PrivateRoute path='/' exact component={Dashboard}/>
     <PrivateRoute path='/change-password' component={ChangePasswordForm}/>
     <PrivateRoute path='/items' component={ItemList}/>
     <PrivateRoute path='/item/:_id' exact component={EditFormContainer}/>
