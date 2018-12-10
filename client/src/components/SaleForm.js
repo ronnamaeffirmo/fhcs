@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom'
 import terms from '../common/constants/terms'
 import moment from 'moment'
 import { DateInput } from 'semantic-ui-calendar-react'
+import AddCustomerContainer from '../containers/AddCustomerContainer'
 
 const styles = {
   mainContainer: {
@@ -39,7 +40,7 @@ const styles = {
 }
 
 const SaleForm = (props) => {
-  const {submissionHandler, handleSubmit, date, term, customerSearchList, pristine, submitting, tmp, items, clearTmpFields, updateTmpFields, itemSearchList} = props
+  const {submissionHandler, handleSubmit, date, term, customerSearchList, getCustomerSearchList, pristine, submitting, tmp, items, clearTmpFields, updateTmpFields, itemSearchList} = props
   console.log('TERM', term)
   return (
     <Container style={styles.mainContainer}>
@@ -71,13 +72,10 @@ const SaleForm = (props) => {
                       <Form.Field>
                         <label style={styles.fieldLabel}>Customer</label>
                         <div>
-                          <Button circular floated={'right'} icon='add user' onClick={(e) => {
-                            e.preventDefault()
-                            window.alert('CHECKING CUSTOMERS')
-                          }}/>
+                          <AddCustomerContainer triggerComponent={<Button circular floated={'right'} icon='add user'/>}/>
                           <Button circular floated={'right'} icon='refresh' onClick={(e) => {
                             e.preventDefault()
-                            window.alert('CHECKING CUSTOMERS')
+                            getCustomerSearchList()
                           }}/>
                           <Dropdown placeholder='Select Customer' search selection style={{width: '74%'}}
                                     value={value}

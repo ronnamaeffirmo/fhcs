@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { createItem } from '../actions/itemActions'
 
-import AddItemModalForm from '../components/AddItemModalForm'
+import AddItemModalForm from '../components/AddItemModal'
 
 const AddItemFormContainer = ({createItem}) => (
   <AddItemModalForm onSubmit={values => createItem(values)} />

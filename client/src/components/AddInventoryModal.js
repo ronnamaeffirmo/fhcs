@@ -5,7 +5,7 @@ import InputField from './InputField'
 import TextAreaField from './TextAreaField'
 import DropdownField from './DropdownField'
 
-class AddInventoryModalForm extends Component {
+class AddInventoryModal extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -52,4 +52,4 @@ class AddInventoryModalForm extends Component {
   }
 }
 
-export default AddInventoryModalForm
+export default AddInventoryModal

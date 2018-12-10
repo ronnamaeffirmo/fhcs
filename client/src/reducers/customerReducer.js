@@ -3,9 +3,8 @@ import {
   FILTER_CUSTOMERS,
   GET_CUSTOMER,
   GET_CUSTOMERS,
-  PATCH_CUSTOMER,
   REMOVE_CUSTOMER,
-  REMOVE_CUSTOMER_ERROR
+  UPDATE_CUSTOMER
 } from '../actions/customerActions'
 import { search } from '../common/helpers'
 
@@ -48,16 +47,10 @@ const customerReducer = (state = initialState, action) => {
         customers: state.customers.filter(customer => customer._id !== action.payload)
       }
     }
-    case PATCH_CUSTOMER : {
+    case UPDATE_CUSTOMER : {
       return {
         ...state,
-        customers: state.customers.map(customer => {
-          if (customer._id === action.payload._id) {
-            return action.payload
-          } else {
-            return customer
-          }
-        })
+        selection: action.payload
       }
     }
     case FILTER_CUSTOMERS: {
@@ -67,23 +60,9 @@ const customerReducer = (state = initialState, action) => {
       }
     }
     case GET_CUSTOMER: {
-      const index = state.customers.findIndex(customer => customer._id === action.payload._id)
-      if (index > -1) {
-        return {
-          ...state,
-          customers: state.customers.map(customer => {
-            if (customer._id === action.payload._id) {
-              return action.payload
-            } else {
-              return customer
-            }
-          })
-        }
-      } else {
-        return {
-          ...state,
-          customers: [action.payload]
-        }
+      return {
+        ...state,
+        selection: action.payload
       }
     }
     default:

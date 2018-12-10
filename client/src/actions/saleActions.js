@@ -72,7 +72,6 @@ export const getSales = () => {
 export const getSale = (id) => {
   return async (dispatch) => {
     try {
-      console.log('SALE ID', id)
       const sale = await client.service('sales').get(id)
       console.log('RECEIVING SALE', sale)
       dispatch({

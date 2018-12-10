@@ -1,4 +1,4 @@
-import AddCustomer from '../components/AddCustomer'
+import AddCustomer from '../components/CustomerForm'
 
 import React from 'react'
 import { configure } from 'enzyme'
@@ -12,20 +12,20 @@ import { mount } from 'enzyme'
 
 configure({ adapter: new Adapter() });
 
-describe('AddCustomer', () => {
+describe('AddCustomerModal', () => {
   it('renders without crashing', () => {
     shallow(<AddCustomer handleSubmit={() => console.log('click')}/>)
   });
-  
+
   it('renders welcome message', () => {
     const { getByText } = render(<AddCustomer handleSubmit={() => console.log('click')}/>)
     expect(getByText('NEW CUSTOMER')).toBeInTheDocument()
   });
-  
+
   it('allows us to set props', () => {
     const wrapper = mount(<AddCustomer bar="baz" handleSubmit={() => console.log('click')} />)
     expect(wrapper.props().bar).toEqual('baz')
-    wrapper.setProps({ bar: 'AddCustomer' })
-    expect(wrapper.props().bar).toEqual('AddCustomer')
+    wrapper.setProps({ bar: 'AddCustomerModal' })
+    expect(wrapper.props().bar).toEqual('AddCustomerModal')
   });
 })
