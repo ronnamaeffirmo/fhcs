@@ -26,6 +26,9 @@ class LoginFormContainer extends React.Component {
 
   render () {
     const { authLoading } = this.props
+
+    console.log('authLoading', authLoading)
+
     return (
       <Fragment>
         { authLoading ? (

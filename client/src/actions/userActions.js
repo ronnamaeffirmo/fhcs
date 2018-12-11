@@ -122,6 +122,7 @@ export const login = (username, password) => async (dispatch) => {
     let token
     if (!username || !password) {
       if (!localStorage.getItem('feathers-jwt')) {
+        dispatch({ type: USER_LOGIN_FAIL })
         return
       }
       token = await client.authenticate()
@@ -151,7 +152,7 @@ export const login = (username, password) => async (dispatch) => {
       })
     }
   } catch (e) {
-    dispatch({ type: USER_LOGIN_REQUEST })
+    dispatch({ type: USER_LOGIN_FAIL })
     toastError({message: e.message})
   }
 }
