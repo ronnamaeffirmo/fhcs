@@ -37,7 +37,7 @@ class LoginForm extends React.Component {
           <img style={style.coverImage} src='/images/fieldstone-poser.jpg' />
         </Grid.Column>
         <Grid.Column style={style.form} textAlign='center'>
-          <Image centered style={style.logo} src='/images/fieldstone-logo-flat.png' />
+          <Image centered style={style.logo} src='/images/fieldstone-logo-flat-v2.png' />
           <div style={style.header}>Login to your account</div>
           <Form className="left column">
             <Form.Input style={style.inputs} placeholder='Username' icon='mail' name='username' type='username' onChange={(e) => this.handleInput(e)}/>
