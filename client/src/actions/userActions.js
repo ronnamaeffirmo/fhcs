@@ -141,6 +141,7 @@ export const login = (username, password) => async (dispatch) => {
       query: {$populate: ['role']}
     })
     if (user) {
+      toastSuccess({ message: 'Successfully logged in!' })
       dispatch({
         type: USER_LOGIN_SUCCESS,
         payload: user,

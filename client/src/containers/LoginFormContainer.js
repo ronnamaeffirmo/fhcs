@@ -9,6 +9,21 @@ class LoginFormContainer extends React.Component {
     this.props.handleLogin()
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { isAuthenticated, history } = nextProps
+    if (isAuthenticated) {
+      const { state } = history.location
+
+      if (state && state.from) {
+        // redirect to previous route
+        const { pathname } = state.from
+        history.push(pathname)
+      } else {
+        history.push('/')
+      }
+    }
+  }
+
   render () {
     return (
       <LoginForm {...this.props} />

@@ -1,8 +1,7 @@
 import React from 'react'
-import { Button, Container, Form, Grid, Icon, Image } from 'semantic-ui-react'
+import { Button, Form, Grid, Image } from 'semantic-ui-react'
 import { reduxForm } from 'redux-form'
 import ScrollLock from 'react-scrolllock'
-
 
 class LoginForm extends React.Component {
   constructor (props) {
@@ -17,10 +16,17 @@ class LoginForm extends React.Component {
 
     const { username, password } = this.state
     const { handleLogin, history } = this.props
-    const { pathname } = history.location.state.from
-
+    const { state } = history.location
+    
     await handleLogin(username, password)
-    history.push(pathname)
+    
+    if (state && state.from) {
+      // redirect to prev route
+      const { pathname } = state.from
+      history.push(pathname)
+    } else {
+      history.push('/')
+    }
   }
 
   handleInput (e) {
@@ -29,8 +35,6 @@ class LoginForm extends React.Component {
 
   render () {
     const { username, password } = this.state
-    const { isAuthenticated, handleLogout } = this.props
-
     return (
       <Grid columns='equal' style={{ margin: 0 }}>
         <Grid.Column style={style.imageColumn} width={12}>
