@@ -41,7 +41,7 @@ class InventoryRow extends Component {
 							<Grid style={{ padding: '1.5rem 0.75rem' }}>
 								<Grid.Row style={style.row} verticalAlign='middle'>
 									<Grid.Column style={style.rowlabel}><Icon name='dolly' /> Workers</Grid.Column>
-									<Grid.Column width={8}>{item.workers.map(worker => <Label key={worker} style={{ marginBottom: '3px' }}>{worker}</Label>)}</Grid.Column>
+									<Grid.Column width={13}>{item.workers.map(worker => <Label key={worker} style={{ marginBottom: '3px' }}>{worker}</Label>)}</Grid.Column>
 								</Grid.Row>
 								<Grid.Row style={style.row} verticalAlign='middle'>
 									<Grid.Column style={style.rowlabel}><Icon name='map marker alternate' /> Source</Grid.Column>

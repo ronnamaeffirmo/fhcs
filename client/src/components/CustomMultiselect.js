@@ -5,7 +5,8 @@ class CustomMultiselect extends Component {
   constructor(props) {
     super(props)
     this.state = { 
-      options: []
+      options: [],
+      currentValues: []
     }
   }
 
@@ -24,7 +25,9 @@ class CustomMultiselect extends Component {
   }
 
   handleChange = (e, { value }) => {
+    const { input } = this.props
     this.setState({ currentValues: value })
+    input.onChange(value)
   }
 
   render() {
