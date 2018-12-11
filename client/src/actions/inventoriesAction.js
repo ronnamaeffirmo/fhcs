@@ -85,6 +85,7 @@ export const createInventory = (values) => {
       console.log('[!] values', values)
       
       const item = await client.service('inventories').create(values)
+      console.log('[!] item created', item)
       dispatch({
         type: ADD_INVENTORY,
         payload: item
