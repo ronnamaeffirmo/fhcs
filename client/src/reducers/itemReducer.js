@@ -2,6 +2,7 @@ import {
   ADD_ITEM,
   FILTER_ITEMS,
   GET_ITEM,
+  GET_ITEM_REQUEST,
   GET_ITEMS,
   PATCH_ITEM,
   REMOVE_ITEM,
@@ -29,7 +30,8 @@ const fuseOptions = {
 const initialState = {
   list: [],
   filteredList: [],
-  report: 'sales'
+  report: 'sales',
+  gettingItem: false,
 }
 
 const itemReducer = (state = initialState, action) => {
@@ -77,25 +79,17 @@ const itemReducer = (state = initialState, action) => {
         filteredList: [...search(state.list, action.payload, fuseOptions)]
       }
     }
+    case GET_ITEM_REQUEST: {
+      return {
+        ...state,
+        gettingItem: true
+      }
+    }
     case GET_ITEM: {
-      // console.log('reducer', state)
-      const index = state.list.findIndex(item => item._id === action.payload._id)
-      if (index > -1) {
-        return {
-          ...state,
-          list: state.list.map(item => {
-            if (item._id === action.payload._id) {
-              return action.payload
-            } else {
-              return item
-            }
-          })
-        }
-      } else {
-        return {
-          ...state,
-          list: [action.payload]
-        }
+      return {
+        ...state,
+        foundItem: action.payload,
+        gettingItem: false
       }
     }
     case REMOVE_ITEM_ERROR: {

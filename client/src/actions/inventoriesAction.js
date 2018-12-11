@@ -1,6 +1,6 @@
 import client from '../common/client'
 import moment from 'moment'
-import { toastError } from './toasterActions'
+import { toastError, toastSuccess } from './toasterActions'
 
 export const GET_INVENTORIES = 'GET_INVENTORIES'
 export const GET_INVENTORIES_BY_PERIOD = 'GET_INVENTORIES_BY_PERIOD'
@@ -87,6 +87,7 @@ export const createInventory = (values) => {
         type: ADD_INVENTORY,
         payload: item
       })
+      toastSuccess({ message: 'New inventory added!' })
     } catch (e) {
       toastError({message: e.message})
     }
