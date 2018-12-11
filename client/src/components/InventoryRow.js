@@ -14,7 +14,7 @@ class InventoryRow extends Component {
 
 	render () {
 		const { expanded } = this.state
-		const { item } = this.props
+		const { item, removeInventory } = this.props
 		return (
 			<Fragment>
 				<Table.Row>
@@ -27,15 +27,31 @@ class InventoryRow extends Component {
 							: 'N/A'
 						}
 					</Table.Cell>
-					<Table.Cell textAlign='center'>
+					<Table.Cell singleLine textAlign='center'>
 						<Popup 
 							inverted
+							size='tiny'
 							content='View more details'
-							position='right center'
+							position='left center'
 							trigger={
 								<Button onClick={this.toggleMore} size='mini' circular icon={expanded ? 'chevron up' : 'chevron down'} />
 							}
 						/>
+						<Button icon='edit' circular size='mini' color='teal' />
+						<Popup
+							size='tiny'
+							on='click'
+							flowing
+							position={'bottom right'}
+							trigger={<Button icon='trash' circular size='mini' color='red' />}
+							content={
+								<Button size='tiny' color='red' icon='delete' content='Confirm Delete' onClick={(e) => {
+									e.preventDefault()
+									removeInventory(item._id)
+								}} />
+							}
+						/>
+						
 					</Table.Cell>
 				</Table.Row>
 				<Table.Row>

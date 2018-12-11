@@ -34,7 +34,7 @@ class ItemList extends Component {
           { !inventories.length && <Message negative>No available items yet</Message>}
           <Table celled striped selectable>
             <Table.Header>
-              <Table.Row>
+              <Table.Row textAlign='center'>
                 <Table.HeaderCell>Item</Table.HeaderCell>
                 <Table.HeaderCell>QTY</Table.HeaderCell>
                 <Table.HeaderCell>Status</Table.HeaderCell>
@@ -43,7 +43,7 @@ class ItemList extends Component {
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              { inventories.map((item) => <InventoryRow key={item._id} item={item} />)}
+              { inventories.map((item) => <InventoryRow key={item._id} item={item} removeInventory={removeInventory} />)}
             </Table.Body>
           </Table>
         </Segment>

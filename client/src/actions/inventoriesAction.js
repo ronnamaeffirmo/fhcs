@@ -74,6 +74,7 @@ export const removeInventory = (id) => async (dispatch) => {
       type: REMOVE_INVENTORY,
       payload: id
     })
+    toastSuccess({ message: 'Inventory deleted...' })
   } catch (e) {
     toastError({message: e.message})
   }
