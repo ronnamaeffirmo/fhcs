@@ -2,6 +2,7 @@ import client from '../common/client'
 import { toastError, toastSuccess } from './toasterActions'
 
 // APPLICATION ACCESS
+export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST'
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS'
 export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL'
 export const USER_LOGOUT = 'USER_LOGOUT'
@@ -117,9 +118,11 @@ export const updatePassword = (values) => {
 
 export const login = (username, password) => async (dispatch) => {
   try {
+    dispatch({ type: USER_LOGIN_REQUEST })
     let token
     if (!username || !password) {
       if (!localStorage.getItem('feathers-jwt')) {
+        dispatch({ type: USER_LOGIN_FAIL })
         return
       }
       token = await client.authenticate()
@@ -141,6 +144,7 @@ export const login = (username, password) => async (dispatch) => {
       query: {$populate: ['role']}
     })
     if (user) {
+      toastSuccess({ message: 'Successfully logged in!' })
       dispatch({
         type: USER_LOGIN_SUCCESS,
         payload: user,
@@ -148,6 +152,7 @@ export const login = (username, password) => async (dispatch) => {
       })
     }
   } catch (e) {
+    dispatch({ type: USER_LOGIN_FAIL })
     toastError({message: e.message})
   }
 }

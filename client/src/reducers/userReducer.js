@@ -1,6 +1,7 @@
 import {
   ADD_USER,
   UPDATE_PASSWORD,
+  USER_LOGIN_REQUEST,
   USER_LOGIN_FAIL,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
@@ -14,7 +15,8 @@ const initialState = {
   currentUser: undefined,
   isAuthenticated: false,
   error: undefined,
-  list: []
+  list: [],
+  authLoading: false,
 }
 
 const userReducer = (state = initialState, action) => {
@@ -49,17 +51,24 @@ const userReducer = (state = initialState, action) => {
         action: action.payload
       }
     }
+    case USER_LOGIN_REQUEST:
+      return {
+        ...state,
+        authLoading: true
+      }
     case USER_LOGIN_SUCCESS:
       return {
         ...state,
         currentUser: action.payload,
         isAuthenticated: action.isAuthenticated,
+        authLoading: false,
         err: undefined
       }
     case USER_LOGIN_FAIL:
       return {
         ...state,
-        error: action.payload
+        error: action.payload,
+        authLoading: false
       }
     case USER_LOGOUT:
       return {
