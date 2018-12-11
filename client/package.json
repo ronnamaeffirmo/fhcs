@@ -24,6 +24,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
+    "react-spinners": "^0.4.7",
     "react-table": "^6.8.6",
     "react-test-renderer": "^16.6.3",
     "react-testing-library": "^5.3.1",

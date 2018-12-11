@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { login, logout } from '../actions/userActions'
-
+import { BarLoader as Loader } from 'react-spinners'
 import LoginForm from '../components/LoginForm'
 
 class LoginFormContainer extends React.Component {
@@ -25,15 +25,31 @@ class LoginFormContainer extends React.Component {
   }
 
   render () {
+    const { authLoading } = this.props
     return (
-      <LoginForm {...this.props} />
+      <Fragment>
+        { authLoading ? (
+          <div style={style.loaderParent}>
+            <Loader loading={authLoading} />
+          </div>
+        ) : (
+          <LoginForm {...this.props} />
+        )}
+      </Fragment>
     )
+  }
+}
+
+const style = {
+  loaderParent: {
+    display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: '100vh'
   }
 }
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.user.isAuthenticated,
-  user: state.user.currentUser
+  user: state.user.currentUser,
+  authLoading: state.user.authLoading
 })
 
 const mapDispatchToProps = (dispatch) => ({
