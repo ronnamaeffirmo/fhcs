@@ -6,7 +6,7 @@ import TextAreaField from './TextAreaField'
 import DropdownField from './DropdownField'
 import CustomMultiselect from './CustomMultiselect'
 
-const AddInventoryModal = ({ workers, history, gettingItem, options, handleSubmit, pristine, submitting }) => (
+const AddInventoryModal = ({ workers, receivedBy, history, gettingItem, options, handleSubmit, pristine, submitting }) => (
   <Modal open size='tiny' centered={false}>
     <Modal.Header>New Inventory Record</Modal.Header>
     <Modal.Content>
@@ -80,6 +80,13 @@ const AddInventoryModal = ({ workers, history, gettingItem, options, handleSubmi
               component={InputField} 
             />
           </Form.Group>
+          <Field
+            name='receivedBy'
+            label='Received By'
+            workers={receivedBy}
+            placeholder='Received By'
+            component={CustomMultiselect}
+          />
           <Field 
             type='selection' 
             name='status' 

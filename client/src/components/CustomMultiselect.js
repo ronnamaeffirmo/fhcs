@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Dropdown } from 'semantic-ui-react'
 
+// generic
 class CustomMultiselect extends Component {
   constructor(props) {
     super(props)

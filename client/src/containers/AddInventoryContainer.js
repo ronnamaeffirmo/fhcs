@@ -40,6 +40,7 @@ const mapStateToProps = (state, props) => {
     item: state.item.foundItem,
     gettingItem: state.item.gettingItem,
     workers: state.inventory.workers,
+    receivedBy: state.inventory.receivedBy,
     options: {
       sources: [
         {key: 'delivery', value: 'delivery', text: 'Delivery'},

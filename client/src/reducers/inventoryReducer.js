@@ -24,7 +24,8 @@ const fuseOptions = {
 const initialState = {
   inventories: [],
   filteredInventories: [],
-  workers: []
+  workers: [],
+  receivedBy: []
 }
 
 const inventoryReducer = (state = initialState, action) => {
