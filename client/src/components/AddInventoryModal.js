@@ -1,11 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Field } from 'redux-form'
 import { Button, Container, Form, Modal } from 'semantic-ui-react'
 import InputField from './InputField'
 import TextAreaField from './TextAreaField'
 import DropdownField from './DropdownField'
+import CustomMultiselect from './CustomMultiselect'
 
-const AddInventoryModal = ({ history, gettingItem, options, handleSubmit, pristine, submitting }) => (
+const AddInventoryModal = ({ workers, history, gettingItem, options, handleSubmit, pristine, submitting }) => (
   <Modal open size='tiny' centered={false}>
     <Modal.Header>New Inventory Record</Modal.Header>
     <Modal.Content>
@@ -31,6 +32,13 @@ const AddInventoryModal = ({ history, gettingItem, options, handleSubmit, pristi
               component={InputField} 
             />
           </Form.Group>
+          <Field
+            name='workers'
+            label='Workers'
+            workers={workers}
+            placeholder='Workers'
+            component={CustomMultiselect}
+          />
           <Form.Group widths='equal'>
             <Field 
               type='selection' 

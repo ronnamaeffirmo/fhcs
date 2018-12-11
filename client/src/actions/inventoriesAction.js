@@ -82,6 +82,8 @@ export const removeInventory = (id) => async (dispatch) => {
 export const createInventory = (values) => {
   return async (dispatch) => {
     try {
+      console.log('[!] values', values)
+      
       const item = await client.service('inventories').create(values)
       dispatch({
         type: ADD_INVENTORY,
