@@ -2,6 +2,7 @@ import client from '../common/client'
 import { toastError, toastSuccess } from './toasterActions'
 
 export const ADD_ITEM = 'ADD_ITEM'
+export const GET_ITEM_REQUEST = 'GET_ITEM_REQUEST'
 export const GET_ITEM = 'GET_ITEM'
 export const GET_ITEMS = 'GET_ITEMS'
 export const REMOVE_ITEM = 'REMOVE_ITEM'
@@ -57,9 +58,10 @@ export const createItem = (values) => {
 
 export const getItem = (id) => {
   return async (dispatch) => {
-    await dispatch(getItems())
-    const item = await client.service('items').get(id)
     try {
+      dispatch({ type: GET_ITEM_REQUEST })
+      await dispatch(getItems())
+      const item = await client.service('items').get(id)
       dispatch({
         type: GET_ITEM,
         payload: item

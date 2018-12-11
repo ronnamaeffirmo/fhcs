@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import numeral from 'numeral'
 
 import DeleteConfirmationModal from './DeleteConfirmationModal'
-import AddNewInventory from '../containers/AddInventoryContainer'
 
 class ItemDataCard extends Component {
   constructor (props) {
@@ -67,7 +66,7 @@ class ItemDataCard extends Component {
             position='left center'
             trigger={<Button onClick={this.toggleDesc} size='mini' circular icon={isOpen ? 'chevron up' : 'chevron down'} />}
           />
-          <AddNewInventory item={item} />
+          <Button as={Link} to={`/inventories/add/${item._id}`} circular size='mini'>Add Inventory</Button>
           <div style={{ float: 'right' }}>
             <Button as={Link} to={`/item/${item._id}`} icon='edit' circular size='mini' color='teal' />
             <DeleteConfirmationModal removeElement={removeItem} element={item}/>

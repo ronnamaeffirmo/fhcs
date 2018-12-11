@@ -21,6 +21,7 @@ class ItemList extends Component {
           />
           <NewItemModal/>
         </Segment>
+        <Message style={{ color: 'grey' }}>Click on a card to view reports...</Message>
         <Segment style={styles.bottomSegment}>
           { !items.length && <Message negative>No available items yet</Message>}
           <Card.Group>

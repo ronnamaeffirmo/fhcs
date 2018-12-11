@@ -1,6 +1,6 @@
 import client from '../common/client'
 import moment from 'moment'
-import { toastError } from './toasterActions'
+import { toastError, toastSuccess } from './toasterActions'
 
 export const GET_INVENTORIES = 'GET_INVENTORIES'
 export const GET_INVENTORIES_BY_PERIOD = 'GET_INVENTORIES_BY_PERIOD'
@@ -82,11 +82,14 @@ export const removeInventory = (id) => async (dispatch) => {
 export const createInventory = (values) => {
   return async (dispatch) => {
     try {
+      console.log('[!] values', values)
       const item = await client.service('inventories').create(values)
+      console.log('[!] item created', item)
       dispatch({
         type: ADD_INVENTORY,
         payload: item
       })
+      toastSuccess({ message: 'New inventory added!' })
     } catch (e) {
       toastError({message: e.message})
     }
