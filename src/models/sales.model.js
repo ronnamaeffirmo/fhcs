@@ -12,6 +12,7 @@ module.exports = function (app) {
     discount: {type: Number, default: 0.0},
     officialReceipt: {type: String, required: true, unique: true},
     remarks: {type: String},
+    status: {type: String, enum: ['unpaid', 'paid', 'promised'], default: 'unpaid'},
     items: [{
       item: {type: Schema.Types.ObjectId, ref: 'items', required: true},
       price: {type: Number, required: true},
