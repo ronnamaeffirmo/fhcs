@@ -22,10 +22,12 @@ import EditCustomerContainer from './containers/EditCustomerContainer'
 import AddInventoryModal from './containers/AddInventoryContainer'
 import SaleTableContainer from './containers/SaleTableContainer'
 import EditInventoryModal from './containers/EditInventoryContainer'
+import ItemTableContainer from './containers/ItemTableContainer'
 
 const Routes = () => (
   <Fragment>
     <PrivateRoute path='/sales/table' exact component={SaleTableContainer}/>
+    <PrivateRoute path='/items/table' exact component={ItemTableContainer}/>
     <PaddedContainer>
       <PrivateRoute path='/' exact component={Dashboard}/>
       <PrivateRoute path='/change-password' component={ChangePasswordForm}/>
