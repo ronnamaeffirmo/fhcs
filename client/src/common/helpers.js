@@ -25,3 +25,12 @@ export const removeItemFromArray = (array, matcherField, value) => {
   let newArray = array.slice()
   return newArray.filter(obj => obj[matcherField] !== value)
 }
+
+export const fileToDataUrl = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
