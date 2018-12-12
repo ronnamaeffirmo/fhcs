@@ -17,7 +17,8 @@ class AddUserContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  roles: state.role.list
+  roles: state.role.list,
+  addingUser: state.user.addingUser
 })
 
 const mapDispatchToProps = (dispatch) => ({

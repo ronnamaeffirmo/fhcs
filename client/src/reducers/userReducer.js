@@ -8,7 +8,9 @@ import {
   RECEIVE_USERS,
   DELETE_USER,
   RECEIVE_USER,
-  SELECT_USER
+  SELECT_USER,
+  ADD_USER_REQUEST,
+  ADD_USER_FAIL
 } from '../actions/userActions'
 
 const initialState = {
@@ -17,6 +19,7 @@ const initialState = {
   error: undefined,
   list: [],
   authLoading: false,
+  addingUser: false, // actually being reused among add, get, edit lol -R
 }
 
 const userReducer = (state = initialState, action) => {
@@ -31,7 +34,8 @@ const userReducer = (state = initialState, action) => {
     case RECEIVE_USER: {
       return {
         ...state,
-        selection: action.payload
+        selection: action.payload,
+        addingUser: false
       }
     }
     case RECEIVE_USERS:
@@ -80,7 +84,20 @@ const userReducer = (state = initialState, action) => {
     case ADD_USER: {
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
+        addingUser: false
+      }
+    }
+    case ADD_USER_REQUEST: {
+      return {
+        ...state,
+        addingUser: true
+      }
+    }
+    case ADD_USER_FAIL: {
+      return {
+        ...state,
+        addingUser: false
       }
     }
     default: {

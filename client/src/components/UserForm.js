@@ -25,15 +25,16 @@ const parseRolesToDropdownOptions = (roles) => {
 }
 
 const UserForm = (props) => {
-  const { submissionHandler, handleSubmit, pristine, submitting, roles, setProfileImage } = props
+  const { submissionHandler, handleSubmit, pristine, submitting, roles, addingUser } = props
   return (
     <Container style={styles.mainContainer}>
-      <Form onSubmit={submissionHandler ? handleSubmit(submissionHandler) : undefined}>
+      <Form loading={addingUser} onSubmit={submissionHandler ? handleSubmit(submissionHandler) : undefined}>
         <Container>
           <Link to={'/users'}>
             <Button color={'grey'} content={'Back to Users'} icon={'arrow left'} labelPosition={'left'} />
           </Link>
           <Button 
+            type='submit'
             color={'green'} 
             icon={'check'} 
             floated={'right'}

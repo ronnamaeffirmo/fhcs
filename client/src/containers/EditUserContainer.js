@@ -23,6 +23,7 @@ class EditUserContainer extends React.Component {
 const mapStateToProps = (state, ownProps) => ({
   userId: ownProps.match.params.id,
   roles: state.role.list,
+  addingUser: state.user.addingUser,
   initialValues: state.user.selection
 })
 
