@@ -51,7 +51,7 @@ const Header = ({ user, isAuthenticated, handleLogout }) => (
         <Dropdown item icon={null} trigger={<span><Icon name='user circle' size='large' /> User</span>}>
           <Dropdown.Menu>
             <Dropdown.Item key='greeting' text={<span>Hi, <b>{user && user.username}</b>!</span>} disabled />
-            <Dropdown.Item key='account' text='My account' icon='user' />
+            <Dropdown.Item as={Link} to={`/users/update/${user && user._id}`} key='account' text='My account' icon='user' />
             <Dropdown.Item key='logout' text='Logout' icon='sign out' onClick={handleLogout} />
           </Dropdown.Menu>
         </Dropdown>
