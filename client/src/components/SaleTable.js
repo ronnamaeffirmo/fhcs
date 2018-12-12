@@ -1,105 +1,16 @@
 import React from 'react'
-import { Dropdown, Table, Checkbox, Input, Divider } from 'semantic-ui-react'
-import saleStatus from '../common/constants/saleStatus'
-import { DateInput } from 'semantic-ui-calendar-react'
-import { Field, reduxForm } from 'redux-form'
+import { Table } from 'semantic-ui-react'
+import { reduxForm } from 'redux-form'
 import moment from 'moment'
 import { toTitleCase } from '../common/helpers'
-import { Form } from 'semantic-ui-react/dist/commonjs/collections/Form/Form'
+import SaleHeader from './SaleHeader'
 
 const styles = {
   mainContainer: {
     marginRight: '7%',
     marginLeft: '7%',
     marginTop: 30
-  },
-  filters: {
-    display: 'inline'
-  },
-  filterField: {
-    display: 'inline-block',
-    marginRight: 7,
-    height: 38
-  },
-  dateFilter: {
-    fontWeight: 700,
-    lineHeight: '1em',
-    fontStyle: 'normal',
-    height: 36,
-    padding: 0
   }
-}
-
-const SaleTableHeader = props => {
-  return (
-    <div>
-      <Input icon='search' placeholder={'Search...'} fluid={true}/>
-      <Divider/>
-      <div style={styles.filters}>
-        <div style={styles.filterField}>
-          <Field
-            name={'status'}
-            component={(props) => {
-              const {input: {value, onChange}} = props
-              return (
-                <Dropdown
-                  button
-                  value={value}
-                  className='icon'
-                  floating
-                  labeled
-                  icon='filter'
-                  options={saleStatus}
-                  search
-                  text='Filter Status'
-                  onChange={(e, data) => onChange(data.value)}
-                />
-              )
-            }}
-          />
-        </div>
-        <div style={styles.filterField}>
-          <Field
-            name={'startDate'}
-            component={(props) => {
-              const {input: {value, onChange}} = props
-              return (
-                <DateInput
-                  style={styles.dateFilter}
-                  placeholder={'Range Start Date'}
-                  iconPosition="left"
-                  dateFormat={'MMMM DD, YYYY'}
-                  value={(value) ? moment(value).format('MMMM DD, YYYY') : undefined}
-                  onChange={(e, data) => onChange(data.value)}
-                />
-              )
-            }}
-          />
-        </div>
-        <div style={styles.filterField}>
-          <Field
-            name={'endDate'}
-            component={(props) => {
-              const {input: {value, onChange}} = props
-              return (
-                <DateInput
-                  style={styles.dateFilter}
-                  placeholder={'Range End Date'}
-                  iconPosition="left"
-                  dateFormat={'MMMM DD, YYYY'}
-                  value={(value) ? moment(value).format('MMMM DD, YYYY') : undefined}
-                  onChange={(e, data) => onChange(data.value)}
-                />
-              )
-            }}
-          />
-        </div>
-        <div style={styles.filterField}>
-          <Checkbox toggle label={`Display Today's Sales Only`}/>
-        </div>
-      </div>
-    </div>
-  )
 }
 
 const getAggregatedFields = items => {
@@ -117,21 +28,21 @@ const getAggregatedFields = items => {
 
 const SaleTable = props => {
   const {filters: {startDate, endDate, status}} = props
-  console.log(`START DATE`, startDate)
-  console.log(`END DATE`, endDate)
   let {sales} = props
-  if (status !== 'none') {
-    sales = sales.filter(sale => sale.status === status)
-  }
-  if (startDate) {
-    sales = sales.filter(sale => moment(sale.date) >= moment(startDate))
-  }
-  if (endDate) {
-    sales = sales.filter(sale => moment(sale.date) <= moment(endDate))
+  if (sales.length > 0) {
+    if (status && status !== 'none') {
+      sales = sales.filter(sale => sale.status === status)
+    }
+    if (startDate) {
+      sales = sales.filter(sale => moment(sale.date) >= moment(startDate))
+    }
+    if (endDate) {
+      sales = sales.filter(sale => moment(sale.date) <= moment(endDate))
+    }
   }
   return (
     <div style={styles.mainContainer}>
-      <SaleTableHeader {...props} />
+      <SaleHeader {...props} />
       <Table celled sortable>
         <Table.Header>
           <Table.Row>
@@ -172,6 +83,4 @@ const SaleTable = props => {
   )
 }
 
-export default reduxForm({
-  form: 'salesFilter'
-})(SaleTable)
+export default SaleTable
