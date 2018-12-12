@@ -28,6 +28,11 @@ const settingOptions = [
   { key: 'users', as: () => (<Menu.Item icon={'user'} content='Manage Users' as={Link} to={'/users'}/>) }
 ]
 
+const saleOptions = [
+  { key: 'sales', as: () => (<Menu.Item icon={'chart line'} content='View Sales' as={Link} to={'/sales'}/>) },
+  { key: 'salesTable', as: () => (<Menu.Item icon={'industry'} content='View Sales Summary' as={Link} to={'/sales/table'}/>) }
+]
+
 const Header = ({ user, isAuthenticated, handleLogout }) => (
   <Menu secondary fixed='top' style={styles.header} inverted>
     <PaddedContainer>
@@ -39,7 +44,7 @@ const Header = ({ user, isAuthenticated, handleLogout }) => (
         trigger={<Menu.Item header name='home' as={Link} to={'/'}>FIELDSTONE</Menu.Item>}
       />
       <Dropdown item text='Items' options={itemOptions}/>
-      <Menu.Item style={styles.menuItem} name='sales' as={Link} to={'/sales'}/>
+      <Dropdown item text='Sale' options={saleOptions}/>
       <Menu.Item style={styles.menuItem} name='customers' as={Link} to={'/customers'}/>
       <Dropdown item text='Settings' options={settingOptions}/>
       <Menu.Menu position='right'>

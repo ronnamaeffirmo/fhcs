@@ -1,5 +1,6 @@
 import client from '../common/client'
 import { toastError, toastSuccess } from './toasterActions'
+import {reset} from 'redux-form'
 
 // APPLICATION ACCESS
 export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST'
@@ -47,6 +48,8 @@ export const addUser = (user) => {
           type: ADD_USER,
           payload: user
         })
+        dispatch(reset('userForm'))
+        toastSuccess({message: `User @${user.username.toLowerCase()} has been created!`})
       }
     } catch (e) {
       toastError({message: e.message})

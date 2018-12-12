@@ -23,7 +23,7 @@ const parseRolesToDropdownOptions = (roles) => {
 }
 
 const UserForm = (props) => {
-  const {submissionHandler, handleSubmit, pristine, submitting, roles, userId} = props
+  const {submissionHandler, handleSubmit, pristine, submitting, roles} = props
   return (
     <Container style={styles.mainContainer}>
       <Form onSubmit={submissionHandler ? handleSubmit(submissionHandler) : undefined}>
@@ -54,6 +54,7 @@ const UserForm = (props) => {
                   <Form.Field>
                     <label>Role</label>
                     <Dropdown placeholder='Select Role' fluid search selection
+                              loading={!roles}
                               value={value}
                               options={parseRolesToDropdownOptions(roles)} onChange={(e, data) => {
                       onChange(data.value)
