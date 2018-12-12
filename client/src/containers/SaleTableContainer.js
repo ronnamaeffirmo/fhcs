@@ -1,10 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { formValueSelector } from 'redux-form'
+import { formValueSelector, reset } from 'redux-form'
 import SaleTable from '../components/SaleTable'
 import { getSales } from '../actions/saleActions'
 
 const selector = formValueSelector('salesFilter')
+
+const searchOptions = {
+  shouldSort: true,
+  threshold: 0.6,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 32,
+  minMatchCharLength: 1,
+  keys: [
+    'officialReceipt',
+    'date',
+    'term',
+    'customer.name',
+    'customer.company'
+  ]
+}
 
 class SaleTableContainer extends React.Component {
   componentDidMount () {
@@ -19,7 +35,8 @@ class SaleTableContainer extends React.Component {
 const mapStateToProps = (state) => ({
   sales: state.sale.list,
   initialValues: {
-    status: 'none'
+    status: 'none',
+    searchTerm: ''
   },
   filters: {
     startDate: selector(state, 'startDate'),
@@ -29,9 +46,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getSales: () => dispatch(getSales())
+  getSales: () => dispatch(getSales()),
+  resetFilters: () => dispatch(reset('salesFilter'))
 })
-
 
 export default connect(
   mapStateToProps,

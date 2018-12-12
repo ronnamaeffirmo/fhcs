@@ -1,20 +1,29 @@
 import React from 'react'
-import { Container, Input, Segment, Message, Button } from 'semantic-ui-react'
+import { Container, Segment, Message } from 'semantic-ui-react'
 import SalesDataCard from './SaleDataCard'
-import { Link } from 'react-router-dom'
+import SaleHeader from './SaleHeader'
+import moment from 'moment'
 
 const SaleList = (props) => {
   let {sales, removeSale, applySalePayment, returnItem} = props
   sales = sales || []
-  console.log('SALES', sales)
+  const {filters: {startDate, endDate, status}} = props
+  if (sales.length > 0) {
+    if (status && status !== 'none') {
+      sales = sales.filter(sale => sale.status === status)
+    }
+    if (startDate) {
+      sales = sales.filter(sale => moment(sale.date) >= moment(startDate))
+    }
+    if (endDate) {
+      sales = sales.filter(sale => moment(sale.date) <= moment(endDate))
+    }
+  }
   return (
     <Container style={styles.mainContainer}>
       <Segment style={styles.topSegment}>
-        <Input
-          placeholder='Search sales here...'
-          style={styles.itemSearchField}
-        />
-        <Button as={Link} to={'/sales/new'} style={styles.headerButton}>NEW SALE</Button>
+        <SaleHeader {...props}/>
+
       </Segment>
       <div style={styles.bottomSegment}>
         {!sales.length && <Message negative>No available sales yet</Message>}
@@ -41,12 +50,6 @@ const styles = {
   bottomSegment: {
     paddingBottom: '3rem',
     width: '768px !important'
-  },
-  headerButton: {
-    width: '22%',
-    float: 'right',
-    backgroundColor: 'green',
-    color: 'white'
   }
 }
 
