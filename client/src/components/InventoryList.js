@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Input, Message, Segment, Table, Popup, Label } from 'semantic-ui-react'
+import { Container, Input, Message, Segment, Table, Button } from 'semantic-ui-react'
 import InventoryRow from './InventoryRow'
 
 class ItemList extends Component {
@@ -12,24 +12,17 @@ class ItemList extends Component {
     inventories = filteredInventories || inventories || []
     return (
       <Container style={styles.mainContainer}>
-        <Popup
-          position='right center'
-          content={
-            <div>
-              To add a new inventory, head over to <b>items list</b> and
-              click <Label size='tiny'>Add Inventory</Label>on an item card
-            </div>
-          }
-          trigger={
-            <Segment style={styles.topSegment}>
-              <Input
-                fluid
-                placeholder='Search inventories here...'
-                onChange={(e) => { filterInventories(e.target.value) }}
-              />
-            </Segment>
-          }
-        />
+        <Segment style={styles.topSegment}>
+          <Input
+            fluid
+            placeholder='Search inventories here...'
+            onChange={(e) => { filterInventories(e.target.value) }}
+          />
+          <Message size='tiny' info>
+          To add a new inventory, head over to <b>items list</b> and
+          click <Button circular icon='add' size='mini' />on an item card
+          </Message>
+        </Segment>
         <Segment style={styles.bottomSegment}>
           { !inventories.length && <Message negative>No available items yet</Message>}
           <Table celled striped selectable>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Card, Popup, Label, Icon } from 'semantic-ui-react'
+import { Button, Card, Popup, Label, Icon, Message } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import numeral from 'numeral'
 
@@ -29,13 +29,17 @@ class ItemDataCard extends Component {
           content='Click to see reports'
           position='left center'
           trigger={
-            <Card.Content as={Link} to={`/item/${item._id}/reports`}>
-              <Card.Header>
-                <span>{name}</span>
-                <span style={styles.quantityText}>&bull; {quantity} {unit}</span>
-                <Label ribbon='right' style={styles.ribbon}>
-                  &#8369; {numeral(price).format('0,0')} /unit
-                </Label>
+            <Card.Content style={{ padding: '1em 1em 0.5em 1em' }} as={Link} to={`/item/${item._id}/reports`}>
+              <Card.Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <span>{name}</span>
+                  <span style={styles.quantityText}>&bull; {quantity} {unit}</span>
+                </div>
+                <div>
+                  <Label ribbon='right'StatisticLabel attachedStatisticLabel style={styles.ribbon}>
+                    &#8369; {numeral(price).format('0,0')} /unit
+                  </Label>
+                </div>
               </Card.Header>
               {isOpen &&
                 <Card.Description>
@@ -59,18 +63,57 @@ class ItemDataCard extends Component {
           }
         />
         <Card.Content extra style={styles.cardExtra}>
-          <Popup
+          <div style={styles.flexit}>
+            <div style={{ fontSize: '13px' }}>Expand card to see item description</div>
+            <div style={{ float: 'right' }}>
+              <Popup
+                inverted
+                size='mini'
+                content='View more info'
+                position='left center'
+                trigger={<Button onClick={this.toggleDesc} size='mini' circular icon={isOpen ? 'chevron up' : 'chevron down'} />}
+              />
+              <Popup
+                inverted
+                size='mini'
+                content='Add inventory'
+                position='bottom center'
+                trigger={<Button as={Link} to={`/inventories/add/${item._id}`} circular icon='add' size='mini' />}
+              />
+              <Popup
+                inverted
+                size='mini'
+                content='Edit item'
+                position='bottom center'
+                trigger={<Button as={Link} to={`/item/${item._id}`} icon='edit' circular size='mini' color='teal' />}
+              />
+              <DeleteConfirmationModal removeElement={removeItem} element={item}/>
+            </div>
+          </div>
+          
+          {/* bak */}
+          {/* <Message attached style={{ padding: '0.5rem' }} color='grey' compact size='tiny'>
+            <span>
+              <span style={{ marginRight: '8px' }}><Icon name='chevron down' /> expand</span>
+              <span style={{ marginRight: '8px' }}><Icon name='add' /> add inventory</span>
+              <span style={{ marginRight: '8px' }}><Icon name='edit' /> edit</span>
+              <span style={{ marginRight: '8px' }}><Icon name='trash alternate outline' /> delete</span>
+            </span>
+          </Message> */}
+          
+          {/* bak */}
+          {/* <Popup
             inverted
             size='mini'
             content='View more info'
             position='left center'
             trigger={<Button onClick={this.toggleDesc} size='mini' circular icon={isOpen ? 'chevron up' : 'chevron down'} />}
           />
-          <Button as={Link} to={`/inventories/add/${item._id}`} circular size='mini'>Add Inventory</Button>
+          <Button as={Link} to={`/inventories/add/${item._id}`} size='mini'>Add Inventory</Button>
           <div style={{ float: 'right' }}>
             <Button as={Link} to={`/item/${item._id}`} icon='edit' circular size='mini' color='teal' />
             <DeleteConfirmationModal removeElement={removeItem} element={item}/>
-          </div>
+          </div> */}
         </Card.Content>
       </Card>
     )
@@ -79,7 +122,7 @@ class ItemDataCard extends Component {
 
 const styles = {
   ribbon: {
-    position: 'absolute',
+    // position: 'absolute',
     backgroundColor: '#f8ed62',
   },
   quantityText: {
@@ -91,8 +134,13 @@ const styles = {
   itemCard: {
     marginBottom: '0.5rem'
   },
+  flexit: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   cardExtra: {
-    padding: '6px 4px 6px 6px'
+    padding: '6px 4px 6px 1rem'
   }
 }
 
