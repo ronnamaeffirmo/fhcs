@@ -19,8 +19,10 @@ const styles = {
 }
 
 const itemOptions = [
-  { key: 'items', as: () => (<Menu.Item icon={'tasks'} style={styles.menuItem} content='Item List' as={Link} to={'/items'}/>) },
-  { key: 'inventories', as: () => (<Menu.Item icon={'clipboard'} style={styles.menuItem} content='Inventory List' as={Link} to={'/inventories'}/>) }
+  { key: 'items', as: () => (<Menu.Item icon={'tasks'} style={styles.menuItem} content='Manage Items' as={Link} to={'/items'}/>) },
+  { key: 'inventories', as: () => (<Menu.Item icon={'clipboard'} style={styles.menuItem} content='Manage Inventory' as={Link} to={'/inventories'}/>) },
+  { key: 'itemsTable', as: () => (<Menu.Item icon={'chart line'} content='Item Summary' as={Link} to={'/items/table'}/>) },
+
 ]
 
 const settingOptions = [
