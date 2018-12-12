@@ -11,6 +11,7 @@ export const FILTER_INVENTORIES = 'FILTER_INVENTORIES'
 export const GET_INVENTORY_REQUEST = 'GET_INVENTORY_REQUEST'
 export const GET_INVENTORY = 'GET_INVENTORY'
 export const GET_INVENTORY_FAIL = 'GET_INVENTORY_FAIL'
+export const PATCH_INVENTORY = 'PATCH_INVENTORY'
 
 const getQueryDate = (amount, unit) => {
   return moment(new Date()).subtract(amount, unit).toDate()
@@ -87,8 +88,12 @@ export const updateInventory = (values) => {
   return async (dispatch) => {
     try {
       const { _id } = values
-      const updatedInventory = await client.service('inventories').patch(_id, values)
-      if (updatedInventory) {
+      const result = await client.service('inventories').update(_id, values)
+      if (result) {
+        dispatch({
+          type: PATCH_INVENTORY,
+          payload: result
+        })
         toastSuccess({ message: 'Inventory record successfully updated!' })
       }
     } catch (e) {

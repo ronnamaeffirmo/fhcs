@@ -6,6 +6,7 @@ import {
   GET_INVENTORY_REQUEST,
   GET_INVENTORY,
   GET_INVENTORY_FAIL,
+  PATCH_INVENTORY
 } from '../actions/inventoriesAction'
 import { search } from '../common/helpers'
 
@@ -75,6 +76,18 @@ const inventoryReducer = (state = initialState, action) => {
       return {
         ...state,
         gettingInventory: false
+      }
+    }
+    case PATCH_INVENTORY : {
+      return {
+        ...state,
+        inventories: state.inventories.map(item => {
+          if (item._id === action.payload._id) {
+            return action.payload
+          } else {
+            return item
+          }
+        })
       }
     }
     default:
