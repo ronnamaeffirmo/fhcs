@@ -6,12 +6,13 @@ import TextAreaField from './TextAreaField'
 import DropdownField from './DropdownField'
 import CustomMultiselect from './CustomMultiselect'
 
-const AddInventoryModal = ({ workers, receivedBy, history, gettingItem, options, handleSubmit, pristine, submitting }) => (
+// add and edit form
+const AddInventoryModal = ({ inventory, gettingItem, gettingInventory, history, options, handleSubmit, pristine, submitting }) => (
   <Modal open size='tiny' centered={false}>
     <Modal.Header>New Inventory Record</Modal.Header>
     <Modal.Content>
       <Container>
-        <Form onSubmit={handleSubmit}>
+        <Form loading={gettingInventory} onSubmit={handleSubmit}>
           <Form.Group>
             <Field 
               width={10} 
@@ -20,7 +21,7 @@ const AddInventoryModal = ({ workers, receivedBy, history, gettingItem, options,
               label='Item Name (read only)' 
               placeholder='Item Name' 
               readOnly
-              loading={gettingItem} 
+              loading={gettingItem || gettingInventory} 
               component={InputField} 
             />
             <Field 
@@ -35,7 +36,6 @@ const AddInventoryModal = ({ workers, receivedBy, history, gettingItem, options,
           <Field
             name='workers'
             label='Workers'
-            workers={workers}
             placeholder='Workers'
             component={CustomMultiselect}
           />
@@ -83,7 +83,6 @@ const AddInventoryModal = ({ workers, receivedBy, history, gettingItem, options,
           <Field
             name='receivedBy'
             label='Received By'
-            workers={receivedBy}
             placeholder='Received By'
             component={CustomMultiselect}
           />

@@ -12,12 +12,22 @@ class CustomMultiselect extends Component {
   }
 
   componentDidMount() {
-    // init options with workers data
-    const mappedWorkers = this.props.workers.map(worker => ({
-      key: worker, text: worker, value: worker
-    }))
+    const { initial } = this.props.meta
+    const mappedWorkers = initial ? initial.map(worker => ({ key: worker, text: worker, value: worker })) : []
+
     this.setState({ options: mappedWorkers })
+    this.setState({ currentValues: initial || [] })
   }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.meta.initial !== prevProps.meta.initial) {
+      const { initial } = this.props.meta
+      const mappedWorkers = initial.map(worker => ({ key: worker, text: worker, value: worker }))
+  
+      this.setState({ options: mappedWorkers })
+      this.setState({ currentValues: initial })
+    }
+	}
 
   handleAddition = (e, { value }) => {
     this.setState({
@@ -26,9 +36,8 @@ class CustomMultiselect extends Component {
   }
 
   handleChange = (e, { value }) => {
-    const { input } = this.props
     this.setState({ currentValues: value })
-    input.onChange(value)
+    this.props.input.onChange(value)
   }
 
   render() {

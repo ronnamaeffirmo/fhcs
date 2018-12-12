@@ -8,6 +8,9 @@ export const ADD_INVENTORY = 'ADD_INVENTORY'
 export const REMOVE_INVENTORY = 'REMOVE_INVENTORY'
 export const REMOVE_ITEM_ERROR = 'REMOVE_ITEM_ERROR'
 export const FILTER_INVENTORIES = 'FILTER_INVENTORIES'
+export const GET_INVENTORY_REQUEST = 'GET_INVENTORY_REQUEST'
+export const GET_INVENTORY = 'GET_INVENTORY'
+export const GET_INVENTORY_FAIL = 'GET_INVENTORY_FAIL'
 
 const getQueryDate = (amount, unit) => {
   return moment(new Date()).subtract(amount, unit).toDate()
@@ -80,6 +83,20 @@ export const removeInventory = (id) => async (dispatch) => {
   }
 }
 
+export const updateInventory = (values) => {
+  return async (dispatch) => {
+    try {
+      const { _id } = values
+      const updatedInventory = await client.service('inventories').patch(_id, values)
+      if (updatedInventory) {
+        toastSuccess({ message: 'Inventory record successfully updated!' })
+      }
+    } catch (e) {
+      toastError({ message: e.message })
+    }
+  }
+}
+
 export const createInventory = (values) => {
   return async (dispatch) => {
     try {
@@ -93,6 +110,23 @@ export const createInventory = (values) => {
       toastSuccess({ message: 'New inventory added!' })
     } catch (e) {
       toastError({message: e.message})
+    }
+  }
+}
+
+export const getInventoryById = (id) => {
+  return async dispatch => {
+    try {
+      dispatch({ type: GET_INVENTORY_REQUEST })
+      await dispatch(getInventories())
+      const item = await client.service('inventories').get(id)
+      dispatch({
+        type: GET_INVENTORY,
+        payload: item
+      })
+    } catch (e) {
+      dispatch({ type: GET_INVENTORY_FAIL })
+      toastError({ message: e.message })
     }
   }
 }

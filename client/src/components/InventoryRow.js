@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import { Table, Label, Button, Popup, Grid, Icon } from 'semantic-ui-react'
 import _ from 'lodash'
 
@@ -37,7 +38,7 @@ class InventoryRow extends Component {
 								<Button onClick={this.toggleMore} size='mini' circular icon={expanded ? 'chevron up' : 'chevron down'} />
 							}
 						/>
-						<Button icon='edit' circular size='mini' color='teal' />
+						<Button as={Link} to={`/inventories/edit/${item._id}`} icon='edit' circular size='mini' color='teal' />
 						<Popup
 							size='tiny'
 							on='click'

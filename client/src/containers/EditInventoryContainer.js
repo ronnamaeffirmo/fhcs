@@ -1,9 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
-import { createInventory } from '../actions/inventoriesAction'
-import { getItem } from '../actions/itemActions'
-
+import { updateInventory, getInventoryById } from '../actions/inventoriesAction'
 import AddInventoryModal from '../components/AddInventoryModal'
 
 const WrappedForm = reduxForm({
@@ -12,34 +10,32 @@ const WrappedForm = reduxForm({
 })(AddInventoryModal)
 
 class AddInventoryModalContainer extends Component {
-  componentDidMount() {
-    const { itemId } = this.props
-    this.props.getItem(itemId)
-  }
+	componentDidMount() {
+		const { inventoryId } = this.props
+		this.props.getInventoryById(inventoryId)
+	}
 
-  render() {
-    const { history, item, createInventory } = this.props
-    const initialValues = item ? { itemName: item.name } : null
-    return (
-      <WrappedForm 
-        {...this.props} 
-        initialValues={initialValues} 
-        onSubmit={(values) => {
-          createInventory(values)
-          history.push('/inventories')
+	render() {
+		return (
+			<WrappedForm 
+				{...this.props} 
+				initialValues={this.props.inventory}
+				onSubmit={(values) => {
+          this.props.updateInventory(values)
+          this.props.history.push('/inventories')
         }} 
-      />
-    )
-  }
+			/>
+		)
+	}
 }
 
 const mapStateToProps = (state, props) => {
-  const itemId = props.match.params.id
-  return {
-    itemId,
-    item: state.item.foundItem,
-    gettingItem: state.item.gettingItem,
-    options: {
+	const inventoryId = props.match.params.id
+	return {
+		inventoryId,
+		inventory: state.inventory.inventory,
+		gettingInventory: state.inventory.gettingInventory,
+		options: {
       sources: [
         {key: 'delivery', value: 'delivery', text: 'Delivery'},
         {key: 'production', value: 'production', text: 'Production'}
@@ -54,12 +50,12 @@ const mapStateToProps = (state, props) => {
         {key: 'returned', value: 'returned', text: 'Returned'}
       ]
     }
-  }
+	}
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  createInventory: (values) => dispatch(createInventory(values)),
-  getItem: (id) => dispatch(getItem(id))
+  updateInventory: (values) => dispatch(updateInventory(values)),
+  getInventoryById: (id) => dispatch(getInventoryById(id)),
 })
 
 export default connect(

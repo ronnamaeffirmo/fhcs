@@ -21,6 +21,7 @@ import EditSaleContainer from './containers/EditSaleContainer'
 import EditCustomerContainer from './containers/EditCustomerContainer'
 import AddInventoryModal from './containers/AddInventoryContainer'
 import SaleTableContainer from './containers/SaleTableContainer'
+import EditInventoryModal from './containers/EditInventoryContainer'
 
 const Routes = () => (
   <Fragment>
@@ -36,6 +37,7 @@ const Routes = () => (
       <PrivateRoute path='/sales' exact component={SalesList}/>
       <PrivateRoute path='/inventories' component={InventoryList}/>
       <PrivateRoute path='/inventories/add/:id' component={AddInventoryModal}/>
+      <PrivateRoute path='/inventories/edit/:id' component={EditInventoryModal}/>
       <PrivateRoute path='/roles' exact component={RoleListContainer}/>
       <PrivateRoute path='/roles/new' strict exact component={AddRoleContainer}/>
       <PrivateRoute path='/roles/update/:id' exact component={EditRoleContainer}/>
