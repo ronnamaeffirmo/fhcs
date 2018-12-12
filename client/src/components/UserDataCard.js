@@ -55,7 +55,7 @@ const UserDataCard = ({ _id: id, firstname, lastname, username, address, email, 
 
 const styles = {
 	userCard: {
-		paddingBottom: 20,
+		paddingBottom: 5,
 	},
 	cardHeader: {
 		display: 'flex',
