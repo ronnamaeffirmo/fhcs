@@ -35,9 +35,9 @@ class ItemList extends Component {
           <Table celled striped selectable>
             <Table.Header>
               <Table.Row textAlign='center'>
-                <Table.HeaderCell>Item</Table.HeaderCell>
-                <Table.HeaderCell>QTY</Table.HeaderCell>
-                <Table.HeaderCell>Status</Table.HeaderCell>
+                <Table.HeaderCell width={5}>Item</Table.HeaderCell>
+                <Table.HeaderCell width={1}>QTY</Table.HeaderCell>
+                <Table.HeaderCell width={2}>Status</Table.HeaderCell>
                 <Table.HeaderCell>Received by</Table.HeaderCell>
                 <Table.HeaderCell width={1}>Action</Table.HeaderCell>
               </Table.Row>
