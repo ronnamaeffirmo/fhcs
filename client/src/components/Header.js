@@ -19,10 +19,9 @@ const styles = {
 }
 
 const itemOptions = [
-  { key: 'items', as: () => (<Menu.Item icon={'tasks'} style={styles.menuItem} content='Manage Items' as={Link} to={'/items'}/>) },
-  { key: 'inventories', as: () => (<Menu.Item icon={'clipboard'} style={styles.menuItem} content='Manage Inventory' as={Link} to={'/inventories'}/>) },
+  { key: 'items', as: () => (<Menu.Item icon={'tasks'} style={styles.menuItem} content='Item List' as={Link} to={'/items'}/>) },
+  { key: 'inventories', as: () => (<Menu.Item icon={'clipboard'} style={styles.menuItem} content='Inventory List' as={Link} to={'/inventories'}/>) },
   { key: 'itemsTable', as: () => (<Menu.Item icon={'chart line'} content='Item Summary' as={Link} to={'/items/table'}/>) },
-
 ]
 
 const settingOptions = [
@@ -53,7 +52,7 @@ const Header = ({ user, isAuthenticated, handleLogout }) => (
         <Dropdown item icon={null} trigger={<span><Icon name='user circle' size='large' /> User</span>}>
           <Dropdown.Menu>
             <Dropdown.Item key='greeting' text={<span>Hi, <b>{user && user.username}</b>!</span>} disabled />
-            <Dropdown.Item key='account' text='My account' icon='user' />
+            <Dropdown.Item as={Link} to={`/users/update/${user && user._id}`} key='account' text='My account' icon='user' />
             <Dropdown.Item key='logout' text='Logout' icon='sign out' onClick={handleLogout} />
           </Dropdown.Menu>
         </Dropdown>

@@ -39,7 +39,7 @@ const UserList = (props) => {
         <Button as={Link} to={'/users/new'} style={styles.searchButton}>NEW USER</Button>
       </Segment>
       <Segment>
-        {users.map(user => <UserDataCard {...user} deleteUser={deleteUser} />)}
+        {users.map(user => <UserDataCard key={user._id} {...user} deleteUser={deleteUser} />)}
       </Segment>
     </Container>
   )

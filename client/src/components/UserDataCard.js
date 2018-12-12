@@ -8,7 +8,7 @@ const UserDataCard = ({ _id: id, firstname, lastname, username, address, email, 
 		<Card.Content>
 			<Grid columns='equal'>
 				<Grid.Column textAlign='center' width={3}>
-					<Image size='tiny' rounded src={picture || '/images/user.png'} />
+					<Image size='tiny' circular src={picture || '/images/user.png'} />
 				</Grid.Column>
 				<Grid.Column>
 					<div style={styles.cardHeader}>

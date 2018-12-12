@@ -1,6 +1,7 @@
 import client from '../common/client'
 import { toastError, toastSuccess } from './toasterActions'
 import {reset} from 'redux-form'
+import { fileToDataUrl } from '../common/helpers'
 
 // APPLICATION ACCESS
 export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST'
@@ -18,6 +19,8 @@ export const RECEIVE_USERS = 'RECEIVE_USERS'
 export const UPDATE_USER = 'UPDATE_USER'
 export const DELETE_USER = 'DELETE_USER'
 export const SELECT_USER = 'SELECT_USER'
+export const ADD_USER_REQUEST = 'ADD_USER_REQUEST'
+export const ADD_USER_FAIL = 'ADD_USER_FAIL'
 
 export const getUsers = () => {
   return async (dispatch) => {
@@ -42,6 +45,9 @@ export const getUsers = () => {
 export const addUser = (user) => {
   return async (dispatch) => {
     try {
+      dispatch({ type: ADD_USER_REQUEST }) // actually being reused among add, get, edit lol -R
+      console.log('[!] user values', user)
+
       const newUser = await client.service('users').create(user)
       if (newUser) {
         dispatch({
@@ -53,6 +59,7 @@ export const addUser = (user) => {
       }
     } catch (e) {
       toastError({message: e.message})
+      dispatch({ type: ADD_USER_FAIL })
     }
   }
 }
@@ -60,6 +67,7 @@ export const addUser = (user) => {
 export const editUser = (user) => {
   return async (dispatch) => {
     try {
+      dispatch({ type: ADD_USER_REQUEST })
       const updatedUser = await client.service('users').patch(user._id, user)
       updatedUser.role = updatedUser.role._id
       dispatch({
@@ -68,6 +76,7 @@ export const editUser = (user) => {
       })
     } catch (e) {
       toastError({message: e.message})
+      dispatch({ type: ADD_USER_FAIL })
     }
   }
 }
@@ -75,6 +84,7 @@ export const editUser = (user) => {
 export const getUser = (id) => {
   return async (dispatch) => {
     try {
+      dispatch({ type: ADD_USER_REQUEST })
       const user = await client.service('users').get(id, {
         query: {
           $populate: 'role'
@@ -88,6 +98,7 @@ export const getUser = (id) => {
         })
       }
     } catch (e) {
+      dispatch({ type: ADD_USER_FAIL })
       toastError({message: e.message})
     }
   }

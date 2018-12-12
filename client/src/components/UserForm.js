@@ -5,28 +5,11 @@ import { Link } from 'react-router-dom'
 import userFields from '../common/constants/userFields'
 import { toTitleCase } from '../common/helpers'
 import InputField from './InputField'
-import Dropzone from 'react-dropzone'
+import CustomDropzone from './CustomDropzone'
 
 const styles = {
   mainContainer: {
     marginTop: 30
-  },
-  dropzone: {
-    marginBottom: '20px',
-  },
-  innerDrop: {
-    border: '2px dashed lightgrey',
-		boxShadow: 'none',
-		padding: '20px',
-		backgroundColor: 'whitesmoke'
-  },
-  dropzoneInstruction: {
-    color: 'grey', 
-    textAlign: 'center', 
-    marginBottom: '18px'
-  },
-  dropzoneDefaultImg: {
-    opacity: '0.4',
   }
 }
 
@@ -42,16 +25,16 @@ const parseRolesToDropdownOptions = (roles) => {
 }
 
 const UserForm = (props) => {
-  const { submissionHandler, handleSubmit, pristine, submitting, roles } = props
-  const acceptedImgs = 'image/jpeg, image/jpg, image/png, image/gif'
+  const { submissionHandler, handleSubmit, pristine, submitting, roles, addingUser } = props
   return (
     <Container style={styles.mainContainer}>
-      <Form onSubmit={submissionHandler ? handleSubmit(submissionHandler) : undefined}>
+      <Form loading={addingUser} onSubmit={submissionHandler ? handleSubmit(submissionHandler) : undefined}>
         <Container>
           <Link to={'/users'}>
             <Button color={'grey'} content={'Back to Users'} icon={'arrow left'} labelPosition={'left'} />
           </Link>
           <Button 
+            type='submit'
             color={'green'} 
             icon={'check'} 
             floated={'right'}
@@ -63,21 +46,13 @@ const UserForm = (props) => {
           <Divider/>
         </Container>
         <Segment>
-          <Grid columns='equal'>
+          <Grid style={{ padding: '0.5rem' }} columns='equal'>
             <Grid.Column>
-              <Dropzone accept={acceptedImgs} multiple={false} style={styles.dropzone}>
-                {({getRootProps, getInputProps}) => (
-                  <Segment style={styles.innerDrop} {...getRootProps()}>
-                    {console.log('getRootProps', getRootProps())}
-                    {console.log('getRootProps', getInputProps())}
-                    <div style={styles.dropzoneInstruction}>
-                      <b>Choose an image</b> or drop it here
-                    </div>
-                    <input {...getInputProps()} />
-                    <Image style={styles.dropzoneDefaultImg} size='small' rounded centered src='/images/drop.png' />
-                  </Segment>
-                )}
-              </Dropzone>
+              <Field 
+                name='picture'
+                label='Profile Picture'
+                component={CustomDropzone}
+              />
             </Grid.Column>
             <Grid.Column>
               <Container>
