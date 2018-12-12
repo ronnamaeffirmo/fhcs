@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Popup, Icon, Dropdown } from 'semantic-ui-react'
+import { Menu, Popup, Icon, Dropdown, Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import PaddedContainer from '../custom-components/PaddedContainer'
 
@@ -15,6 +15,9 @@ const styles = {
   menuItem: {
     fontSize: '1rem',
     fontWeight: 'normal'
+  },
+  profilePic: {
+    marginRight: '0.25rem'
   }
 }
 
@@ -49,7 +52,12 @@ const Header = ({ user, isAuthenticated, handleLogout }) => (
       <Menu.Item style={styles.menuItem} name='customers' as={Link} to={'/customers'}/>
       <Dropdown item text='Settings' options={settingOptions}/>
       <Menu.Menu position='right'>
-        <Dropdown item icon={null} trigger={<span><Icon name='user circle' size='large' /> User</span>}>
+        <Dropdown item icon={null} trigger={
+          <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Image style={styles.profilePic} size='mini' circular src={user && user.picture ? user.picture : '/images/user.png'} />
+            <Icon size='tiny' name='chevron down' />
+          </span>
+        }>
           <Dropdown.Menu>
             <Dropdown.Item key='greeting' text={<span>Hi, <b>{user && user.username}</b>!</span>} disabled />
             <Dropdown.Item as={Link} to={`/users/update/${user && user._id}`} key='account' text='My account' icon='user' />
