@@ -1,12 +1,18 @@
 import React from 'react'
-import UserForm from '../components/UserForm'
 import { addUser } from '../actions/userActions'
-import {getRoles} from '../actions/roleActions'
+import { getRoles } from '../actions/roleActions'
 import { connect } from 'react-redux'
+import UserForm from '../components/UserForm'
 
 class AddUserContainer extends React.Component {
   componentDidMount () {
     this.props.getRoles()
+  }
+
+  render() {
+    return (
+      <UserForm {...this.props} />
+    )
   }
 }
 

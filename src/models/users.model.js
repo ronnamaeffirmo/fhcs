@@ -11,7 +11,9 @@ module.exports = function (app) {
     firstname: { type: String, required: true },
     lastname: { type: String, required: true },
     address: { type: String, required: true },
-    picture: { type: String },
+    phone: { type: String, required: true },
+    email: { type: String },
+    picture: { type: String }, // base64 string
     role: { type: Schema.Types.ObjectId, ref: 'roles', required: true }
   }, {
     timestamps: true,

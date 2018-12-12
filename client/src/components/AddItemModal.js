@@ -28,7 +28,7 @@ class AddItemModal extends React.Component {
         size='tiny'
         open={this.state.open}
         onClose={this.openClose}
-        trigger={<Button style={styles.searchButton} onClick={this.openClose}>NEW ITEM</Button>} centered={false}>
+        trigger={<Button fluid style={styles.searchButton} onClick={this.openClose}>NEW ITEM</Button>} centered={false}>
         <Modal.Header>Add A New Item</Modal.Header>
         <Modal.Content>
           <Form onSubmit={() => {
@@ -78,8 +78,6 @@ class AddItemModal extends React.Component {
 
 const styles = {
   searchButton: {
-    width: '21%',
-    float: 'right',
     backgroundColor: 'green',
     color: 'white'
   }
