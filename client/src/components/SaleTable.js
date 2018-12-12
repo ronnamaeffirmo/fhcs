@@ -2,9 +2,10 @@ import React from 'react'
 import { Dropdown, Table, Checkbox, Input, Divider } from 'semantic-ui-react'
 import saleStatus from '../common/constants/saleStatus'
 import { DateInput } from 'semantic-ui-calendar-react'
-import { reduxForm } from 'redux-form'
+import { Field, reduxForm } from 'redux-form'
 import moment from 'moment'
 import { toTitleCase } from '../common/helpers'
+import { Form } from 'semantic-ui-react/dist/commonjs/collections/Form/Form'
 
 const styles = {
   mainContainer: {
@@ -36,31 +37,61 @@ const SaleTableHeader = props => {
       <Divider/>
       <div style={styles.filters}>
         <div style={styles.filterField}>
-          <Dropdown
-            button
-            className='icon'
-            floating
-            labeled
-            icon='filter'
-            options={saleStatus}
-            search
-            text='Filter Status'
+          <Field
+            name={'status'}
+            component={(props) => {
+              const {input: {value, onChange}} = props
+              return (
+                <Dropdown
+                  button
+                  value={value}
+                  className='icon'
+                  floating
+                  labeled
+                  icon='filter'
+                  options={saleStatus}
+                  search
+                  text='Filter Status'
+                  onChange={(e, data) => onChange(data.value)}
+                />
+              )
+            }}
           />
         </div>
         <div style={styles.filterField}>
-          <DateInput
-            style={styles.dateFilter}
-            placeholder={'Start Range'}
-            iconPosition="left"
-            dateFormat={'MM/DD/YYYY'}
+          <Field
+            name={'startDate'}
+            component={(props) => {
+              const {input: {value, onChange}} = props
+              return (
+                <DateInput
+                  style={styles.dateFilter}
+                  placeholder={'Range Start Date'}
+                  iconPosition="left"
+                  dateFormat={'MMMM DD, YYYY'}
+                  value={(value) ? moment(value).format('MMMM DD, YYYY') : undefined}
+                  onChange={(e, data) => onChange(data.value)}
+                />
+              )
+            }}
           />
         </div>
         <div style={styles.filterField}>
-          <DateInput
-            style={styles.dateFilter}
-            placeholder={'End Range'}
-            iconPosition="left"
-            dateFormat={'MM/DD/YYYY'}
+          <Field
+            name={'endDate'}
+            component={(props) => {
+              const {input: {value, onChange}} = props
+              return (
+                <DateInput
+                  style={styles.dateFilter}
+                  placeholder={'Range End Date'}
+                  iconPosition="left"
+                  dateFormat={'MMMM DD, YYYY'}
+                  value={(value) ? moment(value).format('MMMM DD, YYYY') : undefined}
+                  onChange={(e, data) => onChange(data.value)}
+                />
+              )
+            }}
           />
         </div>
         <div style={styles.filterField}>
@@ -85,7 +116,19 @@ const getAggregatedFields = items => {
 }
 
 const SaleTable = props => {
-  const {sales} = props
+  const {filters: {startDate, endDate, status}} = props
+  console.log(`START DATE`, startDate)
+  console.log(`END DATE`, endDate)
+  let {sales} = props
+  if (status !== 'none') {
+    sales = sales.filter(sale => sale.status === status)
+  }
+  if (startDate) {
+    sales = sales.filter(sale => moment(sale.date) >= moment(startDate))
+  }
+  if (endDate) {
+    sales = sales.filter(sale => moment(sale.date) <= moment(endDate))
+  }
   return (
     <div style={styles.mainContainer}>
       <SaleTableHeader {...props} />
@@ -109,10 +152,12 @@ const SaleTable = props => {
             return (
               <Table.Row key={sale._id}>
                 <Table.Cell textAlign='center'>{sale.officialReceipt}</Table.Cell>
-                <Table.Cell textAlign='center'>{sale.customer.company ? sale.customer.company : sale.customer.name}</Table.Cell>
+                <Table.Cell
+                  textAlign='center'>{sale.customer.company ? sale.customer.company : sale.customer.name}</Table.Cell>
                 <Table.Cell textAlign='center'>{moment(sale.date).format('MMMM DD, YYYY')}</Table.Cell>
                 <Table.Cell textAlign='center'>{sale.term} days</Table.Cell>
-                <Table.Cell textAlign='center'>{moment(sale.date).add(parseInt(sale.term), 'days').format('MMMM DD, YYYY')}</Table.Cell>
+                <Table.Cell
+                  textAlign='center'>{moment(sale.date).add(parseInt(sale.term), 'days').format('MMMM DD, YYYY')}</Table.Cell>
                 <Table.Cell textAlign='center'>{toTitleCase(sale.status)}</Table.Cell>
                 <Table.Cell textAlign='right'>₱ {getAggregatedFields(sale.items).subtotal.toFixed(2)}</Table.Cell>
                 <Table.Cell textAlign='right'>₱ {getAggregatedFields(sale.items).discount.toFixed(2)}</Table.Cell>

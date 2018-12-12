@@ -1,7 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { formValueSelector } from 'redux-form'
 import SaleTable from '../components/SaleTable'
 import { getSales } from '../actions/saleActions'
+
+const selector = formValueSelector('salesFilter')
 
 class SaleTableContainer extends React.Component {
   componentDidMount () {
@@ -14,7 +17,15 @@ class SaleTableContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  sales: state.sale.list
+  sales: state.sale.list,
+  initialValues: {
+    status: 'none'
+  },
+  filters: {
+    startDate: selector(state, 'startDate'),
+    endDate: selector(state, 'endDate'),
+    status: selector(state, 'status')
+  }
 })
 
 const mapDispatchToProps = dispatch => ({
