@@ -29,7 +29,7 @@ class ItemDataCard extends Component {
           content='Click to see reports'
           position='left center'
           trigger={
-            <Card.Content style={{ padding: '1em 1em 0.5em 1em' }} as={Link} to={`/items/${item._id}/reports`}>
+            <Card.Content style={{ padding: '1em 1em 0.5em 1em' }} as={Link} to={`/items/${item._id}/report`}>
               <Card.Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                   <span>{name}</span>

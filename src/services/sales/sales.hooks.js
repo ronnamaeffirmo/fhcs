@@ -1,8 +1,9 @@
-const { authenticate } = require('@feathersjs/authentication').hooks
+const {authenticate} = require('@feathersjs/authentication').hooks
+const mongoose = require('mongoose')
 
 // const validateReturnQuantity = (hook) => {
-  // const prop = hook.type === 'before' ? 'data' : 'result';
-  // const dataHook = hook;
+// const prop = hook.type === 'before' ? 'data' : 'result';
+// const dataHook = hook;
 //   if (hook.type == 'before') {
 //     const { data } = hook
 //     console.log(data)
@@ -27,7 +28,32 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
+    find: [async (context) => {
+      const {params: {query: {itemId}}, app} = context
+      if (itemId) {
+        id = new mongoose.mongo.ObjectId(itemId)
+        const sales = await app.service('sales').Model.aggregate(
+          [
+            {$match: {'items.item': new mongoose.mongo.ObjectId(id)}},
+            {$unwind: '$items'},
+            {$match: {'items.item': new mongoose.mongo.ObjectId(id)}},
+            {$lookup: {from: 'customers', localField: 'customer', foreignField: '_id', as: 'customer'}},
+            {$unwind: '$customer'},
+            {
+              $project: {
+                officialReceipt: '$officialReceipt',
+                customer: '$customer',
+                date: '$date',
+                quantity: '$items.quantity',
+                returnQuantity: '$items.returnQuantity'
+              }
+            }
+          ]
+        )
+        context.result.sales = sales
+      }
+      return context
+    }],
     get: [],
     create: [],
     update: [],

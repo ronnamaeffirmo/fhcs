@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 
 const addAggregatedFields = require('../../hooks/add-aggregated-fields');
 
+const populateItemReportFields = require('../../hooks/populate-item-report-fields');
+
 module.exports = {
   before: {
     all: [],
@@ -17,7 +19,7 @@ module.exports = {
   after: {
     all: [],
     find: [addAggregatedFields()],
-    get: [addAggregatedFields()],
+    get: [addAggregatedFields(), populateItemReportFields()],
     create: [],
     update: [],
     patch: [],

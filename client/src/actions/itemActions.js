@@ -11,6 +11,28 @@ export const PATCH_ITEM = 'PATCH_ITEM'
 export const SELECT_REPORT = 'SELECT_REPORT'
 export const FILTER_ITEMS = 'FILTER_ITEMS'
 export const GET_SEARCH_ITEMS = 'GET_SEARCH_ITEMS'
+export const GET_ITEM_REPORT = 'GET_ITEM_REPORT'
+export const START_LOADING = 'START_LOADING'
+export const FINISH_LOADING = 'FINISH_LOADING'
+
+export const getItemReport = (itemId) => {
+  return async (dispatch) => {
+    try {
+      dispatch({type: START_LOADING})
+      const item = await client.service('items').get(itemId)
+      if (item) {
+        dispatch({
+          type: GET_ITEM_REPORT,
+          payload: item
+        })
+        dispatch({type: FINISH_LOADING})
+      }
+    } catch (e) {
+      toastError({message: e.message})
+    }
+  }
+}
+
 
 export const filterItems = (value) => {
   return (dispatch) => {
