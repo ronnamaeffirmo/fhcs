@@ -3,7 +3,7 @@ import { Button, Modal } from 'semantic-ui-react'
 import CustomerForm from './CustomerForm'
 
 const AddCustomerModal = ({triggerComponent: TriggerComponent, submissionHandler}) => {
-  TriggerComponent = TriggerComponent ? TriggerComponent : <Button style={styles.searchButton}>NEW CUSTOMER</Button>
+  TriggerComponent = TriggerComponent ? TriggerComponent : <Button fluid style={styles.searchButton}>NEW CUSTOMER</Button>
   return (
     <Modal size="tiny" trigger={TriggerComponent} centered={false} onOpen={(e) => {e.preventDefault()}}>
       <Modal.Header>NEW CUSTOMER</Modal.Header>
@@ -16,7 +16,7 @@ const AddCustomerModal = ({triggerComponent: TriggerComponent, submissionHandler
 
 const styles = {
   searchButton: {
-    width: '24%',
+    // width: '24%',
     float: 'right',
     backgroundColor: 'green',
     color: 'white'

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Input, Message, Segment, Table, Button } from 'semantic-ui-react'
+import { Container, Input, Message, Segment, Table, Button, Divider } from 'semantic-ui-react'
 import InventoryRow from './InventoryRow'
 
 class ItemList extends Component {
@@ -15,10 +15,12 @@ class ItemList extends Component {
         <Segment style={styles.topSegment}>
           <Input
             fluid
+            icon='search'
             placeholder='Search inventories here...'
             onChange={(e) => { filterInventories(e.target.value) }}
           />
-          <Message size='tiny' info>
+          <Divider />
+          <Message style={{ padding: '0.5rem 1rem' }} size='small'a size='tiny' info>
           To add a new inventory, head over to <b>items list</b> and
           click <Button circular icon='add' size='mini' />on an item card
           </Message>

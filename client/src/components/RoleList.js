@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Segment, Card, Button, Header, Table, Icon, Input, Popup } from 'semantic-ui-react'
+import { Container, Segment, Card, Button, Header, Table, Grid, Icon, Input, Popup } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { toTitleCase } from '../common/helpers'
 import PermissionInformation from './PermissionInformation'
@@ -14,10 +14,10 @@ const styles = {
     boxShadow: 'none'
   },
   itemSearchField: {
-    width: '77%'
+    // width: '77%'
   },
   searchButton: {
-    width: '21%',
+    // width: '21%',
     float: 'right',
     backgroundColor: 'green',
     color: 'white'
@@ -121,11 +121,21 @@ const RoleList = (props) => {
   return (
     <Container style={styles.mainContainer}>
       <Segment style={styles.topSegment}>
-        <Input
-          placeholder='Search roles here...'
-          style={styles.itemSearchField}
-        />
-        <Button as={Link} to={'/roles/new'} style={styles.searchButton}>NEW ROLE</Button>
+        <Grid verticalAlign={'middle'} divided>
+          <Grid.Row colums={2}>
+            <Grid.Column width={12}>
+              <Input
+                fluid
+                icon='search'
+                placeholder='Search roles here...'
+                style={styles.itemSearchField}
+              />
+            </Grid.Column>
+            <Grid.Column width={4}>
+              <Button fluid as={Link} to={'/roles/new'} style={styles.searchButton}>NEW ROLE</Button>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </Segment>
       <Segment>
         <PermissionInformation/>
