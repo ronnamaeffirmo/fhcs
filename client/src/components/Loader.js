@@ -1,11 +1,11 @@
 import React from 'react'
 import { Grid } from 'semantic-ui-react'
-import { MoonLoader } from 'react-spinners'
+import { PropagateLoader } from 'react-spinners'
 
 const Loader = () => {
   return (
     <Grid stretched style={{height: '100%', marginTop: '50%'}} verticalAlign={'middle'} textAlign={'center'}>
-      <MoonLoader size={70}/>
+      <PropagateLoader size={15}/>
     </Grid>
   )
 }
