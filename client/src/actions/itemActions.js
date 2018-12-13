@@ -20,6 +20,7 @@ export const getItemReport = (itemId) => {
     try {
       dispatch({type: START_LOADING})
       const item = await client.service('items').get(itemId)
+      console.log(item)
       if (item) {
         dispatch({
           type: GET_ITEM_REPORT,

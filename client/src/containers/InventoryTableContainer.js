@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import InventoryTable from '../components/InventoryTable'
-import {getInventories} from '../actions/inventoriesAction'
+import {getInventories} from '../actions/inventoryActions'
 
 class InventoryTableContainer extends React.Component {
   componentDidMount () {

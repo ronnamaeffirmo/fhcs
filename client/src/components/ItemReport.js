@@ -14,8 +14,13 @@ const styles = {
 }
 
 const panes = ({sales, inventories}) => [
-  {menuItem: 'Sales', render: () => <Tab.Pane attached={false}><SalesTable sales={sales}/></Tab.Pane>},
-  {menuItem: 'Inventories', render: () => <Tab.Pane attached={false}>Inventories</Tab.Pane>},
+  {
+    menuItem: 'Sales',
+    render: () => <Tab.Pane attached={false}><SalesTable sales={sales}/></Tab.Pane>},
+  {
+    menuItem: 'Inventories',
+    render: () => <Tab.Pane attached={false}><InventoryTable inventories={inventories}/></Tab.Pane>
+  },
 ]
 
 const getSalesTotal = sales => {
@@ -35,9 +40,38 @@ const getSalesTotal = sales => {
   }
 }
 
+const InventoryTable = ({inventories}) => {
+  return (
+    <div style={styles.mainContainer}>
+      <Table celled sortable>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell textAlign={'center'}>DATE</Table.HeaderCell>
+            <Table.HeaderCell textAlign={'center'}>SOURCE</Table.HeaderCell>
+            <Table.HeaderCell textAlign={'center'}>QUANTITY</Table.HeaderCell>
+            <Table.HeaderCell textAlign={'center'}>STATUS</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {inventories && inventories.map(inventory => {
+            return (
+              <Table.Row key={inventory._id}>
+                <Table.Cell/>
+                <Table.Cell textAlign={'center'}>{inventory.source || 'N/A'}</Table.Cell>
+                <Table.Cell textAlign={'center'}>{inventory.quantity > 0 ? inventory.quantity : 'N/A'} </Table.Cell>
+                <Table.Cell textAlign={'center'}>{inventory.status || 'N/A'}</Table.Cell>
+              </Table.Row>
+            )
+          })}
+        </Table.Body>
+      </Table>
+    </div>
+  )
+}
+
 const ItemReport = props => {
   if (props.item && !props.loading) {
-    const {item: {sales}} = props
+    const {item: {sales, inventories}} = props
     return (
       <Container style={styles.mainContainer}>
         <Container>
@@ -70,12 +104,12 @@ const ItemReport = props => {
           </Statistic.Group>
         </Segment>
         <Container>
-          <Tab menu={{secondary: true}} panes={panes({sales: props.item.sales})}/>
+          <Tab menu={{secondary: true}} panes={panes({sales, inventories})}/>
         </Container>
       </Container>
     )
   }
-  return <Loader />
+  return <Loader/>
 }
 
 const SalesTable = props => {

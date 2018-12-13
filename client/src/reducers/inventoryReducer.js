@@ -7,7 +7,7 @@ import {
   GET_INVENTORY,
   GET_INVENTORY_FAIL,
   PATCH_INVENTORY
-} from '../actions/inventoriesAction'
+} from '../actions/inventoryActions'
 import { search } from '../common/helpers'
 
 const fuseOptions = {
