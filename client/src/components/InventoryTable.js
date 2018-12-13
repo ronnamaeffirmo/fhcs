@@ -11,7 +11,6 @@ const styles = {
 
 const InventoryTable = props => {
   const {inventories} = props
-//   console.log("INVENTORIES:", inventories)
   return (
     <div style={styles.mainContainer}>
       <Table celled sortable>

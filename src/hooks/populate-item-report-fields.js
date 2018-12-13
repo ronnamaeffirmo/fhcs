@@ -8,7 +8,8 @@ module.exports = function (options = {}) {
     const id = context.id
     const result = await context.app.service('items').Model.aggregate([
       {$match: {'_id': new mongoose.mongo.ObjectId(id)}},
-      {$lookup: {from: 'sales', localField: '_id', foreignField: 'items.item', as: 'sales'}}
+      {$lookup: {from: 'sales', localField: '_id', foreignField: 'items.item', as: 'sales'}},
+      {$lookup: {from: 'inventories', localField: '_id', foreignField: 'item', as: 'inventories'}}
     ])
     context.result.sales = result[0].sales
     context.result.inventories = result[0].inventories
