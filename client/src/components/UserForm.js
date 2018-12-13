@@ -1,6 +1,6 @@
 import React from 'react'
 import { reduxForm, Field } from 'redux-form'
-import { Button, Container, Divider, Form, Segment, Grid, Dropdown, Image } from 'semantic-ui-react'
+import { Button, Container, Divider, Form, Segment, Grid, Dropdown } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import userFields from '../common/constants/userFields'
 import { toTitleCase } from '../common/helpers'
@@ -33,10 +33,10 @@ const UserForm = (props) => {
           <Link to={'/users'}>
             <Button color={'grey'} content={'Back to Users'} icon={'arrow left'} labelPosition={'left'} />
           </Link>
-          <Button 
+          <Button
             type='submit'
-            color={'green'} 
-            icon={'check'} 
+            color={'green'}
+            icon={'check'}
             floated={'right'}
             labelPosition={'right'}
             content='Save'
@@ -48,7 +48,7 @@ const UserForm = (props) => {
         <Segment>
           <Grid style={{ padding: '0.5rem' }} columns='equal'>
             <Grid.Column>
-              <Field 
+              <Field
                 name='picture'
                 label='Profile Picture'
                 component={CustomDropzone}
@@ -68,9 +68,9 @@ const UserForm = (props) => {
                   component={({input: {value, onChange}, meta: {error}}) => (
                     <Form.Field>
                       <label>Role</label>
-                      <Dropdown 
+                      <Dropdown
                         fluid search selection
-                        placeholder='Select Role' 
+                        placeholder='Select Role'
                         loading={!roles}
                         value={value}
                         options={parseRolesToDropdownOptions(roles)} onChange={(e, data) => {onChange(data.value)}}
@@ -94,10 +94,10 @@ const UserForm = (props) => {
 //     component={({input: {value, onChange}, meta: {error}}) => (
 //       <Form.Field>
 //         <label>{label}</label>
-//         <Input 
-//           error={!!error} 
-//           type={hidden ? 'password' : 'text'} 
-//           placeholder={placeholder} 
+//         <Input
+//           error={!!error}
+//           type={hidden ? 'password' : 'text'}
+//           placeholder={placeholder}
 //           component='input'
 //           onChange={(e) => onChange(e.target.value)} value={value}
 //         />

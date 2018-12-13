@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import { Button, Card, Popup, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
-import DeleteConfirmationModal from './DeleteConfirmationModal'
-
 class CustomerDataCard extends Component {
   constructor (props) {
     super(props)
@@ -36,7 +34,8 @@ class CustomerDataCard extends Component {
                   inverted
                   size='mini'
                   content='Click to expand/retract'
-                  trigger={<Button icon={open ? 'chevron up' : 'chevron down'} circular size='mini'onClick={this.toggleDesc} />}
+                  trigger={<Button icon={open ? 'chevron up' : 'chevron down'} circular size='mini'
+                                   onClick={this.toggleDesc}/>}
                 />
                 <Popup
                   inverted
@@ -48,7 +47,8 @@ class CustomerDataCard extends Component {
                   inverted
                   size='mini'
                   content='Edit this customer'
-                  trigger={<Button as={Link} to={`/customers/update/${_id}`} circular icon='edit' size='mini' color='teal'/>}
+                  trigger={<Button as={Link} to={`/customers/update/${_id}`} circular icon='edit' size='mini'
+                                   color='teal'/>}
                 />
                 <Popup
                   inverted

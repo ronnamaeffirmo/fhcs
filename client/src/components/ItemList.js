@@ -9,7 +9,7 @@ class ItemList extends Component {
   }
 
   render () {
-    let { items, removeItem, filterItems, filteredItems } = this.props
+    let {items, removeItem, filterItems, filteredItems} = this.props
     items = filteredItems || items || []
     return (
       <Container style={styles.mainContainer}>
@@ -25,18 +25,19 @@ class ItemList extends Component {
                 />
               </Grid.Column>
               <Grid.Column width={4}>
-                <NewItemModal />
+                <NewItemModal/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
           <Divider/>
-          <Message style={{ padding: '0.5rem 1rem' }} size='small' info>Click on a <Label size='tiny'>card</Label> to view reports...</Message>
+          <Message style={{padding: '0.5rem 1rem'}} size='small' info>Click on a <Label size='tiny'>card</Label> to view
+            reports...</Message>
         </Segment>
         <Segment style={styles.bottomSegment}>
-          { !items.length && <Message negative>No available items yet</Message>}
+          {!items.length && <Message negative>No available items yet</Message>}
           <Card.Group>
-            { items.map((item) => (
-              <ItemDataCard item={item} key={item._id} actions={{removeItem}} />
+            {items.map((item) => (
+              <ItemDataCard item={item} key={item._id} actions={{removeItem}}/>
             ))}
           </Card.Group>
         </Segment>

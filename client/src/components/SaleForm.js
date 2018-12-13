@@ -67,7 +67,7 @@ const SaleForm = (props) => {
                 <Field
                   name={'customer'}
                   component={(props) => {
-                    const {input: {value, onChange}, meta: {error}} = props
+                    const {input: {value, onChange}} = props
                     return (
                       <Form.Field>
                         <label style={styles.fieldLabel}>Customer</label>
@@ -102,7 +102,7 @@ const SaleForm = (props) => {
                 <Field
                   name={'date'}
                   component={(props) => {
-                    const {input: {value, onChange}, meta: {error}} = props
+                    const {input: {value, onChange}} = props
                     return (
                       <Form.Field>
                         <label style={styles.fieldLabel}>Date</label>
@@ -123,7 +123,7 @@ const SaleForm = (props) => {
                 <Field
                   name={'term'}
                   component={(props) => {
-                    const {input: {value, onChange}, meta: {error}} = props
+                    const {input: {value, onChange}} = props
                     return (
                       <Form.Field>
                         <label style={styles.fieldLabel}>Term</label>
@@ -155,7 +155,7 @@ const SaleForm = (props) => {
                 <Field
                   name={'remarks'}
                   component={(props) => {
-                    const {input: {value, onChange}, meta: {error}} = props
+                    const {input: {value, onChange}} = props
                     return (
                       <Form.Field>
                         <label style={styles.fieldLabel}>Remarks</label>
@@ -197,7 +197,7 @@ const SaleForm = (props) => {
 }
 
 const Items = (props) => {
-  const {fields, meta: {error, submitFailed}, items, tmp: {item, quantity, price, discount}, clearTmpFields, updateTmpFields, itemSearchList} = props
+  const {fields, items, tmp: {item, quantity, price, discount}, clearTmpFields, updateTmpFields, itemSearchList} = props
   console.log(props)
   return (
     <div>
@@ -256,7 +256,7 @@ const Items = (props) => {
             <Field
               name={'tmpItem'}
               component={(props) => {
-                const {input: {value, onChange}, meta: {error}} = props
+                const {input: {value, onChange}} = props
                 return (
                   <Form.Field>
                     <div>
@@ -269,11 +269,9 @@ const Items = (props) => {
                                 options={itemSearchList ? itemSearchList : []}
                                 onChange={(e, data) => {
                                   onChange(data.value)
-                                  let match = false
                                   data.options.forEach(option => {
                                     if (option.key === data.value) {
                                       updateTmpFields(parseFloat(option.price).toFixed(2), 1, 0.0)
-                                      match = true
                                     }
                                   })
                                 }}
