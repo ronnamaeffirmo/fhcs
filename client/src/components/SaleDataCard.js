@@ -27,7 +27,7 @@ const styles = {
 }
 
 const saleDataCard = ({sale, actions: {removeSale, applySalePayment, returnItem}}) => {
-  const {date, remarks, term, payment, paymentDate, items, _id: id, officialReceipt} = sale
+  const {date, remarks, term, status, items, _id: id, officialReceipt} = sale
   const dueDate = moment(date).add(parseInt(term), 'days')
   let subtotalAmount = 0.0
   let discount = 0.0
@@ -40,15 +40,15 @@ const saleDataCard = ({sale, actions: {removeSale, applySalePayment, returnItem}
   return (
     <Card fluid style={styles.userCard} key={id}>
       <Card.Content>
-        {payment === 'paid' &&
+        {status === 'paid' &&
         <Label as='a' color='green' ribbon>
-          Paid on {moment(paymentDate).format('MMMM D, YYYY')}
+          Payment has been made
         </Label>}
-        {payment === 'promised' &&
+        {status === 'promised' &&
         <Label as='a' color='blue' ribbon>
           Promised - due {moment(date).add(term, 'days').fromNow()}
         </Label>}
-        {payment === 'unpaid' &&
+        {status === 'unpaid' &&
         <Label as='a' color='red' ribbon>
           Unpaid - due {moment(date).add(term, 'days').fromNow()}
         </Label>}
@@ -138,15 +138,15 @@ const saleDataCard = ({sale, actions: {removeSale, applySalePayment, returnItem}
                     <Dropdown.Divider/>
                     <Dropdown.Item label={{color: 'green', empty: true, circular: true}} text='Paid' value='paid'
                                    onClick={(e, data) => {
-                                     applySalePayment({_id: id, payment: data.value, officialReceipt})
+                                     applySalePayment({_id: id, status: data.value, officialReceipt})
                                    }}/>
                     <Dropdown.Item label={{color: 'red', empty: true, circular: true}} text='Unpaid' value='unpaid'
                                    onClick={(e, data) => {
-                                     applySalePayment({_id: id, payment: data.value, officialReceipt})
+                                     applySalePayment({_id: id, status: data.value, officialReceipt})
                                    }}/>
                     <Dropdown.Item label={{color: 'blue', empty: true, circular: true}} text='Promised' value='promised'
                                    onClick={(e, data) => {
-                                     applySalePayment({_id: id, payment: data.value, officialReceipt})
+                                     applySalePayment({_id: id, status: data.value, officialReceipt})
                                    }}/>
                   </Dropdown.Menu>
                 </Dropdown>
