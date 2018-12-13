@@ -29,7 +29,7 @@ class ItemDataCard extends Component {
           content='Click to see reports'
           position='left center'
           trigger={
-            <Card.Content style={{ padding: '1em 1em 0.5em 1em' }} as={Link} to={`/item/${item._id}/reports`}>
+            <Card.Content style={{ padding: '1em 1em 0.5em 1em' }} as={Link} to={`/items/${item._id}/reports`}>
               <Card.Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                   <span>{name}</span>
@@ -85,12 +85,12 @@ class ItemDataCard extends Component {
                 size='mini'
                 content='Edit item'
                 position='bottom center'
-                trigger={<Button as={Link} to={`/item/${item._id}`} icon='edit' circular size='mini' color='teal' />}
+                trigger={<Button as={Link} to={`/items/update/${item._id}`} icon='edit' circular size='mini' color='teal' />}
               />
               <DeleteConfirmationModal removeElement={removeItem} element={item}/>
             </div>
           </div>
-          
+
           {/* bak */}
           {/* <Message attached style={{ padding: '0.5rem' }} color='grey' compact size='tiny'>
             <span>
@@ -100,7 +100,7 @@ class ItemDataCard extends Component {
               <span style={{ marginRight: '8px' }}><Icon name='trash alternate outline' /> delete</span>
             </span>
           </Message> */}
-          
+
           {/* bak */}
           {/* <Popup
             inverted
