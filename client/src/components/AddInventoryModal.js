@@ -5,9 +5,11 @@ import InputField from './InputField'
 import TextAreaField from './TextAreaField'
 import DropdownField from './DropdownField'
 import CustomMultiselect from './CustomMultiselect'
+import { DateInput } from 'semantic-ui-calendar-react'
+import moment from 'moment'
 
 // add and edit form
-const AddInventoryModal = ({ inventory, gettingItem, gettingInventory, history, options, handleSubmit, pristine, submitting }) => (
+const AddInventoryModal = ({inventory, gettingItem, gettingInventory, history, options, handleSubmit, pristine, submitting}) => (
   <Modal open size='tiny' centered={false}>
     <Modal.Header>New Inventory Record</Modal.Header>
     <Modal.Content>
@@ -33,6 +35,26 @@ const AddInventoryModal = ({ inventory, gettingItem, gettingInventory, history, 
               component={InputField}
             />
           </Form.Group>
+          <Field
+            type='date'
+            name='date'
+            component={(props) => {
+              const {input: {value, onChange}, meta: {error}} = props
+              return (
+                <Form.Field>
+                  <label>Date</label>
+                  <DateInput
+                    style={{color: 'green'}}
+                    placeholder={'Enter Date'}
+                    iconPosition="left"
+                    dateFormat={'MMMM DD, YYYY'}
+                    value={(value) ? moment(value).format('MMMM DD, YYYY') : undefined}
+                    onChange={(e, data) => onChange(data.value)}
+                  />
+                </Form.Field>
+              )
+            }}
+          />
           <Field
             name='workers'
             label='Workers'
