@@ -7,6 +7,7 @@ module.exports = function (app) {
   const { Schema } = mongooseClient
   const inventories = new Schema({
     workers: [{ type: String }],
+    date: {type: Date, required: true},
     item: {type: Schema.Types.ObjectId, ref: 'items', required: true},
     quantity: { type: Number, required: true },
     source: { type: String, enum: ['delivery', 'production'] },
