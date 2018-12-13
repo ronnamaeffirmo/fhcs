@@ -39,7 +39,7 @@ const AddInventoryModal = ({inventory, gettingItem, gettingInventory, history, o
             type='date'
             name='date'
             component={(props) => {
-              const {input: {value, onChange}, meta: {error}} = props
+              const {input: {value, onChange}} = props
               return (
                 <Form.Field>
                   <label>Date</label>

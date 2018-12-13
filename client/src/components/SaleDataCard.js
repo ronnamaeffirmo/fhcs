@@ -16,6 +16,8 @@ import moment from 'moment'
 import SalesItemTable from './SalesItemTable'
 import { toTitleCase } from '../common/helpers'
 import { Link } from 'react-router-dom'
+import numeral from 'numeral'
+import _ from 'lodash'
 
 const styles = {
   cardHeader: {
@@ -28,7 +30,7 @@ const styles = {
 
 const saleDataCard = ({sale, actions: {removeSale, applySalePayment, returnItem}}) => {
   const {date, remarks, term, status, items, _id: id, officialReceipt} = sale
-  const dueDate = moment(date).add(parseInt(term), 'days')
+  const dueDate = moment(date).add(_.parseInt(term), 'days')
   let subtotalAmount = 0.0
   let discount = 0.0
   items.forEach(({price, discount: itemDiscount, quantity, returnQuantity}) => {
@@ -109,7 +111,7 @@ const saleDataCard = ({sale, actions: {removeSale, applySalePayment, returnItem}
                   <Label style={{fontSize: 13, width: 105}}>
                     <Icon name='credit card outline'/> Subtotal:
                   </Label>
-                  <span style={{marginLeft: 6}}> ₱ {parseFloat(subtotalAmount).toFixed(2)}</span>
+                  <span style={{marginLeft: 6}}> ₱ {numeral(subtotalAmount).format('0,0.00')}</span>
                 </Container>
                 <Container style={{marginTop: 5, marginBottom: 5}}/>
                 <Container>
@@ -117,14 +119,14 @@ const saleDataCard = ({sale, actions: {removeSale, applySalePayment, returnItem}
                     <Icon name='minus circle'/>
                     <span style={{textAlign: 'right'}}>Discount:</span>
                   </Label>
-                  <span style={{marginLeft: 6}}> ₱ {parseFloat(discount).toFixed(2)}</span>
+                  <span style={{marginLeft: 6}}> ₱ {numeral(discount).format('0,0.00')}</span>
                 </Container>
                 <Container style={{marginTop: 5, marginBottom: 5}}/>
                 <Container>
                   <Label style={{fontSize: 13, width: 105}}>
                     <Icon name='money'/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total:
                   </Label>
-                  <span style={{marginLeft: 6}}> ₱ {parseFloat(grandTotal).toFixed(2)}</span>
+                  <span style={{marginLeft: 6}}> ₱ {numeral(grandTotal).format('0,0.00')}</span>
                 </Container>
               </Grid.Column>
               <Grid.Column width={5}>

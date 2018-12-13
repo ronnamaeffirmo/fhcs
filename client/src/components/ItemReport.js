@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Statistic, Segment, Table, Tab, Icon, Button, Divider } from 'semantic-ui-react'
+import { Container, Statistic, Segment, Table, Tab, Button, Divider } from 'semantic-ui-react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import Loader from '../components/Loader'

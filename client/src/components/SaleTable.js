@@ -1,8 +1,7 @@
 import React from 'react'
 import { Table } from 'semantic-ui-react'
-import { reduxForm } from 'redux-form'
 import moment from 'moment'
-import { toTitleCase } from '../common/helpers'
+import _ from 'lodash'
 import numeral from 'numeral'
 import SaleHeader from './SaleHeader'
 
@@ -70,8 +69,8 @@ const SaleTable = props => {
                 <Table.Cell textAlign='center'>{moment(sale.date).format('MMMM DD, YYYY')}</Table.Cell>
                 <Table.Cell textAlign='center'>{sale.term} days</Table.Cell>
                 <Table.Cell
-                  textAlign='center'>{moment(sale.date).add(parseInt(sale.term), 'days').format('MMMM DD, YYYY')}</Table.Cell>
-                <Table.Cell textAlign='center'>{toTitleCase(sale.status)}</Table.Cell>
+                  textAlign='center'>{moment(sale.date).add(_.parseInt(sale.term), 'days').format('MMMM DD, YYYY')}</Table.Cell>
+                <Table.Cell textAlign='center'>{_.capitalize(sale.status)}</Table.Cell>
                 <Table.Cell textAlign='right'>₱ {numeral(getAggregatedFields(sale.items).subtotal).format(numberFormat)}</Table.Cell>
                 <Table.Cell textAlign='right'>₱ {numeral(getAggregatedFields(sale.items).discount).format(numberFormat)}</Table.Cell>
                 <Table.Cell textAlign='right'>₱ {numeral(getAggregatedFields(sale.items).returned).format(numberFormat)}</Table.Cell>
