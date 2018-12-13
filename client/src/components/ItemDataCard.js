@@ -18,9 +18,9 @@ class ItemDataCard extends Component {
   render () {
     const { isOpen } = this.state
     const { item, actions } = this.props
-    const { quantity, code, name, price, description, unit } = item
+    const { salesQuantity, returnQuantity, inventoryQuantity, code, name, price, description, unit } = item
     const { removeItem } = actions
-
+    const quantity = inventoryQuantity - salesQuantity + returnQuantity
     return (
       <Card fluid style={styles.itemCard}>
         <Popup
