@@ -24,7 +24,8 @@ const searchOptions = {
 
 class SaleTableContainer extends React.Component {
   componentDidMount () {
-    this.props.getSales()
+    const { customerId } = this.props
+    this.props.getSales(customerId)
   }
 
   render () {
@@ -32,7 +33,8 @@ class SaleTableContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
+  customerId: ownProps.match.params.id, 
   sales: state.sale.list,
   initialValues: {
     status: 'none',
@@ -46,7 +48,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getSales: () => dispatch(getSales()),
+  getSales: (id) => dispatch(getSales(id)),
   resetFilters: () => dispatch(reset('salesFilter'))
 })
 

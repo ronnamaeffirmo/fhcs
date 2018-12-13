@@ -3,6 +3,7 @@ import { Table } from 'semantic-ui-react'
 import { reduxForm } from 'redux-form'
 import moment from 'moment'
 import { toTitleCase } from '../common/helpers'
+import numeral from 'numeral'
 import SaleHeader from './SaleHeader'
 
 const styles = {
@@ -60,6 +61,7 @@ const SaleTable = props => {
         </Table.Header>
         <Table.Body>
           {sales.map(sale => {
+            const numberFormat = '0,0.00'
             return (
               <Table.Row key={sale._id}>
                 <Table.Cell textAlign='center'>{sale.officialReceipt}</Table.Cell>
@@ -70,10 +72,10 @@ const SaleTable = props => {
                 <Table.Cell
                   textAlign='center'>{moment(sale.date).add(parseInt(sale.term), 'days').format('MMMM DD, YYYY')}</Table.Cell>
                 <Table.Cell textAlign='center'>{toTitleCase(sale.status)}</Table.Cell>
-                <Table.Cell textAlign='right'>₱ {getAggregatedFields(sale.items).subtotal.toFixed(2)}</Table.Cell>
-                <Table.Cell textAlign='right'>₱ {getAggregatedFields(sale.items).discount.toFixed(2)}</Table.Cell>
-                <Table.Cell textAlign='right'>₱ {getAggregatedFields(sale.items).returned.toFixed(2)}</Table.Cell>
-                <Table.Cell textAlign='right'>₱ {getAggregatedFields(sale.items).total.toFixed(2)}</Table.Cell>
+                <Table.Cell textAlign='right'>₱ {numeral(getAggregatedFields(sale.items).subtotal).format(numberFormat)}</Table.Cell>
+                <Table.Cell textAlign='right'>₱ {numeral(getAggregatedFields(sale.items).discount).format(numberFormat)}</Table.Cell>
+                <Table.Cell textAlign='right'>₱ {numeral(getAggregatedFields(sale.items).returned).format(numberFormat)}</Table.Cell>
+                <Table.Cell textAlign='right'>₱ {numeral(getAggregatedFields(sale.items).total).format(numberFormat)}</Table.Cell>
               </Table.Row>
             )
           })}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Container, Input, Segment, Message, Grid } from 'semantic-ui-react'
+import { Card, Container, Input, Segment, Message, Grid, Divider, Label } from 'semantic-ui-react'
 import AddCustomerModal from '../containers/AddCustomerContainer'
 import CustomerDataCard from './CustomerDataCard'
 
@@ -30,6 +30,8 @@ class CustomerList extends Component {
               </Grid.Column>
             </Grid.Row>
           </Grid>
+          <Divider/>
+          <Message style={{ padding: '0.5rem 1rem' }} size='small' info>Click on a <Label size='tiny'>card</Label> to view customer sales report...</Message>
         </Segment>
         <Segment style={styles.bottomSegment}>
           { !customers.length && <Message negative>No available customers yet</Message>}
