@@ -8,7 +8,10 @@ import {
   REMOVE_ITEM,
   REMOVE_ITEM_ERROR,
   SELECT_REPORT,
-  GET_SEARCH_ITEMS
+  GET_SEARCH_ITEMS,
+  GET_ITEM_REPORT,
+  START_LOADING,
+  FINISH_LOADING
 } from '../actions/itemActions'
 import { search } from '../common/helpers'
 
@@ -32,10 +35,29 @@ const initialState = {
   filteredList: [],
   report: 'sales',
   gettingItem: false,
+  loading: false
 }
 
 const itemReducer = (state = initialState, action) => {
   switch (action.type) {
+    case START_LOADING: {
+      return {
+        ...state,
+        loading: true
+      }
+    }
+    case FINISH_LOADING: {
+      return {
+        ...state,
+        loading: false
+      }
+    }
+    case GET_ITEM_REPORT: {
+      return {
+        ...state,
+        reportSelection: action.payload
+      }
+    }
     case ADD_ITEM: {
       return {
         ...state,

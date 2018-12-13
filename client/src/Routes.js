@@ -35,8 +35,8 @@ const Routes = () => (
       <PrivateRoute path='/' exact component={Dashboard}/>
       <PrivateRoute path='/change-password' component={ChangePasswordForm}/>
       <PrivateRoute path='/items' exact component={ItemList}/>
-      <PrivateRoute path='/item/:_id' exact component={EditFormContainer}/>
-      <PrivateRoute path='/item/:_id/reports' component={ItemReportsContainer}/>
+      <PrivateRoute path='/items/update/:_id' exact component={EditFormContainer}/>
+      <PrivateRoute path='/items/:id/report' component={ItemReportsContainer}/>
       <PrivateRoute path='/customers' exact component={CustomerList}/>
       <PrivateRoute path='/customers/update/:id' exact component={EditCustomerContainer}/>
       <PrivateRoute path='/sales' exact component={SalesList}/>

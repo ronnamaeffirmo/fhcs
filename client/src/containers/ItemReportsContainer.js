@@ -1,28 +1,33 @@
+import React from 'react'
 import { connect } from 'react-redux'
-import { reduxForm } from 'redux-form'
+import ItemReport from '../components/ItemReport'
+import { getItemReport } from '../actions/itemActions'
 
-import ItemReports from '../components/ItemReports'
-import { getInventories } from '../actions/inventoriesAction'
-import { selectReport } from '../actions/itemActions'
-
-const wrapped = reduxForm({
-  form: 'period',
-  onChange: (values, dispatch, props, previousValues) => {
-    props.submit(values)
+class ItemReportsContainer extends React.Component {
+  componentDidMount () {
+    console.log('[!] -- ItemReportsContainer Mounted')
+    console.log('[!] -- GETTING INFORMATION FOR', this.props.itemId)
+    this.props.getItemReport(this.props.itemId)
   }
-})(ItemReports)
 
-const mapStateToProps = (state) => ({
-  inventories: state.inventory.inventories,
-  report: state.item.report
+  render () {
+    return (
+      <ItemReport {...this.props}/>
+    )
+  }
+}
+
+const mapStateToProps = (state, ownProps) => ({
+  itemId: ownProps.match.params.id,
+  item: state.item.reportSelection,
+  loading: state.item.loading
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getInventories: (values) => dispatch(getInventories(values)),
-  selectReport: (report) => dispatch(selectReport(report))
+  getItemReport: (itemId) => dispatch(getItemReport(itemId))
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(wrapped)
+)(ItemReportsContainer)
