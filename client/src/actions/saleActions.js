@@ -53,16 +53,31 @@ export const returnItem = (data) => {
 }
 
 // READ SALE(S)
-export const getSales = () => {
+export const getSales = (customer) => {
   return async (dispatch) => {
     try {
-      const sales = await client.service('sales').find({
-        query: {$populate: ['customer', 'items.item']}
-      })
-      dispatch({
-        type: RECEIVE_SALES,
-        payload: sales.data
-      })
+      console.log('customer', customer)
+      let sales
+      if (customer) {
+        sales = await client.service('sales').find({ 
+          query: {
+            customer,
+            $populate: ['customer', 'items.item']
+          }
+        })
+      } else {
+        sales = await client.service('sales').find({
+          query: {$populate: ['customer', 'items.item']}
+        })
+      }
+
+      if (sales) {
+        dispatch({
+          type: RECEIVE_SALES,
+          payload: sales.data
+        })
+      toastSuccess({message: 'Sales records successfully fetched!'})
+      }
     } catch (e) {
       toastError({message: e.message})
     }

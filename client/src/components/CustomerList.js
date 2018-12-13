@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Container, Input, Segment, Message } from 'semantic-ui-react'
+import { Card, Container, Input, Segment, Message, Grid, Divider, Label } from 'semantic-ui-react'
 import AddCustomerModal from '../containers/AddCustomerContainer'
 import CustomerDataCard from './CustomerDataCard'
 
@@ -14,12 +14,24 @@ class CustomerList extends Component {
     return (
       <Container style={styles.mainContainer}>
         <Segment style={styles.topSegment}>
-          <Input
-            placeholder='Search for customers here...'
-            style={styles.customerSearchField}
-            onChange={(e) => { filterCustomers(e.target.value) }}
-          />
-          <AddCustomerModal />
+          <Grid verticalAlign={'middle'} divided>
+            <Grid.Row colums={2}>
+              <Grid.Column width={11}>
+                <Input
+                  fluid
+                  icon='search'
+                  placeholder='Search for customers here...'
+                  style={styles.customerSearchField}
+                  onChange={(e) => { filterCustomers(e.target.value) }}
+                />
+              </Grid.Column>
+              <Grid.Column width={5}>
+                <AddCustomerModal />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+          <Divider/>
+          <Message style={{ padding: '0.5rem 1rem' }} size='small' info>Click on a <Label size='tiny'>card</Label> to view customer sales report...</Message>
         </Segment>
         <Segment style={styles.bottomSegment}>
           { !customers.length && <Message negative>No available customers yet</Message>}
@@ -41,7 +53,7 @@ const styles = {
     marginTop: '10px'
   },
   customerSearchField: {
-    width: '74%'
+    // width: '74%'
   },
   topSegment: {
     boxShadow: 'none'

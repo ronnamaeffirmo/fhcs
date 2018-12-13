@@ -28,6 +28,7 @@ import InventoryTableContainer from './containers/InventoryTableContainer'
 const Routes = () => (
   <Fragment>
     <PrivateRoute path='/sales/table' exact component={SaleTableContainer}/>
+    <PrivateRoute path='/customer/sales/:id' exact component={SaleTableContainer}/>
     <PrivateRoute path='/items/table' exact component={ItemTableContainer}/>
     <PrivateRoute path='/inventory/table' exact component={InventoryTableContainer}/>
     <PaddedContainer>
