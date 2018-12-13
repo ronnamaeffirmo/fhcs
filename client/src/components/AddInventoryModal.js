@@ -14,23 +14,23 @@ const AddInventoryModal = ({ inventory, gettingItem, gettingInventory, history, 
       <Container>
         <Form loading={gettingInventory} onSubmit={handleSubmit}>
           <Form.Group>
-            <Field 
-              width={10} 
-              type='text' 
-              name='itemName' 
-              label='Item Name (read only)' 
-              placeholder='Item Name' 
+            <Field
+              width={10}
+              type='text'
+              name='itemName'
+              label='Item Name (read only)'
+              placeholder='Item Name'
               readOnly
-              loading={gettingItem || gettingInventory} 
-              component={InputField} 
+              loading={gettingItem || gettingInventory}
+              component={InputField}
             />
-            <Field 
-              width={6} 
-              type='number' 
-              name='quantity' 
-              label='Quantity' 
-              placeholder='Quantity' 
-              component={InputField} 
+            <Field
+              width={6}
+              type='number'
+              name='quantity'
+              label='Quantity'
+              placeholder='Quantity'
+              component={InputField}
             />
           </Form.Group>
           <Field
@@ -40,44 +40,44 @@ const AddInventoryModal = ({ inventory, gettingItem, gettingInventory, history, 
             component={CustomMultiselect}
           />
           <Form.Group widths='equal'>
-            <Field 
-              type='selection' 
-              name='source' 
-              label='Source' 
-              placeholder='Source' 
-              options={options.sources} 
-              component={DropdownField} 
+            <Field
+              type='selection'
+              name='source'
+              label='Source'
+              placeholder='Source'
+              options={options.sources}
+              component={DropdownField}
             />
-            <Field 
-              type='selection' 
-              name='producer' 
-              label='Producer' 
-              placeholder='Producer' 
-              options={options.producers} 
-              component={DropdownField} 
+            <Field
+              type='selection'
+              name='producer'
+              label='Producer'
+              placeholder='Producer'
+              options={options.producers}
+              component={DropdownField}
             />
           </Form.Group>
-          <Field 
-            type='text' 
-            name='company' 
-            label='Company' 
-            placeholder='Company' 
-            component={InputField} 
+          <Field
+            type='text'
+            name='company'
+            label='Company'
+            placeholder='Company'
+            component={InputField}
           />
           <Form.Group widths='equal'>
-            <Field 
-              type='text' 
-              name='poNumber' 
-              label='PO Number' 
-              placeholder='PO Number' 
-              component={InputField} 
+            <Field
+              type='text'
+              name='poNumber'
+              label='PO Number'
+              placeholder='PO Number'
+              component={InputField}
             />
-            <Field 
-              type='text' 
-              name='truckPlateNumber' 
-              label='Truck Plate Number' 
-              placeholder='Truck Plate Number' 
-              component={InputField} 
+            <Field
+              type='text'
+              name='truckPlateNumber'
+              label='Truck Plate Number'
+              placeholder='Truck Plate Number'
+              component={InputField}
             />
           </Form.Group>
           <Field
@@ -86,20 +86,20 @@ const AddInventoryModal = ({ inventory, gettingItem, gettingInventory, history, 
             placeholder='Received By'
             component={CustomMultiselect}
           />
-          <Field 
-            type='selection' 
-            name='status' 
-            label='Status' 
-            placeholder='Status' 
-            options={options.statuses} 
-            component={DropdownField} 
+          <Field
+            type='selection'
+            name='status'
+            label='Status'
+            placeholder='Status'
+            options={options.statuses}
+            component={DropdownField}
           />
-          <Field 
-            type='textarea' 
-            name='notes' 
-            label='Notes' 
-            placeholder='Information about this record...' 
-            component={TextAreaField} 
+          <Field
+            type='textarea'
+            name='notes'
+            label='Notes'
+            placeholder='Information about this record...'
+            component={TextAreaField}
           />
           <Button basic onClick={() => history.push('/inventories')}>Cancel</Button>
           <Button floated='right' disabled={pristine || submitting}>Submit</Button>

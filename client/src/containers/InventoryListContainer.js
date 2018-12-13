@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import InventoryList from '../components/InventoryList'
-import { getInventories, removeInventory, filterInventories } from '../actions/inventoriesAction'
+import { getInventories, removeInventory, filterInventories } from '../actions/inventoryActions'
 
 const mapStateToProps = (state) => ({
   inventories: state.inventory.inventories,

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
-import { updateInventory, getInventoryById } from '../actions/inventoriesAction'
+import { updateInventory, getInventoryById } from '../actions/inventoryActions'
 import AddInventoryModal from '../components/AddInventoryModal'
 
 const WrappedForm = reduxForm({
@@ -10,32 +10,32 @@ const WrappedForm = reduxForm({
 })(AddInventoryModal)
 
 class AddInventoryModalContainer extends Component {
-	componentDidMount() {
-		const { inventoryId } = this.props
-		this.props.getInventoryById(inventoryId)
-	}
+  componentDidMount () {
+    const {inventoryId} = this.props
+    this.props.getInventoryById(inventoryId)
+  }
 
-	render() {
-		return (
-			<WrappedForm 
-				{...this.props} 
-				initialValues={this.props.inventory}
-				onSubmit={(values) => {
+  render () {
+    return (
+      <WrappedForm
+        {...this.props}
+        initialValues={this.props.initialValues}
+        onSubmit={(values) => {
           this.props.updateInventory(values)
           this.props.history.push('/inventories')
-        }} 
-			/>
-		)
-	}
+        }}
+      />
+    )
+  }
 }
 
 const mapStateToProps = (state, props) => {
-	const inventoryId = props.match.params.id
-	return {
-		inventoryId,
-		inventory: state.inventory.inventory,
-		gettingInventory: state.inventory.gettingInventory,
-		options: {
+  const inventoryId = props.match.params.id
+  return {
+    inventoryId,
+    initialValues: state.inventory.inventory,
+    gettingInventory: state.inventory.gettingInventory,
+    options: {
       sources: [
         {key: 'delivery', value: 'delivery', text: 'Delivery'},
         {key: 'production', value: 'production', text: 'Production'}
@@ -50,7 +50,7 @@ const mapStateToProps = (state, props) => {
         {key: 'returned', value: 'returned', text: 'Returned'}
       ]
     }
-	}
+  }
 }
 
 const mapDispatchToProps = (dispatch) => ({

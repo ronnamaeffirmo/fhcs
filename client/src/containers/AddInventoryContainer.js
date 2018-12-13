@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
-import { createInventory } from '../actions/inventoriesAction'
+import { createInventory } from '../actions/inventoryActions'
 import { getItem } from '../actions/itemActions'
 
 import AddInventoryModal from '../components/AddInventoryModal'
@@ -19,15 +19,15 @@ class AddInventoryModalContainer extends Component {
 
   render() {
     const { history, item, createInventory } = this.props
-    const initialValues = item ? { itemName: item.name } : null
+    const initialValues = item ? { itemName: item.name, item: item._id } : null
     return (
-      <WrappedForm 
-        {...this.props} 
-        initialValues={initialValues} 
+      <WrappedForm
+        {...this.props}
+        initialValues={initialValues}
         onSubmit={(values) => {
           createInventory(values)
           history.push('/inventories')
-        }} 
+        }}
       />
     )
   }

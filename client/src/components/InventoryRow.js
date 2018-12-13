@@ -19,7 +19,7 @@ class InventoryRow extends Component {
 		return (
 			<Fragment>
 				<Table.Row>
-					<Table.Cell>{item.itemName || 'N/A'}</Table.Cell>
+					<Table.Cell>{item.item.name || 'N/A'}</Table.Cell>
 					<Table.Cell>{item.quantity || 'N/A'}</Table.Cell>
 					<Table.Cell>{_.startCase(item.status) || 'N/A'}</Table.Cell>
 					<Table.Cell>
@@ -29,7 +29,7 @@ class InventoryRow extends Component {
 						}
 					</Table.Cell>
 					<Table.Cell singleLine textAlign='center'>
-						<Popup 
+						<Popup
 							inverted
 							size='tiny'
 							content='View more details'
@@ -52,7 +52,7 @@ class InventoryRow extends Component {
 								}} />
 							}
 						/>
-						
+
 					</Table.Cell>
 				</Table.Row>
 				<Table.Row>

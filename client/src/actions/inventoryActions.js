@@ -60,7 +60,11 @@ export const getInventoriesByPeriod = ({period}) => {
 export const getInventories = () => {
   return async (dispatch) => {
     try {
-      const items = await client.service('inventories').find({})
+      const items = await client.service('inventories').find({
+        query: {
+          $populate: ['item']
+        }
+      })
       dispatch({
         type: GET_INVENTORIES,
         payload: items.data
@@ -88,7 +92,11 @@ export const updateInventory = (values) => {
   return async (dispatch) => {
     try {
       const { _id } = values
-      const result = await client.service('inventories').update(_id, values)
+      const result = await client.service('inventories').update(_id, values, {
+        query: {
+          $populate: ['item']
+        }
+      })
       if (result) {
         dispatch({
           type: PATCH_INVENTORY,
@@ -124,11 +132,18 @@ export const getInventoryById = (id) => {
     try {
       dispatch({ type: GET_INVENTORY_REQUEST })
       await dispatch(getInventories())
-      const item = await client.service('inventories').get(id)
-      dispatch({
-        type: GET_INVENTORY,
-        payload: item
+      const inventory = await client.service('inventories').get(id, {
+        query: {
+          $populate: ['item']
+        }
       })
+      inventory.itemName = inventory.item.name
+      if (inventory) {
+        dispatch({
+          type: GET_INVENTORY,
+          payload: inventory
+        })
+      }
     } catch (e) {
       dispatch({ type: GET_INVENTORY_FAIL })
       toastError({ message: e.message })
