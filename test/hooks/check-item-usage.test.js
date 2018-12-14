@@ -33,4 +33,12 @@ describe('\'check item usage\' hook', () => {
     
     assert.deepEqual(result, { id: '123' });
   });
+
+  it('should return an error', async () => {
+    try {
+      const result = await app.service('dummy').find();
+    } catch(err) {
+      assert.strictEqual(err.name, 'ReferenceError')
+    }
+  })
 });
