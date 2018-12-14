@@ -8,8 +8,14 @@ class ItemList extends Component {
   }
 
   render () {
+<<<<<<< HEAD
     let { inventories, removeInventory, filterInventories, filteredInventories, loading } = this.props
+=======
+    let { inventories, removeInventory, filterInventories, filteredInventories } = this.props
+
+>>>>>>> finalization
     inventories = filteredInventories || inventories || []
+    console.log(inventories)
     return (
       <Container style={styles.mainContainer}>
         <Segment style={styles.topSegment}>

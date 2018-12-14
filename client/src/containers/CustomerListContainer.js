@@ -6,7 +6,7 @@ import { getCustomers, removeCustomer, filterCustomers } from '../actions/custom
 const mapStateToProps = (state) => ({
   loading: state.customer.loading,
   customers: state.customer.customers,
-  filteredCustomers: state.customer.filteredCustomers.length > 0 ? state.customer.filteredCustomers : undefined
+  filteredCustomers: state.customer.filteredList.length > 0 ? state.customer.filteredList : undefined
 })
 
 const mapDispatchToProps = (dispatch) => ({

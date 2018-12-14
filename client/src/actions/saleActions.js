@@ -1,9 +1,7 @@
 import client from '../common/client'
 import { reset } from 'redux-form'
 import { toastError, toastSuccess } from './toasterActions'
-import { FILTER_ITEMS } from './itemActions'
 
-export const ADD_SALE = 'ADD_SALE'
 export const RECEIVE_SALES = 'RECEIVE_SALES'
 export const RECEIVE_SALE = 'RECEIVE_SALE'
 export const REMOVE_SALE = 'REMOVE_SALE'
@@ -28,6 +26,7 @@ export const addSale = (sale) => {
       const newSale = await client.service('sales').create(sale)
       if (newSale) {
         dispatch(reset('saleForm'))
+        toastSuccess({message: 'Sale successfully saved!'})
       }
     } catch (e) {
       toastError({message: e.message})
@@ -56,8 +55,8 @@ export const returnItem = (data) => {
         }
       })
       if (patch) {
-        toastSuccess({message: 'New return count has been recorded!'})
         dispatch({type: RETURN_ITEM, payload: {saleId, returnQuantity, itemId}})
+        toastSuccess({message: 'New return count has been recorded!'})
       }
     } catch (e) {
       toastError({message: e.message})
@@ -89,9 +88,9 @@ export const getSales = (customer) => {
           type: RECEIVE_SALES,
           payload: sales.data
         })
-        dispatch({ type: FINISH_SALES_LOADING })
         toastSuccess({message: 'Sales records successfully fetched!'})
       }
+      dispatch({ type: FINISH_SALES_LOADING })
     } catch (e) {
       dispatch({ type: FINISH_SALES_LOADING })
       toastError({message: e.message})
@@ -103,11 +102,14 @@ export const getSale = (id) => {
   return async (dispatch) => {
     try {
       const sale = await client.service('sales').get(id)
-      console.log('RECEIVING SALE', sale)
-      dispatch({
-        type: RECEIVE_SALE,
-        payload: sale
-      })
+      if (sale) {
+        dispatch({
+          type: RECEIVE_SALE,
+          payload: sale
+        })
+        toastSuccess({message: 'Sales record has been fetched successfully!'})
+
+      }
     } catch (e) {
       toastError({message: e.message})
     }
@@ -138,7 +140,6 @@ export const applySalePayment = (values) => {
         _id: id,
         status
       }
-      console.log(`payment payload`, payload)
       const result = await client.service('sales').patch(id, payload)
       if (result) {
         dispatch({
@@ -162,6 +163,7 @@ export const removeSale = (id) => {
           type: REMOVE_SALE,
           payload: id
         })
+        toastSuccess({message: 'Sales record has been successfully removed!'})
       }
     } catch (e) {
       toastError({message: e.message})
