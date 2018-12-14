@@ -16,14 +16,15 @@ const fuseOptions = {
   maxPatternLength: 32,
   minMatchCharLength: 1,
   keys: [
-    'firstname',
-    'lastname'
+    'name',
+    'company',
+    'address',
   ]
 }
 
 const initialState = {
   customers: [],
-  filteredCustomers: []
+  filteredList: []
 }
 
 const customerReducer = (state = initialState, action) => {
@@ -56,7 +57,7 @@ const customerReducer = (state = initialState, action) => {
     case FILTER_CUSTOMERS: {
       return {
         ...state,
-        filteredCustomers: [...search(state.customers, action.payload, fuseOptions)]
+        filteredList: [...search(state.customers, action.payload, fuseOptions)]
       }
     }
     case GET_CUSTOMER: {
