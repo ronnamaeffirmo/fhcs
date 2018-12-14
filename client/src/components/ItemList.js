@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Card, Container, Input, Segment, Message, Grid, Label, Divider, Loader } from 'semantic-ui-react'
+import { Card, Container, Input, Segment, Message, Grid, Label, Divider, Loader, Dimmer } from 'semantic-ui-react'
 import ItemDataCard from './ItemDataCard'
 import NewItemModal from './../containers/AddItemFormContainer'
 

@@ -22,3 +22,11 @@ export const toastError = (options) => {
   }
   iziToast.error(options)
 }
+
+export const toastInfo = (options) => {
+  options = {
+    ...getOptions(),
+    ...options
+  }
+  iziToast.info(options)
+}
