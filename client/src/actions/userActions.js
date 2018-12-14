@@ -177,14 +177,12 @@ export const login = (username, password) => async (dispatch) => {
 export const logout = () => {
   return async (dispatch) => {
     try {
-      const result = await client.logout()
-      if (result) {
-        dispatch({
-          type: USER_LOGOUT,
-          isAuthenticated: false
-        })
-        toastSuccess({message: 'You have been logged out!'})
-      }
+      await client.logout()
+      dispatch({
+        type: USER_LOGOUT,
+        isAuthenticated: false
+      })
+      toastSuccess({message: 'You have been logged out!'})
     } catch (e) {
       toastError({message: e.message})
     }
