@@ -17,6 +17,7 @@ class EditRoleContainer extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
+  loading: state.role.loading,
   initialValues: parseRoleDataToForm(state.role.selection),
   roleId: ownProps.match.params.id,
   selection: state.role.selection

@@ -2,13 +2,13 @@ import React from 'react'
 import { Button, Modal } from 'semantic-ui-react'
 import CustomerForm from './CustomerForm'
 
-const AddCustomerModal = ({triggerComponent: TriggerComponent, submissionHandler}) => {
+const AddCustomerModal = ({triggerComponent: TriggerComponent, submissionHandler, loading}) => {
   TriggerComponent = TriggerComponent ? TriggerComponent : <Button fluid style={styles.searchButton}>NEW CUSTOMER</Button>
   return (
     <Modal size="tiny" trigger={TriggerComponent} centered={false} onOpen={(e) => {e.preventDefault()}}>
       <Modal.Header>NEW CUSTOMER</Modal.Header>
       <Modal.Content>
-        <CustomerForm submissionHandler={submissionHandler} />
+        <CustomerForm loading={loading} submissionHandler={submissionHandler} />
       </Modal.Content>
     </Modal>
   )

@@ -19,7 +19,7 @@ class InventoryRow extends Component {
 		return (
 			<Fragment>
 				<Table.Row>
-					<Table.Cell>{item.item.name || 'N/A'}</Table.Cell>
+					<Table.Cell>{item.item && item.item.name || 'N/A'}</Table.Cell>
 					<Table.Cell>{item.quantity || 'N/A'}</Table.Cell>
 					<Table.Cell>{_.startCase(item.status) || 'N/A'}</Table.Cell>
 					<Table.Cell>

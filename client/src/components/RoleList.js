@@ -90,6 +90,7 @@ const PermissionTable = ({data}) => {
 
 const RoleCard = (props) => {
   const {title, permissions, _id: id} = props.role
+  const {removeRole} = props
   return (
       <Card link fluid>
         <Card.Content>
@@ -105,7 +106,14 @@ const RoleCard = (props) => {
                   color='green'/>
           <Popup
             trigger={<Button color='red' icon='delete' content='Delete Role' size={'tiny'}/>}
-            content={<Button color='green' content='Confirm Delete' size={'tiny'}/>}
+            content={
+              <Button
+              content='Confirm Delete' size={'tiny'}
+              color='green' onClick={(e) => {
+                e.preventDefault()
+                removeRole(id)
+              }}
+            />}
             on='click'
             position='top right'
           />
@@ -115,7 +123,7 @@ const RoleCard = (props) => {
 }
 
 const RoleList = (props) => {
-  const {roles, loading} = props
+  const {roles, loading, removeRole} = props
   return (
     <Container style={styles.mainContainer}>
       <Segment style={styles.topSegment}>
@@ -146,7 +154,7 @@ const RoleList = (props) => {
           : <Fragment>
             {roles && !roles.length && <Message negative>No available roles yet</Message>}
             <Card.Group style={{marginTop: 2, marginRight: 2, marginLeft: 2, marginBottom: 2}} centered>
-              {roles.map(role => <RoleCard key={role._id} role={role}/>)}
+              {roles.map(role => <RoleCard removeRole={removeRole} key={role._id} role={role}/>)}
             </Card.Group>
           </Fragment>
         }

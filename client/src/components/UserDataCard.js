@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { toTitleCase } from '../common/helpers'
 
 const UserDataCard = ({ _id: id, firstname, lastname, username, address, email, phone, picture, role: { title }, deleteUser }) => (
-	<Card fluid style={styles.userCard} key={id}>
+	<Card link fluid style={styles.userCard} key={id}>
 		<Card.Content>
 			<Grid columns='equal'>
 				<Grid.Column textAlign='center' width={3}>

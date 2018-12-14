@@ -40,11 +40,11 @@ const styles = {
 }
 
 const SaleForm = (props) => {
-  const {submissionHandler, handleSubmit, date, term, customerSearchList, getCustomerSearchList, pristine, submitting, tmp, items, clearTmpFields, updateTmpFields, itemSearchList} = props
+  const {loading, submissionHandler, handleSubmit, date, term, customerSearchList, getCustomerSearchList, pristine, submitting, tmp, items, clearTmpFields, updateTmpFields, itemSearchList} = props
   console.log('TERM', term)
   return (
     <Container style={styles.mainContainer}>
-      <Form onSubmit={submissionHandler ? handleSubmit(submissionHandler) : undefined}>
+      <Form loading={loading} onSubmit={submissionHandler ? handleSubmit(submissionHandler) : undefined}>
         <Container>
           <Link to={'/sales'}><Button color={'grey'} content={'Back to Sales'} icon={'arrow left'}
                                       labelPosition={'left'}/></Link>
@@ -291,6 +291,7 @@ const Items = (props) => {
           <Grid.Column width={3}>
             <label style={styles.tmpFieldLabel}>Price</label>
             <Field
+              type='number'
               name={'tmpPrice'}
               component='input'
             />
@@ -300,6 +301,7 @@ const Items = (props) => {
           <Grid.Column width={2}>
             <label style={styles.tmpFieldLabel}>Quantity</label>
             <Field
+              type='number'
               name={'tmpQuantity'}
               component='input'
             />
@@ -309,6 +311,7 @@ const Items = (props) => {
           <Grid.Column width={3}>
             <label style={styles.tmpFieldLabel}>Discount</label>
             <Field
+              type='number'
               name={'tmpDiscount'}
               component='input'
             />

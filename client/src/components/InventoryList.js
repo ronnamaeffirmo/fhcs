@@ -10,7 +10,6 @@ class ItemList extends Component {
   render () {
     let { inventories, removeInventory, filterInventories, filteredInventories, loading } = this.props
     inventories = filteredInventories || inventories || []
-    console.log(inventories)
     return (
       <Container style={styles.mainContainer}>
         <Segment style={styles.topSegment}>
@@ -31,20 +30,20 @@ class ItemList extends Component {
             ? <Loader active />
             : <Fragment>
               { inventories && !inventories.length && <Message negative>No available items yet</Message>}
-                <Table celled striped selectable>
-                  <Table.Header>
-                    <Table.Row textAlign='center'>
-                      <Table.HeaderCell width={5}>Item</Table.HeaderCell>
-                      <Table.HeaderCell width={1}>QTY</Table.HeaderCell>
-                      <Table.HeaderCell width={2}>Status</Table.HeaderCell>
-                      <Table.HeaderCell>Received by</Table.HeaderCell>
-                      <Table.HeaderCell width={1}>Action</Table.HeaderCell>
-                    </Table.Row>
-                  </Table.Header>
-                  <Table.Body>
-                    { inventories.map((item) => <InventoryRow key={item._id} item={item} removeInventory={removeInventory} />)}
-                  </Table.Body>
-                </Table>
+              <Table celled striped selectable>
+                <Table.Header>
+                  <Table.Row textAlign='center'>
+                    <Table.HeaderCell width={5}>Item</Table.HeaderCell>
+                    <Table.HeaderCell width={1}>QTY</Table.HeaderCell>
+                    <Table.HeaderCell width={2}>Status</Table.HeaderCell>
+                    <Table.HeaderCell>Received by</Table.HeaderCell>
+                    <Table.HeaderCell width={1}>Action</Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  { inventories.map((item) => <InventoryRow key={item._id} item={item} removeInventory={removeInventory} />)}
+                </Table.Body>
+              </Table>
             </Fragment>
           }
         </Segment>

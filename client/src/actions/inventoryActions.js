@@ -1,5 +1,5 @@
 import client from '../common/client'
-import { toastError, toastSuccess } from './toasterActions'
+import { toastError, toastSuccess, toastInfo } from './toasterActions'
 
 export const GET_INVENTORIES = 'GET_INVENTORIES'
 export const ADD_INVENTORY = 'ADD_INVENTORY'
@@ -38,6 +38,7 @@ export const getInventories = () => {
 
 export const removeInventory = (id) => async (dispatch) => {
   try {
+    toastInfo({ message: 'Deleting inventory...' })
     const removedInventory = await client.service('inventories').remove(id)
     if (removedInventory) {
       dispatch({
@@ -54,6 +55,7 @@ export const removeInventory = (id) => async (dispatch) => {
 export const updateInventory = (values) => {
   return async (dispatch) => {
     try {
+      toastInfo({ message: 'Updating inventory...' })
       const {_id} = values
       const result = await client.service('inventories').update(_id, values, {
         query: {
@@ -76,6 +78,7 @@ export const updateInventory = (values) => {
 export const createInventory = (values) => {
   return async (dispatch) => {
     try {
+      toastInfo({ message: 'Adding new inventory...' })
       const item = await client.service('inventories').create(values, {
         query: {
           populate: ['item']
