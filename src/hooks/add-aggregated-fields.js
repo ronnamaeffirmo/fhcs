@@ -4,7 +4,7 @@
 // eslint-disable-next-line no-unused-vars
 module.exports = function (options = {}) {
   return async context => {
-    const getAggregatedFields = async (itemId) => {
+    const getSalesAggregatedFields = async (itemId) => {
       const result = await context.app.service('sales').Model.aggregate(
         [
           {$match: {'items.item': itemId}},
@@ -21,28 +21,48 @@ module.exports = function (options = {}) {
       )
       if (result[0]) {
         return {
-          quantity: result[0].quantity ? result[0].quantity : 0,
+          salesQuantity: result[0].quantity ? result[0].quantity : 0,
           returnQuantity: result[0].returnQuantity ? result[0].returnQuantity : 0
         }
       }
-      return {quantity: 0, returnQuantity: 0}
+      return {salesQuantity: 0, returnQuantity: 0}
     }
+
+    const getInventoriesAggregatedFields = async (itemId) => {
+      const result = await context.app.service('inventories').Model.aggregate([
+        {$match: {'item': itemId}},
+        {$group: {_id: null, inventoryQuantity: {$sum: '$quantity'}}}
+      ])
+      console.log(result)
+      if (result[0]) {
+        return {
+          inventoryQuantity: result[0].inventoryQuantity ? result[0].inventoryQuantity : 0
+        }
+      }
+      return {
+        inventoryQuantity: 0
+      }
+    }
+
     const {result} = context
     if (result._id) {
-      const {quantity, returnQuantity} = await getAggregatedFields(result._id)
+      const {salesQuantity, returnQuantity} = await getSalesAggregatedFields(result._id)
+      const {inventoryQuantity} = await getInventoriesAggregatedFields(result._id)
       context.result = {
         ...context.result,
-        quantity,
-        returnQuantity
+        salesQuantity,
+        returnQuantity,
+        inventoryQuantity
       }
     } else if (result.data && result.data.length > 0) {
       const {data: items} = result
       const aggregatedItems = []
       for (let item of items) {
-        const {quantity, returnQuantity} = await getAggregatedFields(item._id)
+        const {salesQuantity, returnQuantity} = await getSalesAggregatedFields(item._id)
+        const {inventoryQuantity} = await getInventoriesAggregatedFields(item._id)
         aggregatedItems.push({
           ...item,
-          quantity, returnQuantity
+          salesQuantity, returnQuantity, inventoryQuantity
         })
       }
       context.result.data = aggregatedItems

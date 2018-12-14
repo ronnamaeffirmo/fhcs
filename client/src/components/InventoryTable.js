@@ -22,13 +22,13 @@ const InventoryTable = props => {
           <Table celled sortable>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell textAlign={'center'}>ITEM</Table.HeaderCell>
-                <Table.HeaderCell textAlign={'center'}>QUANTITY</Table.HeaderCell>
-                <Table.HeaderCell textAlign={'right'}>STATUS</Table.HeaderCell>
-                <Table.HeaderCell textAlign={'right'}>TRUCK PLATE NUMBER</Table.HeaderCell>
-                <Table.HeaderCell textAlign={'right'}>PRODUCER</Table.HeaderCell>
-                <Table.HeaderCell textAlign={'right'}>COMPANY</Table.HeaderCell>
-                <Table.HeaderCell textAlign={'right'}>PHONE NUMBER</Table.HeaderCell>
+                <Table.HeaderCell textAlign={'center'}>Item</Table.HeaderCell>
+                <Table.HeaderCell textAlign={'center'}>Quantity</Table.HeaderCell>
+                <Table.HeaderCell textAlign={'center'}>Status</Table.HeaderCell>
+                <Table.HeaderCell textAlign={'center'}>Truck Plate #</Table.HeaderCell>
+                <Table.HeaderCell textAlign={'center'}>Producer</Table.HeaderCell>
+                <Table.HeaderCell textAlign={'center'}>Company</Table.HeaderCell>
+                <Table.HeaderCell textAlign={'center'}>Phone #</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>

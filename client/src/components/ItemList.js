@@ -25,12 +25,13 @@ class ItemList extends Component {
                 />
               </Grid.Column>
               <Grid.Column width={4}>
-                <NewItemModal />
+                <NewItemModal/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
           <Divider/>
-          <Message style={{ padding: '0.5rem 1rem' }} size='small' info>Click on a <Label size='tiny'>card</Label> to view reports...</Message>
+          <Message style={{padding: '0.5rem 1rem'}} size='small' info>Click on a <Label size='tiny'>card</Label> to view
+            reports...</Message>
         </Segment>
         <Segment style={styles.bottomSegment}>
           {loading 

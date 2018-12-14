@@ -1,8 +1,10 @@
 import React from 'react'
-import { Container, Statistic, Segment, Table, Tab, Icon, Button, Divider } from 'semantic-ui-react'
+import { Container, Statistic, Segment, Table, Tab, Button, Divider } from 'semantic-ui-react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import Loader from '../components/Loader'
+import _ from 'lodash'
+import numeral from 'numeral'
 
 const styles = {
   mainContainer: {
@@ -16,14 +18,15 @@ const styles = {
 const panes = ({sales, inventories}) => [
   {
     menuItem: 'Sales',
-    render: () => <Tab.Pane attached={false}><SalesTable sales={sales}/></Tab.Pane>},
+    render: () => <Tab.Pane attached={false}><SalesTable sales={sales}/></Tab.Pane>
+  },
   {
     menuItem: 'Inventories',
     render: () => <Tab.Pane attached={false}><InventoryTable inventories={inventories}/></Tab.Pane>
   },
 ]
 
-const getSalesTotal = sales => {
+const getStats = sales => {
   let stats = {total: 0, returnTotal: 0, sold: 0, returned: 0}
   for (const sale of sales) {
     for (const item of sale.items) {
@@ -56,10 +59,11 @@ const InventoryTable = ({inventories}) => {
           {inventories && inventories.map(inventory => {
             return (
               <Table.Row key={inventory._id}>
-                <Table.Cell/>
-                <Table.Cell textAlign={'center'}>{inventory.source || 'N/A'}</Table.Cell>
+                <Table.Cell textAlign={'center'}>{moment(inventory.date).format('MMMM DD, YYYY') || 'N/A'}</Table.Cell>
+                <Table.Cell textAlign={'center'}>{_.capitalize(inventory.source) || 'N/A'}</Table.Cell>
                 <Table.Cell textAlign={'center'}>{inventory.quantity > 0 ? inventory.quantity : 'N/A'} </Table.Cell>
-                <Table.Cell textAlign={'center'}>{inventory.status || 'N/A'}</Table.Cell>
+                <Table.Cell
+                  textAlign={'center'}>{_.capitalize(inventory.status.replace('_', ' ')) || 'N/A'}</Table.Cell>
               </Table.Row>
             )
           })}
@@ -72,6 +76,7 @@ const InventoryTable = ({inventories}) => {
 const ItemReport = props => {
   if (props.item && !props.loading) {
     const {item: {sales, inventories}} = props
+    const {sold, total, returned, returnTotal} = getStats(sales)
     return (
       <Container style={styles.mainContainer}>
         <Container>
@@ -82,22 +87,22 @@ const ItemReport = props => {
         <Segment>
           <Statistic.Group widths='two'>
             <Statistic color={'blue'}>
-              <Statistic.Value>{getSalesTotal(sales).sold}</Statistic.Value>
+              <Statistic.Value>{numeral(sold).format('0,0')}</Statistic.Value>
               <Statistic.Label>AMOUNT SOLD</Statistic.Label>
             </Statistic>
             <Statistic color={'green'}>
               <Statistic.Value>
-                ₱{getSalesTotal(sales).total}
+                ₱{numeral(total).format('0,0.00')}
               </Statistic.Value>
               <Statistic.Label>TOTAL SALES</Statistic.Label>
             </Statistic>
             <Statistic color={'grey'}>
-              <Statistic.Value>{getSalesTotal(sales).returned}</Statistic.Value>
+              <Statistic.Value>{numeral(returned).format('0,0')}</Statistic.Value>
               <Statistic.Label>AMOUNT RETURNED</Statistic.Label>
             </Statistic>
             <Statistic color={'red'}>
               <Statistic.Value>
-                ₱{getSalesTotal(sales).returnTotal}
+                ₱{numeral(returnTotal).format('0,0.00')}
               </Statistic.Value>
               <Statistic.Label>TOTAL RETURNS</Statistic.Label>
             </Statistic>
@@ -129,15 +134,18 @@ const SalesTable = props => {
       <Table.Body>
         {sales && sales.map(sale => {
           return sale.items.map((item, index) => {
+            const total = item.price * (item.quantity - item.returnQuantity)
+            const {officialReceipt, date} = sale
+            const {price, quantity, returnQuantity} = item
             return (
               <Table.Row key={index}>
-                <Table.Cell textAlign={'center'}>{sale.officialReceipt}</Table.Cell>
-                <Table.Cell textAlign={'center'}>{moment(sale.date).format('MMMM DD, YYYY')}</Table.Cell>
-                <Table.Cell textAlign={'center'}>₱{item.price}</Table.Cell>
-                <Table.Cell textAlign={'center'}>{item.quantity} {item.unit}</Table.Cell>
-                <Table.Cell textAlign={'center'}>{item.returnQuantity} {item.unit}</Table.Cell>
+                <Table.Cell textAlign={'center'}>{officialReceipt}</Table.Cell>
+                <Table.Cell textAlign={'center'}>{moment(date).format('MMMM DD, YYYY')}</Table.Cell>
+                <Table.Cell textAlign={'center'}>₱{numeral(price).format('0,0.00')}</Table.Cell>
+                <Table.Cell textAlign={'center'}>{numeral(quantity).format('0,0')} {item.unit}</Table.Cell>
+                <Table.Cell textAlign={'center'}>{numeral(returnQuantity).format('0,0')} {item.unit}</Table.Cell>
                 <Table.Cell
-                  textAlign={'right'}>₱{parseFloat(item.price * (item.quantity - item.returnQuantity)).toFixed(2)}</Table.Cell>
+                  textAlign={'right'}>₱{numeral(total).format('0,0.00')}</Table.Cell>
               </Table.Row>
             )
           })

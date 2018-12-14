@@ -28,8 +28,7 @@ const saleReducer = (state = initialState, action) => {
           if (sale._id === action.payload._id) {
             return {
               ...sale,
-              payment: action.payload.payment,
-              paymentDate: action.payload.paymentDate
+              status: action.payload.status
             }
           }
           return sale

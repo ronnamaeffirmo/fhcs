@@ -61,7 +61,7 @@ export const getSales = (customer) => {
       dispatch({ type: START_SALES_LOADING })
       let sales
       if (customer) {
-        sales = await client.service('sales').find({ 
+        sales = await client.service('sales').find({
           query: {
             customer,
             $populate: ['customer', 'items.item']
@@ -121,19 +121,13 @@ export const updateSale = (values) => {
 
 export const applySalePayment = (values) => {
   return async (dispatch) => {
-    console.log('APPLYING PAYMENT')
-    const {_id: id, payment, officialReceipt} = values
+    const {_id: id, status, officialReceipt} = values
     try {
       let payload = {
         _id: id,
-        payment
+        status
       }
-      if (payment === 'paid') {
-        payload = {
-          ...payload,
-          paymentDate: new Date()
-        }
-      }
+      console.log(`payment payload`, payload)
       const result = await client.service('sales').patch(id, payload)
       if (result) {
         dispatch({

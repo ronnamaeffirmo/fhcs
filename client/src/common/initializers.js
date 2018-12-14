@@ -1,4 +1,5 @@
 import { formValueSelector } from 'redux-form'
+import _ from 'lodash'
 
 export const itemStateInitializer = (state, items) => {
   let initialItemsState = [{}]
@@ -9,7 +10,7 @@ export const itemStateInitializer = (state, items) => {
           return i._id === item.item
         })[0].name,
         price: parseFloat(item.price).toFixed(2),
-        quantity: parseInt(item.quantity),
+        quantity: _.parseInt(item.quantity),
         discount: parseFloat(item.discount).toFixed(2),
         subtotal: (parseFloat(item.price) * parseFloat(item.quantity)).toFixed(2),
         total: ((parseFloat(item.price) * parseFloat(item.quantity)) - parseFloat(item.discount)).toFixed(2)
@@ -29,7 +30,7 @@ export const getSaleContainerState = (state) => {
       discount: selector(state, 'tmpDiscount'),
     },
     date: selector(state, 'date'),
-    term: parseInt(selector(state, 'term')) ? parseInt(selector(state, 'term')) : 0,
+    term: _.parseInt(selector(state, 'term')) ? _.parseInt(selector(state, 'term')) : 0,
     items: itemStateInitializer(state, selector(state, 'items')),
     customerSearchList: state.customer.customers && state.customer.customers.map(customer => ({
       key: customer._id,

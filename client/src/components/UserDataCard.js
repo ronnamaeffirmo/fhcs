@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Card, Icon, Grid, Popup, Button, Image } from 'semantic-ui-react'
+import { Card, Icon, Grid, Popup, Button, Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { toTitleCase } from '../common/helpers'
 

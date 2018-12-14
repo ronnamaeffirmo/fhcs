@@ -17,9 +17,9 @@ class LoginForm extends React.Component {
     const { username, password } = this.state
     const { handleLogin, history } = this.props
     const { state } = history.location
-    
+
     await handleLogin(username, password)
-    
+
     if (state && state.from) {
       // redirect to prev route
       const { pathname } = state.from
@@ -38,7 +38,7 @@ class LoginForm extends React.Component {
     return (
       <Grid columns='equal' style={{ margin: 0 }}>
         <Grid.Column style={style.imageColumn} width={12}>
-          <img style={style.coverImage} src='/images/fieldstone-poser.jpg' />
+          <img style={style.coverImage} src='/images/fieldstone-poser.jpg' alt={'fieldstone-poser'} />
         </Grid.Column>
         <Grid.Column style={style.form} textAlign='center'>
           <Image centered style={style.logo} src='/images/fieldstone-logo-flat-v2.png' />

@@ -6,22 +6,6 @@ import { getSales } from '../actions/saleActions'
 
 const selector = formValueSelector('salesFilter')
 
-const searchOptions = {
-  shouldSort: true,
-  threshold: 0.6,
-  location: 0,
-  distance: 100,
-  maxPatternLength: 32,
-  minMatchCharLength: 1,
-  keys: [
-    'officialReceipt',
-    'date',
-    'term',
-    'customer.name',
-    'customer.company'
-  ]
-}
-
 class SaleTableContainer extends React.Component {
   componentDidMount () {
     const { customerId } = this.props

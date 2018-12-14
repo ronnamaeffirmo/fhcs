@@ -1,7 +1,6 @@
 import client from '../common/client'
 import { toastError, toastSuccess } from './toasterActions'
 import {reset} from 'redux-form'
-import { fileToDataUrl } from '../common/helpers'
 
 // APPLICATION ACCESS
 export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST'

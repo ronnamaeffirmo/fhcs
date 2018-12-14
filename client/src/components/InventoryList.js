@@ -20,7 +20,7 @@ class ItemList extends Component {
             onChange={(e) => { filterInventories(e.target.value) }}
           />
           <Divider />
-          <Message style={{ padding: '0.5rem 1rem' }} size='small' size='tiny' info>
+          <Message style={{ padding: '0.5rem 1rem' }} size='small' info>
           To add a new inventory, head over to <b>items list</b> and
           click <Button circular icon='add' size='mini' />on an item card
           </Message>
