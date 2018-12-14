@@ -12,6 +12,7 @@ export const FINISH_ROLES_LOADING = 'FINISH_ROLES_LOADING'
 export const getRole = (id) => {
   return async (dispatch) => {
     try {
+      dispatch({ type: START_ROLES_LOADING })
       const result = await client.service('roles').get(id)
       if (result.permissions.length > 0) {
         result.permissions = result.permissions.map(permission => {
@@ -25,9 +26,11 @@ export const getRole = (id) => {
           type: RECEIVE_ROLE,
           payload: payload
         })
+        dispatch({ type: FINISH_ROLES_LOADING })
         toastSuccess({message: 'Role fetched from database!'})
       }
     } catch (e) {
+      dispatch({ type: FINISH_ROLES_LOADING })
       toastError({message: e.message})
     }
   }
@@ -66,13 +69,16 @@ export const parseRoleDataToForm = (role) => {
 export const addNewRole = (values) => {
   return async (dispatch) => {
     try {
+      dispatch({ type: START_ROLES_LOADING })
       const payload = parseRoleFormData(values)
       const result = await client.service('roles').create(payload)
       if (result) {
         dispatch(reset('roleForm'))
+        dispatch({ type: FINISH_ROLES_LOADING })
         toastSuccess({message: 'Role has been successfully saved!'})
       }
     } catch (e) {
+      dispatch({ type: FINISH_ROLES_LOADING })
       toastError({message: e.message})
     }
   }
@@ -81,6 +87,7 @@ export const addNewRole = (values) => {
 export const updateRole = (values) => {
   return async (dispatch) => {
     try {
+      dispatch({ type: START_ROLES_LOADING })
       const payload = parseRoleFormData(values)
       const result = await client.service('roles').update(values.id, payload)
       if (result) {
@@ -88,9 +95,11 @@ export const updateRole = (values) => {
           type: UPDATE_ROLE,
           payload
         })
+        dispatch({ type: FINISH_ROLES_LOADING })
         toastSuccess({message: 'Role has been successfully updated!'})
       }
     } catch (e) {
+      dispatch({ type: FINISH_ROLES_LOADING })
       toastError({message: e.message})
     }
   }

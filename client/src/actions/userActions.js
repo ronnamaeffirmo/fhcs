@@ -1,5 +1,5 @@
 import client from '../common/client'
-import { toastError, toastSuccess } from './toasterActions'
+import { toastError, toastSuccess, toastInfo } from './toasterActions'
 import { reset } from 'redux-form'
 
 // APPLICATION ACCESS
@@ -109,6 +109,7 @@ export const getUser = (id) => {
 export const deleteUser = (userId) => {
   return async (dispatch) => {
     try {
+      toastInfo({ message: 'Deleting user...' })
       const result = await client.service('users').remove(userId)
       if (result) {
         dispatch({

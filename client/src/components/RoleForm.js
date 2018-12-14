@@ -84,11 +84,11 @@ const CommonServiceParameters = (props) => {
 }
 
 const RoleForm = (props) => {
-  const {handleSubmit, pristine, submitting, submissionHandler, dataView} = props
+  const {handleSubmit, pristine, submitting, submissionHandler, dataView, loading} = props
   const endpoints = ['Items', 'Inventories', 'Sales', 'Users', 'Roles', 'Customers']
   return (
     <Container style={styles.mainContainer}>
-      <Form onSubmit={submissionHandler ? handleSubmit(submissionHandler) : undefined}>
+      <Form loading={loading} onSubmit={submissionHandler ? handleSubmit(submissionHandler) : undefined}>
         <Container>
           <Link to={'/roles'}><Button color={'grey'} content={'Back to Roles'} icon={'arrow left'}
                                       labelPosition={'left'}/></Link>

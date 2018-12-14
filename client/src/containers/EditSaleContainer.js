@@ -21,6 +21,7 @@ class EditSaleContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
   // initial values need to be called first so redux-form can handle the state changes
+  loading: state.sale.loading,
   initialValues: state.sale.selection,
   ...getSaleContainerState(state),
   saleId: ownProps.match.params.id,

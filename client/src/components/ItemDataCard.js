@@ -90,11 +90,11 @@ class ItemDataCard extends Component {
                                  color='teal'/>}
               />
               <Popup
-                size={'large'}
+                size={'mini'}
                 trigger={<Button icon='trash alternate outline' circular size='mini' color='red'/>}
                 content={
                   <div>
-                    <Button color='green' icon='delete' content='Confirm Delete' onClick={(e) => {
+                    <Button size='tiny' color='green' icon='delete' content='Confirm Delete' onClick={(e) => {
                       e.preventDefault()
                       removeItem(item._id)
                     }

@@ -61,11 +61,11 @@ const saleDataCard = ({sale, actions: {removeSale, applySalePayment, returnItem}
           </Container>
           <Button color='teal' icon='edit' circular as={Link} to={`/sales/update/${id}`}/>
           <Popup
-            size={'large'}
+            size={'tiny'}
             trigger={<Button color='red' icon='delete' circular/>}
             content={
               <div>
-                <Button color='green' icon='delete' content='Confirm Delete' onClick={(e) => {
+                <Button size='tiny' color='green' icon='delete' content='Confirm Delete' onClick={(e) => {
                   e.preventDefault()
                   removeSale(id)
                 }
