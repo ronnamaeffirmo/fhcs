@@ -46,8 +46,9 @@ const getSummary = sales => {
 }
 
 const SaleTable = props => {
-  const {filters: {startDate, endDate, status}} = props
+  const {filters: {startDate, endDate, status}, filteredSales} = props
   let {sales} = props
+  sales = filteredSales || sales || []
   if (sales.length > 0) {
     if (status && status !== 'none') {
       sales = sales.filter(sale => sale.status === status)

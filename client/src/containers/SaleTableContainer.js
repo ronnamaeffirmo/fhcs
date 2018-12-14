@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { formValueSelector, reset } from 'redux-form'
 import SaleTable from '../components/SaleTable'
-import { getSales } from '../actions/saleActions'
+import { filterSales, getSales } from '../actions/saleActions'
 
 const selector = formValueSelector('salesFilter')
 
@@ -28,12 +28,14 @@ const mapStateToProps = (state, ownProps) => ({
     startDate: selector(state, 'startDate'),
     endDate: selector(state, 'endDate'),
     status: selector(state, 'status')
-  }
+  },
+  filteredSales: state.sale.filteredList.length > 0 ? state.sale.filteredList : undefined
 })
 
 const mapDispatchToProps = dispatch => ({
   getSales: (id) => dispatch(getSales(id)),
-  resetFilters: () => dispatch(reset('salesFilter'))
+  resetFilters: () => dispatch(reset('salesFilter')),
+  filterSales: (searchTerm) => dispatch(filterSales(searchTerm))
 })
 
 export default connect(

@@ -33,14 +33,14 @@ const styles = {
 }
 
 const SaleHeader = props => {
-  const {resetFilters} = props
+  const {resetFilters, filterSales} = props
   return (
     <Segment>
       <div style={styles.filters}>
         <Grid verticalAlign={'middle'} divided>
           <Grid.Row colums={2}>
             <Grid.Column width={12}>
-              <Input icon='search' fluid placeholder={'Search...'}/>
+              <Input icon='search' fluid placeholder={'Search...'} onChange={(e) => { filterSales(e.target.value) }}/>
             </Grid.Column>
             <Grid.Column width={4}>
               <Button fluid as={Link} to={'/sales/new'} style={styles.headerButton}>NEW SALE</Button>

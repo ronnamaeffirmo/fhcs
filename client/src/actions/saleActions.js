@@ -1,6 +1,7 @@
 import client from '../common/client'
 import { reset } from 'redux-form'
 import { toastError, toastSuccess } from './toasterActions'
+import { FILTER_ITEMS } from './itemActions'
 
 export const ADD_SALE = 'ADD_SALE'
 export const RECEIVE_SALES = 'RECEIVE_SALES'
@@ -8,6 +9,16 @@ export const RECEIVE_SALE = 'RECEIVE_SALE'
 export const REMOVE_SALE = 'REMOVE_SALE'
 export const APPLY_SALE_PAYMENT = 'APPLY_SALE_PAYMENT'
 export const RETURN_ITEM = 'RETURN_ITEM'
+export const FILTER_SALES = 'FILTER_SALES'
+
+export const filterSales = (value) => {
+  return (dispatch) => {
+    dispatch({
+      type: FILTER_SALES,
+      payload: value
+    })
+  }
+}
 
 export const addSale = (sale) => {
   return async (dispatch) => {

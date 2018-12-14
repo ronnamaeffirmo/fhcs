@@ -5,8 +5,8 @@ import SaleHeader from './SaleHeader'
 import moment from 'moment'
 
 const SaleList = (props) => {
-  let {sales, removeSale, applySalePayment, returnItem} = props
-  sales = sales || []
+  let {sales, filteredSales, removeSale, applySalePayment, returnItem} = props
+  sales = filteredSales || sales || []
   const {filters: {startDate, endDate, status}} = props
   if (sales.length > 0) {
     if (status && status !== 'none') {
