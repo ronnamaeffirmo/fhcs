@@ -18,8 +18,8 @@ const fuseOptions = {
   maxPatternLength: 32,
   minMatchCharLength: 1,
   keys: [
-    'itemName',
-    'description',
+    'item.name',
+    'date',
     'price',
     'unit'
   ]
@@ -27,7 +27,7 @@ const fuseOptions = {
 
 const initialState = {
   inventories: [],
-  filteredInventories: [],
+  filteredList: [],
   inventory: {},
   gettingInventory: false
 }
@@ -56,7 +56,7 @@ const inventoryReducer = (state = initialState, action) => {
     case FILTER_INVENTORIES: {
       return {
         ...state,
-        filteredInventories: [...search(state.inventories, action.payload, fuseOptions)]
+        filteredList: [...search(state.inventories, action.payload, fuseOptions)]
       }
     }
     case GET_INVENTORY: {

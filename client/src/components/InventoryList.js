@@ -9,7 +9,9 @@ class ItemList extends Component {
 
   render () {
     let { inventories, removeInventory, filterInventories, filteredInventories } = this.props
+
     inventories = filteredInventories || inventories || []
+    console.log(inventories)
     return (
       <Container style={styles.mainContainer}>
         <Segment style={styles.topSegment}>

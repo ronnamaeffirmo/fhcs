@@ -113,7 +113,11 @@ export const createInventory = (values) => {
   return async (dispatch) => {
     try {
       console.log('[!] values', values)
-      const item = await client.service('inventories').create(values)
+      const item = await client.service('inventories').create(values, {
+        query: {
+          populate: ['item']
+        }
+      })
       console.log('[!] item created', item)
       dispatch({
         type: ADD_INVENTORY,
