@@ -123,7 +123,7 @@ const AddInventoryModal = ({inventory, gettingItem, gettingInventory, history, o
             placeholder='Information about this record...'
             component={TextAreaField}
           />
-          <Button basic onClick={() => history.push('/inventories')}>Cancel</Button>
+          <Button basic onClick={() => history.push('/items')}>Cancel</Button>
           <Button floated='right' disabled={pristine || submitting}>Submit</Button>
         </Form>
       </Container>
