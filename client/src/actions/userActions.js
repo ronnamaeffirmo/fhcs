@@ -1,6 +1,6 @@
 import client from '../common/client'
 import { toastError, toastSuccess } from './toasterActions'
-import {reset} from 'redux-form'
+import { reset } from 'redux-form'
 
 // APPLICATION ACCESS
 export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST'
@@ -49,9 +49,7 @@ export const getUsers = () => {
 export const addUser = (user) => {
   return async (dispatch) => {
     try {
-      dispatch({ type: ADD_USER_REQUEST }) // actually being reused among add, get, edit lol -R
-      console.log('[!] user values', user)
-
+      dispatch({type: ADD_USER_REQUEST}) // actually being reused among add, get, edit lol -R
       const newUser = await client.service('users').create(user)
       if (newUser) {
         dispatch({
@@ -63,7 +61,7 @@ export const addUser = (user) => {
       }
     } catch (e) {
       toastError({message: e.message})
-      dispatch({ type: ADD_USER_FAIL })
+      dispatch({type: ADD_USER_FAIL})
     }
   }
 }
@@ -71,7 +69,7 @@ export const addUser = (user) => {
 export const editUser = (user) => {
   return async (dispatch) => {
     try {
-      dispatch({ type: ADD_USER_REQUEST })
+      dispatch({type: ADD_USER_REQUEST})
       const updatedUser = await client.service('users').patch(user._id, user)
       updatedUser.role = updatedUser.role._id
       dispatch({
@@ -80,7 +78,7 @@ export const editUser = (user) => {
       })
     } catch (e) {
       toastError({message: e.message})
-      dispatch({ type: ADD_USER_FAIL })
+      dispatch({type: ADD_USER_FAIL})
     }
   }
 }
@@ -88,7 +86,7 @@ export const editUser = (user) => {
 export const getUser = (id) => {
   return async (dispatch) => {
     try {
-      dispatch({ type: ADD_USER_REQUEST })
+      dispatch({type: ADD_USER_REQUEST})
       const user = await client.service('users').get(id, {
         query: {
           $populate: 'role'
@@ -102,7 +100,7 @@ export const getUser = (id) => {
         })
       }
     } catch (e) {
-      dispatch({ type: ADD_USER_FAIL })
+      dispatch({type: ADD_USER_FAIL})
       toastError({message: e.message})
     }
   }
@@ -136,11 +134,11 @@ export const updatePassword = (values) => {
 
 export const login = (username, password) => async (dispatch) => {
   try {
-    dispatch({ type: USER_LOGIN_REQUEST })
+    dispatch({type: USER_LOGIN_REQUEST})
     let token
     if (!username || !password) {
       if (!localStorage.getItem('feathers-jwt')) {
-        dispatch({ type: USER_LOGIN_FAIL })
+        dispatch({type: USER_LOGIN_FAIL})
         return
       }
       token = await client.authenticate()
@@ -162,7 +160,7 @@ export const login = (username, password) => async (dispatch) => {
       query: {$populate: ['role']}
     })
     if (user) {
-      toastSuccess({ message: 'Successfully logged in!' })
+      toastSuccess({message: 'Successfully logged in!'})
       dispatch({
         type: USER_LOGIN_SUCCESS,
         payload: user,
@@ -170,7 +168,7 @@ export const login = (username, password) => async (dispatch) => {
       })
     }
   } catch (e) {
-    dispatch({ type: USER_LOGIN_FAIL })
+    dispatch({type: USER_LOGIN_FAIL})
     toastError({message: e.message})
   }
 }
@@ -178,11 +176,14 @@ export const login = (username, password) => async (dispatch) => {
 export const logout = () => {
   return async (dispatch) => {
     try {
-      await client.logout()
-      dispatch({
-        type: USER_LOGOUT,
-        isAuthenticated: false
-      })
+      const result = await client.logout()
+      if (result) {
+        dispatch({
+          type: USER_LOGOUT,
+          isAuthenticated: false
+        })
+        toastSuccess({message: 'You have been logged out!'})
+      }
     } catch (e) {
       toastError({message: e.message})
     }

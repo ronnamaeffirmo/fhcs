@@ -6,7 +6,7 @@ import { getInventories, removeInventory, filterInventories } from '../actions/i
 const mapStateToProps = (state) => ({
   loading: state.inventory.loading,
   inventories: state.inventory.inventories,
-  filteredInventories: state.inventory.filteredInventories.length > 0 ? state.inventory.filteredInventories : undefined
+  filteredInventories: state.inventory.filteredList.length > 0 ? state.inventory.filteredList : undefined
 })
 
 const mapDispatchToProps = (dispatch) => ({
