@@ -34,7 +34,7 @@ describe('\'check item usage\' hook', () => {
     assert.deepEqual(result, { id: '123' });
   });
 
-  it('should return an error', async () => {
+  it('should return an error when parameter is empty', async () => {
     try {
       const result = await app.service('dummy').find();
     } catch(err) {

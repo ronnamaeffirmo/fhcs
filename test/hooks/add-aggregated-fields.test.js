@@ -24,7 +24,7 @@ describe('\'addAggregatedFields\' hook', () => {
     const result = await app.service('dummy').get('test');
     assert.deepEqual(result, { id: 'test' });
   });
-  it('should return an error', async () => {
+  it('should return an error when parameter is empty', async () => {
     // assert.throws(result, expected)
     try {
       const result = await app.service('dummy').get();
