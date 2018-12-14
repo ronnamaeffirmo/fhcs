@@ -14,6 +14,7 @@ class EditCustomerContainer extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
+  loading: state.customer.loading,
   initialValues: state.customer.selection,
   customerId: ownProps.match.params.id
 })

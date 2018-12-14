@@ -1,6 +1,6 @@
 import client from '../common/client'
 import { reset } from 'redux-form'
-import { toastError, toastSuccess } from './toasterActions'
+import { toastError, toastSuccess, toastInfo } from './toasterActions'
 
 export const RECEIVE_SALES = 'RECEIVE_SALES'
 export const RECEIVE_SALE = 'RECEIVE_SALE'
@@ -23,12 +23,15 @@ export const filterSales = (value) => {
 export const addSale = (sale) => {
   return async (dispatch) => {
     try {
+      dispatch({ type: START_SALES_LOADING })
       const newSale = await client.service('sales').create(sale)
       if (newSale) {
         dispatch(reset('saleForm'))
+        dispatch({ type: FINISH_SALES_LOADING })
         toastSuccess({message: 'Sale successfully saved!'})
       }
     } catch (e) {
+      dispatch({ type: FINISH_SALES_LOADING })
       toastError({message: e.message})
     }
   }
@@ -101,32 +104,36 @@ export const getSales = (customer) => {
 export const getSale = (id) => {
   return async (dispatch) => {
     try {
+      dispatch({ type: START_SALES_LOADING })
       const sale = await client.service('sales').get(id)
       if (sale) {
         dispatch({
           type: RECEIVE_SALE,
           payload: sale
         })
+        dispatch({ type: FINISH_SALES_LOADING })
         toastSuccess({message: 'Sales record has been fetched successfully!'})
 
       }
     } catch (e) {
+      dispatch({ type: FINISH_SALES_LOADING })
       toastError({message: e.message})
     }
   }
 }
 
 export const updateSale = (values) => {
-  console.log('values', values)
   return async (dispatch) => {
-    console.log('UPDATING SALE WITH VALUES', values)
-    const {_id: id} = values
     try {
+      dispatch({ type: START_SALES_LOADING })
+      const {_id: id} = values
       const updatedSale = await client.service('sales').patch(id, values)
       if (updatedSale) {
+        dispatch({ type: FINISH_SALES_LOADING })
         toastSuccess({message: 'Sales record successfully updated!'})
       }
     } catch (e) {
+      dispatch({ type: FINISH_SALES_LOADING })
       toastError({message: e.message})
     }
   }
@@ -157,6 +164,7 @@ export const applySalePayment = (values) => {
 export const removeSale = (id) => {
   return async (dispatch) => {
     try {
+      toastInfo({ message: 'Removing sales record...' })
       const deletedSale = await client.service('sales').remove(id)
       if (deletedSale) {
         dispatch({

@@ -19,7 +19,7 @@ class CustomerDataCard extends Component {
     const {removeCustomer} = actions
 
     return (
-      <Card fluid style={styles.customerCard}>
+      <Card link fluid style={styles.customerCard}>
         <Card.Content>
           <Card.Header>
             <div style={styles.cardHeader}>
@@ -51,13 +51,19 @@ class CustomerDataCard extends Component {
                                    color='teal'/>}
                 />
                 <Popup
-                  inverted
-                  size='mini'
-                  content='Delete this customer'
-                  trigger={<Button circular icon='trash alternate outline' size='mini' color='red' onClick={(e) => {
-                    e.preventDefault()
-                    removeCustomer(customer._id)
-                  }}/>}
+                  on='click'
+                  flowing
+                  position={'bottom right'}
+                  size={'tiny'}
+                  trigger={<Button circular icon='trash alternate outline' size='mini' color='red' />}
+                  content={
+                    <div>
+                      <Button size='tiny' color='green' icon='delete' content='Confirm Delete' onClick={(e) => {
+                        e.preventDefault()
+                        removeCustomer(customer._id)
+                      }}/>
+                    </div>
+                  }
                 />
               </div>
             </div>

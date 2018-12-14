@@ -19,6 +19,7 @@ class AddSaleContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  loading: state.sale.loading,
   ...getSaleContainerState(state)
 })
 

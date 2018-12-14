@@ -1,6 +1,6 @@
 import React from 'react'
 import connect from 'react-redux/es/connect/connect'
-import { getRoles } from '../actions/roleActions'
+import { getRoles, removeRole } from '../actions/roleActions'
 import RoleList from '../components/RoleList'
 
 class RoleListContainer extends React.Component {
@@ -19,9 +19,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getRoles: () => {
-    dispatch(getRoles())
-  }
+  removeRole: (id) => {dispatch(removeRole(id))},
+  getRoles: () => {dispatch(getRoles())}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RoleListContainer)

@@ -122,6 +122,7 @@ export const getItems = () => {
 export const removeItem = (id) => {
   return async (dispatch) => {
     try {
+      toastInfo({ message: 'Removing item...' })
       const removedItem = await client.service('items').remove(id)
       if (removedItem) {
         dispatch({

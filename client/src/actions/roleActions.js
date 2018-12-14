@@ -1,17 +1,19 @@
 import { reset } from 'redux-form'
 import client from '../common/client'
 import { toTitleCase } from '../common/helpers'
-import { toastError, toastSuccess } from './toasterActions'
+import { toastError, toastSuccess, toastInfo } from './toasterActions'
 
 export const UPDATE_ROLE = 'UPDATE_ROLE'
 export const RECEIVE_ROLE = 'RECEIVE_ROLE'
 export const RECEIVE_ROLES = 'RECEIVE_ROLES'
 export const START_ROLES_LOADING = 'START_ROLES_LOADING'
 export const FINISH_ROLES_LOADING = 'FINISH_ROLES_LOADING'
+export const REMOVE_ROLE = 'REMOVE_ROLE'
 
 export const getRole = (id) => {
   return async (dispatch) => {
     try {
+      dispatch({ type: START_ROLES_LOADING })
       const result = await client.service('roles').get(id)
       if (result.permissions.length > 0) {
         result.permissions = result.permissions.map(permission => {
@@ -25,9 +27,11 @@ export const getRole = (id) => {
           type: RECEIVE_ROLE,
           payload: payload
         })
+        dispatch({ type: FINISH_ROLES_LOADING })
         toastSuccess({message: 'Role fetched from database!'})
       }
     } catch (e) {
+      dispatch({ type: FINISH_ROLES_LOADING })
       toastError({message: e.message})
     }
   }
@@ -66,13 +70,16 @@ export const parseRoleDataToForm = (role) => {
 export const addNewRole = (values) => {
   return async (dispatch) => {
     try {
+      dispatch({ type: START_ROLES_LOADING })
       const payload = parseRoleFormData(values)
       const result = await client.service('roles').create(payload)
       if (result) {
         dispatch(reset('roleForm'))
+        dispatch({ type: FINISH_ROLES_LOADING })
         toastSuccess({message: 'Role has been successfully saved!'})
       }
     } catch (e) {
+      dispatch({ type: FINISH_ROLES_LOADING })
       toastError({message: e.message})
     }
   }
@@ -81,6 +88,7 @@ export const addNewRole = (values) => {
 export const updateRole = (values) => {
   return async (dispatch) => {
     try {
+      dispatch({ type: START_ROLES_LOADING })
       const payload = parseRoleFormData(values)
       const result = await client.service('roles').update(values.id, payload)
       if (result) {
@@ -88,9 +96,11 @@ export const updateRole = (values) => {
           type: UPDATE_ROLE,
           payload
         })
+        dispatch({ type: FINISH_ROLES_LOADING })
         toastSuccess({message: 'Role has been successfully updated!'})
       }
     } catch (e) {
+      dispatch({ type: FINISH_ROLES_LOADING })
       toastError({message: e.message})
     }
   }
@@ -113,6 +123,24 @@ export const getRoles = () => {
     } catch (e) {
       dispatch({ type: FINISH_ROLES_LOADING })
       toastError({message: e.message})
+    }
+  }
+}
+
+export const removeRole = (id) => {
+  return async (dispatch) => {
+    try {
+      toastInfo({ message: 'Removing role record...' })
+      const deleted = await client.service('roles').remove(id)
+      if (deleted) {
+        dispatch({
+          type: REMOVE_ROLE,
+          payload: id
+        })
+        toastSuccess({ message: 'Role record has been successfully removed!' })
+      }
+    } catch (e) {
+      toastError({ message: e.message })
     }
   }
 }

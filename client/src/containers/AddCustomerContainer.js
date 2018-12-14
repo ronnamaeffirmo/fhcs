@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { addCustomer } from '../actions/customerActions'
 
 const mapStateToProps = (state) => ({
+  loading: state.customer.loading,
   customers: state.customer.customers
 })
 

@@ -1,5 +1,5 @@
 import client from '../common/client'
-import { toastError, toastSuccess } from './toasterActions'
+import { toastError, toastSuccess, toastInfo } from './toasterActions'
 import { toTitleCase } from '../common/helpers'
 import { reset } from 'redux-form'
 
@@ -15,6 +15,7 @@ export const FINISH_CUSTOMER_LOADING = 'FINISH_CUSTOMER_LOADING'
 export const addCustomer = (data) => {
   return async (dispatch) => {
     try {
+      dispatch({ type: START_CUSTOMER_LOADING })
       const customer = await client.service('customers').create(data)
       if (customer) {
         dispatch({
@@ -22,10 +23,11 @@ export const addCustomer = (data) => {
           payload: customer
         })
         dispatch(reset('customerForm'))
+        dispatch({ type: FINISH_CUSTOMER_LOADING })
         toastSuccess({message: `${toTitleCase(data.name)} has been created`})
       }
-
     } catch (e) {
+      dispatch({ type: FINISH_CUSTOMER_LOADING })
       toastError({message: e.message})
     }
   }
@@ -43,15 +45,18 @@ export const filterCustomers = (value) => {
 export const getCustomer = (id) => {
   return async (dispatch) => {
     try {
+      dispatch({ type: START_CUSTOMER_LOADING })
       const customer = await client.service('customers').get(id)
       if (customer) {
         dispatch({
           type: GET_CUSTOMER,
           payload: customer
         })
+        dispatch({ type: FINISH_CUSTOMER_LOADING })
         toastSuccess({message: 'Customer has been loaded!'})
       }
     } catch (e) {
+      dispatch({ type: FINISH_CUSTOMER_LOADING })
       toastError({message: e.message})
     }
   }
@@ -78,6 +83,7 @@ export const getCustomers = () => {
 }
 export const removeCustomer = (id) => async (dispatch) => {
   try {
+    toastInfo({ message: 'Removing customer...' })
     const result = await client.service('customers').remove(id)
     if (result) {
       dispatch({
@@ -94,6 +100,7 @@ export const removeCustomer = (id) => async (dispatch) => {
 export const updateCustomer = (customer) => {
   return async (dispatch) => {
     try {
+      dispatch({ type: START_CUSTOMER_LOADING })
       const {_id: id} = customer
       const result = await client.service('customers').patch(id, customer)
       if (result) {
@@ -101,9 +108,11 @@ export const updateCustomer = (customer) => {
           type: UPDATE_CUSTOMER,
           payload: customer
         })
+        dispatch({ type: FINISH_CUSTOMER_LOADING })
         toastSuccess({message: 'Customer has been updated!'})
       }
     } catch (e) {
+      dispatch({ type: FINISH_CUSTOMER_LOADING })
       toastError({message: e.message})
     }
   }

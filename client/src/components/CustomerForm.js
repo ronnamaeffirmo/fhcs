@@ -6,9 +6,9 @@ import InputField from './InputField'
 const required = value => value ? undefined : 'Required'
 
 const CustomerForm = (props) => {
-  const {submissionHandler, handleSubmit, pristine, submitting} = props
+  const {submissionHandler, handleSubmit, pristine, submitting, loading} = props
   return (
-    <Form onSubmit={handleSubmit(submissionHandler)}>
+    <Form loading={loading} onSubmit={handleSubmit(submissionHandler)}>
       <Field
         type='text'
         name='name'
@@ -47,7 +47,7 @@ const CustomerForm = (props) => {
         component={InputField}
         validate={[required]}
       />
-      <Button type='submit' fluid color={'green'} disabled={pristine || submitting}>SUBMIT</Button>
+      <Button type='submit' color={'green'} disabled={pristine || submitting}>SUBMIT</Button>
     </Form>
   )
 }

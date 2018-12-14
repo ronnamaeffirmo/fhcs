@@ -1,7 +1,8 @@
 const search = require('feathers-mongodb-fuzzy-search')
 const mongoose = require('mongoose')
 
-const addAggregatedFields = require('../../hooks/add-aggregated-fields');
+const addAggregatedFields = require('../../hooks/add-aggregated-fields')
+const checkItemUsage = require('../../hooks/check-item-usage')
 
 const populateItemReportFields = require('../../hooks/populate-item-report-fields');
 
@@ -13,7 +14,7 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [checkItemUsage()]
   },
 
   after: {
