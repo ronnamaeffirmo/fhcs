@@ -101,16 +101,16 @@ const SaleTable = props => {
             )
           })}
           <Table.Row>
-            <Table.Cell/>
-            <Table.Cell/>
-            <Table.Cell/>
-            <Table.Cell/>
-            <Table.Cell/>
-            <Table.Cell/>
-            <Table.Cell textAlign='right'>₱ {numeral(getSummary(sales).subtotal).format(numberFormat)}</Table.Cell>
-            <Table.Cell textAlign='right'>₱ {numeral(getSummary(sales).discount).format(numberFormat)}</Table.Cell>
-            <Table.Cell textAlign='right'>₱ {numeral(getSummary(sales).returned).format(numberFormat)}</Table.Cell>
-            <Table.Cell textAlign='right'>₱ {numeral(getSummary(sales).total).format(numberFormat)}</Table.Cell>
+            <Table.HeaderCell/>
+            <Table.HeaderCell/>
+            <Table.HeaderCell/>
+            <Table.HeaderCell/>
+            <Table.HeaderCell/>
+            <Table.HeaderCell/>
+            <Table.HeaderCell textAlign='right'>₱ {numeral(getSummary(sales).subtotal).format(numberFormat)}</Table.HeaderCell>
+            <Table.HeaderCell textAlign='right'>₱ {numeral(getSummary(sales).discount).format(numberFormat)}</Table.HeaderCell>
+            <Table.HeaderCell textAlign='right'>₱ {numeral(getSummary(sales).returned).format(numberFormat)}</Table.HeaderCell>
+            <Table.HeaderCell textAlign='right'>₱ {numeral(getSummary(sales).total).format(numberFormat)}</Table.HeaderCell>
           </Table.Row>
         </Table.Body>
       </Table>
