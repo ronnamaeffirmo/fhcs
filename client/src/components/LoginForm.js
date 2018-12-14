@@ -61,7 +61,7 @@ const style = {
   },
   coverImage: {
     // object position specific to fieldstone-poser image
-    objectFit: 'cover', objectPosition: '20% 13px', width: '100%', height: '100%'
+    objectFit: 'cover', objectPosition: '20% 0', width: '100%', height: '100%'
   },
   form: {
     padding: '130px 48px'
