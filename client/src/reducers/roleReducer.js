@@ -3,7 +3,8 @@ import {
   UPDATE_ROLE,
   RECEIVE_ROLES,
   START_ROLES_LOADING,
-  FINISH_ROLES_LOADING
+  FINISH_ROLES_LOADING,
+  REMOVE_ROLE
 } from '../actions/roleActions'
 
 const initialState = {
@@ -45,6 +46,12 @@ const roleReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false
+      }
+    }
+    case REMOVE_ROLE: {
+      return {
+        ...state,
+        list: state.list.filter((role) => role._id !== action.payload)
       }
     }
     default:

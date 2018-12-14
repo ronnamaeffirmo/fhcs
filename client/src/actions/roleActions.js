@@ -1,13 +1,14 @@
 import { reset } from 'redux-form'
 import client from '../common/client'
 import { toTitleCase } from '../common/helpers'
-import { toastError, toastSuccess } from './toasterActions'
+import { toastError, toastSuccess, toastInfo } from './toasterActions'
 
 export const UPDATE_ROLE = 'UPDATE_ROLE'
 export const RECEIVE_ROLE = 'RECEIVE_ROLE'
 export const RECEIVE_ROLES = 'RECEIVE_ROLES'
 export const START_ROLES_LOADING = 'START_ROLES_LOADING'
 export const FINISH_ROLES_LOADING = 'FINISH_ROLES_LOADING'
+export const REMOVE_ROLE = 'REMOVE_ROLE'
 
 export const getRole = (id) => {
   return async (dispatch) => {
@@ -122,6 +123,24 @@ export const getRoles = () => {
     } catch (e) {
       dispatch({ type: FINISH_ROLES_LOADING })
       toastError({message: e.message})
+    }
+  }
+}
+
+export const removeRole = (id) => {
+  return async (dispatch) => {
+    try {
+      toastInfo({ message: 'Removing role record...' })
+      const deleted = await client.service('roles').remove(id)
+      if (deleted) {
+        dispatch({
+          type: REMOVE_ROLE,
+          payload: id
+        })
+        toastSuccess({ message: 'Role record has been successfully removed!' })
+      }
+    } catch (e) {
+      toastError({ message: e.message })
     }
   }
 }
