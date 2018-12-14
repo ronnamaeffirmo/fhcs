@@ -1,6 +1,8 @@
 const {authenticate} = require('@feathersjs/authentication').hooks
 const mongoose = require('mongoose')
 
+const checkItemUsage = require('../../hooks/check-item-usage');
+
 // const validateReturnQuantity = (hook) => {
 // const prop = hook.type === 'before' ? 'data' : 'result';
 // const dataHook = hook;
@@ -23,7 +25,7 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [checkItemUsage()]
   },
 
   after: {
