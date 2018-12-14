@@ -43,8 +43,8 @@ const Header = ({ user, isAuthenticated, handleLogout }) => (
     <PaddedContainer>
       <Popup
         inverted
-        size='tiny'
-        content='Go back to home'
+        size='mini'
+        content='Go to sales list'
         position='left center'
         trigger={<Menu.Item header name='home' as={Link} to={'/'}>FIELDSTONE</Menu.Item>}
       />

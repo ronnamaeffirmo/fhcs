@@ -32,7 +32,7 @@ const Routes = () => (
     <PrivateRoute path='/items/table' exact component={ItemTableContainer}/>
     <PrivateRoute path='/inventory/table' exact component={InventoryTableContainer}/>
     <PaddedContainer>
-      <PrivateRoute path='/' exact component={Dashboard}/>
+      <PrivateRoute path='/' exact component={SalesList}/>
       <PrivateRoute path='/change-password' component={ChangePasswordForm}/>
       <PrivateRoute path='/items' exact component={ItemList}/>
       <PrivateRoute path='/items/update/:_id' exact component={EditFormContainer}/>
