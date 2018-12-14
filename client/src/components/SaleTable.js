@@ -5,6 +5,7 @@ import _ from 'lodash'
 import numeral from 'numeral'
 import SaleHeader from './SaleHeader'
 
+const numberFormat = '0,0.00'
 const styles = {
   mainContainer: {
     marginRight: '7%',
@@ -24,6 +25,24 @@ const getAggregatedFields = items => {
   }
   const total = subtotal - discount - returned
   return {subtotal, total, discount, returned}
+}
+
+const getSummary = sales => {
+  const summary = {
+    subtotal: 0,
+    discount: 0,
+    returned: 0,
+    total: 0
+  }
+  for (const sale of sales) {
+    const saleSummary = getAggregatedFields(sale.items)
+    const {subtotal, total, discount, returned} = saleSummary
+    summary.subtotal += subtotal
+    summary.total += total
+    summary.discount += discount
+    summary.returned += returned
+  }
+  return summary
 }
 
 const SaleTable = props => {
@@ -60,7 +79,6 @@ const SaleTable = props => {
         </Table.Header>
         <Table.Body>
           {sales.map(sale => {
-            const numberFormat = '0,0.00'
             return (
               <Table.Row key={sale._id}>
                 <Table.Cell textAlign='center'>{sale.officialReceipt}</Table.Cell>
@@ -71,13 +89,29 @@ const SaleTable = props => {
                 <Table.Cell
                   textAlign='center'>{moment(sale.date).add(_.parseInt(sale.term), 'days').format('MMMM DD, YYYY')}</Table.Cell>
                 <Table.Cell textAlign='center'>{_.capitalize(sale.status)}</Table.Cell>
-                <Table.Cell textAlign='right'>₱ {numeral(getAggregatedFields(sale.items).subtotal).format(numberFormat)}</Table.Cell>
-                <Table.Cell textAlign='right'>₱ {numeral(getAggregatedFields(sale.items).discount).format(numberFormat)}</Table.Cell>
-                <Table.Cell textAlign='right'>₱ {numeral(getAggregatedFields(sale.items).returned).format(numberFormat)}</Table.Cell>
-                <Table.Cell textAlign='right'>₱ {numeral(getAggregatedFields(sale.items).total).format(numberFormat)}</Table.Cell>
+                <Table.Cell
+                  textAlign='right'>₱ {numeral(getAggregatedFields(sale.items).subtotal).format(numberFormat)}</Table.Cell>
+                <Table.Cell
+                  textAlign='right'>₱ {numeral(getAggregatedFields(sale.items).discount).format(numberFormat)}</Table.Cell>
+                <Table.Cell
+                  textAlign='right'>₱ {numeral(getAggregatedFields(sale.items).returned).format(numberFormat)}</Table.Cell>
+                <Table.Cell textAlign='right'
+                            color={'red'}>₱ {numeral(getAggregatedFields(sale.items).total).format(numberFormat)}</Table.Cell>
               </Table.Row>
             )
           })}
+          <Table.Row>
+            <Table.Cell/>
+            <Table.Cell/>
+            <Table.Cell/>
+            <Table.Cell/>
+            <Table.Cell/>
+            <Table.Cell/>
+            <Table.Cell textAlign='right'>₱ {numeral(getSummary(sales).subtotal).format(numberFormat)}</Table.Cell>
+            <Table.Cell textAlign='right'>₱ {numeral(getSummary(sales).discount).format(numberFormat)}</Table.Cell>
+            <Table.Cell textAlign='right'>₱ {numeral(getSummary(sales).returned).format(numberFormat)}</Table.Cell>
+            <Table.Cell textAlign='right'>₱ {numeral(getSummary(sales).total).format(numberFormat)}</Table.Cell>
+          </Table.Row>
         </Table.Body>
       </Table>
     </div>
