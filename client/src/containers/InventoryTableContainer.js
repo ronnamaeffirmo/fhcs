@@ -16,6 +16,7 @@ class InventoryTableContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  loading: state.inventory.loading,
   inventories: state.inventory.inventories,
 })
 

@@ -10,7 +10,9 @@ import {
   RECEIVE_USER,
   SELECT_USER,
   ADD_USER_REQUEST,
-  ADD_USER_FAIL
+  ADD_USER_FAIL,
+  START_USERS_LOADING,
+  FINISH_USERS_LOADING
 } from '../actions/userActions'
 
 const initialState = {
@@ -19,7 +21,8 @@ const initialState = {
   error: undefined,
   list: [],
   authLoading: false,
-  addingUser: false, // actually being reused among add, get, edit lol -R
+  addingUser: false, // actually being reused among add, get, edit lol -R,
+  loading: false,
 }
 
 const userReducer = (state = initialState, action) => {
@@ -98,6 +101,18 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         addingUser: false
+      }
+    }
+    case START_USERS_LOADING: {
+      return {
+        ...state,
+        loading: true
+      }
+    }
+    case FINISH_USERS_LOADING: {
+      return {
+        ...state,
+        loading: false
       }
     }
     default: {

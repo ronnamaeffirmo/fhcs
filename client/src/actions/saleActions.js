@@ -8,6 +8,8 @@ export const RECEIVE_SALE = 'RECEIVE_SALE'
 export const REMOVE_SALE = 'REMOVE_SALE'
 export const APPLY_SALE_PAYMENT = 'APPLY_SALE_PAYMENT'
 export const RETURN_ITEM = 'RETURN_ITEM'
+export const START_SALES_LOADING = 'START_SALES_LOADING'
+export const FINISH_SALES_LOADING = 'FINISH_SALES_LOADING'
 
 export const addSale = (sale) => {
   return async (dispatch) => {
@@ -56,7 +58,7 @@ export const returnItem = (data) => {
 export const getSales = (customer) => {
   return async (dispatch) => {
     try {
-      console.log('customer', customer)
+      dispatch({ type: START_SALES_LOADING })
       let sales
       if (customer) {
         sales = await client.service('sales').find({ 
@@ -76,9 +78,11 @@ export const getSales = (customer) => {
           type: RECEIVE_SALES,
           payload: sales.data
         })
-      toastSuccess({message: 'Sales records successfully fetched!'})
+        dispatch({ type: FINISH_SALES_LOADING })
+        toastSuccess({message: 'Sales records successfully fetched!'})
       }
     } catch (e) {
+      dispatch({ type: FINISH_SALES_LOADING })
       toastError({message: e.message})
     }
   }

@@ -1,11 +1,14 @@
 import {
   RECEIVE_ROLE,
   UPDATE_ROLE,
-  RECEIVE_ROLES
+  RECEIVE_ROLES,
+  START_ROLES_LOADING,
+  FINISH_ROLES_LOADING
 } from '../actions/roleActions'
 
 const initialState = {
-  list: []
+  list: [],
+  loading: false
 }
 
 const roleReducer = (state = initialState, action) => {
@@ -30,6 +33,18 @@ const roleReducer = (state = initialState, action) => {
         selection: {
           ...action.payload
         }
+      }
+    }
+    case START_ROLES_LOADING: {
+      return {
+        ...state,
+        loading: true
+      }
+    }
+    case FINISH_ROLES_LOADING: {
+      return {
+        ...state,
+        loading: false
       }
     }
     default:

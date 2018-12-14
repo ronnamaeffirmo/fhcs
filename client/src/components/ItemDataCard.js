@@ -36,7 +36,7 @@ class ItemDataCard extends Component {
                   <span style={styles.quantityText}>&bull; {quantity} {unit}</span>
                 </div>
                 <div>
-                  <Label ribbon='right'StatisticLabel attachedStatisticLabel style={styles.ribbon}>
+                  <Label ribbon='right' style={styles.ribbon}>
                     &#8369; {numeral(price).format('0,0')} /unit
                   </Label>
                 </div>

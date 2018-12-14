@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Card, Container, Input, Segment, Message, Grid, Divider, Label } from 'semantic-ui-react'
+import React, { Component, Fragment } from 'react'
+import { Card, Container, Input, Segment, Message, Grid, Divider, Label, Loader } from 'semantic-ui-react'
 import AddCustomerModal from '../containers/AddCustomerContainer'
 import CustomerDataCard from './CustomerDataCard'
 
@@ -9,7 +9,7 @@ class CustomerList extends Component {
   }
 
   render () {
-    let { customers, removeCustomer, filterCustomers, filteredCustomers } = this.props
+    let { customers, removeCustomer, filterCustomers, filteredCustomers, loading } = this.props
     customers = filteredCustomers || customers || []
     return (
       <Container style={styles.mainContainer}>
@@ -34,12 +34,17 @@ class CustomerList extends Component {
           <Message style={{ padding: '0.5rem 1rem' }} size='small' info>Click on a <Label size='tiny'>card</Label> to view customer sales report...</Message>
         </Segment>
         <Segment style={styles.bottomSegment}>
-          { !customers.length && <Message negative>No available customers yet</Message>}
-          <Card.Group>
-            { customers.map((customer) => (
-              <CustomerDataCard customer={customer} key={customer._id} actions={{removeCustomer}} />
-            ))}
-          </Card.Group>
+          { loading
+              ? <Loader active />
+              : <Fragment>
+                  { customers && !customers.length && <Message negative>No available customers yet</Message>}
+                  <Card.Group>
+                    { customers.map((customer) => (
+                      <CustomerDataCard customer={customer} key={customer._id} actions={{removeCustomer}} />
+                    ))}
+                  </Card.Group>
+                </Fragment>
+            }
         </Segment>
       </Container>
     )

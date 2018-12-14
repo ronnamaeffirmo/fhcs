@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Card, Container, Input, Segment, Message, Grid, Label, Divider } from 'semantic-ui-react'
+import React, { Component, Fragment } from 'react'
+import { Card, Container, Input, Segment, Message, Grid, Label, Divider, Loader } from 'semantic-ui-react'
 import ItemDataCard from './ItemDataCard'
 import NewItemModal from './../containers/AddItemFormContainer'
 
@@ -9,7 +9,7 @@ class ItemList extends Component {
   }
 
   render () {
-    let { items, removeItem, filterItems, filteredItems } = this.props
+    let { items, removeItem, filterItems, filteredItems, loading } = this.props
     items = filteredItems || items || []
     return (
       <Container style={styles.mainContainer}>
@@ -33,12 +33,17 @@ class ItemList extends Component {
           <Message style={{ padding: '0.5rem 1rem' }} size='small' info>Click on a <Label size='tiny'>card</Label> to view reports...</Message>
         </Segment>
         <Segment style={styles.bottomSegment}>
-          { !items.length && <Message negative>No available items yet</Message>}
-          <Card.Group>
-            { items.map((item) => (
-              <ItemDataCard item={item} key={item._id} actions={{removeItem}} />
-            ))}
-          </Card.Group>
+          {loading 
+            ? <Loader active />
+            : <Fragment>
+              { items && !items.length && <Message negative>No available items yet</Message>}
+              <Card.Group>
+                { items.map((item) => (
+                  <ItemDataCard item={item} key={item._id} actions={{removeItem}} />
+                ))}
+              </Card.Group>
+            </Fragment>
+          }
         </Segment>
       </Container>
     )

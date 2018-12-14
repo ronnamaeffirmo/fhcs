@@ -1,5 +1,5 @@
-import React from 'react'
-import { Container, Segment, Button, Input, Grid } from 'semantic-ui-react'
+import React, { Fragment } from 'react'
+import { Container, Segment, Button, Input, Grid, Loader, Message } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import UserDataCard from './UserDataCard'
 
@@ -28,7 +28,7 @@ const styles = {
 }
 
 const UserList = (props) => {
-  const {users, deleteUser} = props
+  const {users, deleteUser, loading} = props
   return (
     <Container style={styles.mainContainer}>
       <Segment style={styles.topSegment}>
@@ -49,7 +49,15 @@ const UserList = (props) => {
         </Grid>
       </Segment>
       <Segment>
-        {users.map(user => <UserDataCard key={user._id} {...user} deleteUser={deleteUser} />)}
+        {loading 
+          ? <Segment vertical padded>
+              <Loader active />
+            </Segment>
+          : <Fragment>
+            {users && !users.length && <Message negative>No users yet</Message>}
+            {users.map(user => <UserDataCard key={user._id} {...user} deleteUser={deleteUser} />)}
+          </Fragment>
+        }
       </Segment>
     </Container>
   )

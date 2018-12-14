@@ -2,12 +2,15 @@ import {
   REMOVE_SALE,
   RECEIVE_SALES,
   RECEIVE_SALE, APPLY_SALE_PAYMENT,
-  RETURN_ITEM
+  RETURN_ITEM,
+  START_SALES_LOADING,
+  FINISH_SALES_LOADING
 } from '../actions/saleActions'
 import clone from 'shallow-clone'
 
 const initialState = {
   list: [],
+  loading: false
 }
 
 const saleReducer = (state = initialState, action) => {
@@ -71,6 +74,18 @@ const saleReducer = (state = initialState, action) => {
       return {
         ...state,
         list: action.payload
+      }
+    }
+    case START_SALES_LOADING: {
+      return {
+        ...state,
+        loading: true
+      }
+    }
+    case FINISH_SALES_LOADING: {
+      return {
+        ...state,
+        loading: false
       }
     }
     default: {

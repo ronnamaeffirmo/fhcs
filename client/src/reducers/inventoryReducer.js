@@ -6,7 +6,9 @@ import {
   GET_INVENTORY_REQUEST,
   GET_INVENTORY,
   GET_INVENTORY_FAIL,
-  PATCH_INVENTORY
+  PATCH_INVENTORY,
+  START_INVENTORY_LOADING,
+  FINISH_INVENTORY_LOADING
 } from '../actions/inventoryActions'
 import { search } from '../common/helpers'
 
@@ -29,11 +31,24 @@ const initialState = {
   inventories: [],
   filteredInventories: [],
   inventory: {},
-  gettingInventory: false
+  gettingInventory: false,
+  loading: false,
 }
 
 const inventoryReducer = (state = initialState, action) => {
   switch (action.type) {
+    case START_INVENTORY_LOADING: {
+      return {
+        ...state,
+        loading: true
+      }
+    }
+    case FINISH_INVENTORY_LOADING: {
+      return {
+        ...state,
+        loading: false
+      }
+    }
     case GET_INVENTORIES: {
       return {
         ...state,

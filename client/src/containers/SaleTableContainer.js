@@ -34,6 +34,7 @@ class SaleTableContainer extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
+  loading: state.sale.loading,
   customerId: ownProps.match.params.id, 
   sales: state.sale.list,
   initialValues: {

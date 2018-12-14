@@ -16,6 +16,7 @@ class ItemTableContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  loading: state.item.loading,
   items: state.item.list
 })
 

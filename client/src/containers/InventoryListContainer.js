@@ -4,6 +4,7 @@ import InventoryList from '../components/InventoryList'
 import { getInventories, removeInventory, filterInventories } from '../actions/inventoryActions'
 
 const mapStateToProps = (state) => ({
+  loading: state.inventory.loading,
   inventories: state.inventory.inventories,
   filteredInventories: state.inventory.filteredInventories.length > 0 ? state.inventory.filteredInventories : undefined
 })

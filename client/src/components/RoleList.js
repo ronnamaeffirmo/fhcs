@@ -1,5 +1,5 @@
-import React from 'react'
-import { Container, Segment, Card, Button, Header, Table, Grid, Icon, Input, Popup } from 'semantic-ui-react'
+import React, { Fragment } from 'react'
+import { Container, Segment, Card, Button, Header, Table, Grid, Icon, Input, Popup, Loader, Message } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { toTitleCase } from '../common/helpers'
 import PermissionInformation from './PermissionInformation'
@@ -25,7 +25,6 @@ const styles = {
 }
 
 // TODO MODULARIZE
-
 const parsePermissions = (permissions) => {
   // TODO move to common/constants.js
   const params = ['create', 'read', 'update', 'delete']
@@ -64,7 +63,6 @@ const PermissionTableRow = ({services, param, permissionData}) => {
 
 const PermissionTable = ({data}) => {
   const services = ['Items', 'Inventories', 'Sales', 'Users', 'Roles', 'Customers'].map(service => service.toLowerCase())
-
   const params = [
     {slug: 'create', label: 'Create'},
     {slug: 'read', label: 'Read'},
@@ -117,7 +115,7 @@ const RoleCard = (props) => {
 }
 
 const RoleList = (props) => {
-  const {roles} = props
+  const {roles, loading} = props
   return (
     <Container style={styles.mainContainer}>
       <Segment style={styles.topSegment}>
@@ -141,11 +139,18 @@ const RoleList = (props) => {
         <PermissionInformation/>
       </Segment>
       <Segment style={{marginBottom: 30}}>
-        <Card.Group style={{marginTop: 2, marginRight: 2, marginLeft: 2, marginBottom: 2}} centered>
-          {roles.map(role => <RoleCard key={role._id} role={role}/>)}
-        </Card.Group>
+        { loading 
+          ? <Segment vertical padded>
+              <Loader active />
+            </Segment>
+          : <Fragment>
+            {roles && !roles.length && <Message negative>No available roles yet</Message>}
+            <Card.Group style={{marginTop: 2, marginRight: 2, marginLeft: 2, marginBottom: 2}} centered>
+              {roles.map(role => <RoleCard key={role._id} role={role}/>)}
+            </Card.Group>
+          </Fragment>
+        }
       </Segment>
-
     </Container>
   )
 }
