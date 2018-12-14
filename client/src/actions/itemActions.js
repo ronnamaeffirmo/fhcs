@@ -34,7 +34,6 @@ export const getItemReport = (itemId) => {
   }
 }
 
-
 export const filterItems = (value) => {
   return (dispatch) => {
     dispatch({
@@ -68,11 +67,13 @@ export const createItem = (values) => {
   return async (dispatch) => {
     try {
       const item = await client.service('items').create(values)
-      toastSuccess({message: 'New item saved successfully'})
-      dispatch({
-        type: ADD_ITEM,
-        payload: item
-      })
+      if (item) {
+        dispatch({
+          type: ADD_ITEM,
+          payload: item
+        })
+        toastSuccess({message: 'New item saved successfully'})
+      }
     } catch (e) {
       toastError({message: e.message})
     }
@@ -82,13 +83,15 @@ export const createItem = (values) => {
 export const getItem = (id) => {
   return async (dispatch) => {
     try {
-      dispatch({ type: GET_ITEM_REQUEST })
-      await dispatch(getItems())
+      dispatch({type: GET_ITEM_REQUEST})
       const item = await client.service('items').get(id)
-      dispatch({
-        type: GET_ITEM,
-        payload: item
-      })
+      if (item) {
+        dispatch({
+          type: GET_ITEM,
+          payload: item
+        })
+        toastSuccess({message: 'Item successfully fetched!'})
+      }
     } catch (e) {
       toastError({message: e.message})
     }
@@ -99,10 +102,13 @@ export const getItems = () => {
   return async (dispatch) => {
     try {
       const items = await client.service('items').find({})
-      dispatch({
-        type: GET_ITEMS,
-        payload: items.data
-      })
+      if (items) {
+        dispatch({
+          type: GET_ITEMS,
+          payload: items.data
+        })
+        toastSuccess({message: 'List of items has been updated!'})
+      }
     } catch (e) {
       toastError({message: e.message})
     }
@@ -112,11 +118,14 @@ export const getItems = () => {
 export const removeItem = (id) => {
   return async (dispatch) => {
     try {
-      await client.service('items').remove(id)
-      dispatch({
-        type: REMOVE_ITEM,
-        payload: id
-      })
+      const removedItem = await client.service('items').remove(id)
+      if (removedItem) {
+        dispatch({
+          type: REMOVE_ITEM,
+          payload: id
+        })
+        toastSuccess({message: 'Item has been successfully removed!'})
+      }
     } catch (e) {
       toastError({message: e.message})
     }
@@ -127,21 +136,16 @@ export const patchItem = (id, data) => {
   return async (dispatch) => {
     try {
       const patchItem = await client.service('items').patch(id, {$set: data})
-      dispatch({
-        type: PATCH_ITEM,
-        payload: patchItem
-      })
+      if (patchItem) {
+        dispatch({
+          type: PATCH_ITEM,
+          payload: patchItem
+        })
+        toastSuccess({message: 'Item data has been successfully updated!'})
+      }
     } catch (e) {
       toastError({message: e.message})
     }
   }
 }
 
-export const selectReport = (report) => {
-  return async dispatch => {
-    dispatch({
-      type: SELECT_REPORT,
-      payload: report
-    })
-  }
-}

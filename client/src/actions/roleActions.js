@@ -1,7 +1,7 @@
 import { reset } from 'redux-form'
 import client from '../common/client'
 import { toTitleCase } from '../common/helpers'
-import { toastError } from './toasterActions'
+import { toastError, toastSuccess } from './toasterActions'
 
 export const UPDATE_ROLE = 'UPDATE_ROLE'
 export const RECEIVE_ROLE = 'RECEIVE_ROLE'
@@ -18,12 +18,13 @@ export const getRole = (id) => {
           }
           return permission
         })
+        const payload = {title: result.title, permissions: result.permissions, id: result._id}
+        dispatch({
+          type: RECEIVE_ROLE,
+          payload: payload
+        })
+        toastSuccess({message: 'Role fetched from database!'})
       }
-      const payload = {title: result.title, permissions: result.permissions, id: result._id}
-      dispatch({
-        type: RECEIVE_ROLE,
-        payload: payload
-      })
     } catch (e) {
       toastError({message: e.message})
     }
@@ -67,6 +68,7 @@ export const addNewRole = (values) => {
       const result = await client.service('roles').create(payload)
       if (result) {
         dispatch(reset('roleForm'))
+        toastSuccess({message: 'Role has been successfully saved!'})
       }
     } catch (e) {
       toastError({message: e.message})
@@ -84,6 +86,7 @@ export const updateRole = (values) => {
           type: UPDATE_ROLE,
           payload
         })
+        toastSuccess({message: 'Role has been successfully updated!'})
       }
     } catch (e) {
       toastError({message: e.message})
@@ -96,13 +99,15 @@ export const getRoles = () => {
     try {
       const roles = await client.service('roles').find({})
       const payload = roles.data
-      dispatch({
-        type: RECEIVE_ROLES,
-        payload: payload
-      })
+      if (roles) {
+        dispatch({
+          type: RECEIVE_ROLES,
+          payload: payload
+        })
+        toastSuccess({message: 'List of roles has been updated!'})
+      }
     } catch (e) {
       toastError({message: e.message})
     }
-
   }
 }
