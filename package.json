@@ -29,10 +29,15 @@
     "test": "standard eslint && yarn run mocha",
     "eslint": "eslint src/. test/. --config .eslintrc.json",
     "start": "node src/",
+    "heroku-postbuild": "cd client/ && yarn install && yarn build",
     "mocha": "mocha test/ --recursive --exit",
     "client": "cd client && yarn run start",
     "dev": "concurrently --names \"server,client\" \"yarn run start --silent\" \"yarn run client --silent\""
   },
+  "cacheDirectories": [
+    "node_modules",
+    "client/node_modules"
+  ],
   "dependencies": {
     "@feathersjs/authentication": "^2.1.7",
     "@feathersjs/authentication-jwt": "^2.0.1",
