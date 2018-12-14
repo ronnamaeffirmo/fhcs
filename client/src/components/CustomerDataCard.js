@@ -19,7 +19,7 @@ class CustomerDataCard extends Component {
     const {removeCustomer} = actions
 
     return (
-      <Card fluid style={styles.customerCard}>
+      <Card link fluid style={styles.customerCard}>
         <Card.Content>
           <Card.Header>
             <div style={styles.cardHeader}>

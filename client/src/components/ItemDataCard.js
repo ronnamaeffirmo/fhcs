@@ -22,7 +22,7 @@ class ItemDataCard extends Component {
     const {removeItem} = actions
     const quantity = inventoryQuantity - salesQuantity + returnQuantity
     return (
-      <Card fluid style={styles.itemCard}>
+      <Card link fluid style={styles.itemCard}>
         <Popup
           inverted
           size='tiny'
@@ -97,8 +97,7 @@ class ItemDataCard extends Component {
                     <Button size='tiny' color='green' icon='delete' content='Confirm Delete' onClick={(e) => {
                       e.preventDefault()
                       removeItem(item._id)
-                    }
-                    }/>
+                    }}/>
                   </div>
                 }
                 on='click'
