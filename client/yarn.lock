@@ -92,54 +92,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/utils/-/utils-0.8.2.tgz#576ff7fb1230185b619a75d258cbc98f0867a8dc"
   integrity sha512-rLu3wcBWH4P5q1CGoSSH/i9hrXs7SlbRLkoq9IGuoPYNGQvDJ3pt/wmOM+XgYjIDRMVIdkUWt0RsfzF50JfnCw==
 
-"@feathersjs/authentication-client@^1.0.2":
-  version "1.0.2"
-  resolved "http://registry.npm.taobao.org/@feathersjs/authentication-client/download/@feathersjs/authentication-client-1.0.2.tgz#b7f458201c0308debd0676ac6e1e7ead707acfeb"
-  integrity sha512-uZfWWMLqNkXcGi5bCuvQwLjBWvUhHtGjK4yZJh3KIHFAESBlQ4/TlqI/JRz2RuswfGfbyNtj9ARPam71YCGOpw==
-  dependencies:
-    "@feathersjs/errors" "^3.0.0"
-    debug "^3.1.0"
-    jwt-decode "^2.1.0"
-
-"@feathersjs/commons@^1.4.0", "@feathersjs/commons@^1.4.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@feathersjs/commons/-/commons-1.4.1.tgz#81f19ffb83eac6afd33c629d4d0cad57441fbede"
-  integrity sha512-hs3Tz0JV/nwd14B9s+mv4SG+Tll9pDxqEn2wuc5CzL4I2vc1+EnwnhpOkokvQMTAdzsaxwOLoQ4y1BPm6WmMNA==
-
-"@feathersjs/errors@^3.0.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@feathersjs/errors/-/errors-3.3.0.tgz#c5fcc163f49d6b139f10d118eec36e8f90818aff"
-  integrity sha512-9oYAhAj4CKIix5KITRDEzvyNJNIaqNde5lGqmrQLw4pTuyWMvx9tgBhtXPA0l8lS1KnMKw4Qf1gHo6aKrM+OyQ==
-  dependencies:
-    debug "^3.1.0"
-
-"@feathersjs/feathers@^3.1.7":
-  version "3.1.7"
-  resolved "https://registry.yarnpkg.com/@feathersjs/feathers/-/feathers-3.1.7.tgz#34e77cfc4d74633c2f2d155fe3d2e7271b32168e"
-  integrity sha512-4h8ymAw/yK0jnF9xFgeWi2zhj51VHoE94K3y65TLORN7KVUpHMlgaOtSLHNKEDCcFeordOpBGw/Z0Fq58i0+WA==
-  dependencies:
-    "@feathersjs/commons" "^1.4.1"
-    debug "^3.1.0"
-    events "^3.0.0"
-    uberproto "^2.0.2"
-
-"@feathersjs/socketio-client@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@feathersjs/socketio-client/-/socketio-client-1.1.0.tgz#ceaf278c4e7cf8fceac7e38313d215ca0f7873db"
-  integrity sha512-2ry9vX8qIF1Nax3G3r121Utsnj5NQbGgBG7K0M3RTJc+93Gg46BrnLVMFKue5fz2YTIOpHfHDRu1qqbddTJLXQ==
-  dependencies:
-    "@feathersjs/transport-commons" "^4.0.0"
-
-"@feathersjs/transport-commons@^4.0.0":
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/@feathersjs/transport-commons/-/transport-commons-4.1.1.tgz#7b9a12e1a7a76f46fc808ba5d0e42496d4351934"
-  integrity sha512-9Zf3OuKAmG6dSPgdgmGRAjvqzD7cGj+KsDJUVbV+xcnP5yCSX2Y2BOIZvC9NvFugyke/dbRcnAE/SPSHOYCWXw==
-  dependencies:
-    "@feathersjs/commons" "^1.4.0"
-    "@feathersjs/errors" "^3.0.0"
-    debug "^3.1.0"
-    lodash "^4.17.10"
-    radix-router "^3.0.1"
+"@feathersjs/client@^3.7.5":
+  version "3.7.5"
+  resolved "https://registry.yarnpkg.com/@feathersjs/client/-/client-3.7.5.tgz#ecffdf7e83d2ce8c6b6192f958571f430d8a824f"
+  integrity sha512-7edTLWOntvvBCL2yBcyXNPH9gDMpwpzn2IkroLfC8pSy4lnF956YChGcjOlRHiJ7w7H1GDXx42Qr26SJkxPZEA==
 
 "@material-ui/core@^1.4.0":
   version "1.4.0"
@@ -3801,11 +3757,6 @@ events@^1.0.0:
   resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
   integrity sha1-nr23Y1rQmccNzEwqH1AEKI6L2SQ=
 
-events@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/events/-/events-3.0.0.tgz#9a0a0dfaf62893d92b875b8f2698ca4114973e88"
-  integrity sha512-Dc381HFWJzEOhQ+d8pkNon++bk9h6cdAoAj4iE6Q4y6xgTzySWXlKn05/TVNpjnfRqi/X0EpJEJohPjNI3zpVA==
-
 eventsource@0.1.6:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/eventsource/-/eventsource-0.1.6.tgz#0acede849ed7dd1ccc32c811bb11b944d4f29232"
@@ -6121,11 +6072,6 @@ jsx-ast-utils@^2.0.0, jsx-ast-utils@^2.0.1:
   dependencies:
     array-includes "^3.0.3"
 
-jwt-decode@^2.1.0:
-  version "2.2.0"
-  resolved "http://registry.npm.taobao.org/jwt-decode/download/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
-  integrity sha1-fYa9VmefWM5qhHBKZX3TkruoGnk=
-
 keyboard-key@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/keyboard-key/-/keyboard-key-1.0.1.tgz#a946294fe59ad5431c63a3ea269f023e51fac6aa"
@@ -8057,11 +8003,6 @@ querystringify@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.0.0.tgz#fa3ed6e68eb15159457c89b37bc6472833195755"
   integrity sha512-eTPo5t/4bgaMNZxyjWx6N2a6AuE0mq51KWvpc7nU/MAqixcI6v6KrGUKES0HaomdnolQBBXU/++X6/QQ9KL4tw==
-
-radix-router@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/radix-router/-/radix-router-3.0.1.tgz#5522c829f7100e60c58fd1acf8803e0b2b312d97"
-  integrity sha512-jpHXHgP+ZmVzEfmZ7WVRSvc/EqMoAqYuMtBsHd9s47Hs9Iy8FDJhkweMrDH0wmdxanLzVIWhq0UpomLXNpW8tg==
 
 raf@3.4.0:
   version "3.4.0"
@@ -10002,11 +9943,6 @@ ua-parser-js@^0.7.18:
   version "0.7.18"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.18.tgz#a7bfd92f56edfb117083b69e31d2aa8882d4b1ed"
   integrity sha512-LtzwHlVHwFGTptfNSgezHp7WUlwiqb0gA9AALRbKaERfxwJoiX0A73QbTToxteIAuIaFshhgIZfqK8s7clqgnA==
-
-uberproto@^2.0.2:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/uberproto/-/uberproto-2.0.3.tgz#3414e4b63c1eafc65e2a21217b93ee553b2ca6e2"
-  integrity sha512-TFEyMv0ofimpBPmm7iFuInqcQyGgAd2E3oAUxXRk+7amilcrQ+/Ql/DxwxNRWciS7mHLX5Qog0FQ7r5X8mI+RQ==
 
 uglify-js@3.4.x, uglify-js@^3.0.13:
   version "3.4.4"
