@@ -8,12 +8,7 @@ class ItemList extends Component {
   }
 
   render () {
-<<<<<<< HEAD
     let { inventories, removeInventory, filterInventories, filteredInventories, loading } = this.props
-=======
-    let { inventories, removeInventory, filterInventories, filteredInventories } = this.props
-
->>>>>>> finalization
     inventories = filteredInventories || inventories || []
     console.log(inventories)
     return (
@@ -32,7 +27,7 @@ class ItemList extends Component {
           </Message>
         </Segment>
         <Segment style={styles.bottomSegment}>
-          {loading 
+          {loading
             ? <Loader active />
             : <Fragment>
               { inventories && !inventories.length && <Message negative>No available items yet</Message>}

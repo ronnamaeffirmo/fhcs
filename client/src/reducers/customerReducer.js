@@ -26,12 +26,8 @@ const fuseOptions = {
 
 const initialState = {
   customers: [],
-<<<<<<< HEAD
-  filteredCustomers: [],
-  loading: false
-=======
+  loading: false,
   filteredList: []
->>>>>>> finalization
 }
 
 const customerReducer = (state = initialState, action) => {
