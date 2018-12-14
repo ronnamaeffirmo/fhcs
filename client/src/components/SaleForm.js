@@ -291,6 +291,7 @@ const Items = (props) => {
           <Grid.Column width={3}>
             <label style={styles.tmpFieldLabel}>Price</label>
             <Field
+              type='number'
               name={'tmpPrice'}
               component='input'
             />
@@ -300,6 +301,7 @@ const Items = (props) => {
           <Grid.Column width={2}>
             <label style={styles.tmpFieldLabel}>Quantity</label>
             <Field
+              type='number'
               name={'tmpQuantity'}
               component='input'
             />
@@ -309,6 +311,7 @@ const Items = (props) => {
           <Grid.Column width={3}>
             <label style={styles.tmpFieldLabel}>Discount</label>
             <Field
+              type='number'
               name={'tmpDiscount'}
               component='input'
             />
