@@ -65,7 +65,7 @@ const SaleTable = props => {
       <Table celled sortable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell textAlign={'center'}>OR #</Table.HeaderCell>
+            <Table.HeaderCell textAlign={'center'}>OR # {` (${sales.length})`}</Table.HeaderCell>
             <Table.HeaderCell textAlign={'center'}>CUSTOMER</Table.HeaderCell>
             <Table.HeaderCell textAlign={'center'}>DATE</Table.HeaderCell>
             <Table.HeaderCell textAlign={'center'}>TERM</Table.HeaderCell>
@@ -100,6 +100,8 @@ const SaleTable = props => {
               </Table.Row>
             )
           })}
+        </Table.Body>
+        <Table.Footer>
           <Table.Row>
             <Table.HeaderCell/>
             <Table.HeaderCell/>
@@ -107,12 +109,17 @@ const SaleTable = props => {
             <Table.HeaderCell/>
             <Table.HeaderCell/>
             <Table.HeaderCell/>
-            <Table.HeaderCell textAlign='right'>₱ {numeral(getSummary(sales).subtotal).format(numberFormat)}</Table.HeaderCell>
-            <Table.HeaderCell textAlign='right'>₱ {numeral(getSummary(sales).discount).format(numberFormat)}</Table.HeaderCell>
-            <Table.HeaderCell textAlign='right'>₱ {numeral(getSummary(sales).returned).format(numberFormat)}</Table.HeaderCell>
-            <Table.HeaderCell textAlign='right'>₱ {numeral(getSummary(sales).total).format(numberFormat)}</Table.HeaderCell>
+            <Table.HeaderCell
+              textAlign='right'>₱ {numeral(getSummary(sales).subtotal).format(numberFormat)}</Table.HeaderCell>
+            <Table.HeaderCell
+              textAlign='right'>₱ {numeral(getSummary(sales).discount).format(numberFormat)}</Table.HeaderCell>
+            <Table.HeaderCell
+              textAlign='right'>₱ {numeral(getSummary(sales).returned).format(numberFormat)}</Table.HeaderCell>
+            <Table.HeaderCell
+              textAlign='right'>₱ {numeral(getSummary(sales).total).format(numberFormat)}</Table.HeaderCell>
           </Table.Row>
-        </Table.Body>
+        </Table.Footer>
+
       </Table>
     </div>
   )
