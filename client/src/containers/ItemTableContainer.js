@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ItemTable from '../components/ItemTable'
-import {getItems} from '../actions/itemActions'
+import { filterItems, getItems } from '../actions/itemActions'
 
 class ItemTableContainer extends React.Component {
   componentDidMount () {
@@ -16,11 +16,13 @@ class ItemTableContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  items: state.item.list
+  items: state.item.list,
+  filteredItems: state.item.filteredList.length > 0 ? state.item.filteredList : undefined
 })
 
 const mapDispatchToProps = dispatch => ({
-  getItems: () => dispatch(getItems())
+  getItems: () => dispatch(getItems()),
+  filterItems: (searchTerm) => dispatch(filterItems(searchTerm))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemTableContainer)

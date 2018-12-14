@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Divider, Dropdown, Input, Grid, Icon } from 'semantic-ui-react'
+import { Button, Divider, Dropdown, Input, Grid, Icon, Segment } from 'semantic-ui-react'
 import { Field, reduxForm } from 'redux-form'
 import saleStatus from '../common/constants/saleStatus'
 import { DateInput } from 'semantic-ui-calendar-react'
@@ -33,14 +33,14 @@ const styles = {
 }
 
 const SaleHeader = props => {
-  const {resetFilters} = props
+  const {resetFilters, filterSales} = props
   return (
-    <div>
+    <Segment>
       <div style={styles.filters}>
         <Grid verticalAlign={'middle'} divided>
           <Grid.Row colums={2}>
             <Grid.Column width={12}>
-              <Input icon='search' fluid placeholder={'Search...'}/>
+              <Input icon='search' fluid placeholder={'Search...'} onChange={(e) => { filterSales(e.target.value) }}/>
             </Grid.Column>
             <Grid.Column width={4}>
               <Button fluid as={Link} to={'/sales/new'} style={styles.headerButton}>NEW SALE</Button>
@@ -117,7 +117,7 @@ const SaleHeader = props => {
           />
         </div>
       </div>
-    </div>
+    </Segment>
   )
 }
 

@@ -2,16 +2,42 @@ import {
   REMOVE_SALE,
   RECEIVE_SALES,
   RECEIVE_SALE, APPLY_SALE_PAYMENT,
-  RETURN_ITEM
+  RETURN_ITEM,
+  FILTER_SALES
 } from '../actions/saleActions'
 import clone from 'shallow-clone'
+import { search } from '../common/helpers'
 
 const initialState = {
   list: [],
+  filteredList: []
+}
+
+const fuseOptions = {
+  shouldSort: true,
+  threshold: 0.6,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 32,
+  minMatchCharLength: 1,
+  keys: [
+    'officialReceipt',
+    'customer.name',
+    'customer.company',
+    'date',
+    'term',
+    'status'
+  ]
 }
 
 const saleReducer = (state = initialState, action) => {
   switch (action.type) {
+    case FILTER_SALES: {
+      return {
+        ...state,
+        filteredList: [...search(state.list, action.payload, fuseOptions)]
+      }
+    }
     case RECEIVE_SALE: {
       return {
         ...state,

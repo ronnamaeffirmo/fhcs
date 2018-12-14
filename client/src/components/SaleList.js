@@ -1,12 +1,12 @@
 import React from 'react'
-import { Container, Segment, Message } from 'semantic-ui-react'
+import { Container, Divider, Message } from 'semantic-ui-react'
 import SalesDataCard from './SaleDataCard'
 import SaleHeader from './SaleHeader'
 import moment from 'moment'
 
 const SaleList = (props) => {
-  let {sales, removeSale, applySalePayment, returnItem} = props
-  sales = sales || []
+  let {sales, filteredSales, removeSale, applySalePayment, returnItem} = props
+  sales = filteredSales || sales || []
   const {filters: {startDate, endDate, status}} = props
   if (sales.length > 0) {
     if (status && status !== 'none') {
@@ -21,10 +21,8 @@ const SaleList = (props) => {
   }
   return (
     <Container style={styles.mainContainer}>
-      <Segment style={styles.topSegment}>
-        <SaleHeader {...props}/>
-
-      </Segment>
+      <SaleHeader {...props}/>
+      <Divider/>
       <div style={styles.bottomSegment}>
         {!sales.length && <Message negative>No available sales yet</Message>}
         {sales.map(sale => (
