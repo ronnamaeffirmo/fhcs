@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Segment, Message } from 'semantic-ui-react'
+import { Container, Divider, Message } from 'semantic-ui-react'
 import SalesDataCard from './SaleDataCard'
 import SaleHeader from './SaleHeader'
 import moment from 'moment'
@@ -21,10 +21,8 @@ const SaleList = (props) => {
   }
   return (
     <Container style={styles.mainContainer}>
-      <Segment style={styles.topSegment}>
-        <SaleHeader {...props}/>
-
-      </Segment>
+      <SaleHeader {...props}/>
+      <Divider/>
       <div style={styles.bottomSegment}>
         {!sales.length && <Message negative>No available sales yet</Message>}
         {sales.map(sale => (

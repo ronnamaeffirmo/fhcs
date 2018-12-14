@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table } from 'semantic-ui-react'
+import { Table, Divider } from 'semantic-ui-react'
 import moment from 'moment'
 import _ from 'lodash'
 import numeral from 'numeral'
@@ -62,6 +62,7 @@ const SaleTable = props => {
   return (
     <div style={styles.mainContainer}>
       <SaleHeader {...props} />
+      <Divider />
       <Table celled sortable>
         <Table.Header>
           <Table.Row>
