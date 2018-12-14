@@ -4,6 +4,7 @@ import ItemList from '../components/ItemList'
 import { getItems, removeItem, filterItems } from '../actions/itemActions'
 
 const mapStateToProps = (state) => ({
+  loading: state.item.loading,
   items: state.item.list,
   filteredItems: state.item.filteredList.length > 0 ? state.item.filteredList : undefined
 })

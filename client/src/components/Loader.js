@@ -1,13 +1,11 @@
 import React from 'react'
-import { Grid } from 'semantic-ui-react'
-import { PropagateLoader } from 'react-spinners'
+import { Grid, Loader as SemanticLoader } from 'semantic-ui-react'
+import { MoonLoader } from 'react-spinners' // has a bug -R
 
-const Loader = () => {
-  return (
-    <Grid stretched style={{height: '100%', marginTop: '50%'}} verticalAlign={'middle'} textAlign={'center'}>
-      <PropagateLoader size={15}/>
-    </Grid>
-  )
-}
+const Loader = () => (
+  <Grid stretched style={{height: '100%', marginTop: '50%'}} verticalAlign={'middle'} textAlign={'center'}>
+    <SemanticLoader active />
+  </Grid>
+)
 
 export default Loader

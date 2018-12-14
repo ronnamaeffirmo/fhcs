@@ -6,6 +6,8 @@ import { toastError } from './toasterActions'
 export const UPDATE_ROLE = 'UPDATE_ROLE'
 export const RECEIVE_ROLE = 'RECEIVE_ROLE'
 export const RECEIVE_ROLES = 'RECEIVE_ROLES'
+export const START_ROLES_LOADING = 'START_ROLES_LOADING'
+export const FINISH_ROLES_LOADING = 'FINISH_ROLES_LOADING'
 
 export const getRole = (id) => {
   return async (dispatch) => {
@@ -94,13 +96,16 @@ export const updateRole = (values) => {
 export const getRoles = () => {
   return async (dispatch) => {
     try {
+      dispatch({ type: START_ROLES_LOADING })
       const roles = await client.service('roles').find({})
       const payload = roles.data
       dispatch({
         type: RECEIVE_ROLES,
         payload: payload
       })
+      dispatch({ type: FINISH_ROLES_LOADING })
     } catch (e) {
+      dispatch({ type: FINISH_ROLES_LOADING })
       toastError({message: e.message})
     }
 

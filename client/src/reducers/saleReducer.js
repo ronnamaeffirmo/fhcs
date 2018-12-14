@@ -3,6 +3,8 @@ import {
   RECEIVE_SALES,
   RECEIVE_SALE, APPLY_SALE_PAYMENT,
   RETURN_ITEM,
+  START_SALES_LOADING,
+  FINISH_SALES_LOADING,
   FILTER_SALES
 } from '../actions/saleActions'
 import clone from 'shallow-clone'
@@ -10,6 +12,7 @@ import { search } from '../common/helpers'
 
 const initialState = {
   list: [],
+  loading: false,
   filteredList: []
 }
 
@@ -96,6 +99,18 @@ const saleReducer = (state = initialState, action) => {
       return {
         ...state,
         list: action.payload
+      }
+    }
+    case START_SALES_LOADING: {
+      return {
+        ...state,
+        loading: true
+      }
+    }
+    case FINISH_SALES_LOADING: {
+      return {
+        ...state,
+        loading: false
       }
     }
     default: {

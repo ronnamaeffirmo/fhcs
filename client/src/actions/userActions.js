@@ -20,10 +20,13 @@ export const DELETE_USER = 'DELETE_USER'
 export const SELECT_USER = 'SELECT_USER'
 export const ADD_USER_REQUEST = 'ADD_USER_REQUEST'
 export const ADD_USER_FAIL = 'ADD_USER_FAIL'
+export const FINISH_USERS_LOADING = 'FINISH_USERS_LOADING'
+export const START_USERS_LOADING = 'START_USERS_LOADING'
 
 export const getUsers = () => {
   return async (dispatch) => {
     try {
+      dispatch({ type: START_USERS_LOADING })
       const users = await client.service('users').find({
         query: {
           $populate: 'role'
@@ -34,8 +37,10 @@ export const getUsers = () => {
           type: RECEIVE_USERS,
           payload: users.data
         })
+        dispatch({ type: FINISH_USERS_LOADING })
       }
     } catch (e) {
+      dispatch({ type: FINISH_USERS_LOADING })
       toastError({message: e.message})
     }
   }

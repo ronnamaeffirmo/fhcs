@@ -28,7 +28,7 @@
   "scripts": {
     "test": "standard eslint && yarn run mocha",
     "eslint": "eslint src/. test/. --config .eslintrc.json",
-    "start": "nodemon src/",
+    "start": "node src/",
     "mocha": "mocha test/ --recursive --exit",
     "client": "cd client && yarn run start",
     "dev": "concurrently --names \"server,client\" \"yarn run start --silent\" \"yarn run client --silent\""

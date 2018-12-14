@@ -11,6 +11,8 @@ export const GET_INVENTORY_REQUEST = 'GET_INVENTORY_REQUEST'
 export const GET_INVENTORY = 'GET_INVENTORY'
 export const GET_INVENTORY_FAIL = 'GET_INVENTORY_FAIL'
 export const PATCH_INVENTORY = 'PATCH_INVENTORY'
+export const START_INVENTORY_LOADING = 'START_INVENTORY_LOADING'
+export const FINISH_INVENTORY_LOADING = 'FINISH_INVENTORY_LOADING'
 
 const getQueryDate = (amount, unit) => {
   return moment(new Date()).subtract(amount, unit).toDate()
@@ -59,6 +61,7 @@ export const getInventoriesByPeriod = ({period}) => {
 export const getInventories = () => {
   return async (dispatch) => {
     try {
+      dispatch({ type: START_INVENTORY_LOADING })
       const items = await client.service('inventories').find({
         query: {
           $populate: ['item']
@@ -68,7 +71,9 @@ export const getInventories = () => {
         type: GET_INVENTORIES,
         payload: items.data
       })
+      dispatch({ type: FINISH_INVENTORY_LOADING })
     } catch (e) {
+      dispatch({ type: FINISH_INVENTORY_LOADING })
       toastError({message: e.message})
     }
   }

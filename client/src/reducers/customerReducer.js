@@ -4,7 +4,9 @@ import {
   GET_CUSTOMER,
   GET_CUSTOMERS,
   REMOVE_CUSTOMER,
-  UPDATE_CUSTOMER
+  UPDATE_CUSTOMER,
+  START_CUSTOMER_LOADING,
+  FINISH_CUSTOMER_LOADING
 } from '../actions/customerActions'
 import { search } from '../common/helpers'
 
@@ -23,11 +25,24 @@ const fuseOptions = {
 
 const initialState = {
   customers: [],
-  filteredCustomers: []
+  filteredCustomers: [],
+  loading: false
 }
 
 const customerReducer = (state = initialState, action) => {
   switch (action.type) {
+    case START_CUSTOMER_LOADING: {
+      return {
+        ...state,
+        loading: true
+      }
+    }
+    case FINISH_CUSTOMER_LOADING: {
+      return {
+        ...state,
+        loading: false
+      }
+    }
     case ADD_CUSTOMER: {
       return {
         ...state,

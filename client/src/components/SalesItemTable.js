@@ -5,7 +5,7 @@ const SalesItemTable = ({items, _id, actions: {returnItem}}) => (
   <Modal trigger={<Button size={'medium'} icon={'eye'}
                           style={{width: 150, float: 'right', textAlign: 'center', marginBottom: 5}}
                           labelPosition={'left'} color={'teal'} content={'View Items'}/>}>
-    <Modal.Header> Items </Modal.Header>
+    <Modal.Header>Items</Modal.Header>
     <Modal.Content>
       <Table celled>
         <Table.Header>

@@ -10,6 +10,8 @@ export const REMOVE_CUSTOMER = 'REMOVE_CUSTOMER'
 export const REMOVE_CUSTOMER_ERROR = 'REMOVE_CUSTOMER_ERROR'
 export const UPDATE_CUSTOMER = 'UPDATE_CUSTOMER'
 export const FILTER_CUSTOMERS = 'FILTER_CUSTOMERS'
+export const START_CUSTOMER_LOADING = 'START_CUSTOMER_LOADING'
+export const FINISH_CUSTOMER_LOADING = 'FINISH_CUSTOMER_LOADING'
 
 export const addCustomer = (data) => {
   return async (dispatch) => {
@@ -59,15 +61,18 @@ export const getCustomer = (id) => {
 export const getCustomers = () => {
   return async (dispatch) => {
     try {
+      dispatch({ type: START_CUSTOMER_LOADING })
       const customers = await client.service('customers').find({})
       if (customers) {
         dispatch({
           type: GET_CUSTOMERS,
           payload: customers.data
         })
+        dispatch({ type: FINISH_CUSTOMER_LOADING })
         toastSuccess({message: 'Customer list has been updated!'})
       }
     } catch (e) {
+      dispatch({ type: FINISH_CUSTOMER_LOADING })
       toastError({message: e.message})
     }
   }

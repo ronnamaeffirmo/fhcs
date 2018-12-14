@@ -16,8 +16,9 @@ class ItemTableContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  items: state.item.list,
-  filteredItems: state.item.filteredList.length > 0 ? state.item.filteredList : undefined
+  loading: state.item.loading,
+  filteredItems: state.item.filteredList.length > 0 ? state.item.filteredList : undefined,
+  items: state.item.list
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -82,7 +82,6 @@ export const createItem = (values) => {
 export const getItem = (id) => {
   return async (dispatch) => {
     try {
-      dispatch({ type: GET_ITEM_REQUEST })
       await dispatch(getItems())
       const item = await client.service('items').get(id)
       dispatch({
@@ -98,12 +97,15 @@ export const getItem = (id) => {
 export const getItems = () => {
   return async (dispatch) => {
     try {
+      dispatch({ type: START_LOADING })
       const items = await client.service('items').find({})
       dispatch({
         type: GET_ITEMS,
         payload: items.data
       })
+      dispatch({ type: FINISH_LOADING })
     } catch (e) {
+      dispatch({ type: FINISH_LOADING })
       toastError({message: e.message})
     }
   }

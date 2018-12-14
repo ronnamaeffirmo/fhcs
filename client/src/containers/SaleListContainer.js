@@ -20,6 +20,7 @@ class SaleListContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  loading: state.sale.loading,
   sales: state.sale.list,
   initialValues: {
     status: 'none',
