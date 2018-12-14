@@ -33,6 +33,8 @@ const validatePermissionDataRequest = (context) => {
 
 }
 
+const checkRoleUsage = require('../../hooks/check-role-usage');
+
 module.exports = {
   before: {
     all: [],
@@ -41,7 +43,7 @@ module.exports = {
     create: [validatePermissionDataRequest],
     update: [validatePermissionDataRequest],
     patch: [validatePermissionDataRequest],
-    remove: []
+    remove: [checkRoleUsage()]
   },
 
   after: {
