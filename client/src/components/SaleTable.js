@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Table, Segment, Loader, Message } from 'semantic-ui-react'
+import { Table, Segment, Loader, Message, Divider } from 'semantic-ui-react'
 import moment from 'moment'
 import _ from 'lodash'
 import numeral from 'numeral'
@@ -46,8 +46,9 @@ const getSummary = sales => {
 }
 
 const SaleTable = props => {
-  const {filters: {startDate, endDate, status}, loading} = props
+  const {filters: {startDate, endDate, status}, loading, filteredSales} = props
   let {sales} = props
+  sales = filteredSales || sales || []
   if (sales.length > 0) {
     if (status && status !== 'none') {
       sales = sales.filter(sale => sale.status === status)
@@ -62,6 +63,7 @@ const SaleTable = props => {
   return (
     <div style={styles.mainContainer}>
       <SaleHeader {...props} />
+      <Divider />
       { loading 
         ? <Segment vertical padded='very'>
             <Loader active />
