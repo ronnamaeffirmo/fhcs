@@ -1,7 +1,7 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
 import { Redirect, Link } from 'react-router-dom'
-import { Button, Dimmer, Dropdown, Form, Loader, Message, Segment, Divider } from 'semantic-ui-react'
+import { Button, Dropdown, Form, Message, Divider } from 'semantic-ui-react'
 import units from '../common/constants/units'
 
 const styles = {
@@ -66,9 +66,9 @@ class EditItemForm extends React.Component {
           ? <Redirect to="/items"/>
           : <div style={styles.mainContainer}>
             <Link to={'/items'}><Button color={'grey'} content={'Back to Items'} icon={'arrow left'} labelPosition={'left'}/></Link>
-            <Button color={'green'} icon={'checkmark'} floated={'right'} labelPosition={'right'} onClick={() => this.handleSubmit()} content='Submit'/>
+            <Button disabled={this.state.loading} color={'green'} icon={'checkmark'} floated={'right'} labelPosition={'right'} onClick={() => this.handleSubmit()} content='Submit'/>
             <Divider/>
-            <Form error className='left column'>
+            <Form loading={this.state.loading} error className='left column'>
               <Form.Field>
                 <label>Name</label>
                 <Form.Input
@@ -110,22 +110,19 @@ class EditItemForm extends React.Component {
                 />
               </Form.Field>
               <Form.Field>
-                {Object.keys(this.state.errors).length !== 0 ? <span>
-                  <Message
-                    error
-                    header='There was some errors with your submission'
-                    list={[
-                      this.state.errors.name,
-                      this.state.errors.description,
-                      this.state.errors.price
-                    ]}
-                  /></span>
-                  : this.state.loading ? <Form.Field><Segment>
-                    <Dimmer style={{height: '50px'}} active>
-                      <Loader size='mini'>Loading</Loader>
-                    </Dimmer>
-                  </Segment></Form.Field>
-                    : ''}
+                {Object.keys(this.state.errors).length !== 0 && 
+                  <span>
+                    <Message
+                      error
+                      header='There was an error during your submission'
+                      list={[
+                        this.state.errors.name,
+                        this.state.errors.description,
+                        this.state.errors.price
+                      ]}
+                    />
+                  </span>
+                }
               </Form.Field>
             </Form>
           </div>

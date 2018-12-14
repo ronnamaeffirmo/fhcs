@@ -1,5 +1,5 @@
 import client from '../common/client'
-import { toastError, toastSuccess } from './toasterActions'
+import { toastError, toastSuccess, toastInfo } from './toasterActions'
 
 export const ADD_ITEM = 'ADD_ITEM'
 export const GET_ITEM_REQUEST = 'GET_ITEM_REQUEST'
@@ -66,6 +66,7 @@ export const getItemSearchList = () => {
 export const createItem = (values) => {
   return async (dispatch) => {
     try {
+      toastInfo({ message: 'Adding new item...' })
       const item = await client.service('items').create(values)
       if (item) {
         dispatch({
