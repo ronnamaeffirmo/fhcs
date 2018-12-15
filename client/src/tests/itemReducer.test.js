@@ -13,9 +13,7 @@ import reducer from '../reducers/itemReducer'
 describe('item reducer', () => {
   it('should return initial state', () => {
     const initialState = {
-      list: [],
-      filteredList: [],
-      report: 'sales'
+      "filteredList": [], "gettingItem": false, "list": [], "loading": false, "report": "sales"
     }
     expect(reducer(undefined, {})).toEqual(initialState)
   })
@@ -24,7 +22,7 @@ describe('item reducer', () => {
     const data = {name: 'shovel', unit: 'pcs', qty: '3'}
     const action = {type: ADD_ITEM, payload: data}
     const expectedState = {
-      "filteredList": [], "item": {"name": "shovel", "qty": "3", "unit": "pcs"}, "list": [{"name": "shovel", "qty": "3", "unit": "pcs"}], "report": "sales"
+      "filteredList": [], "gettingItem": false, "item": {"name": "shovel", "qty": "3", "unit": "pcs"}, "list": [{"name": "shovel", "qty": "3", "unit": "pcs"}], "loading": false, "report": "sales"
     }
     expect(reducer(undefined, action)).toEqual(expectedState)
   })
@@ -32,11 +30,8 @@ describe('item reducer', () => {
   it ('should handle GET_ITEM', () => {
     const data = {name:'shovel', unit: 'pcs', qty: '5'}
     const action = {type: GET_ITEM, payload: data}
-    const expectedState = {
-      "filteredList": [], 
-      "list": [data], 
-      "report": "sales"
-    }
+    const expectedState = {"filteredList": [], "foundItem": {"name": "shovel", "qty": "5", "unit": "pcs"}, "gettingItem": false, "list": [], "loading": false, "report": "sales"}
+   
     expect(reducer(undefined, action)).toEqual(expectedState)
   })
   it ('should handle GET_ITEMS', () => {
@@ -46,9 +41,7 @@ describe('item reducer', () => {
     ]
     const action ={type: GET_ITEMS, payload: datas}
     const expectedState = {
-      "filteredList": [], 
-      "list": datas, 
-      "report": "sales"
+      "filteredList": [], "gettingItem": false, "list": [{"name": "shovel", "qty": "5", "unit": "pcs"}, {"name": "shovel", "qty": "5", "unit": "pcs"}], "loading": false, "report": "sales"
     }
     expect(reducer(undefined, action)).toEqual(expectedState)
   })
@@ -94,10 +87,7 @@ describe('item reducer', () => {
     const error = 'REMOVE_ITEM error'
     const action = {type: REMOVE_ITEM_ERROR, payload: error}
     const expectedState ={
-      "filteredList": [], 
-      "list": [], 
-      "report": "sales",
-      error: error
+      "error": "REMOVE_ITEM error", "filteredList":  [], "gettingItem": false, "list":  [], "loading": false, "report": "sales"
     }
     expect(reducer(undefined, action)).toEqual(expectedState)
   })
@@ -106,11 +96,8 @@ describe('item reducer', () => {
     const data = 'sales'
     const action = {type: SELECT_REPORT, payload: data}
     const expectedState ={
-      "filteredList": [], 
-      "list": [], 
-      "report": data,
+      "filteredList": [], "gettingItem": false, "list": [], "loading": false, "report": "sales"
     }
     expect(reducer(undefined, action)).toEqual(expectedState)
   })
-
 })

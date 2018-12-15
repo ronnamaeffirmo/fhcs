@@ -7,9 +7,7 @@ import reducer from '../reducers/saleReducer'
 
 describe('sales reducer', () => {
 	it('should return initial state', () => {
-		const initialState = {
-			list: [],
-		}
+		const initialState = {"filteredList":  [], "list":  [], "loading": false}
 		
 		expect(reducer(undefined, {})).toEqual(initialState)
 	})
@@ -28,9 +26,7 @@ describe('sales reducer', () => {
 	it('should handle RECEIVE_SALES', () => {
 		const datas = [{_id: "1", "name": "shovel", "qty": "5", "unit": "pcs"}]
 		const action = {type: RECEIVE_SALES, payload: datas}
-		const expectedState = {
-			list: datas
-		}
+		const expectedState = {"filteredList":  [], "list": [{"_id": "1", "name": "shovel", "qty": "5", "unit": "pcs"}], "loading": false}
 
 		expect(reducer(undefined, action)).toEqual(expectedState)
 	})
