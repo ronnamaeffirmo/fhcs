@@ -4,18 +4,16 @@ import React from 'react'
 import { configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import { shallow, mount } from 'enzyme'
-import sinon from 'sinon'
 import 'react-testing-library/cleanup-after-each'
 import 'jest-dom/extend-expect'
 import { render } from 'react-testing-library'
 
 configure({ adapter: new Adapter() });
 
-describe('AddItemModalForm', () => {
+describe('AddCustomerModal', () => {
   it('renders witout crashing', () => {
     shallow(<App/>)
   })
-
   
   it('renders welcome message', () => {
     const { getByText } = render(<App />);

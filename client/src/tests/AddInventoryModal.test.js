@@ -4,11 +4,10 @@ import React from 'react'
 import { configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import { shallow, mount } from 'enzyme'
-import sinon from 'sinon'
 import 'react-testing-library/cleanup-after-each'
 import 'jest-dom/extend-expect'
 import { render } from 'react-testing-library'
-import { Field, reduxForm } from 'redux-form'
+import { reduxForm } from 'redux-form'
 
 configure({ adapter: new Adapter() });
 
