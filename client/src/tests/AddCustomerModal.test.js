@@ -18,7 +18,7 @@ describe('AddCustomerModal', () => {
   it('renders welcome message', () => {
     const { getByText } = render(<App />);
     expect(getByText('NEW CUSTOMER')).toBeInTheDocument()
-  });
+  })
 
   it('allows us to set props', () => {
     const wrapper = mount(<App bar="baz"/>)

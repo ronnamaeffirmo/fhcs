@@ -9,22 +9,22 @@ import 'jest-dom/extend-expect'
 import { render } from 'react-testing-library'
 import { mount } from 'enzyme'
 
-configure({ adapter: new Adapter() });
+configure({ adapter: new Adapter() })
 
 describe('EditItemForm', () => {
   it('renders without crashing', () => {
     shallow(<App/>)
-  });
+  })
   
 //   it('renders welcome message', () => {
-//     const { getByText } = render(<App/>);
+//     const { getByText } = render(<App/>)
 //     expect(getByText('Username')).toBeInTheDocument()
-//   });
+//   })
   
   it('allows us to set props', () => {
     const wrapper = shallow(<App bar="baz"/>)
     expect(wrapper.props().bar).toEqual('baz')
     wrapper.setProps({ bar: 'App' })
     expect(wrapper.props().bar).toEqual('App')
-  });
+  })
 })

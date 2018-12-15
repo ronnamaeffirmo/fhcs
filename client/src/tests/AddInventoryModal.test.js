@@ -9,7 +9,7 @@ import 'jest-dom/extend-expect'
 import { render } from 'react-testing-library'
 import { reduxForm } from 'redux-form'
 
-configure({ adapter: new Adapter() });
+configure({ adapter: new Adapter() })
 
 describe('AddInventoryModal', () => {
   const testapp = reduxForm({
@@ -21,9 +21,9 @@ describe('AddInventoryModal', () => {
   })
   
   it('renders welcome message', () => {
-    const { getByText } = render(<testapp options={{sources:'lol'}}/>);
+    const { getByText } = render(<testapp options={{sources:'lol'}}/>)
     expect(getByText('')).toBeInTheDocument()
-  });
+  })
 
   it('allows us to set props', () => {
     const wrapper = mount(<testapp bar="baz" options={{sources:'lol'}}/>)
