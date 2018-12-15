@@ -24,4 +24,13 @@ describe('\'checkPermissions\' hook', () => {
     
     assert.deepEqual(result, { id: 'test' });
   });
+
+  it('should return an error when parameter is empty', async () => {
+    // assert.throws(result, expected)
+    try {
+      const result = await app.service('dummy').get();
+    } catch(err) {
+      assert.strictEqual(err.name, 'Error')
+    }
+  })
 });

@@ -1,27 +1,44 @@
 const assert = require('assert');
 const feathers = require('@feathersjs/feathers');
 const checkItemUsage = require('../../src/hooks/check-item-usage');
+const sinon = require('sinon')
 
 describe('\'check item usage\' hook', () => {
-  let app;
+  const serviceStub = sinon.stub()
+  const findStub = sinon.stub()
+  const hookStub = sinon.stub()
+
+  const appStub = {
+    service: serviceStub
+  }
+
+  appStub.service.returns({
+    find: findStub,
+    hooks: hookStub,
+  })
 
   beforeEach(() => {
-    app = feathers();
+    findStub.returns({
+      id: '123'
+    })
 
-    app.use('/dummy', {
-      async get(id) {
-        return { id };
-      }
-    });
-
-    app.service('dummy').hooks({
+    hookStub.returns({
       before: checkItemUsage()
-    });
+    })
+    appStub.service('dummy').hooks()
   });
 
   it('runs the hook', async () => {
-    const result = await app.service('dummy').get('test');
+    const result = await appStub.service('dummy').find('123');
     
-    assert.deepEqual(result, { id: 'test' });
+    assert.deepEqual(result, { id: '123' });
   });
+
+  it('should return an error when parameter is empty', async () => {
+    try {
+      const result = await app.service('dummy').find();
+    } catch(err) {
+      assert.strictEqual(err.name, 'ReferenceError')
+    }
+  })
 });
