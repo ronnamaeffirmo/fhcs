@@ -1,5 +1,4 @@
-import App from '../components/AddRole'
-import RoleForm from '../components/RoleForm';
+import App from '../components/RoleForm';
 
 import React from 'react'
 import { configure } from 'enzyme'
@@ -19,11 +18,6 @@ describe('AddItemModal', () => {
 
   it('renders without crashing', () => {
     shallow(<App/>)
-  });
-
-  it('renders RoleForm', () => {
-    const wrapper = shallow(<App/>)
-    expect(wrapper.find(RoleForm).length).toEqual(1)
   });
 
   it('renders welcome message', () => {
