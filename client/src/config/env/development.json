@@ -1,5 +1,5 @@
 {
   "api": {
-    "host": "http://localhost:3030"
+    "host": `${process.env.URL}:${process.env.PORT}
   }
 }
