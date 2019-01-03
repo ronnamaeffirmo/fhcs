@@ -3,23 +3,21 @@ import { Button, Card, Popup, Label, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import numeral from 'numeral'
 
-import DeleteConfirmationModal from './DeleteConfirmationModal'
-
 class ItemDataCard extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       isOpen: false
     }
   }
 
-  toggleDesc = () => this.setState({isOpen: !this.state.isOpen})
+  toggleDesc = () => this.setState({ isOpen: !this.state.isOpen })
 
-  render () {
-    const {isOpen} = this.state
-    const {item, actions} = this.props
-    const {salesQuantity, returnQuantity, inventoryQuantity, code, name, price, description, unit} = item
-    const {removeItem} = actions
+  render() {
+    const { isOpen } = this.state
+    const { item, actions } = this.props
+    const { salesQuantity, returnQuantity, inventoryQuantity, code, name, price, description, unit } = item
+    const { removeItem } = actions
     const quantity = inventoryQuantity - salesQuantity + returnQuantity
     return (
       <Card link fluid style={styles.itemCard}>
@@ -29,8 +27,8 @@ class ItemDataCard extends Component {
           content='Click to see reports'
           position='left center'
           trigger={
-            <Card.Content style={{padding: '1em 1em 0.5em 1em'}} as={Link} to={`/items/${item._id}/report`}>
-              <Card.Header style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            <Card.Content style={{ padding: '1em 1em 0.5em 1em' }} as={Link} to={`/items/${item._id}/report`}>
+              <Card.Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                   <span>{name}</span>
                   <span style={styles.quantityText}>&bull; {quantity} {unit}</span>
@@ -42,44 +40,44 @@ class ItemDataCard extends Component {
                 </div>
               </Card.Header>
               {isOpen &&
-              <Card.Description>
-                <table border={0} cellSpacing='4px'>
-                  <tbody>
-                  <tr>
-                    <td><Icon name='barcode'/></td>
-                    <td style={{paddingRight: '2em'}}>Item code</td>
-                    <td>{code || 'N/A'}</td>
-                  </tr>
-                  <tr>
-                    <td><Icon name='info circle'/></td>
-                    <td style={{paddingRight: '2rem'}}>Description</td>
-                    <td>{description}</td>
-                  </tr>
-                  </tbody>
-                </table>
-              </Card.Description>
+                <Card.Description>
+                  <table border={0} cellSpacing='4px'>
+                    <tbody>
+                      <tr>
+                        <td><Icon name='barcode' /></td>
+                        <td style={{ paddingRight: '2em' }}>Item code</td>
+                        <td>{code || 'N/A'}</td>
+                      </tr>
+                      <tr>
+                        <td><Icon name='info circle' /></td>
+                        <td style={{ paddingRight: '2rem' }}>Description</td>
+                        <td>{description}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </Card.Description>
               }
             </Card.Content>
           }
         />
         <Card.Content extra style={styles.cardExtra}>
           <div style={styles.flexit}>
-            <div style={{fontSize: '13px'}}>Expand card to see item description</div>
-            <div style={{float: 'right'}}>
+            <div style={{ fontSize: '13px' }}>Expand card to see item description</div>
+            <div style={{ float: 'right' }}>
               <Popup
                 inverted
                 size='mini'
                 content='View more info'
                 position='left center'
                 trigger={<Button onClick={this.toggleDesc} size='mini' circular
-                                 icon={isOpen ? 'chevron up' : 'chevron down'}/>}
+                  icon={isOpen ? 'chevron up' : 'chevron down'} />}
               />
               <Popup
                 inverted
                 size='mini'
                 content='Add inventory'
                 position='bottom center'
-                trigger={<Button as={Link} to={`/inventories/add/${item._id}`} circular icon='add' size='mini'/>}
+                trigger={<Button as={Link} to={`/inventories/add/${item._id}`} circular icon='add' size='mini' />}
               />
               <Popup
                 inverted
@@ -87,17 +85,17 @@ class ItemDataCard extends Component {
                 content='Edit item'
                 position='bottom center'
                 trigger={<Button as={Link} to={`/items/update/${item._id}`} icon='edit' circular size='mini'
-                                 color='teal'/>}
+                  color='teal' />}
               />
               <Popup
                 size={'mini'}
-                trigger={<Button icon='trash alternate outline' circular size='mini' color='red'/>}
+                trigger={<Button icon='trash alternate outline' circular size='mini' color='red' />}
                 content={
                   <div>
                     <Button size='tiny' color='green' icon='delete' content='Confirm Delete' onClick={(e) => {
                       e.preventDefault()
                       removeItem(item._id)
-                    }}/>
+                    }} />
                   </div>
                 }
                 on='click'

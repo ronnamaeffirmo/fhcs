@@ -1,14 +1,14 @@
 import React, { Component, Fragment } from 'react'
-import { Card, Container, Input, Segment, Message, Grid, Label, Divider, Loader, Dimmer } from 'semantic-ui-react'
+import { Card, Container, Input, Segment, Message, Grid, Label, Divider, Loader } from 'semantic-ui-react'
 import ItemDataCard from './ItemDataCard'
 import NewItemModal from './../containers/AddItemFormContainer'
 
 class ItemList extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.getItems()
   }
 
-  render () {
+  render() {
     let { items, removeItem, filterItems, filteredItems, loading } = this.props
     items = filteredItems || items || []
     return (
@@ -25,22 +25,22 @@ class ItemList extends Component {
                 />
               </Grid.Column>
               <Grid.Column width={4}>
-                <NewItemModal/>
+                <NewItemModal />
               </Grid.Column>
             </Grid.Row>
           </Grid>
-          <Divider/>
-          <Message style={{padding: '0.5rem 1rem'}} size='small' info>Click on a <Label size='tiny'>card</Label> to view
+          <Divider />
+          <Message style={{ padding: '0.5rem 1rem' }} size='small' info>Click on a <Label size='tiny'>card</Label> to view
             reports...</Message>
         </Segment>
         <Segment style={styles.bottomSegment}>
-          {loading 
+          {loading
             ? <Loader active />
             : <Fragment>
-              { items && !items.length && <Message negative>No available items yet</Message>}
+              {items && !items.length && <Message negative>No available items yet</Message>}
               <Card.Group>
-                { items.map((item) => (
-                  <ItemDataCard item={item} key={item._id} actions={{removeItem}} />
+                {items.map((item) => (
+                  <ItemDataCard item={item} key={item._id} actions={{ removeItem }} />
                 ))}
               </Card.Group>
             </Fragment>

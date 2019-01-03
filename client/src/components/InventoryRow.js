@@ -13,13 +13,13 @@ class InventoryRow extends Component {
 
 	toggleMore = () => this.setState({ expanded: !this.state.expanded })
 
-	render () {
+	render() {
 		const { expanded } = this.state
 		const { item, removeInventory } = this.props
 		return (
 			<Fragment>
 				<Table.Row>
-					<Table.Cell>{item.item && item.item.name || 'N/A'}</Table.Cell>
+					<Table.Cell>{item.item && (item.item.name || 'N/A')}</Table.Cell>
 					<Table.Cell>{item.quantity || 'N/A'}</Table.Cell>
 					<Table.Cell>{_.startCase(item.status) || 'N/A'}</Table.Cell>
 					<Table.Cell>
@@ -56,7 +56,7 @@ class InventoryRow extends Component {
 					</Table.Cell>
 				</Table.Row>
 				<Table.Row>
-					{ expanded &&
+					{expanded &&
 						<Table.Cell colSpan={5}>
 							<Grid style={{ padding: '1.5rem 0.75rem' }}>
 								<Grid.Row style={style.row} verticalAlign='middle'>

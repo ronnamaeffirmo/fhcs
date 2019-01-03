@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Table, Segment, Loader, Message, Divider, Grid, Input, Label } from 'semantic-ui-react'
+import { Table, Segment, Loader, Message, Divider, Grid, Input } from 'semantic-ui-react'
 import numeral from 'numeral'
 import NewItemModal from '../containers/AddItemFormContainer'
 
@@ -16,7 +16,7 @@ const styles = {
 
 const numberFormat = '0,0.00'
 const ItemTable = props => {
-  let {items, filterItems, filteredItems, loading} = props
+  let { items, filterItems, filteredItems, loading } = props
   items = filteredItems || items || []
   return (
     <div style={styles.mainContainer}>
@@ -32,16 +32,16 @@ const ItemTable = props => {
               />
             </Grid.Column>
             <Grid.Column width={4}>
-              <NewItemModal/>
+              <NewItemModal />
             </Grid.Column>
           </Grid.Row>
         </Grid>
       </Segment>
-      <Divider/>
-      { loading 
+      <Divider />
+      {loading
         ? <Segment vertical padded>
-            <Loader active />
-          </Segment>
+          <Loader active />
+        </Segment>
         : <Fragment>
           {items && !items.length && <Message negative>No available items yet</Message>}
           <Table celled sortable>
@@ -60,7 +60,7 @@ const ItemTable = props => {
             </Table.Header>
             <Table.Body>
               {items && items.map(item => {
-                const {inventoryQuantity, salesQuantity, returnQuantity, price} = item
+                const { inventoryQuantity, salesQuantity, returnQuantity, price } = item
                 const quantity = inventoryQuantity - salesQuantity + returnQuantity
                 const totalSales = salesQuantity * price
                 const stockValue = quantity * price
@@ -70,28 +70,28 @@ const ItemTable = props => {
 
                 return (
                   <Table.Row key={item._id}>
-                  <Table.Cell textAlign={'left'}>{item.name}</Table.Cell>
-                  <Table.Cell textAlign={'center'}>{numeral(inventoryQuantity).format('0,0')}</Table.Cell>
-                  <Table.Cell textAlign={'center'}>{numeral(salesQuantity).format('0,0')}</Table.Cell>
-                  <Table.Cell textAlign={'center'}>{numeral(returnQuantity).format('0,0')}</Table.Cell>
-                  <Table.Cell textAlign={'center'}>{numeral(price).format('0,0')}</Table.Cell>
-                  <Table.Cell textAlign={'center'}>{item.unit}</Table.Cell>
-                  <Table.Cell textAlign={'right'}>₱{numeral(price).format(numberFormat)}</Table.Cell>
-                  <Table.Cell textAlign={'right'}>₱{numeral(totalSales).format(numberFormat)}</Table.Cell>
-                  <Table.Cell textAlign={'right'}>₱{numeral(stockValue).format(numberFormat)}</Table.Cell>
+                    <Table.Cell textAlign={'left'}>{item.name}</Table.Cell>
+                    <Table.Cell textAlign={'center'}>{numeral(inventoryQuantity).format('0,0')}</Table.Cell>
+                    <Table.Cell textAlign={'center'}>{numeral(salesQuantity).format('0,0')}</Table.Cell>
+                    <Table.Cell textAlign={'center'}>{numeral(returnQuantity).format('0,0')}</Table.Cell>
+                    <Table.Cell textAlign={'center'}>{numeral(price).format('0,0')}</Table.Cell>
+                    <Table.Cell textAlign={'center'}>{item.unit}</Table.Cell>
+                    <Table.Cell textAlign={'right'}>₱{numeral(price).format(numberFormat)}</Table.Cell>
+                    <Table.Cell textAlign={'right'}>₱{numeral(totalSales).format(numberFormat)}</Table.Cell>
+                    <Table.Cell textAlign={'right'}>₱{numeral(stockValue).format(numberFormat)}</Table.Cell>
                   </Table.Row>
                 )
               })}
             </Table.Body>
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell/>
-                <Table.HeaderCell/>
-                <Table.HeaderCell/>
-                <Table.HeaderCell/>
-                <Table.HeaderCell/>
-                <Table.HeaderCell/>
-                <Table.HeaderCell/>
+                <Table.HeaderCell />
+                <Table.HeaderCell />
+                <Table.HeaderCell />
+                <Table.HeaderCell />
+                <Table.HeaderCell />
+                <Table.HeaderCell />
+                <Table.HeaderCell />
                 <Table.HeaderCell textAlign={'right'}>
                   ₱ {numeral(getSummary(items).totalSales).format(numberFormat)}
                 </Table.HeaderCell>
@@ -113,7 +113,7 @@ const getSummary = items => {
     totalSales: 0
   }
   for (const item of items) {
-    const {salesQuantity, price, inventoryQuantity, returnQuantity} = item
+    const { salesQuantity, price, inventoryQuantity, returnQuantity } = item
     const totalSales = salesQuantity * price
     const quantity = inventoryQuantity - salesQuantity + returnQuantity
     const stockValue = quantity * price
