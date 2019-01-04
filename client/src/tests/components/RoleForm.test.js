@@ -1,5 +1,4 @@
-import App from '../components/AddRole'
-import RoleForm from '../components/RoleForm'
+import App from '../../components/RoleForm'
 
 import React from 'react'
 import { configure } from 'enzyme'
@@ -12,18 +11,13 @@ import { reduxForm } from 'redux-form'
 
 configure({ adapter: new Adapter() })
 
-describe('AddRole', () => {
+describe('RoleForm', () => {
   const testapp = reduxForm({
     form: 'roleForm' 
   })(App)
 
   it('renders without crashing', () => {
     shallow(<App/>)
-  })
-
-  it('renders RoleForm', () => {
-    const wrapper = shallow(<App/>)
-    expect(wrapper.find(RoleForm).length).toEqual(1)
   })
 
   it('renders welcome message', () => {

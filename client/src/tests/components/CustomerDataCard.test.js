@@ -1,4 +1,4 @@
-import App from '../components/CustomerDataCard'
+import App from '../../components/CustomerDataCard'
 
 import React from 'react'
 import { configure } from 'enzyme'

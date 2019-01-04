@@ -1,5 +1,5 @@
-import { GET_INVENTORIES } from '../actions/inventoryActions'
-import reducer from '../reducers/inventoryReducer'
+import { GET_INVENTORIES } from '../../actions/inventoryActions'
+import reducer from '../../reducers/inventoryReducer'
 
 describe('inventory reducer', () => {
   it('should return initial state', () => {

@@ -1,4 +1,4 @@
-import App from '../components/EditItemForm'
+import App from '../../components/EditItemForm'
 
 import React from 'react'
 import { configure } from 'enzyme'

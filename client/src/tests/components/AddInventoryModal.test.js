@@ -1,4 +1,4 @@
-import App from '../components/RoleForm'
+import App from '../../components/AddInventoryModal'
 
 import React from 'react'
 import { configure } from 'enzyme'
@@ -11,31 +11,22 @@ import { reduxForm } from 'redux-form'
 
 configure({ adapter: new Adapter() })
 
-describe('RoleForm', () => {
+describe('AddInventoryModal', () => {
   const testapp = reduxForm({
-    form: 'roleForm' 
+    form: 'editForm' 
   })(App)
 
-  it('renders without crashing', () => {
-    shallow(<App/>)
+  it('renders witout crashing', () => {
+    shallow(<App options={{sources:'lol'}}/>)
   })
-
+  
   it('renders welcome message', () => {
-    const { getByText } = render(<testapp />)
+    const { getByText } = render(<testapp options={{sources:'lol'}}/>)
     expect(getByText('')).toBeInTheDocument()
   })
 
-  it('renders children when passed in', () => {
-    const wrapper = shallow((
-      <testapp>
-        <div className="unique" />
-      </testapp>
-    ))
-    expect(wrapper.contains(<div className="unique" />)).toEqual(true)
-  })
-
   it('allows us to set props', () => {
-    const wrapper = mount(<testapp bar="baz"/>)
+    const wrapper = mount(<testapp bar="baz" options={{sources:'lol'}}/>)
     expect(wrapper.props().bar).toEqual('baz')
     wrapper.setProps({ bar: 'App' })
     expect(wrapper.props().bar).toEqual('App')

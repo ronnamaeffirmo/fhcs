@@ -1,5 +1,5 @@
-import App from '../components/AddCustomerModal'
-import CustomerForm from '../components/CustomerForm'
+import App from '../../components/AddCustomerModal'
+import CustomerForm from '../../components/CustomerForm'
 
 import React from 'react'
 import { configure } from 'enzyme'
