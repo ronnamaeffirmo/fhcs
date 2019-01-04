@@ -3,11 +3,7 @@ import App from '../../components/AddItemModal'
 import React from 'react'
 import { configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import { shallow, mount } from 'enzyme'
-import sinon from 'sinon'
-import 'react-testing-library/cleanup-after-each'
-import 'jest-dom/extend-expect'
-import { render } from 'react-testing-library'
+import { shallow, mount, render } from 'enzyme'
 import { reduxForm } from 'redux-form'
 
 configure({ adapter: new Adapter() })
@@ -18,12 +14,17 @@ describe('AddItemModal', () => {
   })(App)
 
   it('renders without crashing', () => {
-    shallow(<App/>)
+    const wrapper = shallow(<App/>)
+    expect(wrapper).toMatchSnapshot()
   })
 
-  it('renders welcome message', () => {
-    const { getByText } = render(<testapp />)
-    expect(getByText('')).toBeInTheDocument()
+  it('renders children when passed in', () => {
+    const wrapper = shallow((
+      <testapp>
+        <div className="unique" />
+      </testapp>
+    ))
+    expect(wrapper.contains(<div className="unique" />)).toEqual(true)
   })
 
   it('allows us to set props', () => {
