@@ -22,7 +22,7 @@ describe('Dashboard', () => {
   })
 
   it('renders 1 <div />', () => {
-    const wrapper = shallow(<App options={{sources:'lol'}} />)
+    const wrapper = shallow(<App />)
     expect(wrapper.find('div')).toHaveLength(1)
   })
 
