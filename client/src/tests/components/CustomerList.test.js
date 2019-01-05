@@ -9,10 +9,10 @@ import sinon from 'sinon'
 
 configure({ adapter: new Adapter() })
 
-describe('CustomerForm', () => {
-    const getCustomers = sinon.stub()
+describe('CustomerList', () => {
+  const getCustomers = sinon.stub()
   const testapp = reduxForm({
-    form: 'customerForm' 
+    form: 'form' 
   })(App)
 
   it('renders witout crashing', () => {
