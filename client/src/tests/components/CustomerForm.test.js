@@ -13,7 +13,7 @@ describe('CustomerForm', () => {
     form: 'customerForm' 
   })(App)
 
-  it('renders witout crashing', () => {
+  it('renders without crashing', () => {
     const wrapper = shallow(<App />)
     expect(wrapper).toMatchSnapshot()
   })

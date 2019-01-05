@@ -13,7 +13,7 @@ describe('AddInventoryModal', () => {
     form: 'editForm' 
   })(App)
 
-  it('renders witout crashing', () => {
+  it('renders without crashing', () => {
     shallow(<App options={{sources:'lol'}}/>)
   })
 

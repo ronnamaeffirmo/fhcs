@@ -15,7 +15,7 @@ describe('CustomerList', () => {
     form: 'form' 
   })(App)
 
-  it('renders witout crashing', () => {
+  it('renders without crashing', () => {
     const wrapper = shallow(<App getCustomers={getCustomers}/>)
     expect(wrapper).toMatchSnapshot()
   })

@@ -9,7 +9,7 @@ import { reduxForm } from 'redux-form'
 configure({ adapter: new Adapter() })
 
 describe('Dashboard', () => {
-  it('renders witout crashing', () => {
+  it('renders without crashing', () => {
     const wrapper = shallow(<App />)
     expect(wrapper).toMatchSnapshot()
   })

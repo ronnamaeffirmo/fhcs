@@ -9,7 +9,7 @@ import { shallow, mount, render } from 'enzyme'
 configure({ adapter: new Adapter() })
 
 describe('AddCustomerModal', () => {
-  it('renders witout crashing', () => {
+  it('renders without crashing', () => {
     shallow(<App />)
   })
 

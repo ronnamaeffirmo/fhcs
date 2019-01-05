@@ -9,7 +9,7 @@ import { reduxForm } from 'redux-form'
 configure({ adapter: new Adapter() })
 
 describe('DropdownField', () => {
-  it('renders witout crashing', () => {
+  it('renders without crashing', () => {
     const wrapper = shallow(<App input={{value: 'one'}} />)
     expect(wrapper).toMatchSnapshot()
   })

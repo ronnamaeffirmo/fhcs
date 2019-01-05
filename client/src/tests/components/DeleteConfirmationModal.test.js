@@ -9,7 +9,7 @@ import { reduxForm } from 'redux-form'
 configure({ adapter: new Adapter() })
 
 describe('DeleteConfirmationModal', () => {
-  it('renders witout crashing', () => {
+  it('renders without crashing', () => {
     const wrapper = shallow(<App element={{name: 'reyliegh'}}/>)
     expect(wrapper).toMatchSnapshot()
   })
