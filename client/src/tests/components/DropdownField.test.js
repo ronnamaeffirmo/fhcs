@@ -1,4 +1,4 @@
-import App from '../../components/Dashboard'
+import App from '../../components/DropdownField'
 
 import React from 'react'
 import { configure } from 'enzyme'
@@ -8,26 +8,27 @@ import { reduxForm } from 'redux-form'
 
 configure({ adapter: new Adapter() })
 
-describe('Dashboard', () => {
+describe('DropdownField', () => {
   it('renders witout crashing', () => {
-    const wrapper = shallow(<App />)
+    const wrapper = shallow(<App input={{value: 'one'}} />)
     expect(wrapper).toMatchSnapshot()
   })
 
   it('allows us to set props', () => {
-    const wrapper = mount(<App bar="baz" />)
+    const wrapper = mount(<App input={{value: 'one'}} bar="baz" />)
     expect(wrapper.props().bar).toEqual('baz')
     wrapper.setProps({ bar: 'App' })
     expect(wrapper.props().bar).toEqual('App')
   })
 
-  it('renders 1 <div />', () => {
-    const wrapper = shallow(<App />)
-    expect(wrapper.find('div')).toHaveLength(1)
+  it('renders 1 <Dropdown />', () => {
+    const wrapper = shallow(<App input={{value: 'one'}} />)
+    expect(wrapper.find('Dropdown')).toHaveLength(1)
   })
 
-  it('renders the title. Hello, fhcs! This is your dashboard', () => {
-    const wrapper = render(<App />)
-    expect(wrapper.text()).toEqual("Hello, fhcs! This is your dashboard")
+  it('renders 1 <label />', () => {
+    const wrapper = shallow(<App input={{value: 'one'}} />)
+    expect(wrapper.find('label')).toHaveLength(1)
   })
+ 
 })
