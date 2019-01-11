@@ -9,7 +9,6 @@ import sinon from 'sinon'
 configure({ adapter: new Adapter() })
 
 describe('ItemTable', () => {
-  const getItemsStub = sinon.stub()
   it('renders without crashing', () => {
     shallow(<App />)
   })
