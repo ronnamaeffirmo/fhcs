@@ -37,4 +37,9 @@ describe('RoleForm', () => {
     wrapper.setProps({ bar: 'App' })
     expect(wrapper.props().bar).toEqual('App')
   })
+
+  // it('renders 1 <Container />', () => {
+  //   const wrapper = shallow(<App />)
+  //   expect(wrapper.find('Container')).toHaveLength(1)
+  // })
 })
