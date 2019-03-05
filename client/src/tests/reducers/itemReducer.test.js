@@ -7,8 +7,8 @@ import {
     REMOVE_ITEM,
     REMOVE_ITEM_ERROR,
     SELECT_REPORT
-  } from '../actions/itemActions'
-import reducer from '../reducers/itemReducer'
+  } from '../../actions/itemActions'
+import reducer from '../../reducers/itemReducer'
 
 describe('item reducer', () => {
   it('should return initial state', () => {

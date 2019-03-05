@@ -1,5 +1,5 @@
-import { UPDATE_PASSWORD, USER_LOGIN_FAIL, USER_LOGIN_SUCCESS, USER_LOGOUT } from '../actions/userActions'
-import reducer from '../reducers/userReducer'
+import { UPDATE_PASSWORD, USER_LOGIN_FAIL, USER_LOGIN_SUCCESS, USER_LOGOUT } from '../../actions/userActions'
+import reducer from '../../reducers/userReducer'
 
 const initialState = {"addingUser": false, "authLoading": false, "currentUser": undefined, "error": undefined, "isAuthenticated": false, "list":  [], "loading": false}
 

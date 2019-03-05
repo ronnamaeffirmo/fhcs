@@ -2,8 +2,8 @@ import {
     RECEIVE_ROLE,
     UPDATE_ROLE,
     RECEIVE_ROLES
-} from '../actions/roleActions'
-import reducer from '../reducers/roleReducer'
+} from '../../actions/roleActions'
+import reducer from '../../reducers/roleReducer'
 
 describe('role reducer', () => {
   it('should return initial state', () => {

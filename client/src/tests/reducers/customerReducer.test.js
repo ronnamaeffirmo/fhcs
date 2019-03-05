@@ -1,5 +1,5 @@
-import { ADD_CUSTOMER } from '../actions/customerActions'
-import reducer from '../reducers/customerReducer'
+import { ADD_CUSTOMER } from '../../actions/customerActions'
+import reducer from '../../reducers/customerReducer'
 
 describe('customer reducer', () => {
   it('should return the initial state', () => {

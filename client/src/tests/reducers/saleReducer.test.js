@@ -2,8 +2,8 @@ import {
   REMOVE_SALE,
   RECEIVE_SALES,
   RECEIVE_SALE
-  } from '../actions/saleActions'
-import reducer from '../reducers/saleReducer'
+  } from '../../actions/saleActions'
+import reducer from '../../reducers/saleReducer'
 
 describe('sales reducer', () => {
 	it('should return initial state', () => {
