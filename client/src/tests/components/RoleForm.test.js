@@ -10,7 +10,7 @@ configure({ adapter: new Adapter() })
 
 describe('RoleForm', () => {
   const testapp = reduxForm({
-    form: 'roleForm' 
+    form: 'roleForm'
   })(App)
 
   it('renders without crashing', () => {
