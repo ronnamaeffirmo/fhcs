@@ -15,7 +15,6 @@ describe('AddItemModal', () => {
 
   it('renders without crashing', () => {
     const wrapper = shallow(<App/>)
-    expect(wrapper).toMatchSnapshot()
   })
 
   it('renders children when passed in', () => {
